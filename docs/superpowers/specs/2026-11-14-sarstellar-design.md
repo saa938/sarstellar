@@ -21,8 +21,13 @@ SARstellar answers it three ways:
 2. **A national two-radar scorecard**: the same method run on 300+ US sites that have independent answers
    (optical disturbance alerts, fire perimeters, flood maps, crop maps), reported as "where NISAR beats Sentinel-1,
    by change type and land cover".
-3. **A learned cause model** trained on the scorecard's labeled blocks and benchmarked against the physics rules on
-   regions it has never seen. Whichever wins per class ships; both are reported.
+3. **The headline scientific test: does combining both radars beat either alone?** Fused detectors (a statistical
+   combination of the two radars' tests, and a simple logistic fusion fit only on training states) are compared with
+   NISAR-only and Sentinel-1-only on **held-out states**, with paired bootstrap confidence intervals on the
+   improvement. Whatever the answer, it is reported as measured.
+
+**Priority (user decision):** the radar comparison and a rigorous scorecard come before AI features. The learned
+cause model is a stretch goal; the LLM only rewords text.
 
 **Moat:** compute turned into scale and proof. Other teams processed a handful of sites by hand; we process hundreds
 on Modal, and every claim in the pitch carries a measured number.
@@ -51,8 +56,10 @@ Real-data evidence gathered today (see `docs/research/kaiser-spike.md`, `clearcu
   Edouard TX flooded forest (only NISAR was there), Kaiser Canyon WA fire (Sentinel-1 wins).
 - **G3 Scorecard:** ≥ 300 US sites, both radars, independent references; metrics per change class × land cover × band
   with bootstrap confidence intervals and a geographic hold-out; published as a page in the app and as JSON.
-- **G4 Learned cause model:** trained on scorecard blocks, evaluated on held-out regions against the rule engine;
-  ship per-class winner; publish both sets of numbers.
+- **G4 Fusion test:** on held-out states, compare NISAR-only, Sentinel-1-only, NISAR-at-30 m, Fisher-combined
+  (statistical fusion of both radars' p-values) and logistic fusion (fit on training states only) by precision,
+  recall, F1 and area under the precision–recall curve, per change class, with paired bootstrap (by site) CIs on
+  each difference. This is the pitch's headline result.
 - **G5 Submission package:** live demo URL, public Apache-2.0 repo, ≤ 30 s video and/or ≤ 7 slides, project page with
   NASA data used, AI-use disclosure, full references.
 
@@ -67,6 +74,8 @@ Real-data evidence gathered today (see `docs/research/kaiser-spike.md`, `clearcu
 | New box, warm | ≤ 20 s; stories < 1 s |
 
 ### Stretch (only after G1–G5 are safe, in this order)
+- **S0 Learned cause model:** gradient-boosted trees on scorecard blocks, benchmarked against the rules on held-out
+  states; used per class only where it wins.
 - **S1 Regional atlas:** precompute changes for all of Washington + Oregon since 2025-11 so the map opens full.
 - **S2 NISAR foundation model:** self-supervised pretraining on NISAR GCOV patches from the same read pipeline,
   plus "find more places like this" similarity search.
@@ -243,8 +252,8 @@ web app is built against fixtures in the final `result` shape, derived from the 
 
 ## 11. Cut order if time runs short
 
-S2 foundation model → S1 atlas → notebook export → learned model (rules stay) → live draw-a-box (stories + scorecard
-still ship). G2 stories, G3 scorecard and G5 submission are never cut.
+S2 foundation model → S1 atlas → S0 learned cause model → LLM wording (templates stay) → notebook export → live
+draw-a-box (stories + scorecard still ship). G2 stories, G3 scorecard, G4 fusion test and G5 submission are never cut.
 
 ## 12. Left to the builder
 

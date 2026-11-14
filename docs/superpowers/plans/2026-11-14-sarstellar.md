@@ -2,7 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-**Goal:** Ship "two radars, one map": a NISAR-vs-Sentinel-1 change engine on Modal, a React/MapLibre app with three stories, a 300-site national scorecard and a learned cause model, submitted by Sun 2026-11-15 15:00 PT.
+**Goal:** Ship "two radars, one map": a NISAR-vs-Sentinel-1 change engine on Modal, a React/MapLibre app with three stories, and a 300-site national scorecard whose headline is a held-out-state test of whether fusing both radars beats either alone, submitted by Sun 2026-11-15 15:00 PT.
+
+**Priority (user decision):** radar comparison + rigorous scorecard (A2–A4, C1, C2) before AI features. The learned cause model is stretch S0; the LLM is a thin wording layer with templates as the default.
 
 **Architecture:** A pure-Python package `sarstellar` (`core/`) does search → read → 1-ha blocks → omnibus test → rules → areas → render → explain, behind `run_box()`. `modal_app/` wraps it as a FastAPI job API plus batch jobs (stories, scorecard, training). `web/` is a static Vite app that reads static stories/scorecard JSON and talks to the job API. The `Result` JSON shape is the seam between tracks.
 
@@ -65,7 +67,7 @@ Class strings: `forest_loss, burn, flood_open_water, flooded_vegetation, crop_cy
 | Sat 20:00 | A1–A4, B1–B2 merged; Modal secrets set |
 | Sat 23:59 | A5–A7 deployed: live draw-a-box works end to end; C1 sites.json |
 | Sun 06:00 | A8 stories, C2 scorecard run complete (overnight); B3–B5 |
-| Sun 11:00 | C3 model, B6 pages with real numbers, B7 deployed; feature freeze |
+| Sun 11:00 | C2 fusion results final, B6 pages with real numbers, B7 deployed; feature freeze |
 | Sun 15:00 | D1 submitted |
 
 Parallel start: A1, B1 immediately; A2/A3/A4/A5 as soon as A1 merges; Track B never waits (fixtures).
@@ -206,14 +208,15 @@ change_idx = first j (0-based j-1) with p_j < 0.01 when omnibus p < 0.01; else -
 **Interfaces:**
 - Consumes: `sites.json`, core A2–A6.
 - Produces: `scoring.block_labels(site, grid) -> ndarray[str]` (`forest_loss` if ≥ 50% of the block's DIST-HLS pixels lost ≥ 50% vegetation in the window; `burn` inside NIFC perimeter; `flood_open_water` DSWx water gain; `crop_cycle` CDL crop; `stable` otherwise in stable sites), `scoring.metrics(df, band, min_db) -> {precision, recall, f1, n_flags, n_ref}`, `scoring.pr_curve(df, band) -> list[(recall, precision, min_db)]`, `scoring.at_equal_recall(curve_a, curve_b, recall) -> (pa, pb)`, `scoring.bootstrap_ci(df, fn, n=500, by="site")`. Bands scored: `L` (HV or HH per class), `C` (VH or VV), `L30` (NISAR from every 3rd pixel per axis before block averaging). Holdout: states listed in `scorecard.json["holdout_states"]`, chosen so every kind has holdout sites.
-- `scorecard.json` = `{generated_at, n_sites, operating_point:{q:0.05, min_db:2.0}, stable_fa:{L, C, L30}, classes:[{class, landcover, band, precision, recall, f1, ci_low, ci_high, n_ref, n_flags}], equal_recall:[{class, recall, precision_L, precision_C, precision_L30, ratio_L_over_C}], model:null, holdout_states:[...], sites:[{id, kind, bbox, state}]}`.
+- **Fusion (the headline):** `scoring.fisher_p(p_L, p_C) -> ndarray` (Fisher's method, χ² with 4 df; falls back to the available band's p where one is NaN), `scoring.fit_logistic_fusion(train_df) -> FusionModel` (features: rel Δ for HH, HV, VV, VH and −log10 p for each sensor; fit on training states only), `scoring.paired_bootstrap_delta(df, det_a, det_b, metric, n=1000, by="site") -> {delta, ci_low, ci_high, p_gt0}`. Detectors compared on holdout states per class: `L`, `C`, `L30`, `fused_fisher`, `fused_logistic`. Metrics: precision, recall, F1 at the default operating point, and AUPRC from threshold sweeps.
+- `scorecard.json` = `{generated_at, n_sites, operating_point:{q:0.05, min_db:2.0}, stable_fa:{L, C, L30, fused_fisher, fused_logistic}, classes:[{class, landcover, detector, precision, recall, f1, auprc, ci_low, ci_high, n_ref, n_flags}], equal_recall:[{class, recall, precision_L, precision_C, precision_L30, ratio_L_over_C}], fusion:[{class, best_single, fused, metric:"auprc", delta, ci_low, ci_high, p_gt0}], model:null, holdout_states:[...], sites:[{id, kind, bbox, state, split}]}`.
 
-- [ ] Step 1: tests on a synthetic DataFrame: `test_metrics_known_counts`, `test_equal_recall_interpolates`, `test_bootstrap_ci_brackets_point`, `test_holdout_by_state` (no state in both splits).
+- [ ] Step 1: tests on a synthetic DataFrame: `test_metrics_known_counts`, `test_equal_recall_interpolates`, `test_bootstrap_ci_brackets_point`, `test_holdout_by_state` (no state in both splits), `test_fisher_combines` (p_L=p_C=0.05 → fused p < 0.05; NaN C → equals p_L), `test_logistic_fit_uses_train_only` (fitting raises if any holdout-state row is passed), `test_paired_bootstrap_detects_gain` (synthetic detector B strictly better on every site → ci_low > 0), `test_paired_bootstrap_null` (identical detectors → CI contains 0).
 - [ ] Step 2: fail; Step 3: implement; Step 4: pass.
 - [ ] Step 5: `modal run modal_app/scorecard.py` (fan-out `.map` over sites, concurrency ≤ 64 to spare ASF, `return_exceptions=True`; failed sites listed in output). Expected: ≥ 270 sites succeed.
 - [ ] Step 6: commit code and `web/public/scorecard.json`.
 
-### Task C3: Learned cause model
+### Task C3 (stretch S0, start only after the Sun 11:00 freeze is safe): Learned cause model
 
 **Files:** Create `modal_app/train.py`, `core/sarstellar/model.py`, `tests/test_model.py`; artifact `modal_app/artifacts/cause_lgbm.txt`
 
@@ -270,7 +273,7 @@ Mockup to match: `docs/mockups/app-mockup.html` (layout, colors, panels). Real-d
 
 **Files:** `web/src/pages/{Scorecard,About}.tsx`
 
-- Scorecard: headline equal-recall ratios per class (with CI), stable false-alarm rates, L30 vs L vs C bars, rules-vs-model table, site map, a "how to read this" note. Hidden until `scorecard.json` exists. About: data used (NISAR GCOV via ASF/Earthdata, OPERA RTC-S1, DIST-ALERT-HLS, DSWx, NIFC, FIRMS, CDL, NLCD, SVI, Meteomatics), method summary, limits (incl. Kaiser), AI-use disclosure, references, license.
+- Scorecard: **headline = the fusion result** ("On N held-out sites in K states, combining NISAR and Sentinel-1 improved {class} detection by Δ AUPRC [CI]", or the honest null), then per-class detector bars (L, C, L30, fused) with CIs, equal-recall ratios, stable false-alarm rates, site map with train/holdout coloring, a "how to read this" note. Rules-vs-model table only if `model` is non-null. Hidden until `scorecard.json` exists. About: data used (NISAR GCOV via ASF/Earthdata, OPERA RTC-S1, DIST-ALERT-HLS, DSWx, NIFC, FIRMS, CDL, NLCD, SVI, Meteomatics), method summary, limits (incl. Kaiser), AI-use disclosure, references, license.
 - [ ] Test: `scorecard renders from sample json`. Commit.
 
 ### Task B7: Deploy
