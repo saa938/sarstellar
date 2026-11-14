@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SARstellar mockup</title>
+<link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet">
+<script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+<style>
+  :root {
+    --bg: #0b0f17; --panel: #121826; --panel2: #182033; --line: #263049;
+    --text: #e6eaf2; --muted: #8b95ab; --l: #f59e0b; --both: #a78bfa; --c: #22d3ee;
+    --ok: #34d399; --warn: #fbbf24;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; height: 100%; background: var(--bg); color: var(--text);
+    font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+  .app { display: grid; grid-template-rows: 52px 1fr 92px; grid-template-columns: 300px 1fr 380px; height: 100vh; }
+  header { grid-column: 1 / -1; display: flex; align-items: center; gap: 16px; padding: 0 16px;
+    border-bottom: 1px solid var(--line); background: var(--panel); }
+  .logo { font-weight: 700; letter-spacing: .3px; font-size: 17px; }
+  .logo span { color: var(--l); }
+  .tag { color: var(--muted); }
+  .mock { margin-left: auto; background: #3b1d1d; color: #fca5a5; border: 1px solid #7f1d1d;
+    padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 600; }
+  aside { background: var(--panel); border-right: 1px solid var(--line); padding: 14px; overflow: auto; }
+  .right { border-right: 0; border-left: 1px solid var(--line); }
+  .btn { display: block; width: 100%; padding: 10px 12px; border-radius: 8px; border: 1px solid var(--line);
+    background: var(--panel2); color: var(--text); font-weight: 600; cursor: pointer; text-align: left; }
+  .btn.primary { background: var(--l); color: #1a1205; border-color: var(--l); text-align: center; }
+  .label { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin: 16px 0 8px; }
+  .story { padding: 10px; border-radius: 8px; border: 1px solid var(--line); margin-bottom: 8px; cursor: pointer; }
+  .story.active { border-color: var(--l); background: #1f1a10; }
+  .story b { display: block; }
+  .story small { color: var(--muted); }
+  .facts { font-size: 13px; color: var(--muted); }
+  .facts div { display: flex; justify-content: space-between; padding: 3px 0; }
+  .facts b { color: var(--text); font-weight: 600; }
+  .legend .row { display: flex; align-items: center; gap: 8px; padding: 6px 0; cursor: pointer; user-select: none; }
+  .sw { width: 14px; height: 14px; border-radius: 3px; flex: none; }
+  .legend .row.off { opacity: .35; }
+  .legend .ha { margin-left: auto; color: var(--muted); font-variant-numeric: tabular-nums; }
+  #mapwrap { position: relative; }
+  #map { position: absolute; inset: 0; }
+  .modes { position: absolute; top: 12px; left: 12px; z-index: 2; display: flex; background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px; overflow: hidden; }
+  .modes button { background: none; border: 0; color: var(--muted); padding: 7px 12px; cursor: pointer; font-weight: 600; }
+  .modes button.on { background: var(--panel2); color: var(--text); }
+  .placeholder { position: absolute; inset: 0; z-index: 3; display: none; align-items: center; justify-content: center; }
+  .placeholder div { background: rgba(18,24,38,.92); border: 1px dashed var(--muted); padding: 18px 22px;
+    border-radius: 10px; max-width: 420px; text-align: center; }
+  .toast { position: absolute; bottom: 14px; left: 50%; transform: translateX(-50%); z-index: 4;
+    background: var(--panel); border: 1px solid var(--l); padding: 10px 14px; border-radius: 8px; display: none; max-width: 520px; }
+  footer { grid-column: 1 / -1; border-top: 1px solid var(--line); background: var(--panel); padding: 10px 18px; }
+  .tl { position: relative; height: 46px; margin-top: 6px; }
+  .tl .axis { position: absolute; left: 0; right: 0; top: 18px; height: 2px; background: var(--line); }
+  .tl .gap { position: absolute; top: 8px; height: 22px; background: repeating-linear-gradient(45deg,#3b1d1d,#3b1d1d 4px,#2a1414 4px,#2a1414 8px);
+    border-radius: 3px; }
+  .tick { position: absolute; top: 12px; width: 14px; height: 14px; margin-left: -7px; border-radius: 50%;
+    background: var(--panel2); border: 2px solid var(--muted); cursor: pointer; }
+  .tick.sel { background: var(--l); border-color: var(--l); }
+  .tick span { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--muted); white-space: nowrap; }
+  .tlhead { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); }
+  .chip { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 12px; font-weight: 700; }
+  h2 { margin: 6px 0 6px; font-size: 19px; }
+  .conf { display: flex; gap: 10px; align-items: center; margin: 8px 0 12px; font-size: 13px; color: var(--muted); }
+  .bar { flex: 1; height: 6px; background: var(--line); border-radius: 3px; overflow: hidden; }
+  .bar i { display: block; height: 100%; background: var(--ok); }
+  .ev { margin: 0; padding: 0; list-style: none; }
+  .ev li { padding: 8px 10px; border-left: 3px solid var(--line); background: var(--panel2); margin-bottom: 6px; border-radius: 0 6px 6px 0; font-size: 13px; }
+  .ev li b { color: var(--text); }
+  .ev li .src { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+  .plain { background: #10202a; border: 1px solid #164e63; padding: 10px 12px; border-radius: 8px; font-size: 13.5px; }
+  .plain small { display: block; color: var(--muted); margin-top: 6px; font-size: 11px; }
+  .who { background: #1f1630; border: 1px solid #4c1d95; padding: 10px 12px; border-radius: 8px; font-size: 13px; }
+  .exports { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+  .exports .btn { text-align: center; font-size: 13px; padding: 8px; }
+  svg text { fill: var(--muted); font-size: 10px; }
+  .hint { color: var(--muted); font-size: 13px; }
+  details { margin-top: 10px; font-size: 13px; color: var(--muted); }
+  details summary { cursor: pointer; color: var(--text); }
+</style>
+</head>
+<body>
+<div class="app">
+  <header>
+    <div class="logo">SAR<span>stellar</span></div>
+    <div class="tag">What only NISAR can see, and why</div>
+    <div class="mock">MOCKUP: areas, numbers and charts are illustrative, not NISAR results</div>
+  </header>
+
+  <aside>
+    <button class="btn primary" id="drawbtn">Draw a box anywhere</button>
+    <div class="label">Stories</div>
+    <div class="story active"><b>Kaiser Canyon Fire, WA</b><small>Colville Reservation Â· Julâ€“Sep 2026</small></div>
+    <div class="story"><b>Edouard floods under forest, TX</b><small>East Texas Â· Sep 2026</small></div>
+    <div class="story"><b>Record White River flood, IN</b><small>Anderson Â· Aug 2026</small></div>
+    <div class="story"><b>Washington floods</b><small>Skagit valley Â· Dec 2025 (checking coverage)</small></div>
+
+    <div class="label">This box</div>
+    <div class="facts">
+      <div>Area <b>612 kmÂ²</b></div>
+      <div>NISAR passes (L-band) <b>11 Â· track 172 â†“</b></div>
+      <div>Sentinel-1 passes (C-band) <b>9</b></div>
+      <div>Compared <b>Jul 13 â†’ Sep 23</b></div>
+    </div>
+
+    <div class="label">What changed (click to toggle)</div>
+    <div class="legend">
+      <div class="row" data-k="L"><span class="sw" style="background:var(--l)"></span>Only NISAR saw it<span class="ha">6,240 ha</span></div>
+      <div class="row" data-k="both"><span class="sw" style="background:var(--both)"></span>Both satellites saw it<span class="ha">410 ha</span></div>
+      <div class="row" data-k="C"><span class="sw" style="background:var(--c)"></span>Only Sentinel-1 saw it<span class="ha">380 ha</span></div>
+    </div>
+    <details>
+      <summary>How sure are we?</summary>
+      Every pixel gets a statistical test across all passes. On ground we know is stable,
+      it flags 1.1% at a 1% false-alarm setting: the method isn't inventing change.
+      Numbers are only quoted for areas of at least 1 hectare.
+    </details>
+  </aside>
+
+  <div id="mapwrap">
+    <div id="map"></div>
+    <div class="modes">
+      <button class="on" data-m="change">Change map</button>
+      <button data-m="swipe">Before | After</button>
+      <button data-m="lc">L-band vs C-band</button>
+    </div>
+    <div class="placeholder" id="ph"><div id="phtext"></div></div>
+    <div class="toast" id="toast"></div>
+  </div>
+
+  <aside class="right" id="panel"></aside>
+
+  <footer>
+    <div class="tlhead"><span>NISAR passes on this track. Pick two to compare (orange).</span><span>Striped: no NISAR data exists (Jul 27 â€“ Aug 10)</span></div>
+    <div class="tl" id="tl"><div class="axis"></div></div>
+  </footer>
+</div>
+
+<script>
+const DATES = ["Jun 19","Jul 1","Jul 13","Jul 25","Aug 18","Aug 30","Sep 11","Sep 23","Oct 5","Oct 17","Oct 29"];
+const DAYS  = [0,12,24,36,60,72,84,96,108,120,132];   // days after Jun 19
+const SPAN = 132;
+
+const FEATURES = {
+  burn: {
+    kind: "L", color: "var(--l)", chipBg: "#3a2a08", title: "Burned forest",
+    chip: "Only NISAR saw this", conf: 96, confText: "High Â· p < 0.001 Â· 6,240 ha",
+    evidence: [
+      ["<b>HV fell 4.1 dB</b> (95% CI 3.7â€“4.5)", "Cross-polarized return comes from branches and leaves. A drop this size means most of that volume is gone."],
+      ["<b>HH fell 1.6 dB</b>", "Flooding would raise HH (water + trunks act like a mirror). It fell, so this is loss, not water."],
+      ["<b>Changed between Jul 13 and Jul 25</b>", "Found by the time-series test; matches fire ignition on Jul 16."],
+      ["<b>1,284 fire detections</b> inside the area, Jul 16 â€“ Aug 30", "NASA FIRMS. Radar alone can't tell fire from logging; this is why we say 'fire'."],
+      ["<b>Sentinel-1 (C-band): no significant change</b>", "C-band's 5.6 cm waves scatter off what's left of the crown; NISAR's 24 cm waves reach branches and trunks."]
+    ],
+    plain: "Between mid-July and late September, radar echoes from about 6,240 hectares of forest dropped the way burned forest does. NISAR shows it clearly. Sentinel-1, the radar most fire maps rely on, barely registers it.",
+    series: { L1: [-13.1,-13.0,-13.3,-13.2,-17.0,-17.2,-17.4,-17.1,-17.3,-17.2,-17.4], L2: [-8.2,-8.0,-8.3,-8.1,-9.8,-9.7,-9.9,-9.6,-9.8,-9.9,-9.7], C: [-15.0,-15.2,-14.9,-15.1,-14.8,-14.9,-15.0,-14.7,-14.9,-15.1,-14.8] },
+    names: ["NISAR HV", "NISAR HH", "Sentinel-1 VH"], changeAt: 3.5,
+    who: "Census tracts here rank in the <b>top 10%</b> for social vulnerability (CDC SVI). Nespelem was evacuated; over 1,000 people were displaced."
+  },
+  shore: {
+    kind: "both", color: "var(--both)", chipBg: "#271d45", title: "Shoreline exposed by falling reservoir",
+    chip: "Both satellites saw it", conf: 90, confText: "High Â· p < 0.001 Â· 410 ha",
+    evidence: [
+      ["<b>HH rose 9.8 dB</b>", "Calm water is a mirror and looks black to radar. Wet mud and rock scatter back strongly."],
+      ["<b>Gradual, Jul 13 â†’ Sep 23</b>", "Steady change across passes, typical of a reservoir drawdown, not a storm."],
+      ["<b>Sentinel-1 VV rose 8.6 dB</b>", "Open water vs. bare ground is easy for any radar band."]
+    ],
+    plain: "The reservoir edge pulled back through late summer, exposing about 410 hectares of shoreline. Both radars agree, which is what you'd expect for open water turning into bare ground.",
+    series: { L1: [-22,-21.5,-20,-14,-11,-10.5,-10.8,-11,-10.9,-11.2,-11], L2: [-25,-24.6,-23.5,-19,-17,-16.5,-16.8,-17,-16.7,-17.1,-17], C: [-21,-20.5,-19,-14.5,-12.5,-12,-12.3,-12.4,-12.2,-12.6,-12.4] },
+    names: ["NISAR HH", "NISAR HV", "Sentinel-1 VV"], changeAt: null, who: null
+  },
+  wheat: {
+    kind: "C", color: "var(--c)", chipBg: "#0b2c33", title: "Wheat harvest",
+    chip: "Only Sentinel-1 saw it", conf: 82, confText: "Medium Â· p < 0.01 Â· 380 ha",
+    evidence: [
+      ["<b>Sentinel-1 VH fell 5.2 dB</b> around Jul 25", "Short C-band waves interact with wheat heads and stalks; cutting them removes that echo."],
+      ["<b>NISAR HV: no significant change</b>", "NISAR's 24 cm waves mostly pass through short crops to the soil, so harvest barely shows."],
+      ["<b>Field-shaped edges</b>", "Straight boundaries along parcels: farming, not disturbance."]
+    ],
+    plain: "These fields were harvested in late July. This is a case where the older C-band radar sees more than NISAR, and we show that honestly.",
+    series: { L1: [-16,-15.8,-16.2,-16.1,-16.4,-16.3,-16.5,-16.2,-16.4,-16.3,-16.5], L2: [-9.5,-9.4,-9.6,-9.5,-9.8,-9.7,-9.9,-9.6,-9.8,-9.7,-9.9], C: [-17,-16.5,-16,-15.8,-21,-21.5,-21.2,-21,-20.8,-21.1,-21.3] },
+    names: ["NISAR HV", "NISAR HH", "Sentinel-1 VH"], changeAt: 3.5, who: null
+  }
+};
+
+const GEO = { type: "FeatureCollection", features: [
+  { type: "Feature", properties: { id: "burn", k: "L" }, geometry: { type: "Polygon", coordinates: [[[-119.12,48.22],[-119.06,48.27],[-118.99,48.30],[-118.93,48.28],[-118.95,48.24],[-119.00,48.21],[-119.05,48.19],[-119.12,48.22]]] } },
+  { type: "Feature", properties: { id: "burn", k: "L" }, geometry: { type: "Polygon", coordinates: [[[-118.90,48.25],[-118.86,48.27],[-118.83,48.24],[-118.87,48.22],[-118.90,48.25]]] } },
+  { type: "Feature", properties: { id: "shore", k: "both" }, geometry: { type: "Polygon", coordinates: [[[-119.06,48.058],[-119.01,48.074],[-118.97,48.071],[-118.985,48.061],[-119.04,48.052],[-119.06,48.058]]] } },
+  { type: "Feature", properties: { id: "wheat", k: "C" }, geometry: { type: "Polygon", coordinates: [[[-119.21,48.00],[-119.17,48.00],[-119.17,48.03],[-119.21,48.03],[-119.21,48.00]]] } },
+  { type: "Feature", properties: { id: "wheat", k: "C" }, geometry: { type: "Polygon", coordinates: [[[-119.16,47.99],[-119.13,47.99],[-119.13,48.02],[-119.16,48.02],[-119.16,47.99]]] } }
+]};
+const PERIM = { type: "Feature", geometry: { type: "Polygon", coordinates: [[[-119.16,48.20],[-119.08,48.31],[-118.97,48.33],[-118.82,48.29],[-118.80,48.22],[-118.92,48.18],[-119.05,48.17],[-119.16,48.20]]] } };
+
+const map = new maplibregl.Map({
+  container: "map", center: [-118.99, 48.16], zoom: 9.7, attributionControl: { compact: true },
+  style: { version: 8,
+    sources: { esri: { type: "raster", tileSize: 256, attribution: "Imagery Â© Esri",
+      tiles: ["https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}"] } },
+    layers: [{ id: "esri", type: "raster", source: "esri", paint: { "raster-saturation": -0.6, "raster-brightness-max": 0.75 } }] }
+});
+map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "top-right");
+
+const COLORS = { L: "#f59e0b", both: "#a78bfa", C: "#22d3ee" };
+map.on("load", () => {
+  map.addSource("perim", { type: "geojson", data: PERIM });
+  map.addLayer({ id: "perim", type: "line", source: "perim", paint: { "line-color": "#fca5a5", "line-width": 1.5, "line-dasharray": [3, 2] } });
+  map.addSource("chg", { type: "geojson", data: GEO });
+  map.addLayer({ id: "chg-fill", type: "fill", source: "chg", paint: {
+    "fill-color": ["match", ["get", "k"], "L", COLORS.L, "both", COLORS.both, COLORS.C], "fill-opacity": 0.55 } });
+  map.addLayer({ id: "chg-line", type: "line", source: "chg", paint: {
+    "line-color": ["match", ["get", "k"], "L", COLORS.L, "both", COLORS.both, COLORS.C], "line-width": 2 } });
+  map.on("click", "chg-fill", e => show(e.features[0].properties.id));
+  map.on("mouseenter", "chg-fill", () => map.getCanvas().style.cursor = "pointer");
+  map.on("mouseleave", "chg-fill", () => map.getCanvas().style.cursor = "");
+  applyFilter();
+});
+
+const hidden = new Set();
+document.querySelectorAll(".legend .row").forEach(r => r.onclick = () => {
+  const k = r.dataset.k; hidden.has(k) ? hidden.delete(k) : hidden.add(k);
+  r.classList.toggle("off"); applyFilter();
+});
+function applyFilter() {
+  if (!map.getLayer("chg-fill")) return;
+  const f = ["!", ["in", ["get", "k"], ["literal", [...hidden]]]];
+  map.setFilter("chg-fill", f); map.setFilter("chg-line", f);
+}
+
+function chart(f) {
+  const W = 340, H = 150, P = { l: 30, r: 8, t: 10, b: 22 };
+  const all = [...f.series.L1, ...f.series.L2, ...f.series.C];
+  const lo = Math.floor(Math.min(...all)) - 1, hi = Math.ceil(Math.max(...all)) + 1;
+  const x = d => P.l + (d / SPAN) * (W - P.l - P.r);
+  const y = v => P.t + (hi - v) / (hi - lo) * (H - P.t - P.b);
+  const line = (arr, col, dash) => `<polyline fill="none" stroke="${col}" stroke-width="2" ${dash ? 'stroke-dasharray="4 3"' : ""} points="${arr.map((v, i) => x(DAYS[i]) + "," + y(v)).join(" ")}"/>` +
+    arr.map((v, i) => `<circle cx="${x(DAYS[i])}" cy="${y(v)}" r="2.5" fill="${col}"/>`).join("");
+  const gx1 = x(38), gx2 = x(52);
+  let s = `<svg width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">`;
+  s += `<rect x="${gx1}" y="${P.t}" width="${gx2 - gx1}" height="${H - P.t - P.b}" fill="#3b1d1d"/>`;
+  for (let v = Math.ceil(lo / 4) * 4; v <= hi; v += 4) s += `<line x1="${P.l}" x2="${W - P.r}" y1="${y(v)}" y2="${y(v)}" stroke="#263049"/><text x="2" y="${y(v) + 3}">${v} dB</text>`;
+  [0, 4, 7, 10].forEach(i => s += `<text x="${x(DAYS[i]) - 12}" y="${H - 6}">${DATES[i]}</text>`);
+  if (f.changeAt != null) { const cx = x((DAYS[3] + DAYS[2]) / 2 + 6); s += `<line x1="${cx}" x2="${cx}" y1="${P.t}" y2="${H - P.b}" stroke="#fca5a5" stroke-dasharray="2 2"/>`; }
+  s += line(f.series.L1, "#f59e0b") + line(f.series.L2, "#fcd34d", true) + line(f.series.C, "#22d3ee");
+  return s + "</svg>";
+}
+
+function show(id) {
+  const f = FEATURES[id];
+  const panel = document.getElementById("panel");
+  panel.innerHTML = `
+    <span class="chip" style="background:${f.chipBg};color:${f.color}">${f.chip}</span>
+    <h2>${f.title}</h2>
+    <div class="conf"><span>Confidence</span><div class="bar"><i style="width:${f.conf}%"></i></div><span>${f.confText}</span></div>
+    <div class="plain">${f.plain}<small>Written by Claude from the rule output below. It can rephrase; it can't change the verdict.</small></div>
+    <div class="label">Why we think so</div>
+    <ul class="ev">${f.evidence.map(([h, s]) => `<li>${h}<span class="src">${s}</span></li>`).join("")}</ul>
+    <div class="label">Every pass, averaged over this area</div>
+    ${chart(f)}
+    <div class="facts" style="font-size:12px">
+      <div><span style="color:#f59e0b">â” ${f.names[0]}</span><span style="color:#fcd34d">â”… ${f.names[1]}</span><span style="color:#22d3ee">â” ${f.names[2]}</span></div>
+    </div>
+    ${f.who ? `<div class="label">Who's affected</div><div class="who">${f.who}</div>` : ""}
+    <div class="label">Take it with you</div>
+    <div class="exports"><button class="btn">GeoTIFF</button><button class="btn">CSV time series</button><button class="btn">Jupyter notebook</button><button class="btn">Share link</button></div>`;
+}
+
+function intro() {
+  document.getElementById("panel").innerHTML = `
+    <div class="label" style="margin-top:0">Kaiser Canyon Fire</div>
+    <h2>NISAR saw 16Ã— more burned forest than Sentinel-1</h2>
+    <p class="hint">Lightning started the fire on July 16, 2026, on the Colville Reservation. It burned 138,293 acres before containment on September 7.</p>
+    <p class="hint"><b style="color:var(--text)">Click a colored area on the map</b> to see what changed, how sure we are, and the radar physics behind it.</p>
+    <div class="who" style="margin-top:12px">The dashed red line is the official fire perimeter (NIFC), used to check our result.</div>`;
+}
+intro();
+
+// timeline
+const tl = document.getElementById("tl");
+const gap = document.createElement("div"); gap.className = "gap";
+const pct = d => (d / SPAN * 100);
+gap.style.left = pct(38) + "%"; gap.style.width = (pct(52) - pct(38)) + "%"; tl.appendChild(gap);
+const sel = [2, 7];
+DATES.forEach((d, i) => {
+  const t = document.createElement("div"); t.className = "tick" + (sel.includes(i) ? " sel" : "");
+  t.style.left = pct(DAYS[i]) + "%"; t.innerHTML = `<span>${d}</span>`;
+  t.onclick = () => { sel.shift(); sel.push(i); document.querySelectorAll(".tick").forEach((n, j) => n.classList.toggle("sel", sel.includes(j))); };
+  tl.appendChild(t);
+});
+
+// modes
+const ph = document.getElementById("ph"), pht = document.getElementById("phtext");
+document.querySelectorAll(".modes button").forEach(b => b.onclick = () => {
+  document.querySelectorAll(".modes button").forEach(x => x.classList.toggle("on", x === b));
+  const m = b.dataset.m;
+  if (m === "change") { ph.style.display = "none"; return; }
+  ph.style.display = "flex";
+  pht.innerHTML = m === "swipe"
+    ? "<b>Before | After swipe</b><br><span class='hint'>Drag a divider across the real NISAR radar images from the two selected passes. The real Kaiser Canyon images are being processed now and will replace this.</span>"
+    : "<b>L-band vs C-band side by side</b><br><span class='hint'>NISAR on the left, Sentinel-1 on the right, same dates and same statistical test, so you can see exactly what each satellite caught.</span>";
+});
+
+// draw box
+const toast = document.getElementById("toast");
+document.getElementById("drawbtn").onclick = () => {
+  toast.innerHTML = "In the real app you drag a rectangle anywhere. Modal pulls every NISAR and Sentinel-1 pass for that box, runs the test, and the map fills in within ~10â€“15 s.";
+  toast.style.display = "block"; setTimeout(() => toast.style.display = "none", 5000);
+};
+</script>
+</body>
+</html>

@@ -1,0 +1,20 @@
+﻿# local tooling
+.claude-flow/
+.superpowers/
+# python
+.venv/
+__pycache__/
+*.pyc
+# node
+node_modules/
+dist/
+# secrets - never commit
+.env
+.env.*
+_netrc
+.netrc
+# data
+data/
+*.npz
+*.h5
+*.tif
