@@ -1,0 +1,77 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real data: Kaiser Canyon</title>
+<style>
+  :root { --bg:#0b0f17; --panel:#121826; --line:#263049; --text:#e6eaf2; --muted:#8b95ab; --l:#f59e0b; --c:#22d3ee; --ok:#34d399; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; padding:24px 28px 40px; }
+  .real { display:inline-block; background:#0f2e22; color:var(--ok); border:1px solid #065f46; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:700; }
+  h1 { font-size:24px; margin:10px 0 4px; }
+  .sub { color:var(--muted); margin:0 0 20px; }
+  .pair { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:14px; }
+  .card h3 { margin:0 0 2px; font-size:16px; }
+  .card .meta { color:var(--muted); font-size:12.5px; margin-bottom:8px; }
+  .card img { width:100%; border-radius:6px; background:#fff; display:block; }
+  .big { font-size:34px; font-weight:800; font-variant-numeric:tabular-nums; }
+  .stat { display:flex; gap:14px; align-items:baseline; margin-top:10px; }
+  .stat small { color:var(--muted); }
+  .L { color:var(--l); } .C { color:var(--c); }
+  .take { margin-top:22px; display:grid; grid-template-columns:1.3fr 1fr; gap:18px; }
+  .box { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; }
+  .box h3 { margin:0 0 8px; font-size:16px; }
+  .box ul { margin:0; padding-left:18px; }
+  .box li { margin:6px 0; }
+  .muted { color:var(--muted); }
+  a.btn { display:inline-block; margin-top:18px; padding:9px 14px; border-radius:8px; background:var(--l); color:#1a1205; font-weight:700; text-decoration:none; }
+  @media (max-width: 900px) { .pair, .take { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <span class="real">REAL DATA Â· processed today, not a mockup</span>
+  <h1>Kaiser Canyon Fire: what each radar actually saw</h1>
+  <p class="sub">Change in cross-polarized radar return, mid-July (before the fire) to mid-September (after), averaged over 1-hectare blocks. Red means the echo dropped. The black line is the official NIFC fire perimeter (138,285 acres).</p>
+
+  <div class="pair">
+    <div class="card">
+      <h3 class="L">NISAR Â· L-band (24 cm) Â· HV</h3>
+      <div class="meta">Jul 13 â†’ Sep 11, 2026 Â· track 71 descending Â· GCOV PROVISIONAL, same mode and processing version on both dates</div>
+      <img src="kaiser_L_dHV.png" alt="NISAR L-band HV change over the Kaiser Canyon fire">
+      <div class="stat"><span class="big L">4.7%</span><small>of 1-ha blocks inside the fire dropped by 2 dB or more<br>(0.05% outside: very few false alarms)</small></div>
+    </div>
+    <div class="card">
+      <h3 class="C">Sentinel-1 Â· C-band (5.6 cm) Â· VH</h3>
+      <div class="meta">Jul 11 â†’ Sep 9, 2026 Â· track 166 Â· OPERA RTC-S1, put on the same 1-ha grid</div>
+      <img src="kaiser_C_dVH.png" alt="Sentinel-1 C-band VH change over the Kaiser Canyon fire">
+      <div class="stat"><span class="big C">40.6%</span><small>of 1-ha blocks inside the fire dropped by 2 dB or more<br>(5.2% outside)</small></div>
+    </div>
+  </div>
+
+  <div class="take">
+    <div class="box">
+      <h3>What this tells us</h3>
+      <ul>
+        <li><b>Here, Sentinel-1 sees about 9Ã— more of the burn.</b> Kaiser Canyon burned mostly shrub-steppe and grass. C-band's short waves bounce off low vegetation, so losing it shows up strongly.</li>
+        <li><b>NISAR's drops are smaller and patchier, but sharp:</b> âˆ’3 to âˆ’5 dB in the forested pockets. Where there were trees, 6.2% of blocks dropped; in open ground, 2.1%. L-band's long waves mostly pass through grass and react to branches and trunks.</li>
+        <li>The two maps agree only loosely (r â‰ˆ 0.4 block by block). They're measuring different things, which is the whole point of comparing them.</li>
+        <li><b>A data-cleaning lesson:</b> unburned land outside the fire brightened by about +0.5 dB (moisture or calibration). The app must measure change <i>relative to the surroundings</i>, not raw.</li>
+      </ul>
+    </div>
+    <div class="box">
+      <h3>What changes in the plan</h3>
+      <ul>
+        <li>The headline can't claim NISAR always sees more. The honest pitch: <b>"two radars, one map: which one sees what, and why."</b></li>
+        <li>Kaiser Canyon becomes the honest counter-example. The app already has an "only Sentinel-1 saw it" color for exactly this.</li>
+        <li>Now testing where L-band <i>should</i> win: <b>flooding under the forest canopy</b> from Tropical Storm Edouard (TX), and <b>clearcuts in Washington timberland</b>.</li>
+        <li>Washington's December 2025 floods exist only in uncalibrated BETA data, so they're out.</li>
+      </ul>
+    </div>
+  </div>
+
+  <a class="btn" href="app-mockup.html">Back to the app mockup</a>
+  <p class="muted" style="font-size:12px;margin-top:14px">Granules: NISAR_L2_PR_GCOV_025_071_D_064_4005_DHDH_A_20260713T030956â€¦ and â€¦_030_071_D_064_4005_DHDH_A_20260911T030953â€¦, CRID P05023. Sentinel-1: OPERA RTC-S1, track 166 (S1C). Perimeter: WFIGS 2026-WACOA-260140. Images are on the native UTM 10N grid, not yet reprojected for the map.</p>
+</body>
+</html>
