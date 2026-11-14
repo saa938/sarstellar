@@ -86,8 +86,8 @@ Real-data evidence gathered today (see `docs/research/kaiser-spike.md`, `clearcu
 
 ## 4. Constraints
 
-- **Time:** ~25 hours remain from writing. Assumed submission deadline: Sunday 2026-11-15 ~16:00 PT (30 h from start);
-  confirm with the local event. Core work must happen during the event.
+- **Time:** submission deadline Sunday 2026-11-15 17:00 PT (hard). Internal target: everything submitted by
+  15:00 PT, leaving 2 h of buffer. Core work must happen during the event.
 - **Team:** two people. Teammate A (Washington; backend + Modal + science) and Teammate B (New Jersey; web app),
   each running Claude Code and Codex agents through a shared Multica workspace. One writer per worktree; tasks
   split by directory (`core/`, `modal_app/`, `web/`); only the integration owner (Teammate A) edits shared manifests.
@@ -132,15 +132,26 @@ USDA Cropland Data Layer (crops; latest available year), NLCD (land-cover strata
    block or area aggregates.
 2. **Relative change:** subtract the median change of unchanged surroundings in the same land-cover stratum
    (spikes saw scene-wide shifts of +0.1 to +1.5 dB from moisture/calibration).
-3. **Detection (per band):** sequential omnibus test (Conradsen et al. 2016) on each channel's time series, giving a
-   per-block p-value and the date of change; effective number of looks estimated on a homogeneous patch (use the
-   smaller of that and `numberOfLooks`); Benjamini–Hochberg FDR q = 0.05 across the box. The two-date view uses the
-   same test with k = 2.
-4. **Agreement class:** a change area is *only NISAR*, *both*, or *only Sentinel-1* by which band's test is significant.
+3. **Detection (per band, per 1-ha block)** *(builder's call after review)*: the sequential omnibus test (Conradsen
+   et al. 2016) runs on **block** means, not pixels. Its ENL is **estimated empirically per band and per scene** from
+   blocks in the stable stratum (ENL = mean² / variance of the block-mean ratio between dates), so it absorbs both
+   residual speckle and natural block-to-block variability. It is **not** capped by the per-pixel `numberOfLooks`.
+   The test gives a p-value and the date of change; Benjamini–Hochberg FDR q = 0.05 across the box.
+   A block is **changed** only if it is significant **and** its relative change magnitude is at least a minimum effect
+   size (default 2 dB for every band; the scorecard's calibration split tunes it per band and class). The two-date
+   view uses the same test with k = 2.
+4. **Agreement class:** a change area is *only NISAR*, *both*, or *only Sentinel-1* by which band's blocks are
+   "changed" under rule 3. NISAR is 10 m (≈100 px/ha) and RTC-S1 is 30 m (≈11 px/ha); the empirical ENL accounts for
+   this, and the scorecard also reports a same-resolution variant (NISAR degraded to 30 m) so that wavelength
+   effects can be separated from resolution effects.
 5. **Cause rules** (`docs/research/science.md` table): flood (open water), flooded vegetation, forest loss/clearcut,
    burn (needs FIRMS or perimeter to say "fire"), crop cycle (labelled farming, not disturbance), soil wetting,
    construction, landslide (low confidence), wet snow (low confidence; C-band better), freeze-up (suppressed false
    positive). Thresholds marked "judgment" in the research are tuned by the scorecard's calibration split.
+   **C-band rules for C-only areas** *(builder's call)*: VH drop ≥ 2 dB in low vegetation (NLCD grass/shrub/crop) →
+   "low-vegetation loss", refined to "burn" only with FIRMS/perimeter support and to "harvest" only with a CDL crop
+   class; VV/VH rise over flat low-HAND ground → "possible surface water/wetting". Anything else C-only is labelled
+   "changed, cause uncertain (only Sentinel-1 saw it)". The learned model uses all four bands' features.
 6. **Explanation:** the rule/model output is a JSON of class, confidence, evidence values with CIs, and the rule that
    fired. Claude turns it into 2–3 plain sentences. A template fallback is used if the LLM call fails. The LLM
    cannot change class or numbers.
@@ -155,6 +166,10 @@ USDA Cropland Data Layer (crops; latest available year), NLCD (land-cover strata
   HAND, slope, reference label.
 - **Metrics:** precision, recall, F1 and stable-ground false-alarm rate per class × land cover × band, with bootstrap
   CIs. Geographic hold-out (split by state/ecoregion, never random blocks).
+- **Operating points** *(builder's call)*: every radar comparison is reported (a) at the app's default operating point
+  (rule 3 in §6) and (b) as precision–recall curves; the headline comparison and the "NISAR precision ≥ 3×
+  Sentinel-1" target are read **at equal recall**, which is the fair comparison. Equal-flag-count numbers (as used in
+  the spikes) are reported as a secondary view.
 - **Learned model:** gradient-boosted trees as the first model; a small GPU model (MLP or temporal transformer) only if
   trees plateau. Same features, same split. Compare to the rule engine per class; ship the winner per class.
 - **Publication:** `scorecard.json` + a Scorecard page; labels described honestly as reference products, not ground truth.
@@ -187,8 +202,16 @@ core/ (pure Python package, imported by Modal, the scorecard, and exported noteb
   - Stories use the identical `result` shape, stored as static JSON.
 - **Overlays:** PNG images placed by corner coordinates (no tile server); reprojected from UTM to EPSG:3857; box
   capped so images stay ≤ ~2048 px a side. Zoom handled by rendering at block resolution.
-- **Secrets:** Earthdata credentials and the Anthropic API key as Modal secrets; never in the repo.
-- **Hosting:** web on Vercel (or GitHub Pages fallback); Modal app `min_containers=1` during judging.
+- **Secrets:** Earthdata credentials and the Anthropic API key as Modal secrets; never in the repo. Note: the Modal
+  workspace is shared (other people's secrets are visible there), so its owner can see ours.
+- **Hosting:** web on Vercel (or GitHub Pages fallback), optionally on the free `.earth` domain from the Global Offers.
+- **Uptime and guards** *(builder's call)*: judging runs into Dec 2026–Jan 2027, so the live endpoint stays up through
+  January. Warm (`min_containers=1`) during the event and on demand for judging sessions, cold otherwise (adds
+  ~5–15 s). The public, login-free `POST /jobs` gets: max box ~20×20 km, per-IP limit (10 jobs/hour), a global daily
+  job cap (200), results cached by bbox + dates on the Volume, and a kill-switch env var that turns the endpoint into
+  "stories only". Claude calls are cached per change area and fall back to templates on any error.
+- **Weather context:** Meteomatics API (free Global Offer for the event) for rain, wind and temperature at pass times,
+  feeding the soil-wetting, wind-on-water and freeze-up rules; ERA5/IMERG as the fallback after the event.
 
 ## 9. The web app
 
@@ -209,6 +232,13 @@ Matches the approved mockup (`docs/mockups/app-mockup.html`, real-data pages in 
   wins), Edouard (only NISAR was there), then the national scorecard number, then "draw a box anywhere".
 - 30 s video (primary) and ≤ 7 slides (backup). The video shows the product working and names NISAR GCOV.
 - Personal context: both teammates' home states; Kaiser Canyon's impact on the Colville Reservation (SVI).
+
+## 10b. Which numbers are official *(builder's call)*
+
+The spike numbers in §1 justified the direction; they are **not** the shipped numbers. The three stories are re-run
+through the final `core` pipeline, and the app, scorecard and pitch use only those outputs. If the re-run changes a
+story (e.g. a different clearcut ratio), the pipeline's number wins and the story text changes with it. Until then the
+web app is built against fixtures in the final `result` shape, derived from the spike outputs and labelled as such.
 
 ## 11. Cut order if time runs short
 
