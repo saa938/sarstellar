@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Real results: two radars</title>
+<style>
+  :root { --bg:#0b0f17; --panel:#121826; --line:#263049; --text:#e6eaf2; --muted:#8b95ab; --l:#f59e0b; --c:#22d3ee; --ok:#34d399; --both:#a78bfa; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; padding:24px 28px 40px; }
+  .real { display:inline-block; background:#0f2e22; color:var(--ok); border:1px solid #065f46; padding:4px 10px; border-radius:999px; font-size:12px; font-weight:700; }
+  h1 { font-size:25px; margin:10px 0 4px; }
+  .sub { color:var(--muted); margin:0 0 22px; max-width:900px; }
+  .case { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; margin-bottom:18px; }
+  .head { display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .head h2 { margin:0; font-size:18px; }
+  .chip { padding:3px 10px; border-radius:999px; font-size:12px; font-weight:800; }
+  .meta { color:var(--muted); font-size:13px; margin:4px 0 10px; }
+  .grid { display:grid; grid-template-columns:1.6fr 1fr; gap:18px; align-items:start; }
+  img { width:100%; background:#fff; border-radius:6px; display:block; }
+  table { border-collapse:collapse; width:100%; font-size:13.5px; }
+  td, th { padding:6px 8px; border-bottom:1px solid var(--line); text-align:left; }
+  th { color:var(--muted); font-weight:600; }
+  td.n { font-variant-numeric:tabular-nums; font-weight:700; }
+  .L { color:var(--l); } .C { color:var(--c); }
+  .note { color:var(--muted); font-size:12.5px; margin-top:8px; }
+  .verdict { margin-top:10px; font-size:14px; }
+  a.btn { display:inline-block; margin:4px 8px 0 0; padding:9px 14px; border-radius:8px; background:var(--panel); border:1px solid var(--line); color:var(--text); font-weight:700; text-decoration:none; }
+  @media (max-width: 1000px) { .grid { grid-template-columns:1fr; } }
+</style>
+</head>
+<body>
+  <span class="real">REAL DATA Â· NISAR GCOV + Sentinel-1 (OPERA RTC-S1), processed today</span>
+  <h1>Two radars, one map: three real tests</h1>
+  <p class="sub">Same method on both satellites: same box, 1-hectare blocks, change measured relative to unchanged surroundings, checked against an independent reference (optical satellite alerts, the official fire perimeter, river gauges). Each satellite wins somewhere, and the app says which.</p>
+
+  <div class="case">
+    <div class="head"><h2>Clearcuts in Washington timberland (Morton / Mineral)</h2><span class="chip" style="background:#3a2a08;color:var(--l)">NISAR wins</span></div>
+    <div class="meta">NISAR May 21 â†’ Sep 30, 2026 (track 172) Â· Sentinel-1 May 27 â†’ Sep 19 Â· reference: NASA OPERA optical disturbance alerts (DIST-ALERT-HLS) Â· 68,364 forest blocks, 106 reference clearcuts</div>
+    <div class="grid">
+      <img src="clearcut_side.png" alt="Clearcut comparison: NISAR, Sentinel-1, optical reference">
+      <div>
+        <table>
+          <tr><th></th><th class="L">NISAR (L)</th><th class="C">Sentinel-1 (C)</th></tr>
+          <tr><td>Flags that are real clearcuts (precision)</td><td class="n L">35.7%</td><td class="n C">4.6%</td></tr>
+          <tr><td>Real clearcuts found (recall)</td><td class="n L">52.8%</td><td class="n C">50.9%</td></tr>
+          <tr><td>Hits with the same number of flags (157)</td><td class="n L">56</td><td class="n C">23</td></tr>
+          <tr><td>Precision at a stricter âˆ’4 dB cutoff</td><td class="n L">53.9%</td><td class="n C">12.5%</td></tr>
+        </table>
+        <div class="verdict">Both find about half the clearcuts, but <b>Sentinel-1 buries them in false alarms</b>: 1,186 flags to NISAR's 157. NISAR's long waves see trunks and branches disappear, so cut blocks come out compact and dark.</div>
+        <div class="note">Caveat: the optical reference isn't ground truth; 36 reference blocks were missed by both (likely thinning or partial cuts).</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="head"><h2>Tropical Storm Edouard: flooded forest, Village Creek, TX</h2><span class="chip" style="background:#3a2a08;color:var(--l)">Only NISAR was there</span></div>
+    <div class="meta">NISAR Aug 26 â†’ Sep 7, 2026 (track 12): 4 days after the crest, gauge still at 14.8 ft Â· Sentinel-1's nearest passes were Sep 1 (before) and Sep 13 (after the water receded to 5.6 ft)</div>
+    <div class="grid">
+      <img src="edouard_side.png" alt="Edouard: NISAR HH and HV change vs Sentinel-1 VV and VH change">
+      <div>
+        <table>
+          <tr><th>Floodplain forest blocks brightening â‰¥ 3 dB</th><th></th></tr>
+          <tr><td class="L">NISAR HH (double bounce)</td><td class="n L">5.7% <span style="font-weight:400;color:var(--muted)">vs 2.6% upland</span></td></tr>
+          <tr><td class="L">NISAR HV</td><td class="n L">0.3%</td></tr>
+          <tr><td class="C">Sentinel-1 VV / VH</td><td class="n C">0.17% / 0.13%</td></tr>
+        </table>
+        <div class="verdict">A +3 to +6 dB HH ribbon runs along the creek corridors (left panel), with HV flat. That's the textbook signature of <b>water under trees</b>: water and trunks reflect the radar back like a corner mirror.</div>
+        <div class="note">Caveat: moderate evidence. Sentinel-1 never imaged the flood, so this is partly a timing win, and there's no inundation ground truth yet.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="case">
+    <div class="head"><h2>Kaiser Canyon Fire, Colville Reservation, WA</h2><span class="chip" style="background:#0b2c33;color:var(--c)">Sentinel-1 wins</span></div>
+    <div class="meta">NISAR Jul 13 â†’ Sep 11 Â· Sentinel-1 Jul 11 â†’ Sep 9 Â· reference: official NIFC perimeter (138,285 acres)</div>
+    <div class="grid">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px"><img src="kaiser_L_dHV.png" alt="NISAR"><img src="kaiser_C_dVH.png" alt="Sentinel-1"></div>
+      <div>
+        <table>
+          <tr><th>Blocks inside the fire dropping â‰¥ 2 dB</th><th></th></tr>
+          <tr><td class="L">NISAR HV</td><td class="n L">4.7% <span style="font-weight:400;color:var(--muted)">(0.05% outside)</span></td></tr>
+          <tr><td class="C">Sentinel-1 VH</td><td class="n C">40.6% <span style="font-weight:400;color:var(--muted)">(5.2% outside)</span></td></tr>
+        </table>
+        <div class="verdict">A grass and shrub fire. C-band's short waves catch the loss of low vegetation; NISAR only reacts in the forested pockets. <b>The app says so</b> instead of hiding it.</div>
+      </div>
+    </div>
+  </div>
+
+  <a class="btn" href="app-mockup.html">App mockup</a>
+  <a class="btn" href="real-kaiser.html">Kaiser Canyon detail</a>
+</body>
+</html>
