@@ -210,8 +210,9 @@ core/ (pure Python package, imported by Modal, the scorecard, and exported noteb
   ~5–15 s). The public, login-free `POST /jobs` gets: max box ~20×20 km, per-IP limit (10 jobs/hour), a global daily
   job cap (200), results cached by bbox + dates on the Volume, and a kill-switch env var that turns the endpoint into
   "stories only". Claude calls are cached per change area and fall back to templates on any error.
-- **Weather context:** Meteomatics API (free Global Offer for the event) for rain, wind and temperature at pass times,
-  feeding the soil-wetting, wind-on-water and freeze-up rules; ERA5/IMERG as the fallback after the event.
+- **Weather context:** Open-Meteo historical archive API (free, no key) for rain and temperature at pass dates,
+  feeding the soil-wetting and freeze-up rules. (Meteomatics sign-up failed, so it is not used.)
+- **Domain:** `sarstellar.earth` (free Global Offer, registered via Porkbun) points at the web app.
 
 ## 9. The web app
 
