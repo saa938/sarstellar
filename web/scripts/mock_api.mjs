@@ -1,6 +1,6 @@
 // A stand-in for the live API, for testing #/explore's live mode locally:
 //   node scripts/mock_api.mjs            (listens on :5299)
-//   VITE_API_URL=http://localhost:5299 npx vite --port 5198
+//   VITE_DANCE_API_URL=http://localhost:5299 npx vite --port 5198
 // POST /dance {"bbox":[w,s,e,n]} -> {"id"}; GET /dance/{id} -> {status, progress, message};
 // GET /dance/{id}/files/... serves the Village Creek fixture bundle as if it had been computed.
 

@@ -62,6 +62,7 @@ export default function Explore() {
       dragRotate: false,
     });
     mapRef.current = map;
+    if (import.meta.env.DEV) (window as unknown as { __exploreMap: MLMap }).__exploreMap = map;
     map.addControl(new maplibregl.NavigationControl({ showCompass: false }), "bottom-right");
     const markers: Marker[] = [];
     for (const s of idx.index.stages) {
@@ -237,13 +238,16 @@ export default function Explore() {
               )}
               {live.phase === "running" && (
                 <>
-                  <p>{live.message || "Reading passes"}</p>
+                  <p className="livepanel__msg">{live.message || "Reading passes"}</p>
                   <div className="beats" aria-label={`${Math.round(live.progress * 100)}% done`}>
                     {Array.from({ length: 16 }, (_, i) => (
                       <i key={i} className={i < Math.round(live.progress * 16) ? "is-on" : ""} />
                     ))}
                   </div>
-                  <p className="dim">Beats arriving: {Math.round(live.progress * 100)}% · {live.status}</p>
+                  <p className="dim">
+                    Beats arriving: {Math.round(live.progress * 100)}% · {live.status}. Reading every NISAR pass over your box takes about a minute or
+                    two.
+                  </p>
                 </>
               )}
               {live.phase === "error" && (

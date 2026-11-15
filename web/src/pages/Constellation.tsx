@@ -6,7 +6,9 @@ import { MOVE_COLORS, MOVE_IDS, MOVE_NAMES, hexToRgb, lighten } from "../lib/mov
 import { FloorGL, type FloorView } from "../stage/floorGL";
 import { fmtInt } from "../lib/format";
 
-const FULL: FloorView = { xmin: -0.02, xmax: 1.02, ymin: -0.02, ymax: 1.02 };
+// on wide screens, shift the sky right so the stars clear the panel on the left
+const SHIFT = typeof window !== "undefined" && window.innerWidth > 900 ? 0.17 : 0;
+const FULL: FloorView = { xmin: -0.02 - SHIFT, xmax: 1.02 - SHIFT, ymin: -0.02, ymax: 1.02 };
 
 export default function Constellation() {
   const [c, setC] = useState<C | null | undefined>(undefined);

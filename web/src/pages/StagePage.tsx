@@ -412,7 +412,8 @@ function StoryCard({ meta, fixture }: { meta: StageMeta; fixture: boolean }) {
     <article className="storycard">
       <div className="storycard__top">
         <div className="eyebrow">
-          {meta.name}, {meta.country}
+          {meta.name}
+          {meta.country ? `, ${meta.country}` : ""}
         </div>
         <button className="btn-icon btn-icon--sm" onClick={() => setCollapsed(true)} aria-label="Minimize story">
           <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden>

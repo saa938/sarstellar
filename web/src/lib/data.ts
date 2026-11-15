@@ -5,8 +5,12 @@ import type { MovesDoc, StageIndex, StageIndexEntry, StageMeta } from "./types";
 
 const ROOT = import.meta.env.BASE_URL.replace(/\/?$/, "/");
 
-/** Optional live API: POST /dance, GET /dance/{id}, bundles at /dance/{id}/files/. */
-export const API_URL: string | undefined = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || undefined;
+/** Live dance API: POST /dance, GET /dance/{id}, bundles at /dance/{id}/files/.
+ *  Read from VITE_DANCE_API_URL (VITE_API_URL is ignored: in production it still points at the v1 API).
+ *  Set VITE_DANCE_API_URL to "off" to hide live mode. */
+const DANCE_API_DEFAULT = "https://tejas-16842--sarstellar-dance-live.us-east.modal.run";
+const danceEnv = (import.meta.env.VITE_DANCE_API_URL as string | undefined)?.trim();
+export const API_URL: string | undefined = danceEnv === "off" ? undefined : (danceEnv || DANCE_API_DEFAULT).replace(/\/$/, "");
 export const REAL_BASE = `${ROOT}stages/`;
 export const FIXTURE_BASE = `${ROOT}stages-fixture/`;
 

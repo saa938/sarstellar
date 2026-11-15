@@ -8,7 +8,7 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 |---|---|
 | `#/` | Story scroll: night globe overture, the two partners (scattering diagrams), scroll-driven dance floor, the moves, world tour, how we know, your stage, the next season |
 | `#/stage/<id>` | Stage view: MapLibre map with crossfading radar images, WebGL2 dance floor, timeline with story beats and choreography score, brush (box/lasso) and map box select, solo card. `?t=<pass>` start pass, `?play=0` no autoplay, `?block=<n>` open a hectare |
-| `#/stage/live:<id>` | A bundle computed by the live API (same contract), base `${VITE_API_URL}/dance/<id>/files/` |
+| `#/stage/live:<id>` | A bundle computed by the live API (same contract), base `<dance API>/dance/<id>/files/` |
 | `#/moves`, `#/moves/<id>` | Field guide |
 | `#/proof` | Renders `proof.json` per `docs/v2/PROOF_FIELDS.md` (dot-and-interval charts, base rates, polarization report card, Sentinel-1, cross-continent, confusion, limits); in-progress state without it |
 | `#/explore` | Interactive night globe of all stages; live mode when `VITE_API_URL` is set |
@@ -101,9 +101,13 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 
 ## Live mode
 
-- Hidden unless `VITE_API_URL` is set. Draw a 1 to 25 km box (size shown live), POST `{bbox}` to `/dance`, poll
-  `/dance/{id}` every 1.5 s, show progress as beats, then open `#/stage/live:{id}`.
-- `node scripts/mock_api.mjs` + `VITE_API_URL=http://localhost:5299 npx vite` tests the whole flow locally.
+- The API base comes from `VITE_DANCE_API_URL` and defaults in code to the deployed
+  `https://tejas-16842--sarstellar-dance-live.us-east.modal.run`; `VITE_API_URL` is ignored (production still points it at
+  the v1 API). `VITE_DANCE_API_URL=off` hides live mode.
+- Draw a 1 to 25 km box (size shown live), POST `{bbox}` to `/dance`, poll `/dance/{id}` every 1.5 s, show the API's
+  message strings and progress as beats (with "takes about a minute or two"), then open `#/stage/live:{id}`.
+- Tested against the real API: a 3 x 3 km Iowa box, 22 passes, done in 96 s, stage view renders (moves, score strip).
+- `node scripts/mock_api.mjs` + `VITE_DANCE_API_URL=http://localhost:5299 npx vite` tests the flow offline.
 
 ## Verification
 
@@ -115,4 +119,5 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 - The map's story card covers part of the radar image at 1440 px; it can be minimized.
 - Explore's live drawing switches the globe to mercator and satellite imagery; there is no place search yet.
 - The repository link (https://github.com/saa938/sarstellar) is in the footer and About page; it 404s until the repo is public.
-- The constellation uses its synthetic fixture until `constellation.json` / `.bin` land (no code change needed).
+- The constellation reads the real `constellation.json` / `.bin` (200,000 hectares, 8 stages); the fixture remains only as
+  a fallback.
