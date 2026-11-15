@@ -1,7 +1,7 @@
 // Client for the job API (Task A7) and the static stories/scorecard files.
 // VITE_API_URL unset or empty -> mock mode: jobs resolve to the nearest fixture after a simulated 3 s.
 import type { Bbox, IsoDate, Job, Result, Scorecard, StoryIndexEntry } from "./types.ts";
-import savedExports from "../public/stories/exports.json";
+import savedExports from "./generated/storyExports.json";
 
 const MOCK_DURATION_MS = 3000;
 const MAX_POLL_FAILURES = 5;
