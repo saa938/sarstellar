@@ -259,6 +259,19 @@ def test_nifc_mask_repairs_invalid_geometry_and_accepts_features():
     assert got.any() and not got.all()
 
 
+def test_nifc_mask_survives_collapsed_pieces_from_server_side_generalising():
+    # WFIGS generalised with maxAllowableOffset returns slivers whose points are all identical.
+    # Beside a self-intersecting piece, make_valid raises "mixed-dimension" on such a sliver; the
+    # perimeter must still count (the bow-tie's two lobes cover the lower-left 3 x 3 blocks).
+    ring = _lonlat_box(500000, 5001000, 500600, 5001800)
+    bow = [ring[0], ring[2], ring[1], ring[3], ring[0]]
+    far = [ring[0][0] + 0.5, ring[0][1] + 0.5]  # well away from the bow-tie
+    dot = [[far] * 4]
+    multi = {"type": "MultiPolygon", "coordinates": [dot, [bow], dot]}
+    got = rs.nifc_mask(GRID, [multi])
+    assert got.any() and not got.all()
+
+
 def test_nifc_mask_empty_and_missing_geometry():
     assert not rs.nifc_mask(GRID, []).any()
     assert not rs.nifc_mask(GRID, [None, {"type": "Feature", "geometry": None}]).any()
@@ -308,11 +321,21 @@ def test_live_cdl_crop_marks_iowa_fields():
 
 @pytest.mark.live
 def test_live_nifc_mask_from_wfigs_kaiser_canyon():
+    import requests
+
     from sarstellar.grid import grid_for_bbox
 
+    url = (
+        "https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/"
+        "WFIGS_Interagency_Perimeters_YearToDate/FeatureServer/0/query"
+    )
+    params = {
+        "where": "UPPER(poly_IncidentName) LIKE '%KAISER CANYON%'",
+        "outSR": 4326,
+        "f": "geojson",
+    }
+    feats = requests.get(url, params=params, timeout=120).json()["features"]
+    assert feats, "WFIGS returned no Kaiser Canyon perimeter"  # the spike saw an invalid geometry
     bbox = [-119.3705, 48.0531, -118.7196, 48.3605]
-    perimeters = rs.wfigs_perimeters(bbox, date(2026, 7, 1), date(2026, 9, 30), min_acres=1000)
-    assert perimeters, "WFIGS returned no 2026 perimeters near Kaiser Canyon"
-    grid = grid_for_bbox(bbox, 32611)
-    mask = rs.nifc_mask(grid, [p["geometry"] for p in perimeters])
+    mask = rs.nifc_mask(grid_for_bbox(bbox, 32611), [f["geometry"] for f in feats])
     assert mask.mean() > 0.3
