@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/demo", "destination": "/map/demo/", "permanent": false },
+    { "source": "/demo/:path*", "destination": "/map/demo/:path*", "permanent": false },
+    { "source": "/scorecard.json", "destination": "/map/scorecard.json", "permanent": false },
+    { "source": "/stories/:path*", "destination": "/map/stories/:path*", "permanent": false }
+  ]
+}
