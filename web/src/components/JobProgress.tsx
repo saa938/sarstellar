@@ -155,7 +155,7 @@ export function JobProgress({ state, onCancel, onDismiss }: JobProgressProps) {
           </li>
         ))}
       </ol>
-      {state.message && (
+      {state.message && state.message !== STAGES[at] && (
         <p className="job-msg" aria-live="polite">
           {state.message}
         </p>
