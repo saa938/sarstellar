@@ -12,6 +12,27 @@
 
 **Spec:** `docs/superpowers/specs/2026-11-14-sarstellar-design.md`. Data facts: `docs/research/*.md`. Working reference code (insights only, do not import): `scripts/spikes/spike_lib.py`.
 
+## Current status — November 15, 2026
+
+This status supersedes the original schedule and unchecked implementation checklist below.
+
+| Work | Status |
+| --- | --- |
+| A1–A7 engine and API | Complete and deployed; real Kaiser analysis and all exports verified. |
+| A8 stories | Complete: three real pipeline results and 15 overlay PNGs, with provenance and date-count caveats. |
+| C1 site catalog | Complete under the later relaxed target: 254 sites; original 300-site target was not reached. |
+| C2 scorecard | Complete: 242 processed, 224 comparable, 60 held-out sites in 12 states. Twelve failures and 18 exclusions retained. No supported primary unsupervised fusion gain. |
+| B1, B3, B4, B6 | Existing components recovered from main and integrated; scorecard/method text updated to actual results. |
+| B2 map shell | Complete: recovered stopped Multica work, integrated the app, and verified clean desktop/mobile layouts and map interactions. |
+| B5 comparison views | Recovered stopped Multica work; before/after and synchronized L/C views implemented and tested. |
+| B7 deployment | Existing Vercel project and custom domain verified; production update in progress after passing frontend tests and build. |
+| D1 submission preparation | Draft 30-second script, six-slide outline, project description and Apache-2.0 license in `docs/submission/` and `LICENSE`. Recording and final event submission remain human steps. |
+| C3 and other stretch work | Deferred until the core demo and submission are safe, as originally required. |
+
+Backend work was pushed to `build/engine` at `73a4ffe`. The working branch also
+integrates the existing frontend from `main`. Continue with UI QA and deployment;
+do not tune the detectors on held-out results to manufacture an improvement.
+
 ## Global Constraints
 
 - Deadline: submitted by Sun 2026-11-15 15:00 PT (hard limit 17:00 PT).

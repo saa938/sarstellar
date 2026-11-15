@@ -140,7 +140,7 @@ export interface StoryIndexEntry {
 
 // ---- Scorecard (/scorecard.json, written by Task C2; `model` filled by C3) ----
 
-export type Detector = "L" | "C" | "L30" | "fused_fisher" | "fused_logistic";
+export type Detector = "L" | "C" | "L30" | "fused_fisher" | "fused_bonferroni" | "fused_logistic" | "learned_L" | "learned_C";
 
 export interface ScorecardClassRow {
   class: string;
@@ -154,6 +154,7 @@ export interface ScorecardClassRow {
   ci_high: number;
   n_ref: number;
   n_flags: number;
+  n_sites?: number;
 }
 
 export interface EqualRecallRow {
@@ -189,13 +190,27 @@ export interface ScorecardSite {
   bbox: Bbox;
   state: string;
   split: "train" | "holdout" | string;
+  status?: "done" | "error" | "excluded";
+  n_comparable_blocks?: number;
 }
 
 export interface Scorecard {
   generated_at: string;
   n_sites: number;
+  n_attempted?: number;
+  n_processed_sites?: number;
+  n_comparable_sites?: number;
+  n_train_sites?: number;
+  n_holdout_sites?: number;
+  status?: "complete" | "incomplete";
+  notes?: string;
+  failed_sites?: { id: string; error: string }[];
+  excluded_sites?: { id: string; reason: string }[];
+  attempted_sites?: ScorecardSite[];
+  learned_fusion?: FusionRow[];
+  bootstrap?: { n_draws: number; seed: number; unit: string; confidence: number };
   operating_point: { q: number; min_db: number };
-  stable_fa: Record<Detector, number>;
+  stable_fa: Partial<Record<Detector, number | null>>;
   classes: ScorecardClassRow[];
   equal_recall: EqualRecallRow[];
   fusion: FusionRow[];

@@ -1,4 +1,4 @@
-import { cleanup, render, screen, waitFor } from "@testing-library/react";
+import { cleanup, fireEvent, render, screen, waitFor } from "@testing-library/react";
 import { afterEach, describe, expect, it, vi } from "vitest";
 
 // MapLibre needs WebGL, which happy-dom lacks; the site map only needs to mount without throwing.
@@ -39,10 +39,39 @@ vi.mock("maplibre-gl", () => {
 
 import ScorecardPage from "./Scorecard.tsx";
 import { sampleScorecard } from "./scorecardSample.ts";
+import actualReport from "../../public/scorecard.json";
+import type { Scorecard } from "../types.ts";
 
 afterEach(cleanup);
 
 describe("Scorecard page", () => {
+  it("starts with pooled results and lets readers inspect a land-cover stratum", () => {
+    const report = actualReport as unknown as Scorecard;
+    render(<ScorecardPage data={report} />);
+    expect(screen.getAllByRole("img", { name: /AUPRC/ })).toHaveLength(report.classes.filter((row) => row.landcover === "all").length);
+    fireEvent.change(screen.getByRole("combobox", { name: "Land cover" }), { target: { value: "forest" } });
+    expect(screen.getAllByRole("img", { name: /AUPRC/ })).toHaveLength(report.classes.filter((row) => row.landcover === "forest").length);
+  });
+
+  it("renders the real paired report with actual counts, Bonferroni and reference caveats", () => {
+    const report = actualReport as unknown as Scorecard;
+    render(<ScorecardPage data={report} />);
+    const text = document.body.textContent ?? "";
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(
+      `On ${report.n_holdout_sites} held-out sites in ${report.holdout_states.length} states`,
+    );
+    expect(text).toContain(`${report.n_sites} eligible sites from ${report.n_attempted} attempted`);
+    expect(text).toContain(`${report.failed_sites!.length} failed and ${report.excluded_sites!.length} were excluded`);
+    expect(text).toContain("only 3 held-out flood sites");
+    expect(text).toContain("Bonferroni fusion");
+    expect(text).toContain("DSWx-S1 itself uses Sentinel-1");
+    expect(text).toContain("CDL marks cultivated land");
+    expect(text).toContain("at most 1.5%");
+    expect(screen.getByRole("heading", { name: "Learned fusion with matched training" })).toBeTruthy();
+    expect(text).toContain(report.notes);
+    expect(text).not.toContain("300+");
+  });
+
   it("scorecard renders from sample json", () => {
     render(<ScorecardPage data={sampleScorecard()} />);
 
@@ -60,7 +89,7 @@ describe("Scorecard page", () => {
     // Stable false-alarm rates.
     expect(screen.getByText("1.2%")).toBeTruthy();
     // Site map legend with train/holdout split.
-    expect(screen.getByText(/4 training sites/)).toBeTruthy();
+    expect(screen.getByText("4 training sites", { exact: true })).toBeTruthy();
     expect(screen.getByText(/4 held-out sites in GA, OR/)).toBeTruthy();
     // Reading guide; no rules-vs-model table while `model` is null.
     expect(screen.getByText("How to read this")).toBeTruthy();

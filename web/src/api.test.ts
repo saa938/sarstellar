@@ -99,6 +99,19 @@ describe("live API mode", () => {
     expect(result.overlays.change_png).toBe(`${API}/exports/abc/change.png`);
   });
 
+  it("prefixes relative overlay and export URLs with the full API base, path included", async () => {
+    vi.stubEnv("VITE_API_URL", `${API}/v1/`);
+    const overlays = { ...sampleResult().overlays, change_png: "/overlays/abc/change.png", l_png: "overlays/abc/l.png" };
+    const exports = { geotiff: "/exports/abc/change.tif", csv: "https://cdn.example.test/areas.csv", notebook: null };
+    vi.stubGlobal("fetch", vi.fn(async () => json(job("done", 1, "Done", sampleResult({ overlays, exports })))));
+
+    const result = await pollJob("abc", () => {}, 0);
+
+    expect(result.overlays.change_png).toBe(`${API}/v1/overlays/abc/change.png`);
+    expect(result.overlays.l_png).toBe(`${API}/v1/overlays/abc/l.png`);
+    expect(result.exports).toEqual({ geotiff: `${API}/v1/exports/abc/change.tif`, csv: "https://cdn.example.test/areas.csv", notebook: null });
+  });
+
   it("pollJob rejects with server message on error", async () => {
     const msg = "No calibrated NISAR passes cover this box between 2026-06-01 and 2026-10-31.";
     vi.stubGlobal("fetch", vi.fn(async () => json(job("error", 0.1, msg))));
