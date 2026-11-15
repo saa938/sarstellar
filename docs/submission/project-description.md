@@ -1,6 +1,6 @@
 # SARstellar: Radar Change Comparison
 
-Submission draft, November 15, 2026. [Application](https://www.sarstellar.earth/). [Public six-slide demo](https://www.sarstellar.earth/demo/) (publication pending). [Editable presentation](sarstellar-presentation-public.pptx). The source repository remains private by the user's choice. The approved Light-default release is live; the final selected-area workflow and public slide viewer still need production verification.
+Submission draft, November 15, 2026. [Application](https://www.sarstellar.earth/). [Public seven-slide demo](https://www.sarstellar.earth/demo/) (publication pending). [Editable presentation](sarstellar-presentation-public.pptx). The source repository remains private by the user's choice. The approved Light-default release is live; the final selected-area workflow and public slide viewer still need production verification.
 
 ## Project summary
 
