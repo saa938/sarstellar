@@ -5,6 +5,7 @@ import { loadScorecard } from "../api.ts";
 import type { Detector, Scorecard, ScorecardClassRow } from "../types.ts";
 import "./pages.css";
 import SiteMap, { SPLIT_COLORS } from "./SiteMap.tsx";
+import ScorecardAudit from "./ScorecardAudit.tsx";
 import {
   BAR_METRIC,
   BAR_METRIC_LABEL,
@@ -13,6 +14,7 @@ import {
   classLabel,
   classTitle,
   detectorInfo,
+  eligibleSites,
   fmt,
   fusionHeadline,
   groupClasses,
@@ -67,8 +69,10 @@ function ScorecardView({ sc }: { sc: Scorecard }) {
             {op && ` · default setting: false discovery rate q = ${op.q}, change of at least ${op.min_db} dB`}
           </p>
         </section>
-        <HowToRead />
         <FusionTable sc={sc} />
+        <ScorecardAudit sc={sc} />
+        <HowToRead />
+        {!!sc.learned_fusion?.length && <FusionTable sc={{ ...sc, fusion: sc.learned_fusion }} learned />}
         <ClassBars rows={sc.classes ?? []} />
         <EqualRecall sc={sc} />
         <StableFalseAlarms fa={sc.stable_fa} />
@@ -81,13 +85,14 @@ function ScorecardView({ sc }: { sc: Scorecard }) {
 
 function HowToRead() {
   return (
-    <section className="pg-card pg-howto">
-      <h2>How to read this</h2>
+    <details className="pg-card pg-howto">
+      <summary>How to read this</summary>
       <ul>
         <li>
-          Each site is a box about 10 km on a side with an independent reference map: optical vegetation-loss alerts
+          Each site is a box about 10 km on a side with a reference map: optical vegetation-loss alerts
           (OPERA DIST-ALERT-HLS), fire perimeters (NIFC), surface-water maps (OPERA DSWx) or crop maps (USDA CDL). These
-          references are other satellite products, not field surveys, and have errors of their own.
+          references are products, not field surveys. DSWx-S1 itself uses Sentinel-1, so flood labels are not
+          sensor-independent. CDL marks cultivated land, not a confirmed crop change.
         </li>
         <li>
           Scores are per 1-hectare block. <b>Precision</b>: of the blocks a radar flagged, the share the reference agrees
@@ -99,27 +104,29 @@ function HowToRead() {
           only; the comparisons here are measured on held-out states the models never saw.
         </li>
         <li>
-          Thin lines on the bars are 95% confidence intervals from resampling whole sites. When two intervals overlap a
-          lot, the difference may be noise.
+          Thin lines on the bars are 95% confidence intervals from resampling whole sites. The paired interval in the
+          fusion table tests the difference directly; overlapping individual bars are not that test.
         </li>
         <li>
-          <b>NISAR at 30 m</b> is NISAR degraded to Sentinel-1's resolution, so a gap between it and Sentinel-1 comes from
-          wavelength (24 cm vs 5.6 cm), not pixel size.
+          <b>NISAR at 30 m</b> samples NISAR on a coarser pixel lattice before block averaging. This checks sensitivity
+          to sampling; it does not isolate wavelength from timing, geometry, processing or other sensor differences.
         </li>
       </ul>
-    </section>
+    </details>
   );
 }
 
-function FusionTable({ sc }: { sc: Scorecard }) {
+function FusionTable({ sc, learned = false }: { sc: Scorecard; learned?: boolean }) {
   const rows = sc.fusion ?? [];
   if (rows.length === 0) return null;
   return (
     <section className="pg-card">
-      <h2>Does combining both radars help?</h2>
+      <h2>{learned ? "Learned fusion with matched training" : "Does combining both radars help?"}</h2>
       <p className="pg-note">
         Change in {BAR_METRIC_LABEL} when NISAR and Sentinel-1 are combined, compared with the better single radar for
-        each change type, on held-out states.
+        each change type, on held-out states. Methods are selected on training states before evaluation.
+        {learned ? " These models all receive the same training labels; gains cannot be attributed to extra supervision alone."
+          : " The primary comparison uses Fisher or Bonferroni fusion; learned models are shown separately."}
       </p>
       <div className="pg-scroll">
         <table className="pg-table">
@@ -161,11 +168,20 @@ function fusionMethod(d: Detector): string {
 }
 
 function ClassBars({ rows }: { rows: ScorecardClassRow[] }) {
-  const groups = groupClasses(rows);
+  const [landcover, setLandcover] = useState("all");
+  const pooled = rows.some((row) => row.landcover === "all");
+  const covers = [...new Set(rows.map((row) => row.landcover))].filter((cover) => cover !== "all").sort();
+  const groups = groupClasses(landcover === "all" && !pooled ? rows : rows.filter((row) => row.landcover === landcover));
   if (groups.length === 0) return null;
   return (
     <section className="pg-card">
       <h2>Detection quality by change type</h2>
+      {covers.length > 0 && <label className="pg-filter">Land cover
+        <select value={landcover} onChange={(event) => setLandcover(event.target.value)}>
+          <option value="all">{pooled ? "All land covers (pooled)" : "All available land covers"}</option>
+          {covers.map((cover) => <option key={cover} value={cover}>{cover.replace(/_/g, " ")}</option>)}
+        </select>
+      </label>}
       <p className="pg-note">
         {BAR_METRIC_LABEL} per radar on held-out states, with 95% intervals.{" "}
         <Swatch color={detectorInfo("L").color} /> NISAR, <Swatch color={detectorInfo("C").color} /> Sentinel-1,{" "}
@@ -286,14 +302,16 @@ function EqualRecall({ sc }: { sc: Scorecard }) {
 }
 
 function StableFalseAlarms({ fa }: { fa: Scorecard["stable_fa"] | undefined }) {
-  const rows = DETECTORS.filter((d) => isNum(fa?.[d])).map((d) => ({ d, v: fa![d] }));
+  const rows = DETECTORS.flatMap((d) => isNum(fa?.[d]) ? [{ d, v: fa![d] as number }] : []);
   if (rows.length === 0) return null;
   const scale = Math.max(0.02, ...rows.map((r) => r.v));
   return (
     <section className="pg-card">
       <h2>False alarms on stable ground</h2>
       <p className="pg-note">
-        Share of 1-hectare blocks flagged as changed at control sites where nothing changed, at the default setting.
+        Share of 1-hectare blocks flagged at held-out stable control sites, at each detector's operating point.
+        The benchmark target is at most 1.5%; rates above it remain visible. A 5% FDR setting does not guarantee a
+        1.5% stable-ground false-alarm rate. Logistic fusion uses a threshold calibrated on training controls.
       </p>
       {rows.map(({ d, v }) => {
         const info = detectorInfo(d);
@@ -316,7 +334,7 @@ function StableFalseAlarms({ fa }: { fa: Scorecard["stable_fa"] | undefined }) {
 }
 
 function Sites({ sc }: { sc: Scorecard }) {
-  const sites = sc.sites ?? [];
+  const sites = eligibleSites(sc);
   if (sites.length === 0) return null;
   const { nSites: nHeld, states } = holdoutSummary(sc);
   const nTrain = sites.length - nHeld;

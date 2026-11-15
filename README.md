@@ -5,6 +5,25 @@ C-band on a shared one-hectare grid. The Python engine searches calibrated radar
 passes, reads windowed data, tests for change, groups changed blocks, and exports
 maps and evidence. A Modal API serves live analyses; saved stories work offline.
 
+[Open the app](https://www.sarstellar.earth/) ·
+[Measured scorecard](web/public/scorecard.json) ·
+[Demo script and submission draft](docs/submission/demo-script.md)
+
+The web app includes the change map, before/after swipe, synchronized L/C views,
+evidence panels, a pass timeline, live box analysis, and the measured scorecard.
+For local web development, use Node 22.12 or newer:
+
+```powershell
+cd web
+npm ci
+$env:VITE_API_URL = 'https://tejas-16842--sarstellar-web.us-east.modal.run'
+npm run dev
+```
+
+`npm test` runs the frontend checks; `npm run build` creates the static site.
+Vercel builds `web/` from GitHub's `main` branch with the same API URL configured.
+When that environment variable is absent, drawn boxes use disclosed saved examples.
+
 Requires Python 3.11 or newer. From the repository root, using PowerShell:
 
 ```powershell
