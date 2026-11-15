@@ -1,19 +1,24 @@
 """Notebook export: a reproducible .ipynb for one analysis.
 
-`build(bbox, granule_urls, dates)` returns the bytes of a Jupyter notebook that installs
-`sarstellar` from the repo and calls `run_box` on the same box and dates, so anyone can re-run the
-numbers they saw in the app. The notebook carries no credentials: reading NISAR and Sentinel-1
-data needs the reader's own free NASA Earthdata login.
+`build(bbox, granule_urls, dates)` returns a notebook carrying the installed engine's Python
+source and default dependency requirements. It does not need an unpublished Git branch to
+repeat an analysis. The notebook carries no credentials: reading NISAR and Sentinel-1 data
+needs the reader's own free NASA Earthdata login.
 """
 
 from __future__ import annotations
 
+import base64
+import hashlib
+import io
+import re
+import zipfile
 from datetime import date, datetime
+from importlib import metadata
+from pathlib import Path
 
 import nbformat
 from nbformat import v4
-
-REPO_URL = "git+https://github.com/saa938/sarstellar.git"
 
 _INTRO = """# SARstellar: re-run this analysis
 
@@ -25,7 +30,67 @@ areas of 3 ha or more), cause rules, and plain-language text.
 Put it in `~/.netrc` (on Windows `~/_netrc`) as a `urs.earthdata.nasa.gov` entry, or set the
 `EARTHDATA_USERNAME` and `EARTHDATA_PASSWORD` environment variables. Set `ANTHROPIC_API_KEY` if
 you want Claude to word the explanations; without it the notebook uses fixed templates with the
-same numbers. Reading a box takes a few minutes."""
+same numbers. Reading a box takes a few minutes.
+
+The engine source used to export this notebook is embedded below, with a SHA-256 checksum.
+The setup cell loads that copy instead of downloading a Git branch. Install the listed runtime
+dependencies once; if they are already installed, skip the dependency-install cell. The source
+and parameters are captured, but NASA data and reference products may later be reprocessed.
+`GRANULE_URLS` records the original inputs; `run_box` searches the catalog again."""
+
+_BOOTSTRAP = '''import base64
+import hashlib
+import importlib
+import io
+from pathlib import Path, PurePosixPath
+import sys
+import tempfile
+import zipfile
+
+archive = base64.b64decode(SOURCE_ARCHIVE_B64, validate=True)
+if hashlib.sha256(archive).hexdigest() != SOURCE_SHA256:
+    raise ValueError("Embedded SARstellar source checksum does not match")
+SOURCE_DIR_HANDLE = tempfile.TemporaryDirectory(prefix="sarstellar-source-")
+SOURCE_ROOT = Path(SOURCE_DIR_HANDLE.name)
+with zipfile.ZipFile(io.BytesIO(archive)) as package:
+    for member in package.infolist():
+        path = PurePosixPath(member.filename)
+        if (path.is_absolute() or ".." in path.parts or "\\\\" in member.orig_filename
+                or ":" in member.filename
+                or not path.parts or path.parts[0] != "sarstellar" or path.suffix != ".py"):
+            raise ValueError("Unsafe path in embedded source archive")
+        target = SOURCE_ROOT.joinpath(*path.parts)
+        target.parent.mkdir(parents=True, exist_ok=True)
+        target.write_bytes(package.read(member))
+sys.path.insert(0, str(SOURCE_ROOT))
+for name in list(sys.modules):
+    if name == "sarstellar" or name.startswith("sarstellar."):
+        del sys.modules[name]
+importlib.invalidate_caches()
+from sarstellar.pipeline import run_box
+print("Loaded embedded SARstellar engine", SOURCE_SHA256[:12])
+'''
+
+
+def _source_archive() -> bytes:
+    """Only package Python files, in deterministic order, with no filesystem paths or secrets."""
+    root = Path(__file__).resolve().parent
+    stream = io.BytesIO()
+    with zipfile.ZipFile(stream, "w", compression=zipfile.ZIP_DEFLATED) as archive:
+        for source in sorted(root.rglob("*.py")):
+            if source.is_symlink():
+                continue
+            name = "sarstellar/" + source.relative_to(root).as_posix()
+            info = zipfile.ZipInfo(name, date_time=(1980, 1, 1, 0, 0, 0))
+            info.compress_type = zipfile.ZIP_DEFLATED
+            archive.writestr(info, source.read_bytes())
+    return stream.getvalue()
+
+
+def _runtime_requirements() -> list[str]:
+    """Published package metadata supplies default requirements; optional extras stay optional."""
+    requirements = metadata.requires("sarstellar") or []
+    return [r for r in requirements if not re.search(r"\bextra\b", r.partition(";")[2])]
 
 _SUMMARY = """print(result.message or "OK")
 print("NISAR track", result.nisar["track"], result.nisar["direction"], "dates", result.nisar["dates"])
@@ -63,6 +128,20 @@ def build(bbox, granule_urls, dates=None) -> bytes:
     box = [float(v) for v in bbox]
     span = None if dates is None else [_iso(d) for d in dates]
     urls = [str(u) for u in granule_urls]
+    archive = _source_archive()
+    digest = hashlib.sha256(archive).hexdigest()
+    requirements = _runtime_requirements()
+    install = (
+        "# Optional: pip install the default runtime dependencies (no Git checkout needed).\n"
+        "import subprocess\nimport sys\n"
+        f"RUNTIME_REQUIREMENTS = {requirements!r}\n"
+        'subprocess.check_call([sys.executable, "-m", "pip", "install", *RUNTIME_REQUIREMENTS])'
+    )
+    setup = (
+        f"SOURCE_SHA256 = {digest!r}\n"
+        f"SOURCE_ARCHIVE_B64 = {base64.b64encode(archive).decode('ascii')!r}\n"
+        + _BOOTSTRAP
+    )
     params = (
         "# Parameters (edit these to analyse another box)\n"
         f"BBOX = {box!r}  # west, south, east, north (lon/lat, at most 20 km a side)\n"
@@ -78,7 +157,8 @@ def build(bbox, granule_urls, dates=None) -> bytes:
     )
     cells = [
         v4.new_markdown_cell(_INTRO),
-        v4.new_code_cell(f"%pip install -q {REPO_URL}"),
+        v4.new_code_cell(install, metadata={"tags": ["install-dependencies"]}),
+        v4.new_code_cell(setup, metadata={"tags": ["embedded-source"]}),
         v4.new_code_cell(params),
         v4.new_code_cell(run),
         v4.new_code_cell(_SUMMARY),
@@ -87,5 +167,8 @@ def build(bbox, granule_urls, dates=None) -> bytes:
     nb = v4.new_notebook(cells=cells)
     nb.metadata["kernelspec"] = {"display_name": "Python 3", "language": "python", "name": "python3"}
     nb.metadata["language_info"] = {"name": "python"}
+    nb.metadata["sarstellar"] = {"source_sha256": digest, "source_format": "zip-python-v1",
+                                 "runtime_requirements": requirements,
+                                 "provenance": "Installed engine source at export time"}
     nbformat.validate(nb)
     return nbformat.writes(nb).encode("utf-8")

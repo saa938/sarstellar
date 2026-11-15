@@ -42,6 +42,8 @@ US_LAT = (17.0, 72.0)
 KILL_MESSAGE = "Live analysis is paused; stories and scorecard still work."
 RATE_MESSAGE = "Too many analyses from your address in the last hour; try again later."
 DAILY_MESSAGE = "The daily limit of live analyses has been reached; stories and scorecard still work."
+# Bump when result/export semantics change. Existing job IDs remain readable.
+CACHE_REVISION = "source-notebook-v1"
 
 _JOB_ID = re.compile(r"[0-9a-f]{16}")
 _EXPORT_TYPES = {
@@ -160,7 +162,7 @@ def create_app(
     def cache_key(bbox: list[float], dates: list[str] | None) -> str:
         box = ",".join(f"{round(v, 4):.4f}" for v in bbox)
         span = "|".join(dates) if dates else f"default|{_day(now())}"  # "last 12 months" moves daily
-        return f"cache:{box}|{span}"
+        return f"cache:{CACHE_REVISION}:{box}|{span}"
 
     def reuse(key: str) -> dict | None:
         job_id = store.get(key)
