@@ -5,6 +5,8 @@ interface Props {
   children?: ReactNode;
   variant?: "overlay" | "solid";
   className?: string;
+  /** hide secondary links (used on the stage page, where the stage switcher needs the room) */
+  compact?: boolean;
 }
 
 const LINKS = [
@@ -13,6 +15,7 @@ const LINKS = [
   { href: "#/moves", label: "Field guide", id: "moves" },
   { href: "#/constellation", label: "Constellation", id: "constellation" },
   { href: "#/proof", label: "How we know", id: "proof" },
+  { href: "#/about", label: "About", id: "about" },
 ];
 
 export function Logo() {
@@ -32,13 +35,13 @@ export function Logo() {
   );
 }
 
-export function Nav({ active, children, variant = "solid", className = "" }: Props) {
+export function Nav({ active, children, variant = "solid", className = "", compact = false }: Props) {
   return (
     <header className={`nav nav--${variant} ${className}`}>
       <Logo />
       <div className="nav__mid">{children}</div>
       <nav className="nav__links" aria-label="Sections">
-        {LINKS.map((l) => (
+        {LINKS.filter((l) => !compact || !["constellation", "about"].includes(l.id)).map((l) => (
           <a key={l.id} href={l.href} className={active === l.id ? "is-on" : ""}>
             {l.label}
           </a>

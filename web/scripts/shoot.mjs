@@ -86,6 +86,7 @@ const SHOTS = [
   { id: "proof", path: "#/proof", wait: 1500 },
   { id: "explore", path: "#/explore", wait: 4000 },
   { id: "constellation", path: "#/constellation", wait: 3000 },
+  { id: "about", path: "#/about", wait: 1500 },
 ];
 
 const browser = await chromium.launch({

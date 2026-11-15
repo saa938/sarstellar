@@ -39,11 +39,11 @@ export default function StagePage({ id, query }: { id: string; query: URLSearchP
   const stages = index?.index.stages ?? [];
   return (
     <div className="stage-page">
-      <Nav active="explore">
+      <Nav active="explore" compact>
         <div className="stage-switch" role="navigation" aria-label="Stages">
           {stages.map((s) => (
-            <a key={s.id} href={`#/stage/${s.id}`} className={s.id === id ? "is-on" : ""}>
-              {s.name}
+            <a key={s.id} href={`#/stage/${s.id}`} className={s.id === id ? "is-on" : ""} title={`${s.name}, ${s.country}`}>
+              {shortName(s.name)}
             </a>
           ))}
         </div>
@@ -588,4 +588,10 @@ function FloorLegend(props: {
 function highlightLabel(label: string | undefined, n: number) {
   if (label && MOVE_NAMES[label]) return `${n} hectares doing ${MOVE_NAMES[label]}`;
   return label || `${n} highlighted hectares`;
+}
+
+function shortName(name: string) {
+  const first = name.split(",")[0].trim();
+  if (first.length <= 16) return first;
+  return first.split(/\s+/).slice(0, 2).join(" ");
 }

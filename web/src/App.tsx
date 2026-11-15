@@ -8,6 +8,7 @@ const Proof = lazy(() => import("./pages/Proof"));
 const Explore = lazy(() => import("./pages/Explore"));
 const Present = lazy(() => import("./pages/Present"));
 const Constellation = lazy(() => import("./pages/Constellation"));
+const About = lazy(() => import("./pages/About"));
 
 export default function App() {
   const route = useRoute();
@@ -24,6 +25,7 @@ export default function App() {
       explore: "SARstellar: all stages",
       constellation: "SARstellar: the constellation of every dance",
       present: "SARstellar",
+      about: "SARstellar: about and credits",
     };
     document.title = titles[route.name] ?? "SARstellar";
   }, [route.name]);
@@ -37,6 +39,7 @@ export default function App() {
       {route.name === "explore" && <Explore />}
       {route.name === "present" && <Present query={route.query} />}
       {route.name === "constellation" && <Constellation />}
+      {route.name === "about" && <About />}
       {route.name === "notfound" && <Landing />}
     </Suspense>
   );

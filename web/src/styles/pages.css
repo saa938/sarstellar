@@ -2178,3 +2178,70 @@
     grid-template-columns: 1fr 1fr 40px;
   }
 }
+
+/* ---------- about + footer repo */
+
+.footer__repo {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 6px;
+  font-size: 13px;
+  color: var(--ink) !important;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+}
+
+.footer__repo:hover {
+  border-color: var(--line-3);
+}
+
+.about__steps {
+  max-width: 860px;
+  margin-top: 0;
+}
+
+.about__sec {
+  padding: 48px 0 8px;
+}
+
+.credits {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.credit {
+  display: grid;
+  gap: 4px;
+  padding: 16px 18px;
+  border-radius: 14px;
+  border: 1px solid var(--line);
+  text-decoration: none;
+  transition: border-color 0.25s, background 0.25s;
+}
+
+.credit:hover {
+  border-color: var(--line-3);
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.credit strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 22px;
+}
+
+.credit span {
+  font-size: 13.5px;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+
+@media (max-width: 760px) {
+  .credits {
+    grid-template-columns: 1fr;
+  }
+}
