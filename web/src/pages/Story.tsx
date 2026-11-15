@@ -359,9 +359,6 @@ function Applications({ doc, nPlaces }: { doc: StoryDoc; nPlaces: number }) {
           <a className="btn btn--primary" href="#/places">
             Explore the {nPlaces} places <span className="arrow">→</span>
           </a>
-          <a className="btn btn--film" href="/demo/">
-            Watch the 30-second film
-          </a>
         </div>
       </div>
     </section>
