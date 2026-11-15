@@ -334,3 +334,86 @@ html.presenting body {
   color: var(--ink-3);
   letter-spacing: 0.02em;
 }
+
+.pscene__sub {
+  margin: -0.6vw 0 1.4vw;
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: 1.9vw;
+  color: var(--accent-2);
+}
+
+/* proof claims */
+.pscene__proof .eyebrow {
+  opacity: 0;
+  transition: opacity 0.8s var(--ease);
+}
+
+.pscene__proof .eyebrow.is-on {
+  opacity: 1;
+}
+
+.pscene__proof {
+  width: 84vw;
+  opacity: 1;
+  transform: none;
+}
+
+.pscene__claims {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 3.2vw;
+  margin-top: 2.4vw;
+}
+
+.pscene__claim {
+  display: grid;
+  align-content: start;
+  gap: 1vw;
+  padding-top: 1.6vw;
+  border-top: 1px solid rgba(242, 208, 138, 0.35);
+  opacity: 0;
+  transform: translateY(1.2vw);
+  transition: opacity 0.9s var(--ease), transform 1.2s var(--ease);
+}
+
+.pscene__claim.is-on {
+  opacity: 1;
+  transform: none;
+}
+
+.pscene__claim strong {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 8.4vw;
+  line-height: 0.85;
+  color: var(--accent-2);
+  text-shadow: 0 0 70px rgba(242, 208, 138, 0.3);
+}
+
+.pscene__claim span {
+  font-family: var(--serif);
+  font-size: 2.05vw;
+  line-height: 1.14;
+  color: var(--ink);
+}
+
+.pscene__claim em {
+  font-style: normal;
+  font-family: var(--mono);
+  font-size: 0.8vw;
+  color: var(--ink-3);
+}
+
+.pscene__span {
+  white-space: nowrap;
+}
+
+.pscene__beats {
+  gap: 0.24vw;
+}
+
+.pscene__beats i {
+  width: 0.36vw;
+  height: 0.36vw;
+}
