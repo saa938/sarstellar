@@ -7,6 +7,8 @@ const LINKS = [
   { href: "#/", label: "Story", id: "story" },
   { href: "#/places", label: "Places", id: "places" },
   { href: "#/method", label: "Method", id: "method" },
+  { href: "/map/", label: "Analyze", id: "map" },
+  { href: "/map/#/scorecard", label: "Benchmark", id: "benchmark" },
 ];
 
 export function Logo() {
