@@ -148,6 +148,11 @@ def test_job_roundtrip():
     assert Job.from_json(queued.to_json()) == queued
 
 
+def test_job_json_keys():
+    job = Job(job_id="j1", status="running", progress=0.5, message="working", result=None)
+    assert set(job.to_json()) == {"job_id", "status", "progress", "message", "result"}
+
+
 def test_grid_shape():
     assert Grid(32610, 0, 1000, 0, 2000).shape == (20, 10)
 

@@ -39,6 +39,9 @@ where = ["core"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
+# Keep tmp_path folders inside the repo (git-ignored) instead of the shared per-user
+# temp folder, which can be unreadable on some machines.
+addopts = "--basetemp=.pytest_tmp"
 
 [tool.ruff]
 line-length = 100
