@@ -156,7 +156,9 @@ def apply_to_stage(model, cube: dict) -> dict:
         move[is_melt] = idx["melt"]
         conf[valid] = 100
         beat[:, valid] = idx["still"]
-        beat[(dev <= -2.0) & is_melt[None, :]] = idx["melt"]
+        # the ice surface swings both ways through the melt season (wet snow absorbs, rough bare
+        # ice and refrozen crust scatter): a melt beat is any >= 3 dB departure from normal
+        beat[(np.abs(dev) >= 3.0) & is_melt[None, :]] = idx["melt"]
         return {"move": move, "conf": conf, "beat_move": beat, "split": None,
                 "features": None}
     hv = cube["blocks_HV"].astype("float32")

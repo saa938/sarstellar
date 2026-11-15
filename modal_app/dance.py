@@ -35,6 +35,24 @@ image = (
 app = modal.App("sarstellar-dance", image=image)
 volume = modal.Volume.from_name("sarstellar-data", create_if_missing=True)
 earthdata = modal.Secret.from_name("earthdata")
+live_jobs = modal.Dict.from_name("sarstellar-live-jobs", create_if_missing=True)
+import os as _os  # noqa: E402
+
+import threading as _threading  # noqa: E402
+
+_COMMIT_LOCK = _threading.Lock()
+
+
+def _commit() -> None:
+    """Volume commits from concurrent inputs in one container, one at a time."""
+    with _COMMIT_LOCK:
+        volume.commit()
+
+
+LIVE_KILL = _os.environ.get("SARSTELLAR_KILL", "") if modal.is_local() else ""
+LIVE_MAX_KM = 25.0
+LIVE_PER_IP_HOUR = 8
+LIVE_PER_DAY = 200
 
 
 @app.function(secrets=[earthdata], timeout=900, retries=2, cpu=2.0, memory=8192,
@@ -82,7 +100,8 @@ def _render(images: dict, out_dir: Path, hh_only: bool) -> dict:
     (out_dir / "img").mkdir(parents=True, exist_ok=True)
     files = []
     if hh_only:
-        lo, hi = stretch_of("HH", hh)
+        lo, hi = -20.0, -2.0
+        stretch.update({"HH": [lo, hi], "scheme": "HH ice ramp"})
         for i in range(t):
             s = scale(hh[i], lo, hi)
             alpha = np.isfinite(hh[i])
@@ -95,18 +114,21 @@ def _render(images: dict, out_dir: Path, hh_only: bool) -> dict:
             Image.fromarray(rgba, "RGBA").save(out_dir / name, "WEBP", quality=82, method=4)
             files.append(name)
     else:
+        # R = HH, G = HV, B = HH on fixed dB ranges (comparable across stages): open water black,
+        # vegetation green, bare soil dim violet, double bounce (cities, flooded trees, rice) pink
+        # to white.
         hv = to_db(images["HV"])
-        ratio = hh - hv
-        lo_h, hi_h = stretch_of("HH", hh)
-        lo_v, hi_v = stretch_of("HV", hv)
-        lo_r, hi_r = stretch_of("HH_HV", ratio)
+        lo_h, hi_h = -25.0, -2.0
+        lo_v, hi_v = -32.0, -11.0
+        stretch.update({"HH": [lo_h, hi_h], "HV": [lo_v, hi_v], "scheme": "R=HH G=HV B=HH"})
         for i in range(t):
             alpha = np.isfinite(hh[i]) & np.isfinite(hv[i])
-            rgb = [np.nan_to_num(scale(a, lo, hi) * 255) for a, lo, hi in
-                   ((hh[i], lo_h, hi_h), (hv[i], lo_v, hi_v), (ratio[i], lo_r, hi_r))]
-            rgba = np.dstack([*rgb, alpha * 255]).astype("uint8")
+            r = np.nan_to_num(scale(hh[i], lo_h, hi_h) ** 0.9 * 255)
+            g = np.nan_to_num(scale(hv[i], lo_v, hi_v) ** 0.85 * 255)
+            b = np.nan_to_num(scale(hh[i], lo_h, hi_h) ** 1.1 * 235)
+            rgba = np.dstack([r, g, b, alpha * 255]).astype("uint8")
             name = f"img/{i:03d}.webp"
-            Image.fromarray(rgba, "RGBA").save(out_dir / name, "WEBP", quality=82, method=4)
+            Image.fromarray(rgba, "RGBA").save(out_dir / name, "WEBP", quality=84, method=4)
             files.append(name)
     # thumbnail from the date with the most valid pixels in the second half of the series
     valid_counts = [(int(np.isfinite(hh[i]).sum()), i) for i in range(t // 2, t)]
@@ -117,9 +139,11 @@ def _render(images: dict, out_dir: Path, hh_only: bool) -> dict:
     return {"files": files, "stretch": stretch, "nx": nx, "ny": ny, "thumb_index": best}
 
 
-@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=3600, cpu=4.0,
-              memory=32768, max_containers=40)
-def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
+def run_stage(stage_id: str, spec: dict, out: Path, progress=None) -> dict:
+    """The whole stage pipeline: search, parallel reads, composite, cube + images + stage.json.
+
+    `progress(fraction, message)` is called as passes arrive (the live API shows it).
+    """
     import time
     from collections import defaultdict
     from dataclasses import asdict
@@ -131,39 +155,38 @@ def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
     from sarstellar.dance import composite, probe_epsg, stage_stacks
     from sarstellar.grid import grid_for_bbox, lonlat_corners
 
-    t0 = time.time()
-    out = Path(DATA) / "dance" / stage_id
-    if render_only:
-        info = json.loads((out / "stage.json").read_text())
-        z = np.load(out / "image.npz")
-        images = {k[4:]: z[k] for k in z.files if k.startswith("img_")}
-        info["render"] = _render(images, out, hh_only="HV" not in images)
-        (out / "stage.json").write_text(json.dumps(info, indent=1))
-        volume.commit()
-        return {"id": stage_id, "rendered": len(info["render"]["files"])}
+    def tick(frac, msg):
+        if progress:
+            progress(frac, msg)
 
+    t0 = time.time()
     bbox = spec["bbox"]
     start = date.fromisoformat(spec.get("start", START))
     end = date.fromisoformat(spec.get("end", END))
+    tick(0.02, "Searching NASA's archive for NISAR passes")
     stacks = stage_stacks(bbox, start, end)
     if spec.get("mode"):
         stacks = [s for s in stacks if s.mode == spec["mode"]]
     if spec.get("track"):
         stacks = [s for s in stacks if s.track == spec["track"]]
     if not stacks:
-        return {"id": stage_id, "error": "no usable NISAR stack"}
+        return {"id": stage_id, "error": "NISAR has no calibrated passes over this box yet."}
     st = stacks[0]
     epsg = probe_epsg(st.granules[0].url)
     grid = grid_for_bbox(bbox, epsg)
     gd = asdict(grid)
     by_date = st.granules_by_date()
     calls = [(d, g) for d, gs in by_date.items() for g in gs]
-    results = list(read_granule.starmap(
-        [(g.url, gd, float(spec.get("img_res", 20.0))) for _, g in calls],
-        return_exceptions=True))
+    tick(0.08, f"Reading {len(calls)} NISAR passes in parallel")
     per_date: dict = defaultdict(list)
     errors = []
-    for (d, g), r in zip(calls, results):
+    done = 0
+    args = [(g.url, gd, float(spec.get("img_res", 20.0))) for _, g in calls]
+    by_url = {g.url: (d, g) for d, g in calls}
+    for (url, r) in zip([a[0] for a in args], read_granule.starmap(args, return_exceptions=True)):
+        done += 1
+        d, g = by_url[url]
+        tick(0.08 + 0.72 * done / len(calls), f"Read pass {done} of {len(calls)} ({d})")
         if isinstance(r, BaseException):
             errors.append({"granule": g.ur, "error": f"{type(r).__name__}: {str(r)[:200]}"})
             continue
@@ -187,16 +210,16 @@ def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
         dates.append(d)
         comps.append(c)
     if len(dates) < 2:
-        return {"id": stage_id, "error": "fewer than 2 usable dates", "errors": errors[:20],
-                "stacks": [s.summary() for s in stacks[:5]]}
+        return {"id": stage_id, "error": "Fewer than two usable NISAR passes over this box.",
+                "errors": errors[:20], "stacks": [s.summary() for s in stacks[:5]]}
 
+    tick(0.82, "Composing the dance")
     pols = [p for p in ("HH", "HV", "VV") if all(p in c["blocks"] for c in comps)]
     cube = {f"blocks_{p}": np.stack([c["blocks"][p] for c in comps]).astype("float16") for p in pols}
     cube["valid_frac"] = np.stack([np.round(c["blocks"]["valid_frac"] * 100)
                                    for c in comps]).astype("uint8")
     cube["dates"] = np.array([str(d) for d in dates])
-    shapes = {c["image"]["HH"].shape for c in comps}
-    img_shape = max(shapes)  # all equal in practice; pad any smaller one
+    img_shape = max({c["image"]["HH"].shape for c in comps})
     images = {}
     for p in pols:
         arr = np.zeros((len(comps), *img_shape), dtype="uint8")
@@ -213,21 +236,41 @@ def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
         "other_stacks": [s.summary() for s in stacks[1:6]],
         "dates": [str(d) for d in dates], "pols": pols,
         "metas": [m for c in comps for m in c["metas"]],
-        "errors": errors,
-        "img_shape": list(img_shape),
+        "errors": errors, "img_shape": list(img_shape),
         "img_res_m": comps[0]["metas"][0]["img_res_m"],
     }
+    tick(0.88, "Rendering radar images")
     info["render"] = _render({p: images[f"img_{p}"] for p in pols}, out, hh_only="HV" not in pols)
     info["elapsed_s"] = round(time.time() - t0, 1)
     (out / "stage.json").write_text(json.dumps(info, indent=1))
-    volume.commit()
     return {"id": stage_id, "n_dates": len(dates), "pols": pols, "shape": [ny, nx],
             "img": list(img_shape), "stack": st.summary(), "n_errors": len(errors),
-            "elapsed_s": info["elapsed_s"]}
+            "elapsed_s": info["elapsed_s"], "n_reads": len(calls)}
 
 
-@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=1800, cpu=2.0, memory=8192,
-              max_containers=120)
+@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=3600, cpu=8.0,
+              memory=65536, max_containers=2)
+@modal.concurrent(max_inputs=10)
+def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
+    import numpy as np
+
+    out = Path(DATA) / "dance" / stage_id
+    if render_only:
+        info = json.loads((out / "stage.json").read_text())
+        z = np.load(out / "image.npz")
+        images = {k[4:]: z[k] for k in z.files if k.startswith("img_")}
+        info["render"] = _render(images, out, hh_only="HV" not in images)
+        (out / "stage.json").write_text(json.dumps(info, indent=1))
+        _commit()
+        return {"id": stage_id, "rendered": len(info["render"]["files"])}
+    res = run_stage(stage_id, spec, out)
+    _commit()
+    return res
+
+
+@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=3600, cpu=8.0,
+              memory=32768, max_containers=3)
+@modal.concurrent(max_inputs=40)
 def ref_site_job(site: dict) -> dict:
     """Full series for one scorecard reference site, on exactly the scorecard's block grid."""
     from collections import defaultdict
@@ -281,7 +324,7 @@ def ref_site_job(site: dict) -> dict:
             pair_dates=np.array(meta["pair_dates"]),
             **{f"blocks_{p}": np.stack([c["blocks"][p] for c in comps]).astype("float16")
                for p in pols})
-        volume.commit()
+        _commit()
         return {"id": sid, "n_dates": len(dates), "shape": list(grid.shape), "pols": pols,
                 "n_err": n_err}
     except Exception as exc:  # noqa: BLE001 - one bad site never stops the batch
@@ -332,7 +375,7 @@ def build_ref_table(max_still_per_site: int = 20000) -> dict:
         parts.append(df)
     table = pd.concat(parts, ignore_index=True)
     table.to_parquet(Path(DATA) / "dance_ref" / "train.parquet")
-    volume.commit()
+    _commit()
     counts = table.groupby(["split", "move"]).size().unstack(fill_value=0).to_dict()
     return {"rows": len(table), "sites": int(table["site"].nunique()), "counts": counts,
             "notes": notes[:40], "n_notes": len(notes)}
@@ -353,7 +396,7 @@ def train_moves(n_boot: int = 300) -> dict:
     d = Path(DATA) / "dance_ref"
     (d / "moves_model.pkl").write_bytes(pickle.dumps(model))
     (d / "moves_report.json").write_text(json.dumps(report, indent=1, default=float))
-    volume.commit()
+    _commit()
     main = report["main"]
     return {c: {k: main[c][k] for k in ("precision", "recall", "f1", "auprc", "n")}
             for c in report["classes"]} | {"macro_f1_moves": main["macro_f1_moves"]}
@@ -393,7 +436,7 @@ def apply_stage(stage_id: str, headline: str) -> dict:
                         beat_move=res["beat_move"], counts=json.dumps(counts), **extra)
     hl = pick_highlights(res, cube, headline)
     (src / "highlight.json").write_text(json.dumps({"blocks": hl, "label": headline}))
-    volume.commit()
+    _commit()
     return {"id": stage_id, "counts": counts, "highlights": len(hl)}
 
 
@@ -431,7 +474,7 @@ def stage_refs(stage_id: str, kind: str) -> dict:
     except Exception as exc:  # noqa: BLE001
         return {"id": stage_id, "error": f"{type(exc).__name__}: {str(exc)[:200]}"}
     np.savez_compressed(src / "refs.npz", **out)
-    volume.commit()
+    _commit()
     return {"id": stage_id, "kind": kind,
             "known": {k: float(np.isfinite(v).mean()) for k, v in out.items()}}
 
@@ -480,8 +523,154 @@ def constellation(per_stage: int = 25000, seed: int = 7) -> dict:
     np.savez_compressed(out, xy=emb.astype("float32"), stage=M[:, 0].astype("uint8"),
                         block=M[:, 1].astype("uint32"), move=M[:, 2].astype("uint8"),
                         stage_ids=np.array(stage_ids))
-    volume.commit()
+    _commit()
     return {"points": int(len(X)), "stages": stage_ids}
+
+
+def _set_job(job_id: str, **fields) -> None:
+    cur = live_jobs.get(job_id) or {}
+    cur.update(fields)
+    live_jobs[job_id] = cur
+
+
+@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=1800, cpu=4.0,
+              memory=32768, max_containers=2)
+@modal.concurrent(max_inputs=6)
+def live_job(job_id: str, bbox: list[float]) -> None:
+    """A user's box, anywhere: the full stage pipeline + moves, written as a web bundle."""
+    import pickle
+    import time
+
+    import numpy as np
+
+    from sarstellar.bundle import write_bundle
+    from sarstellar.moves import MOVE_IDS
+    from sarstellar.moves_model import apply_to_stage, pick_highlights
+
+    t0 = time.time()
+    root = Path(DATA) / "live" / job_id
+    _set_job(job_id, status="running", progress=0.01, message="Starting")
+
+    def progress(frac, msg):
+        _set_job(job_id, progress=round(frac, 3), message=msg)
+
+    try:
+        spec = {"bbox": bbox, "name": "Your stage", "country": ""}
+        res = run_stage(job_id, spec, root / "raw", progress)
+        if "error" in res:
+            _set_job(job_id, status="error", message=res["error"])
+            return
+        progress(0.92, "Recognizing the moves")
+        volume.reload()
+        model = pickle.loads((Path(DATA) / "dance_ref" / "moves_model.pkl").read_bytes())
+        z = np.load(root / "raw" / "cube.npz")
+        cube = {k: z[k] for k in z.files if k.startswith("blocks_")}
+        mv = apply_to_stage(model, cube)
+        counts = {m: int((mv["move"] == i).sum()) for i, m in enumerate(MOVE_IDS)}
+        np.savez_compressed(root / "raw" / "moves.npz", move=mv["move"], conf=mv["conf"],
+                            beat_move=mv["beat_move"], counts=json.dumps(counts))
+        moving = {k: v for k, v in counts.items() if k != "still" and v}
+        headline = max(moving, key=moving.get) if moving else "still"
+        hl = pick_highlights(mv, cube, headline) if headline != "still" else []
+        (root / "raw" / "highlight.json").write_text(json.dumps({"blocks": hl, "label": headline}))
+        n = res["n_dates"]
+        story = {
+            "title": "Your stage", "move": headline,
+            "lede": f"{n} NISAR passes over this box, read live from NASA's archive.",
+            "body": [f"The most common move here is {headline}. Moves come from a model trained on "
+                     "US reference sites; treat them as hypotheses to check on the ground."],
+        }
+        write_bundle(root / "raw", root / "bundle", story, sid=job_id)
+        _commit()
+        _set_job(job_id, status="done", progress=1.0, message="Done",
+                 base=f"/dance/{job_id}/files/", n_dates=n, counts=counts,
+                 elapsed_s=round(time.time() - t0, 1))
+    except Exception as exc:  # noqa: BLE001 - the user sees a readable error, never a stack
+        _set_job(job_id, status="error",
+                 message=f"Something went wrong reading NASA's archive ({type(exc).__name__}). "
+                         "Try again in a few minutes.")
+        raise
+
+
+@app.function(volumes={DATA: volume}, timeout=300, cpu=1.0, memory=2048,
+              scaledown_window=1200)
+@modal.concurrent(max_inputs=64)
+@modal.asgi_app()
+def live():
+    import math
+    import time
+    import uuid
+
+    from fastapi import FastAPI, HTTPException, Request
+    from fastapi.middleware.cors import CORSMiddleware
+    from fastapi.responses import FileResponse
+
+    api = FastAPI(title="SARstellar live")
+    api.add_middleware(CORSMiddleware, allow_origins=["*"], allow_methods=["GET", "POST"],
+                       allow_headers=["*"])
+
+    @api.get("/health")
+    def health():
+        return {"ok": True, "paused": bool(LIVE_KILL)}
+
+    @api.post("/dance")
+    async def create(req: Request):
+        if LIVE_KILL:
+            raise HTTPException(503, "Live analysis is paused; the saved stages still work.")
+        body = await req.json()
+        try:
+            w, s_, e, n = (float(v) for v in body["bbox"])
+        except Exception:
+            raise HTTPException(422, "bbox must be [west, south, east, north] in degrees") from None
+        if not (-180 <= w < e <= 180 and -85 <= s_ < n <= 85):
+            raise HTTPException(422, "bbox must have west < east and south < north")
+        km_x = (e - w) * 111.32 * math.cos(math.radians((s_ + n) / 2))
+        km_y = (n - s_) * 110.57
+        if max(km_x, km_y) > LIVE_MAX_KM or min(km_x, km_y) < 1.0:
+            raise HTTPException(422, f"Draw a box between 1 and {LIVE_MAX_KM:.0f} km on a side.")
+        key = "cache:" + ",".join(f"{v:.3f}" for v in (w, s_, e, n))
+        hit = live_jobs.get(key)
+        if hit and (live_jobs.get(hit) or {}).get("status") in ("queued", "running", "done"):
+            return {"id": hit, "cached": True}
+        ip = (req.headers.get("x-forwarded-for") or (req.client.host if req.client else "?")).split(",")[0]
+        hour, day = int(time.time() // 3600), int(time.time() // 86400)
+        k_ip, k_day = f"rate:{ip}:{hour}", f"rate:day:{day}"
+        if (live_jobs.get(k_ip) or 0) >= LIVE_PER_IP_HOUR:
+            raise HTTPException(429, "That's a lot of dancing for one hour. Try again later.")
+        if (live_jobs.get(k_day) or 0) >= LIVE_PER_DAY:
+            raise HTTPException(429, "Today's live analyses are used up; the saved stages still work.")
+        live_jobs[k_ip] = (live_jobs.get(k_ip) or 0) + 1
+        live_jobs[k_day] = (live_jobs.get(k_day) or 0) + 1
+        job_id = uuid.uuid4().hex[:12]
+        live_jobs[job_id] = {"status": "queued", "progress": 0.0, "message": "Queued",
+                             "bbox": [w, s_, e, n], "created": time.time()}
+        live_jobs[key] = job_id
+        live_job.spawn(job_id, [w, s_, e, n])
+        return {"id": job_id, "cached": False}
+
+    @api.get("/dance/{job_id}")
+    def status(job_id: str):
+        job = live_jobs.get(job_id)
+        if not job or not isinstance(job, dict):
+            raise HTTPException(404, "No such analysis")
+        return {"id": job_id, **job}
+
+    @api.get("/dance/{job_id}/files/{path:path}")
+    def files(job_id: str, path: str):
+        root = (Path(DATA) / "live" / job_id / "bundle").resolve()
+        target = (root / path).resolve()
+        if root not in target.parents and target != root:
+            raise HTTPException(404, "Not found")
+        if not target.exists():
+            volume.reload()
+        if not target.exists():
+            raise HTTPException(404, "Not found")
+        media = {".json": "application/json", ".webp": "image/webp",
+                 ".bin": "application/octet-stream"}.get(target.suffix, "application/octet-stream")
+        return FileResponse(target, media_type=media,
+                            headers={"Cache-Control": "public, max-age=86400"})
+
+    return api
 
 
 @app.local_entrypoint()

@@ -7,22 +7,27 @@ snapped to the nearest NISAR pass by export_stage.py.
 STORIES: dict[str, dict] = {
     "punjab": {
         "order": 1, "move": "waltz",
-        "title": "Two waltzes a year",
-        "teaser": "Rice in the monsoon, wheat in the winter: the same fields dance twice.",
-        "lede": "Punjab feeds a large share of India. Its fields grow two crops a year, and NISAR "
-                "watched both.",
+        "title": "Wheat waltzes, rice bounces",
+        "teaser": "The same Punjab fields dance twice a year, with two different partners.",
+        "lede": "Punjab's fields grow wheat in winter and rice in the monsoon. NISAR watched both, "
+                "and the two crops move in completely different ways.",
         "body": [
-            "Wheat is sown in November and harvested in April. Rice is planted into flooded paddies "
-            "in June and July and cut in October.",
-            "As a crop grows, its leaves and stalks scatter the radar in every direction, so HV "
-            "climbs. At harvest the canopy disappears and HV falls back to bare soil. Flooding a "
-            "paddy turns it briefly into a mirror: both channels go dark.",
+            "Wheat is a volume dance. As the canopy grows, leaves scatter the radar in every "
+            "direction and HV climbs about 3 dB, from late November to February. Harvest in April "
+            "drops the fields back to bare soil.",
+            "Rice is a bounce. Seedlings are planted into flooded paddies in July. By September the "
+            "stalks stand in water, the pulse bounces off the water and up the stalks, and HH jumps "
+            "about 8 dB while HV rises far less. The gap between HH and HV widens from about 8 dB "
+            "to 12 dB: the double-bounce fingerprint.",
+            "Medians over about 70,000 cultivated hectares in a 29 by 29 km box near Ludhiana.",
         ],
         "beats": [
-            {"date": "2026-02-10", "caption": "Wheat canopy: HV rises across the fields"},
-            {"date": "2026-04-25", "caption": "Wheat harvest: back to bare soil"},
-            {"date": "2026-07-05", "caption": "Paddies flooded for rice: the fields go dark"},
-            {"date": "2026-09-10", "caption": "Rice canopy at its peak"},
+            {"date": "2025-11-21", "caption": "Wheat sown into bare fields"},
+            {"date": "2026-02-01", "caption": "Wheat at its fullest: HV up 3 dB"},
+            {"date": "2026-04-26", "caption": "Wheat harvest: back to bare soil"},
+            {"date": "2026-07-07", "caption": "Paddies flooded and planted: the fields dim"},
+            {"date": "2026-09-17", "caption": "Rice stands in water: HH jumps 8 dB, the Bounce"},
+            {"date": "2026-10-11", "caption": "Rice harvest begins"},
         ],
     },
     "iowa": {
@@ -178,13 +183,21 @@ STORIES: dict[str, dict] = {
     "greenland": {
         "order": 14, "move": "melt",
         "title": "The ice sheet's summer",
-        "teaser": "At Greenland's edge, melt darkens the ice and the freeze brings it back.",
-        "lede": "At the western edge of the Greenland ice sheet, the surface melts every summer.",
+        "teaser": "At Greenland's edge, the melt zone changes its face through the summer.",
+        "lede": "East of Kangerlussuaq the Greenland ice sheet meets the tundra. NISAR watched its "
+                "melt zone from June to October.",
         "body": [
-            "Over ice, NISAR listens with one channel, HH. Liquid water in the snow absorbs the "
-            "radar, so melting ice goes dark. When it refreezes, it brightens again.",
+            "Over ice, NISAR listens with one channel, HH. Wet snow absorbs the radar. As the "
+            "summer goes on, rough bare ice and refrozen crust send more of it back.",
+            "Across the ice in this box, HH rose 4 to 5 dB at the height of summer, peaking on "
+            "the August 19 pass, and settled back by October. The tundra to the west barely "
+            "moved.",
         ],
-        "beats": [],
+        "beats": [
+            {"date": "2026-06-20", "caption": "Early summer: wet snow on the ice"},
+            {"date": "2026-08-19", "caption": "Peak of summer: the ice brightens 4 to 5 dB"},
+            {"date": "2026-10-18", "caption": "Autumn: the surface settles"},
+        ],
     },
     "jakobshavn": {
         "order": 15, "move": "melt",

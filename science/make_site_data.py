@@ -77,9 +77,11 @@ GUIDE = {
         "carried_by": ["HH", "HV"], "future": "Soil moisture for drought and irrigation planning.",
     },
     "melt": {
-        "name": "The Melt", "what": "Snow and ice melt at the surface.",
-        "physics": "Liquid water in snow absorbs the radar, so melting ice turns dark. When it "
-                   "refreezes, it brightens again. Over ice NISAR listens with HH alone.",
+        "name": "The Melt", "what": "An ice sheet's surface goes through its melt season.",
+        "physics": "Through the summer the surface switches between wet snow, bare ice and "
+                   "refrozen crust. Wet snow absorbs the radar; rough bare ice and refrozen crust "
+                   "send more of it back. On Greenland's melt zone HH swung 4 to 5 dB at the height "
+                   "of summer and settled by October. Over ice NISAR listens with HH alone.",
         "carried_by": ["HH"], "future": "Melt onset and duration across Greenland and Antarctica, "
         "every 12 days.",
     },
