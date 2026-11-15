@@ -105,7 +105,7 @@ Each row supplies a link-text / URL pair for the form. Product identifiers descr
 
 ## Preparation notes — do not paste as application fields
 
-- **Summary validation:** 123 whitespace-separated words; 920 characters including spaces. Project Details: 454 words. The summary satisfies 50–200 words and fewer than 1,500 characters. Revalidate after editing.
+- **Summary validation:** 123 whitespace-separated words; 920 characters including spaces. Project Details: 466 words. The summary satisfies 50–200 words and fewer than 1,500 characters. Revalidate after editing.
 - **SI selection:** If the form offers corresponding choices, select the equivalents of code and written content. No exact option names were supplied. Do not select generated photos/audio/video on the basis of data-rendered maps or charts.
 - **Private source:** The user explicitly chose to keep the repository private. The public website is the Project URL; these fields do not claim publicly available source code. The challenge's desired open-source outcome remains a submission-readiness gap while the repository is private. Do not change repository visibility without a new instruction.
 - **Demo readiness:** The six-slide Demo URL was verified on the public site after PR 8 deployment. It and the downloadable PPTX require no password or registration. Recheck availability when submitting.
