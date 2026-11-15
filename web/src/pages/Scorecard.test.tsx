@@ -102,7 +102,7 @@ describe("Scorecard page", () => {
       fusion: [{ class: "forest_loss", best_single: "L", fused: "fused_fisher", metric: "auprc", delta: 0.01, ci_low: -0.03, ci_high: 0.05, p_gt0: 0.6 }],
     });
     render(<ScorecardPage data={sc} />);
-    expect(screen.getByText("No detectable fusion gain on held-out states.")).toBeTruthy();
+    expect(screen.getByText("No demonstrated fusion gain on held-out states.")).toBeTruthy();
   });
 
   it("shows the rules-vs-model table only when a model is present", () => {

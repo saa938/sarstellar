@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="A six-slide demonstration of SARstellar: NISAR and Sentinel-1 change detection, evidence and held-out validation.">
+  <meta name="author" content="SARstellar team; presentation code and writing assisted by Claude and OpenAI Codex">
+  <title>SARstellar — six-slide project demonstration</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #f1f3f4; color: #263139; font: 15px/1.5 Arial, sans-serif; }
+    header, main, footer { max-width: 1280px; margin: auto; padding: 16px 24px; }
+    header { display: flex; align-items: center; flex-wrap: wrap; justify-content: space-between; gap: 12px; }
+    h1 { margin: 0; font-size: 18px; font-weight: 600; }
+    a { color: #2f6589; text-underline-offset: 3px; }
+    main { padding-top: 0; }
+    figure { margin: 0; background: white; border: 1px solid #cfd4d8; }
+    img { width: 100%; aspect-ratio: 16/9; max-height: calc(100dvh - 230px); object-fit: contain; display: block; }
+    figcaption { padding: 10px 16px; border-top: 1px solid #cfd4d8; }
+    .controls { margin-top: 16px; display: flex; align-items: center; flex-wrap: wrap; justify-content: center; gap: 10px; }
+    .pages { display: flex; gap: 6px; }
+    button { min-width: 40px; min-height: 40px; padding: 8px 12px; border: 1px solid #aeb8bf; background: white; color: #263139; cursor: pointer; font: inherit; }
+    button[aria-current="step"] { background: #2f6589; border-color: #2f6589; color: white; }
+    button:disabled { opacity: .45; cursor: default; }
+    :focus-visible { outline: 3px solid #2f6589; outline-offset: 3px; }
+    footer { color: #5f6c75; font-size: 12px; }
+    footer p { margin: 4px 0; }
+    @media (max-width: 600px) { header, main, footer { padding: 12px; } .controls { gap: 6px; } .pages { gap: 3px; } button { padding: 6px; } }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>SARstellar project demonstration</h1>
+    <a href="https://www.sarstellar.earth/">Open the application</a>
+  </header>
+  <main>
+    <figure>
+      <img id="slide" src="slide-1.png" alt="SARstellar: NISAR and Sentinel-1 radar changes on one map. Detection, evidence and verification for researchers and land managers." width="1280" height="720">
+      <figcaption id="caption" aria-live="polite">Slide 1 of 6 · SARstellar</figcaption>
+    </figure>
+    <nav class="controls" aria-label="Presentation slides">
+      <button id="previous" type="button" disabled>Previous</button>
+      <div class="pages">
+        <button type="button" data-slide="0" aria-current="step" aria-label="Slide 1">1</button>
+        <button type="button" data-slide="1" aria-label="Slide 2">2</button>
+        <button type="button" data-slide="2" aria-label="Slide 3">3</button>
+        <button type="button" data-slide="3" aria-label="Slide 4">4</button>
+        <button type="button" data-slide="4" aria-label="Slide 5">5</button>
+        <button type="button" data-slide="5" aria-label="Slide 6">6</button>
+      </div>
+      <button id="next" type="button">Next</button>
+    </nav>
+  </main>
+  <footer>
+    <p><a href="sarstellar-presentation.pptx" download>Download the six-slide presentation (.pptx)</a> · <a href="https://www.sarstellar.earth/#/scorecard">Benchmark</a> · <a href="https://www.sarstellar.earth/#/about">Methods and sources</a></p>
+    <p>Claude and OpenAI Codex assisted with code and writing. Radar maps derive from satellite data. Cause labels are hypotheses for independent verification.</p>
+  </footer>
+  <script>
+    const titles = ["SARstellar", "Measurements and interpretation", "Three pipeline examples", "Evaluation sample", "Primary fusion comparisons", "Limits and reproduction"];
+    const descriptions = [
+      "SARstellar: NISAR and Sentinel-1 radar changes on one map. Detection, evidence and verification for researchers and land managers.",
+      "The workflow uses calibrated radar data, one-hectare blocks, a statistical test and a two-decibel effect threshold. Users inspect measurements and verify cause hypotheses independently.",
+      "Morton and Mineral: 141 areas, 1,681 hectares. Kaiser Canyon: 202 areas, 2,434 hectares. Edouard: 277 areas, 5,852 hectares. Unequal observation counts prevent interpreting these totals as sensor accuracy rankings.",
+      "254 sites attempted, 242 processed, 224 eligible. Training uses 164 sites. Evaluation uses 60 sites in 12 held-out states and 2,173,521 common blocks.",
+      "The primary unsupervised fusion comparison demonstrates no gain. Forest-loss AUPRC difference is minus 0.073 with a 95 percent interval from minus 0.157 to minus 0.009. A separate supervised cultivated-land proxy result does not establish crop-change accuracy.",
+      "Limits include three held-out flood sites, a flood reference sharing Sentinel-1 observations, and cultivated-land labels that do not verify crop change. The application provides source credits, measured outputs and reproducible live-analysis exports."
+    ];
+    let current = 0;
+    const slide = document.getElementById("slide");
+    const caption = document.getElementById("caption");
+    const previous = document.getElementById("previous");
+    const next = document.getElementById("next");
+    const buttons = [...document.querySelectorAll("[data-slide]")];
+    function show(index) {
+      current = Math.max(0, Math.min(5, index));
+      slide.src = `slide-${current + 1}.png`;
+      slide.alt = descriptions[current];
+      caption.textContent = `Slide ${current + 1} of 6 · ${titles[current]}`;
+      previous.disabled = current === 0;
+      next.disabled = current === 5;
+      buttons.forEach((button, i) => i === current ? button.setAttribute("aria-current", "step") : button.removeAttribute("aria-current"));
+    }
+    previous.addEventListener("click", () => show(current - 1));
+    next.addEventListener("click", () => show(current + 1));
+    buttons.forEach((button) => button.addEventListener("click", () => show(Number(button.dataset.slide))));
+    document.addEventListener("keydown", (event) => {
+      if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
+      if (event.key === "ArrowRight") { event.preventDefault(); show(current + 1); }
+      if (event.key === "ArrowLeft") { event.preventDefault(); show(current - 1); }
+    });
+  </script>
+</body>
+</html>

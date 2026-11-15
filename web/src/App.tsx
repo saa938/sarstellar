@@ -4,8 +4,10 @@ import type { Map as MapLibreMap } from "maplibre-gl";
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import "./App.css";
 import { loadStory, loadStoryIndex } from "./api.ts";
+import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
 import { formatDateRange } from "./areas.ts";
 import { AreaList } from "./components/AreaList.tsx";
+import CaseStudy from "./components/CaseStudy.tsx";
 import { DrawBox } from "./components/DrawBox.tsx";
 import MapView from "./components/MapView.tsx";
 import { ExampleTag, Sidebar } from "./components/Sidebar.tsx";
@@ -16,7 +18,6 @@ import type { Agreement, Result, StoryIndexEntry } from "./types.ts";
 
 type Route = "explore" | "scorecard" | "about";
 type Mode = "change" | "swipe" | "lc";
-type Theme = "light" | "dark";
 
 const ChangePanel = lazy(() => import("./components/ChangePanel.tsx"));
 const ResultExports = lazy(() => import("./components/ChangePanel.tsx").then((module) => ({ default: module.ResultExports })));
@@ -61,8 +62,8 @@ export default function App() {
   const [mode, setMode] = useState<Mode>("change");
   const [map, setMap] = useState<MapLibreMap | null>(null);
   const [layerOpacity, setLayerOpacity] = useState(0.65);
-  const [theme, setTheme] = useState<Theme>(() => new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light");
-  useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
+  const [theme, setTheme] = useState<Appearance>(readAppearance);
+  useEffect(() => { applyAppearance(theme); }, [theme]);
   // Bumped by every story request and live result, so a slow story load can't replace newer content.
   const latest = useRef(0);
 
@@ -148,7 +149,7 @@ export default function App() {
           ))}
         </nav>
         <label className="appearance-control"><span>Appearance</span>
-          <select aria-label="Appearance" value={theme} onChange={(event) => setTheme(event.target.value as Theme)}>
+          <select aria-label="Appearance" value={theme} onChange={(event) => setTheme(event.target.value as Appearance)}>
             <option value="light">Light</option><option value="dark">Dark</option>
           </select>
         </label>
@@ -194,8 +195,8 @@ export default function App() {
             <MapView result={result} visible={visible} selectedAreaId={selectedId} opacity={layerOpacity} onSelectArea={setSelectedId} onMapReady={setMap} />
           </div>
           <Suspense fallback={<div className="map-loading" role="status">Loading comparison…</div>}>
-            {mode === "swipe" && result && <SwipeView result={result} />}
-            {mode === "lc" && result && <LvsCView result={result} />}
+            {mode === "swipe" && result && <SwipeView result={result} selectedArea={selected} />}
+            {mode === "lc" && result && <LvsCView result={result} selectedArea={selected} />}
           </Suspense>
           <div className="modes" role="group" aria-label="View">
             {MODES.map((m) => (
@@ -215,6 +216,7 @@ export default function App() {
           )}
             <div hidden={Boolean(selected)}>
               <Intro story={story} result={result} loading={loading} error={error} />
+              <CaseStudy storyId={storyId} result={result} onSelectArea={setSelectedId} />
               {result && !loading && (
                 <>
                   <Suspense fallback={null}><ResultExports files={result.exports} /></Suspense>
@@ -255,7 +257,7 @@ function Intro({ story, result, loading, error }: IntroProps) {
             <summary>Example notes</summary><p>{story.summary}</p>
           </details>}
           {result?.s1 && result.nisar.dates.length !== result.s1.dates.length &&
-            <p className="story-caveat">Acquisition counts differ. Use the <a href="#/scorecard">paired benchmark</a> for sensor comparisons.</p>}
+            <p className="story-caveat">{result.nisar.dates.length} NISAR observations; {result.s1.dates.length} Sentinel-1 observations. These area totals do not establish which radar performed better. See the <a href="#/scorecard">paired benchmark</a>.</p>}
         </>
       ) : (
         result && (

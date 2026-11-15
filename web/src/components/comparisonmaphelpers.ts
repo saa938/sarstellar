@@ -1,5 +1,5 @@
 // MapLibre helpers shared by the Before | After swipe and the L-band vs C-band views (Task B5).
-import { Map as MapLibreMap, NavigationControl, type MapOptions } from "maplibre-gl";
+import { Map as MapLibreMap, NavigationControl, type GeoJSONSource, type MapOptions } from "maplibre-gl";
 import Compare from "@maplibre/maplibre-gl-compare";
 import "../pages/maplibreWorker.ts";
 import { AGREEMENT_COLORS, type Bbox, type ChangeArea, type IsoDate, type Overlays } from "../types.ts";
@@ -14,10 +14,24 @@ export interface RadarLayer {
   resampling?: "nearest" | "linear";
   /** Change areas to outline on top, colored by agreement. */
   outline?: readonly ChangeArea[];
+  /** The selected candidate patch remains visible regardless of its majority category. */
+  selectedArea?: ChangeArea | null;
+}
+
+function selectedFeatures(area: ChangeArea | null | undefined) {
+  return { type: "FeatureCollection" as const, features: area ? [{
+    type: "Feature" as const, properties: { id: area.id }, geometry: area.geometry,
+  }] : [] };
+}
+
+/** Update the highlight without recreating or moving a comparison map. Call again on map load. */
+export function updateSelectedArea(map: MapLibreMap, area: ChangeArea | null | undefined): void {
+  if (!map.isStyleLoaded()) return;
+  (map.getSource("selected-area") as GeoJSONSource | undefined)?.setData(selectedFeatures(area));
 }
 
 /** Muted Esri imagery (as in the mockup), one radar image at its corners, and optional area outlines. */
-export function radarStyle({ url, corners, resampling = "linear", outline = [] }: RadarLayer) {
+export function radarStyle({ url, corners, resampling = "linear", outline = [], selectedArea }: RadarLayer) {
   const basemap = createBasemapStyle();
   const features = outline.map((a) => ({ type: "Feature" as const, properties: { agreement: a.agreement }, geometry: a.geometry }));
   return {
@@ -26,6 +40,7 @@ export function radarStyle({ url, corners, resampling = "linear", outline = [] }
       ...basemap.sources,
       radar: { type: "image", url: overlayUrl(url), coordinates: corners },
       areas: { type: "geojson", data: { type: "FeatureCollection", features } },
+      "selected-area": { type: "geojson", data: selectedFeatures(selectedArea) },
     },
     layers: [
       ...basemap.layers,
@@ -39,6 +54,10 @@ export function radarStyle({ url, corners, resampling = "linear", outline = [] }
           "line-width": 1.5,
         },
       },
+      { id: "selected-area-halo", type: "line", source: "selected-area",
+        paint: { "line-color": "#202223", "line-width": 6, "line-opacity": 0.95 } },
+      { id: "selected-area-outline", type: "line", source: "selected-area",
+        paint: { "line-color": "#ffffff", "line-width": 3, "line-opacity": 1 } },
     ],
   } satisfies Style;
 }
@@ -83,9 +102,9 @@ export function createRadarMap(container: HTMLElement, bbox: Bbox, layer: RadarL
 // ---------------------------------------------------------------- numbers and labels
 
 export interface SensorTotals {
-  /** Hectares NISAR flagged: only-NISAR plus both. */
+  /** Whole-patch hectares labeled NISAR majority or both/mixed; not exact flagged-block area. */
   nisar: number;
-  /** Hectares Sentinel-1 flagged: only-Sentinel-1 plus both. */
+  /** Whole-patch hectares labeled Sentinel-1 majority or both/mixed; not exact flagged-block area. */
   s1: number;
   onlyNisar: number;
   onlyS1: number;

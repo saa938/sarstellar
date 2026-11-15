@@ -302,7 +302,7 @@ def _classify_l(s: AreaStats) -> _Hit:
             for b, p in (("HH", _v(s.post_HH)), ("HV", _v(s.post_HV)))
             if p is not None
         ]
-        rule = "HH rose 3 dB or more, HV stayed within 2 dB (double bounce off standing water)"
+        rule = "HH rose 3 dB or more, HV stayed within 2 dB (possible double-bounce response)"
         source = (
             f"{_ATBD} for the post-level cue (when levels are known); {_RESEARCH} for flat HV; "
             f"the 3 dB HH rise is {_JUDGMENT}"
@@ -326,7 +326,7 @@ def _classify_l(s: AreaStats) -> _Hit:
 
     # 6. construction: a large HH jump (persistence needs a longer series than two dates)
     if _ge(hh, CONSTRUCTION_DHH_MIN) and group != "water":
-        rule = "HH jumped 5 dB or more (new hard surfaces or structures)"
+        rule = "HH jumped 5 dB or more (consistent with new hard surfaces or structures)"
         persistence = _ev("Persistence", "not checked", note="needs more than two dates")
         return _Hit("construction", rule, _JUDGMENT, hh, [persistence])
 
@@ -358,7 +358,7 @@ def _classify_l(s: AreaStats) -> _Hit:
     if _le(hv, CLEARCUT_DHV_MAX):
         lc = _landcover_evidence(s)
         if group in ("forest", "unknown"):
-            rule = "HV fell 3 dB or more (canopy removed)"
+            rule = "HV fell 3 dB or more (consistent with canopy loss)"
             return _Hit("forest_loss", rule, _RESEARCH, hv, lc)
         if group == "lowveg":
             # the research table's HV drop is for forest; using it on low vegetation is ours
@@ -375,12 +375,12 @@ def _classify_l(s: AreaStats) -> _Hit:
 
 
 def _classify_c(s: AreaStats) -> _Hit:
-    """Rules for areas only Sentinel-1 saw: VV and VH changes drive the label."""
+    """Rules for Sentinel-1-majority areas: VV and VH changes drive the label."""
     vv, vh = _delta(s, "VV"), _delta(s, "VH")
     group = _landcover_group(s.landcover)
     low_veg = group == "lowveg" or s.cdl_crop
     vh_drop_in_low_veg = _le(vh, C_VH_DROP_DB) and low_veg
-    rule = "Only Sentinel-1: VH fell 2 dB or more in low vegetation"
+    rule = "Sentinel-1 majority: VH fell 2 dB or more in low vegetation"
 
     # same order as the L-band path: independent fire evidence first, then freeze suppression
     if vh_drop_in_low_veg and _fire(s):
@@ -400,15 +400,15 @@ def _classify_c(s: AreaStats) -> _Hit:
     )
     if (_ge(vv, C_RISE_MIN_DB) or _ge(vh, C_RISE_MIN_DB)) and flat_low:
         rise = max(d for d in (vv, vh) if d is not None)
-        rule = "Only Sentinel-1: VV or VH rose 2 dB or more over flat, low-HAND ground"
+        rule = "Sentinel-1 majority: VV or VH rose 2 dB or more over flat, low-HAND ground"
         what = "possible surface water or wetting"
         return _Hit(
             "soil_wetting", rule, _SPEC, rise, [_ev("Cause", what, note=what), *_hand_evidence(s)]
         )
 
     return _uncertain(
-        "Only Sentinel-1 saw it and no C-band rule matched",
-        "Changed, cause uncertain: only Sentinel-1 saw it",
+        "Sentinel-1 majority; no C-band cause rule matched",
+        "Changed, cause uncertain: Sentinel-1-majority area",
     )
 
 

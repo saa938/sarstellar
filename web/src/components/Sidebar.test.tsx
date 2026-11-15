@@ -19,6 +19,7 @@ it("foregrounds example selection and each sensor's actual acquisition metadata"
   const p = props();
   render(<Sidebar {...p} />);
   expect(screen.getByText(/^Examples/)).toBeTruthy();
+  expect(screen.getByText("Area labels · ha")).toBeTruthy();
   const acquisition = screen.getByRole("group", { name: "Acquisition metadata" });
   expect(acquisition.textContent).toContain("3 · track 71 · descending");
   expect(acquisition.textContent).toContain("2 · track 166");
@@ -49,7 +50,7 @@ it("uses a percentage control while passing normalized opacity to the map", () =
 it("disables irrelevant area controls in comparison views", () => {
   render(<Sidebar {...props({ layerControlsEnabled: false, onOpacityChange: vi.fn() })} />);
   const sidebar = screen.getByRole("complementary", { name: "Analysis workspace" });
-  const legend = within(sidebar).getByRole("button", { name: /NISAR only:/ }) as HTMLButtonElement;
+  const legend = within(sidebar).getByRole("button", { name: /NISAR majority:/ }) as HTMLButtonElement;
   expect(legend.disabled).toBe(true);
   expect((screen.getByRole("slider", { name: "Area opacity" }) as HTMLInputElement).disabled).toBe(true);
   expect(screen.getByText("Area controls apply to the Detected areas view.")).toBeTruthy();
