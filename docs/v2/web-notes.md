@@ -11,7 +11,7 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 | `#/stage/live:<id>` | A bundle computed by the live API (same contract), base `<dance API>/dance/<id>/files/` |
 | `#/moves`, `#/moves/<id>` | Field guide |
 | `#/proof` | Renders `proof.json` per `docs/v2/PROOF_FIELDS.md` (dot-and-interval charts, base rates, polarization report card, Sentinel-1, cross-continent, confusion, limits); in-progress state without it |
-| `#/explore` | Interactive night globe of all stages; live mode when `VITE_API_URL` is set |
+| `#/explore` | Interactive night globe of all stages, with live mode (draw a box anywhere, the dance assembles from the deployed API) |
 | `#/constellation` | Every hectare placed by the shape of its dance (UMAP); zoom, pan, hover, click opens the stage at that block |
 | `#/present` | 28 s chrome-free sequence for the demo video at 1920x1080 |
 | `#/about` | How it works, data credits, source repository |
