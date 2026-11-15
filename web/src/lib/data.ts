@@ -4,6 +4,9 @@
 import type { MovesDoc, StageIndex, StageIndexEntry, StageMeta } from "./types";
 
 const ROOT = import.meta.env.BASE_URL.replace(/\/?$/, "/");
+
+/** Optional live API: POST /dance, GET /dance/{id}, bundles at /dance/{id}/files/. */
+export const API_URL: string | undefined = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || undefined;
 export const REAL_BASE = `${ROOT}stages/`;
 export const FIXTURE_BASE = `${ROOT}stages-fixture/`;
 
@@ -92,6 +95,13 @@ const stageCache = new Map<string, Promise<StageResult | null>>();
 
 export function loadStage(id: string): Promise<StageResult | null> {
   let p = stageCache.get(id);
+  if (!p && id.startsWith("live:") && API_URL) {
+    // a bundle computed on demand by the live API (same contract)
+    const liveId = id.slice(5);
+    const base = `${API_URL}/dance/${encodeURIComponent(liveId)}/files/`;
+    p = tryJSON<StageMeta>(`${base}stage.json`).then((meta) => (meta ? { meta, base, root: base, fixture: !!meta.fixture } : null));
+    stageCache.set(id, p);
+  }
   if (!p) {
     p = (async () => {
       const { index, base, fixture } = await loadIndex();
@@ -119,5 +129,3 @@ export function assetUrl(base: string, rel: string) {
   return base + rel;
 }
 
-/** Optional live API (comes later). */
-export const API_URL: string | undefined = (import.meta.env.VITE_API_URL as string | undefined)?.replace(/\/$/, "") || undefined;
