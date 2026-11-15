@@ -115,7 +115,7 @@ export function StageMap(props: Props) {
         paint: { "raster-opacity": 0, "raster-opacity-transition": { duration: 0, delay: 0 }, "raster-fade-duration": 0, "raster-resampling": "linear" },
       });
     layers.push(
-      { id: "mv", type: "raster", source: "mv", layout: { visibility: "none" }, paint: { "raster-opacity": 0.82, "raster-fade-duration": 0, "raster-resampling": "nearest" } },
+      { id: "mv", type: "raster", source: "mv", layout: { visibility: "none" }, paint: { "raster-opacity": 0.6, "raster-fade-duration": 0, "raster-resampling": "nearest" } },
       { id: "sel", type: "raster", source: "sel", layout: { visibility: "none" }, paint: { "raster-opacity": 1, "raster-fade-duration": 0, "raster-resampling": "nearest" } },
       { id: "labels", type: "raster", source: "labels", paint: { "raster-opacity": 0.7 } },
       { id: "outline", type: "line", source: "outline", paint: { "line-color": "#f4ecd8", "line-opacity": 0.35, "line-width": 1, "line-dasharray": [2, 2] } },
