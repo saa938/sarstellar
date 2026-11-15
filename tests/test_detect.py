@@ -14,6 +14,7 @@ from sarstellar.detect import (
     changed,
     estimate_enl,
     omnibus,
+    relative_delta,
     stable_mask,
 )
 
@@ -136,8 +137,8 @@ def test_null_false_alarm(T):
     assert 0.04 <= np.mean(p_true < 0.05) <= 0.06
     assert np.mean(idx_true >= 0) <= fa_true  # a change date only where the omnibus fires
 
-    enls, _ = pipeline_enls(channels)
-    p_est, _ = omnibus(channels, enls)
+    enls, stable = pipeline_enls(channels)
+    p_est, _ = omnibus(channels, enls, stable=stable)
     fa_est = np.mean(p_est < 0.01)
     assert fa_est <= 0.015, f"FA with estimated ENL = {fa_est:.4f} (ENLs {enls})"
     assert fa_est >= 0.005, f"test became far too conservative: {fa_est:.4f}"
@@ -153,9 +154,29 @@ def test_null_false_alarm_shared_variation(T):
     rng = np.random.default_rng(11)
     common = 10 ** (rng.normal(0, 0.4, size=(T, *GRID)) / 10)
     channels = [gamma_stack(rng, 300, T) * common, gamma_stack(rng, 300, T, mean=0.1) * common]
-    enls, _ = pipeline_enls(channels)
-    fa = np.mean(omnibus(channels, enls)[0] < 0.01)
+    enls, stable = pipeline_enls(channels)
+    fa = np.mean(omnibus(channels, enls, stable=stable)[0] < 0.01)
     assert 0.005 <= fa <= 0.015, f"two-band FA {fa:.4f}"
+
+
+@pytest.mark.parametrize("T,shifted_dates", [(2, [1]), (3, [2]), (6, [3, 4, 5])])
+def test_scene_shift_null_end_to_end(T, shifted_dates):
+    """A +1.5 dB moisture/calibration shift with no real change is not 'changed'.
+
+    The ENL is estimated on date-normalised data; testing raw intensities made 3.2-4.4% of
+    blocks 'changed' here. With the same normalisation before the test: 0.
+    """
+    rng = np.random.default_rng(900 + T)
+    channels = [gamma_stack(rng, 60, T), gamma_stack(rng, 40, T, mean=0.1)]
+    for c in channels:
+        c[shifted_dates] *= 10 ** (1.5 / 10)
+    deltas = [db(c[-1] / c[0]) for c in channels]
+    stable = stable_mask(deltas)
+    enls = [estimate_enl(c, stable) for c in channels]
+    p, _ = omnibus(channels, enls, stable=stable)
+    out = changed(p, [relative_delta(d, stable) for d in deltas])
+    assert out.mean() <= 0.015, f"changed {out.mean():.4f}"
+    assert out.mean() <= 0.001  # measured 0.0000
 
 
 def test_omnibus_is_scale_invariant_per_block():
@@ -188,8 +209,8 @@ def test_detects_3db_step(n_channels, min_exact_date):
     for c in channels:
         c[2:, moved] *= 10 ** (-3 / 10)
 
-    enls, _ = pipeline_enls(channels)
-    p, idx = omnibus(channels, enls)
+    enls, stable = pipeline_enls(channels)
+    p, idx = omnibus(channels, enls, stable=stable)
     sig = bh_fdr(p, q=0.05)
 
     assert sig[moved].mean() >= 0.99, f"detected {sig[moved].mean():.3f}"

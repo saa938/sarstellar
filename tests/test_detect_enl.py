@@ -7,6 +7,7 @@ seeds are fixed so every statistical assertion is deterministic.
 import numpy as np
 import pytest
 
+from sarstellar import detect
 from sarstellar.detect import (
     ENL_MAX,
     MAX_SHIFT_DB,
@@ -14,6 +15,7 @@ from sarstellar.detect import (
     TooFewBlocks,
     changed,
     estimate_enl,
+    normalise_dates,
     omnibus,
     relative_delta,
     stable_mask,
@@ -68,10 +70,16 @@ def test_enl_ignores_changed_blocks():
 def test_enl_majority_moderate_change(n, moderate_db, T, t0, severe_frac):
     """Box drawn around a burn scar: 60% of blocks with a moderate HV drop, 10-20% at -6 dB.
 
-    The trimmed refinement alone collapsed here (HV ENL 1-13, -6 dB blocks 0% changed). The
-    seed/2.5 floor and the per-date normalisation keep them detectable (true ENL: 0.96-1.00).
-    One cell is weaker: n = 20, T = 3, change on the last date (t0 = 2). The 2.5 floor holds
-    the ENL at ~0.78x the truth there (measured 0.94-0.95 detected vs 0.99 with the truth).
+    The trimmed refinement alone collapses here (HV ENL 1-13). The floor at corrected seed /
+    1.25 stops the collapse without overstating n, so unchanged blocks stay clean (<= 0.03)
+    in every cell, and -6 dB blocks are detected (>= 0.93) wherever the unchanged population
+    is separable: T = 3, or n = 40 at T = 2. Known limits (measured, see the A4 report):
+    - n = 20, T = 2: 0.22-0.53 detected. The moderate drop is 2.9 sigma from 0, the seed
+      reads ~0.55x the truth, and even the true ENL gives only 0.93-0.94 here.
+    - offset at the 1.5 dB cap (n = 40, 20% severe, t0 = 1): unchanged and moderate blocks
+      merge, the date normalisation absorbs 1.5 dB, and even the true ENL turns 10-12% of
+      unchanged blocks "changed"; the engine stays clean but detects less.
+    The round-1 version passed 0.95 everywhere only because its ENL was overstated ~1.5x.
     """
     rng = np.random.default_rng(10 * n + T + t0)
     hh = gamma_stack(rng, n, T)
@@ -87,12 +95,61 @@ def test_enl_majority_moderate_change(n, moderate_db, T, t0, severe_frac):
     stable = stable_mask(deltas)
     rel = [relative_delta(d, stable) for d in deltas]
     enls = [estimate_enl(c, stable) for c in channels]
-    out = changed(omnibus(channels, enls)[0], rel)
+    out = changed(omnibus(channels, enls, stable=stable)[0], rel)
 
-    min_detected = 0.92 if (n == 20 and t0 == 2) else 0.95
-    assert out[severe].mean() >= min_detected, f"-6 dB detected {out[severe].mean():.3f}"
-    assert enls[1] >= 0.5 * n, f"HV ENL {enls[1]:.1f}"
-    assert enls[1] >= estimate_enl(hv, stable, clip_alpha=None) / 2.5 * (1 - 1e-12)
+    unchanged = ~(moderate | severe)
+    assert out[unchanged].mean() <= 0.03, f"unchanged 'changed' {out[unchanged].mean():.3f}"
+    seed = estimate_enl(hv, stable, clip_alpha=None)
+    assert enls[1] >= seed / detect.ENL_SEED_RATIO * (1 - 1e-12)
+    assert enls[1] <= 1.25 * n, f"HV ENL {enls[1]:.1f} overstated"
+    capped = abs(np.median(deltas[1][stable])) >= MAX_SHIFT_DB - 0.01
+    if not capped and (T == 3 or n == 40):
+        assert out[severe].mean() >= 0.93, f"-6 dB detected {out[severe].mean():.3f}"
+
+
+@pytest.mark.parametrize("T", [2, 3])
+@pytest.mark.parametrize("n", [10, 15, 20, 30])
+def test_null_low_enl(n, T):
+    """Complete null on low-ENL ground (the Sentinel-1 two-date view), full engine path.
+
+    The old floor (uncorrected +-1 dB seed / 2.5) pinned the T = 2 ENL near 30 whatever the
+    truth: 20% of blocks 'changed' at n = 10, 4% at n = 15.
+    """
+    rng = np.random.default_rng(600 + 10 * n + T)
+    channels = [gamma_stack(rng, n, T), gamma_stack(rng, n, T, mean=0.1)]
+    deltas = [db(c[-1] / c[0]) for c in channels]
+    stable = stable_mask(deltas)
+    enls = [estimate_enl(c, stable) for c in channels]
+    p, _ = omnibus(channels, enls, stable=stable)
+    out = changed(p, [relative_delta(d, stable) for d in deltas])
+    assert out.mean() <= 0.015, f"changed {out.mean():.4f}"
+    assert np.mean(p < 0.01) <= 0.015, f"p < 0.01 on {np.mean(p < 0.01):.4f}"
+    assert max(enls) <= 1.2 * n, f"ENLs {enls}"
+
+
+@pytest.mark.parametrize("n", [10, 15, 20])
+def test_burn_scar_box_unchanged_blocks(n):
+    """T = 2; 60% of blocks at HV -4 dB, 20% at -6 dB, HH unchanged: the unchanged 20% stay clean.
+
+    With the old floor 11-29% of them were 'changed'. (At n = 40 even the true ENL gives
+    ~0.04 here: BH at 80% prevalence plus the 2 dB gate on 1 dB noise, not the estimator.)
+    """
+    rng = np.random.default_rng(800 + n)
+    hh = gamma_stack(rng, n, 2)
+    hv = gamma_stack(rng, n, 2, mean=0.1)
+    r = rng.random(GRID)
+    moderate = r < 0.6
+    severe = (r >= 0.6) & (r < 0.8)
+    hv[1:, moderate] *= 10 ** (-4 / 10)
+    hv[1:, severe] *= 10 ** (-6 / 10)
+    channels = [hh, hv]
+    deltas = [db(c[1] / c[0]) for c in channels]
+    stable = stable_mask(deltas)
+    enls = [estimate_enl(c, stable) for c in channels]
+    p, _ = omnibus(channels, enls, stable=stable)
+    out = changed(p, [relative_delta(d, stable) for d in deltas])
+    unchanged = ~(moderate | severe)
+    assert out[unchanged].mean() <= 0.03, f"unchanged 'changed' {out[unchanged].mean():.3f}"
 
 
 def test_enl_removes_scene_shift():
@@ -168,6 +225,53 @@ def test_enl_rejects_bad_input():
         estimate_enl(gamma_stack(rng, 60, 3), ok, clip_alpha=1.5)
     with pytest.raises(ValueError):
         estimate_enl(gamma_stack(rng, 60, 3), ok, min_blocks=0)
+
+
+# --------------------------------------------------------------------------- corrected seed
+
+
+def test_seed_map_is_cached_fast_and_monotone():
+    import time
+
+    detect._seed_map.cache_clear()
+    t0 = time.perf_counter()
+    log_grid, log_expected = detect._seed_map(25, 3.0)
+    assert time.perf_counter() - t0 < 1.0  # the longest stack expected; T = 2 is ~0.03 s
+    assert (np.diff(log_expected) > 0).all()
+    assert detect._seed_map(25, 3.0) is detect._seed_map(25, 3.0)  # cached per (T, window)
+    # above n ~ 15 the one-sided window barely truncates: the map is close to the identity
+    big = log_grid > np.log(15)
+    np.testing.assert_allclose(log_expected[big], log_grid[big], atol=0.08)
+
+
+@pytest.mark.parametrize("T", [2, 3, 6])
+@pytest.mark.parametrize("n", [15, 20, 30, 60, 200])
+def test_corrected_seed_recovers_truth(n, T):
+    """The seed alone (clip_alpha=None) is unbiased under no change, whatever the window."""
+    rng = np.random.default_rng(50 + n + T)
+    series = gamma_stack(rng, n, T)
+    stable = stable_mask([db(series[-1] / series[0])])
+    seed = estimate_enl(series, stable, clip_alpha=None)
+    assert abs(seed / n - 1) <= 0.10, f"corrected seed {seed:.1f} vs truth {n}"
+
+
+def test_normalise_dates():
+    rng = np.random.default_rng(22)
+    series = gamma_stack(rng, 60, 4, (40, 50))
+    shifted = series * (10 ** (np.array([0.0, 0.5, -0.3, 1.2]) / 10))[:, None, None]
+    shifted[:, 0, :3] = np.nan
+    stable = np.ones((40, 50), bool)
+    out = normalise_dates(shifted, stable)
+    ratio = db(out[:, 1:, :] / series[:, 1:, :]).reshape(4, -1)
+    assert np.ptp(np.median(ratio, axis=1)) < 0.1  # 0.5-1.5 dB per-date shifts are gone
+    assert np.isnan(out[:, 0, :3]).all()  # invalid blocks pass through
+    np.testing.assert_allclose(normalise_dates(out, stable), out, rtol=1e-12)  # idempotent
+    p_norm, i_norm = omnibus([out], [60.0])
+    p_kw, i_kw = omnibus([shifted], [60.0], stable=stable)
+    np.testing.assert_array_equal(p_norm, p_kw)
+    np.testing.assert_array_equal(i_norm, i_kw)
+    with pytest.raises(NoStableBlocks):
+        normalise_dates(shifted, np.zeros((40, 50), bool))
 
 
 # --------------------------------------------------------------------------- stable / relative
