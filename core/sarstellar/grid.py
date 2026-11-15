@@ -120,3 +120,35 @@ def to_grid(src, transform, crs, grid: Grid) -> np.ndarray:
         resampling=Resampling.average,
     )
     return out
+
+
+def to_grid_with_coverage(
+    src, transform, crs, grid: Grid, min_valid_frac: float = 0.5
+) -> tuple[np.ndarray, np.ndarray]:
+    """`to_grid` plus the 50% rule: returns (mean, valid_frac), both shaped `grid.shape`.
+
+    `mean` averages the finite source pixels in each block and is NaN where fewer than
+    `min_valid_frac` of the block's area is covered by finite pixels. `valid_frac` is that covered
+    share, 0..1 (0 where the source does not reach). Area outside the source raster counts as not
+    valid, so a block on a burst edge or seam is judged on the whole block, not on the sliver the
+    raster happens to cover. This is the same rule `block_mean` applies to NISAR pixels.
+    """
+    from rasterio.transform import Affine  # lazy, like the other rasterio imports here
+
+    src = np.asarray(src, dtype="float64")
+    mean = to_grid(src, transform, crs, grid)
+    # Reproject a 1/0 "usable" indicator on a canvas padded with 0 so that a block which only
+    # partly overlaps the source still sees the missing part. The pad is wider than a block
+    # (diagonally, once a rotated CRS is involved), so every block that touches the raster is
+    # fully inside the canvas.
+    pixel = min(abs(transform.a), abs(transform.e))
+    pad = int(np.ceil(2 * grid.res / pixel)) + 2
+    canvas = np.pad(np.isfinite(src).astype("float64"), pad)
+    t = transform
+    x0 = t.c - pad * (t.a + t.b)  # origin of the padded canvas: `pad` pixels up and to the left
+    y0 = t.f - pad * (t.d + t.e)
+    padded = Affine(t.a, t.b, x0, t.d, t.e, y0)
+    frac = to_grid(canvas, padded, crs, grid)
+    frac = np.clip(np.nan_to_num(frac, nan=0.0), 0.0, 1.0)
+    enough = frac >= min_valid_frac - 1e-9
+    return np.where(enough & np.isfinite(mean), mean, np.nan), frac

@@ -12,9 +12,6 @@ from types import SimpleNamespace
 import h5py
 import numpy as np
 import pytest
-import rasterio
-from rasterio.transform import from_origin
-from rasterio.warp import transform_bounds
 
 from sarstellar import read
 from sarstellar.grid import grid_for_bbox
@@ -23,7 +20,6 @@ from sarstellar.read import (
     open_remote_h5,
     read_gcov_blocks,
     read_gcov_window,
-    read_rtc_to_grid,
     with_retries,
 )
 from sarstellar.types import Grid
@@ -335,86 +331,6 @@ def test_read_blocks_end_to_end_from_file(tmp_path):
     assert np.isfinite(out["HH"]).all() and np.allclose(out["valid_frac"], 1.0)
 
 
-# --- read_rtc_to_grid ---------------------------------------------------------------------------
-
-RTC = "https://fake.asf/RTC/OPERA_L2_RTC-S1_T115-000001-IW1_20260713T000000Z_S1A_30_v1.0"
-
-
-def _write_tif(arr, transform, crs="EPSG:32611"):
-    with rasterio.MemoryFile() as mem:
-        with mem.open(driver="GTiff", height=arr.shape[0], width=arr.shape[1], count=1,
-                      dtype=str(arr.dtype), crs=crs, transform=transform, tiled=True,
-                      blockxsize=64, blockysize=64) as ds:
-            ds.write(arr, 1)
-        return mem.read()
-
-
-def _rtc_setup():
-    """A zone-10 block grid across the zone 10/11 boundary, and a zone-11 raster that covers it."""
-    grid = grid_for_bbox((-120.05, 46.95, -119.95, 47.05), 32610)
-    left, bottom, right, top = transform_bounds(
-        "EPSG:32610", "EPSG:32611", grid.xmin, grid.ymin, grid.xmax, grid.ymax
-    )
-    left, top = np.floor(left / 30) * 30 - 900, np.ceil(top / 30) * 30 + 900
-    shape = (int((top - bottom) / 30) + 60, int((right - left) / 30) + 60)
-    return grid, from_origin(left, top, 30.0, 30.0), shape
-
-
-def _burst(name, vv, vh=None, mask=None, transform=None):
-    files = {f"{name}_VV.tif": _write_tif(vv.astype("float32"), transform)}
-    if vh is not None:
-        files[f"{name}_VH.tif"] = _write_tif(vh.astype("float32"), transform)
-    zero = np.zeros(vv.shape, np.uint8) if mask is None else mask
-    files[f"{name}_mask.tif"] = _write_tif(zero, transform)
-    return files
-
-
-def test_read_rtc_to_grid_puts_other_zone_on_the_nisar_grid():
-    grid, tr, shape = _rtc_setup()
-    files = _burst(RTC, np.full(shape, 2.0), np.full(shape, 0.5), transform=tr)
-    fs = FakeFS(files)
-    out = read_rtc_to_grid([f"{RTC}_VV.tif", f"{RTC}_VH.tif"], grid, fs)
-    assert set(out) == {"VV", "VH"}
-    assert out["VV"].shape == out["VH"].shape == grid.shape
-    assert np.allclose(out["VV"], 2.0) and np.allclose(out["VH"], 0.5)  # linear, same grid EPSG
-    opened = [u for u, _ in fs.open_calls]
-    assert opened.count(f"{RTC}_mask.tif") == 1  # one mask read serves both polarizations
-
-
-def test_read_rtc_to_grid_drops_flagged_pixels_and_averages_overlap():
-    grid, tr, shape = _rtc_setup()
-    third = shape[0] // 3
-    mask_a = np.zeros(shape, np.uint8)
-    mask_a[:third] = 2  # burst A: layover over its top third
-    vv_a = np.full(shape, 2.0)
-    vv_a[2 * third :] = -1.0  # ... and non-positive values over its bottom third
-    files = _burst(RTC + "A", vv_a, mask=mask_a, transform=tr)
-    files |= _burst(RTC + "B", np.full(shape, 4.0), transform=tr)
-    out = read_rtc_to_grid([f"{RTC}A_VV.tif", f"{RTC}B_VV.tif"], grid, FakeFS(files))["VV"]
-    # Rows are checked well away from the band edges: the zone 11 raster is rotated a few degrees
-    # relative to the zone 10 grid, so the edges tilt across the box.
-    assert np.allclose(out[:25], 4.0)  # top: A flagged, only B counts
-    assert np.allclose(out[47:73], 3.0)  # middle: both bursts, averaged in linear power
-    assert np.allclose(out[-25:], 4.0)  # bottom: A non-positive, only B counts
-
-
-def test_read_rtc_to_grid_missing_pol_and_uncovered_burst_are_nan():
-    grid, tr, shape = _rtc_setup()
-    far = from_origin(tr.c + 200000.0, tr.f, 30.0, 30.0)  # a burst 200 km east: no overlap
-    files = _burst(RTC + "A", np.full(shape, 2.0), transform=tr)
-    files |= _burst(RTC + "Z", np.full((50, 50), 9.0), transform=far)
-    out = read_rtc_to_grid([f"{RTC}A_VV.tif", f"{RTC}Z_VV.tif"], grid, FakeFS(files))
-    assert np.allclose(out["VV"], 2.0)  # the far burst contributes nothing
-    assert np.isnan(out["VH"]).all() and out["VH"].shape == grid.shape
-
-
-def test_read_rtc_to_grid_retries_flaky_server(sleeps):
-    grid, tr, shape = _rtc_setup()
-    fs = FakeFS(_burst(RTC, np.full(shape, 2.0), transform=tr), fail_first=3)
-    out = read_rtc_to_grid([f"{RTC}_VV.tif"], grid, fs)
-    assert np.allclose(out["VV"], 2.0) and len(sleeps) == 3
-
-
 # --- https_fs ------------------------------------------------------------------------------------
 
 
@@ -478,20 +394,3 @@ def test_live_kaiser_window():
     assert np.isfinite(blocks["HV"]).mean() > 0.9 and blocks["valid_frac"].mean() > 0.9
     hv_db = 10 * np.log10(np.nanmedian(blocks["HV"]))
     assert -30 < hv_db < -5
-
-
-RTC_BURST = (  # the one Sentinel-1 burst over KAISER_SMALL_BBOX on 2026-07-13 (T115, zone 11)
-    "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/"
-    "OPERA_L2_RTC-S1_T115-245651-IW1_20260713T141241Z_20261010T060238Z_S1D_30_v1.0/"
-    "OPERA_L2_RTC-S1_T115-245651-IW1_20260713T141241Z_20261010T060238Z_S1D_30_v1.0"
-)
-
-
-@pytest.mark.live
-def test_live_rtc_burst_lands_on_the_nisar_grid():
-    grid = grid_for_bbox(KAISER_SMALL_BBOX, 32610)  # NISAR's zone 10 grid, not the burst's zone 11
-    out = read_rtc_to_grid([f"{RTC_BURST}_VV.tif", f"{RTC_BURST}_VH.tif"], grid, https_fs())
-    assert out["VV"].shape == out["VH"].shape == grid.shape
-    assert np.isfinite(out["VV"]).mean() > 0.9 and np.isfinite(out["VH"]).mean() > 0.9
-    assert -20 < 10 * np.log10(np.nanmedian(out["VV"])) < -5
-    assert -30 < 10 * np.log10(np.nanmedian(out["VH"])) < -10

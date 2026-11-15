@@ -19,7 +19,14 @@ from typing import Any
 import h5py
 import numpy as np
 
-from .grid import Grid, block_mean, block_valid_frac, grid_for_bbox, to_grid, valid_mask
+from .grid import (
+    Grid,
+    block_mean,
+    block_valid_frac,
+    grid_for_bbox,
+    to_grid_with_coverage,
+    valid_mask,
+)
 
 log = logging.getLogger(__name__)
 
@@ -28,6 +35,7 @@ H5_PAGE_BUF_BYTES = 16 * 2**20  # h5py page buffer; NISAR files use paged aggreg
 H5_CHUNK_CACHE_BYTES = 4 * 2**20  # h5py raw-data chunk cache
 TIF_BLOCK_BYTES = 2 * 2**20  # blockcache size for RTC GeoTIFFs (COG tiles are small)
 L30_SAMPLE_M = 30.0  # the coarser lattice that `HH30` / `HV30` simulate
+RTC_MIN_VALID_FRAC = 0.5  # a Sentinel-1 block needs half its area valid, like a NISAR block
 
 _IDENT = "/science/LSAR/identification"
 _GRID_A = "/science/LSAR/GCOV/grids/frequencyA"
@@ -283,9 +291,14 @@ def read_rtc_to_grid(
 
     `urls` are burst polarization files ending `_VV.tif` or `_VH.tif`; pass the VV and VH URLs
     together. Each burst's `_mask.tif` sits beside its data and is fetched once per burst. Pixels
-    with a non-zero mask (shadow, layover, fill), NaN, or a value <= 0 are dropped. Each burst is
-    reprojected to the grid's EPSG with average resampling, then overlapping bursts are averaged.
-    Blocks with no data, and a polarization with no URLs, are NaN.
+    with a non-zero mask (shadow, layover, fill), NaN, or a value <= 0 are dropped.
+
+    A block follows the NISAR rule: a burst only contributes to a block where at least
+    `RTC_MIN_VALID_FRAC` (50%) of the block's area holds valid pixels of that burst. Area outside
+    the burst's raster counts as not valid. Overlapping bursts are then mosaicked weighted by
+    their valid area in the block, which is the same as pooling their valid pixels. A block no
+    burst covers well enough, and a polarization with no URLs, come back NaN. (A seam block that
+    each of two bursts covers under half, but that they cover together, is NaN.)
     """
     bursts: dict[str, dict[str, str]] = {}
     for url in urls:
@@ -296,7 +309,7 @@ def read_rtc_to_grid(
         bursts.setdefault(prefix, {})[pol] = url
 
     total = {pol: np.zeros(grid.shape) for pol in ("VV", "VH")}
-    count = {pol: np.zeros(grid.shape) for pol in ("VV", "VH")}
+    weight = {pol: np.zeros(grid.shape) for pol in ("VV", "VH")}
     for prefix, pol_urls in bursts.items():
         with ExitStack() as stack:
             mask_ds = None
@@ -311,11 +324,13 @@ def read_rtc_to_grid(
                     raise ValueError(f"{prefix}_mask.tif is not on the same raster as {url}")
                 v = ds.read(1, window=win).astype("float64")
                 v[(mask_ds.read(1, window=win) != 0) | ~np.isfinite(v) | (v <= 0)] = np.nan
-                on_grid = to_grid(v, ds.window_transform(win), ds.crs, grid)
-                ok = np.isfinite(on_grid)
-                total[pol][ok] += on_grid[ok]
-                count[pol][ok] += 1
+                mean, frac = to_grid_with_coverage(
+                    v, ds.window_transform(win), ds.crs, grid, RTC_MIN_VALID_FRAC
+                )
+                ok = np.isfinite(mean)  # the block has at least half valid pixels from this burst
+                total[pol][ok] += frac[ok] * mean[ok]  # valid-area-weighted sum of block means
+                weight[pol][ok] += frac[ok]
     return {
-        pol: np.where(count[pol] > 0, total[pol] / np.maximum(count[pol], 1), np.nan)
+        pol: np.where(weight[pol] > 0, total[pol] / np.maximum(weight[pol], 1e-12), np.nan)
         for pol in total
     }
