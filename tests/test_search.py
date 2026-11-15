@@ -48,9 +48,14 @@ def gran(name: str) -> Granule:
     return search.parse_umm(load_item(name)["umm"])
 
 
-def make_granule(day: date, *, track=34, frame=20, bandwidth=40.0, crid="P05023") -> Granule:
-    """A hand-built granule for cases the recorded fixtures do not cover."""
-    ur = f"synthetic_{track}_A_{frame}_{day:%Y%m%d}_{crid}_001"
+def make_granule(
+    day: date, *, track=34, frame=20, bandwidth=40.0, crid="P05023", pol="DHDH"
+) -> Granule:
+    """A hand-built granule (real name format) for cases the recorded fixtures do not cover."""
+    ur = (
+        f"NISAR_L2_PR_GCOV_006_{track:03d}_A_{frame:03d}_4005_{pol}_A_"
+        f"{day:%Y%m%d}T130000_{day:%Y%m%d}T130035_{crid}_N_F_J_001"
+    )
     return Granule(
         ur=ur,
         url=f"https://example.invalid/{ur}.h5",
@@ -65,6 +70,10 @@ def make_granule(day: date, *, track=34, frame=20, bandwidth=40.0, crid="P05023"
         mixed_mode=False,
         size_gb=7.0,
     )
+
+
+def D(month: int, day: int) -> date:
+    return date(2026, month, day)
 
 
 def fixture_stacks() -> list[Stack]:
@@ -235,6 +244,20 @@ def test_stack_groups_several_frames_of_one_track_together():
     assert [g.start.date() for g in stacks[0].granules] == stacks[0].dates  # in date order
 
 
+def test_dual_pol_and_quad_pol_never_share_a_stack():
+    # Same track, direction, bandwidth and CRID, but a dual-pol (DH) and a quad-pol (QP)
+    # granule: different modes, so different series.
+    pols = [(D(5, 1), "DHDH"), (D(5, 13), "QPDH"), (D(5, 25), "DHDH"), (D(6, 6), "QPDH")]
+    stacks = search.build_stacks([make_granule(day, pol=pol) for day, pol in pols])
+    assert len(stacks) == 2
+    assert {(search.stack_polarization(s), len(s.dates)) for s in stacks} == {("DH", 2), ("QP", 2)}
+    for s in stacks:
+        assert {g.ur.split("_")[9][:2] for g in s.granules} == {search.stack_polarization(s)}
+    # frequency B (the last two letters) does not matter: QPDH and QPQP are one mode
+    same_a = [make_granule(D(5, 1), pol="QPDH"), make_granule(D(5, 13), pol="QPQP")]
+    assert len(search.build_stacks(same_a)) == 1
+
+
 def test_build_stacks_empty_input():
     assert search.build_stacks([]) == []
 
@@ -248,32 +271,47 @@ def test_pick_pair_default_extremes():
     assert before.start < after.start
 
 
-def test_pick_pair_with_explicit_dates_uses_the_nearest_acquisitions():
-    stack = search.build_stacks([make_granule(date(2026, 5, d)) for d in (1, 13, 25)])[0]
-    wanted = (date(2026, 5, 13), date(2026, 5, 25))
-    for asked in ((date(2026, 5, 12), date(2026, 5, 27)), (date(2026, 5, 27), date(2026, 5, 12))):
-        before, after = search.pick_pair(stack, asked)  # either order
-        assert (before.start.date(), after.start.date()) == wanted
+def pair_days(stack, asked) -> tuple[date, date]:
+    before, after = search.pick_pair(stack, asked)
+    return before.start.date(), after.start.date()
+
+
+@pytest.mark.parametrize(
+    ("asked", "expected"),
+    [
+        ((D(5, 13), D(5, 25)), (D(5, 13), D(5, 25))),  # passes on the requested days: as is
+        ((D(5, 14), D(5, 20)), (D(5, 13), D(5, 25))),  # last pass on or before, first on or after
+        ((D(5, 20), D(5, 14)), (D(5, 13), D(5, 25))),  # either order
+        ((D(5, 15), D(5, 17)), (D(5, 13), D(5, 25))),  # both between two passes: bracketed
+        ((D(4, 1), D(5, 20)), (D(5, 1), D(5, 25))),  # before the stack starts: first pass
+        ((D(5, 14), D(6, 30)), (D(5, 13), D(5, 25))),  # after it ends: last pass
+    ],
+)
+def test_pick_pair_with_explicit_dates_brackets_the_requested_interval(asked, expected):
+    stack = search.build_stacks([make_granule(D(5, d)) for d in (1, 13, 25)])[0]
+    assert pair_days(stack, asked) == expected
 
 
 def test_pair_never_spans_gap_as_same_date():
-    # NISAR has no data between 2026-07-27 22:03Z and 2026-08-10 00:55Z. Dates asked for
-    # inside that gap must not both collapse onto one acquisition and come back as a
-    # "pair" of the same date.
-    stack = search.build_stacks([make_granule(date(2026, 7, 22)), make_granule(date(2026, 8, 15))])[
-        0
-    ]
+    # NISAR has no data between 2026-07-27 22:03Z and 2026-08-10 00:55Z. A change that happens
+    # inside the gap (Aug 1) must be bracketed by the last pass before it and the first pass
+    # after it, and a pair must never be two granules of one date.
+    stack = search.build_stacks([make_granule(D(m, d)) for m, d in ((7, 10), (7, 22), (8, 15))])[0]
+    around_gap = (D(7, 22), D(8, 15))
 
-    both_in_gap = (date(2026, 7, 30), date(2026, 8, 1))  # both nearest to Jul 22
-    with pytest.raises(ValueError, match="same acquisition"):
-        search.pick_pair(stack, both_in_gap)
+    # Event on Aug 1: the "after" pass is never earlier than Aug 1 and the "before" pass is
+    # never later than the date asked for (a pass day or not).
+    assert pair_days(stack, (D(7, 10), D(8, 1))) == (D(7, 10), D(8, 15))
+    assert pair_days(stack, (D(7, 20), D(8, 1))) == (D(7, 10), D(8, 15))
+    # both requested dates inside the gap still give the two passes around it
+    assert pair_days(stack, (D(7, 30), D(8, 1))) == around_gap
+    assert pair_days(stack, (D(7, 30), D(8, 12))) == around_gap
+    assert pair_days(stack, None) == (D(7, 10), D(8, 15))
 
-    straddling = (date(2026, 7, 30), date(2026, 8, 12))  # one each side of the gap
-    before, after = search.pick_pair(stack, straddling)
-    assert (before.start.date(), after.start.date()) == (date(2026, 7, 22), date(2026, 8, 15))
-
-    before, after = search.pick_pair(stack, None)  # the default pair across the gap too
-    assert before.start.date() != after.start.date()
+    # no ordered pair of two different passes exists: refuse instead of returning one date twice
+    for asked in ((D(7, 22), D(7, 22)), (D(6, 1), D(6, 5)), (D(9, 1), D(9, 5))):
+        with pytest.raises(ValueError, match="same acquisition"):
+            search.pick_pair(stack, asked)  # one day twice; wholly before; wholly after the data
 
 
 def test_pick_pair_refuses_a_single_date_stack_even_with_two_frames():

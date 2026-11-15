@@ -18,6 +18,7 @@ from __future__ import annotations
 import logging
 import re
 import time
+from bisect import bisect_left, bisect_right
 from collections import defaultdict
 from collections.abc import Sequence
 from datetime import UTC, date, datetime, timedelta
@@ -262,14 +263,17 @@ def dedupe(gs: Sequence[Granule]) -> list[Granule]:
 def build_stacks(gs: Sequence[Granule]) -> list[Stack]:
     """Group granules into same-mode series, most dates first.
 
-    One stack per (track, direction, bandwidth, CRID). Granules narrower than 20 MHz or
-    in mixed-mode passes are dropped, and duplicate deliveries are removed first.
+    One stack per (track, direction, bandwidth, polarization mode, CRID). Granules narrower
+    than 20 MHz or in mixed-mode passes are dropped, and duplicate deliveries are removed
+    first. `Stack` has no polarization field, so the mode is read back from a stack's
+    granules with `stack_polarization`.
     """
-    groups: dict[tuple[int, str, float, str], list[Granule]] = defaultdict(list)
+    groups: dict[tuple[int, str, float, str, str], list[Granule]] = defaultdict(list)
     for g in dedupe(gs):
         if g.mixed_mode or g.bandwidth_mhz < MIN_BANDWIDTH_MHZ:
             continue
-        groups[(g.track, g.direction, g.bandwidth_mhz, g.crid)].append(g)
+        key = (g.track, g.direction, g.bandwidth_mhz, _frequency_a_polarization(g.ur), g.crid)
+        groups[key].append(g)
 
     stacks = [
         Stack(
@@ -279,13 +283,35 @@ def build_stacks(gs: Sequence[Granule]) -> list[Stack]:
             crid=crid,
             granules=sorted(members, key=lambda g: (g.start, g.frame)),
         )
-        for (track, direction, bandwidth, crid), members in groups.items()
+        for (track, direction, bandwidth, _pol, crid), members in groups.items()
     ]
     # Most dates first; on a tie the more recent series, then a fixed order so runs repeat.
     stacks.sort(
-        key=lambda s: (-len(s.dates), -s.dates[-1].toordinal(), s.track, s.direction, s.crid)
+        key=lambda s: (
+            -len(s.dates),
+            -s.dates[-1].toordinal(),
+            s.track,
+            s.direction,
+            stack_polarization(s),
+            s.crid,
+        )
     )
     return stacks
+
+
+def _frequency_a_polarization(ur: str) -> str:
+    """Frequency-A polarization mode from the granule name: "DH" dual-pol, "QP" quad-pol.
+
+    The name carries four letters (frequency A then B, e.g. DHDH, QPDH). Only A matters:
+    B (5 MHz) is never read. Returns "" if the name does not follow the NISAR pattern.
+    """
+    tail = _GCOV_UR_TAIL.search(ur)
+    return tail["pol"][:2] if tail else ""
+
+
+def stack_polarization(stack: Stack) -> str:
+    """The polarization mode ("DH", "QP", ...) shared by every granule in `stack`."""
+    return _frequency_a_polarization(stack.granules[0].ur) if stack.granules else ""
 
 
 def granules_on(stack: Stack, day: date) -> list[Granule]:
@@ -293,30 +319,36 @@ def granules_on(stack: Stack, day: date) -> list[Granule]:
     return sorted((g for g in stack.granules if g.start.date() == day), key=lambda g: g.frame)
 
 
-def _nearest(days: list[date], target: date) -> date:
-    return min(days, key=lambda d: (abs((d - target).days), d))  # ties go to the earlier date
-
-
 def pick_pair(stack: Stack, dates: tuple[date, date] | None = None) -> tuple[Granule, Granule]:
     """Choose the (before, after) granules to compare.
 
-    With no `dates`, the stack's earliest and latest acquisitions. With `dates`, the
-    acquisitions nearest to each requested date (so a date inside a data gap snaps to
-    a real pass). The two are always different acquisition dates: if both requested dates
-    land on the same pass, ValueError is raised instead of returning a pair of one date.
+    With no `dates`, the stack's earliest and latest acquisitions.
+
+    With `dates` (either order), the pair brackets the requested interval: `before` is the
+    latest pass on or before the earlier date and `after` is the earliest pass on or after
+    the later date. An event inside a data gap (say Aug 1, with passes Jul 22 and Aug 15)
+    therefore always sits between the two passes, never outside them. If no pass exists on
+    one side, that side falls back to the stack's edge (earliest or latest pass).
+
+    The two granules are always different acquisition dates. ValueError is raised when no
+    ordered pair exists: the stack has fewer than two dates, or both ends land on the same
+    pass (the same day asked twice, or an interval wholly outside the stack's dates).
     """
-    days = stack.dates
+    days = stack.dates  # sorted, distinct
     if len(days) < 2:
         raise ValueError(f"a pair needs at least two acquisition dates, stack has {len(days)}")
     if dates is None:
         first, last = days[0], days[-1]
     else:
         early, late = sorted(dates)
-        first, last = _nearest(days, early), _nearest(days, late)
-        if first == last:
+        i = bisect_right(days, early)  # days[:i] are on or before `early`
+        first = days[i - 1] if i else days[0]
+        j = bisect_left(days, late)  # days[j:] are on or after `late`
+        last = days[j] if j < len(days) else days[-1]
+        if first >= last:
             raise ValueError(
-                f"requested dates {early} and {late} both resolve to the same acquisition "
-                f"({first}); pick dates on either side of a different pass"
+                f"requested dates {early} and {late} resolve to the same acquisition "
+                f"({first}); this stack runs {days[0]} to {days[-1]}"
             )
     return granules_on(stack, first)[0], granules_on(stack, last)[0]
 
