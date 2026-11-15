@@ -1876,3 +1876,305 @@
     gap: 28px;
   }
 }
+
+/* ---------- proof: skill rows */
+
+.skill {
+  display: grid;
+  gap: 0;
+  margin-top: 8px;
+}
+
+.skill__head,
+.skill__row,
+.skill__axis {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr) 150px 190px;
+  gap: 22px;
+  align-items: center;
+}
+
+.skill__head {
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-2);
+}
+
+.skill__row {
+  padding: 16px 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.skill__row.is-null .skill__lift strong {
+  color: var(--ink-3);
+}
+
+.skill__name strong {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 23px;
+  line-height: 1.1;
+}
+
+.skill__name strong i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+
+.skill__name span {
+  display: block;
+  margin-top: 3px;
+  font-size: 12px;
+  color: var(--ink-3);
+  line-height: 1.4;
+}
+
+.skill__bar {
+  display: grid;
+  gap: 2px;
+}
+
+.skill__nums {
+  font-family: var(--mono);
+  font-size: 11.5px;
+  color: var(--ink-3);
+}
+
+.skill__lift strong {
+  display: block;
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 34px;
+  line-height: 1;
+  color: var(--accent-2);
+}
+
+.skill__lift span {
+  font-size: 12px;
+  color: var(--ink-3);
+}
+
+.skill__maps {
+  display: grid;
+  gap: 2px;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.skill__maps b {
+  font-family: var(--mono);
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.skill__axis {
+  padding-top: 2px;
+}
+
+.skillbar {
+  display: block;
+  height: 26px;
+  overflow: visible;
+}
+
+.skill__axis .skillbar,
+.polrow--axis .skillbar,
+.ccard .skillbar {
+  height: 46px;
+}
+
+.skillbar__rail {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+
+.skillbar__grid {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.skillbar__gap {
+  stroke-width: 6;
+  stroke-opacity: 0.18;
+  stroke-linecap: round;
+}
+
+.skillbar__ci {
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.skillbar__base {
+  stroke: var(--ink-2);
+  stroke-width: 2;
+}
+
+.proof__notes {
+  display: grid;
+  gap: 10px;
+  max-width: 860px;
+  margin-top: 26px;
+  font-size: 14.5px;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.proof__notes p {
+  margin: 0;
+}
+
+.proof__notes b {
+  color: var(--ink);
+  font-weight: 560;
+}
+
+.legendrow__tick {
+  display: inline-block;
+  width: 2px !important;
+  height: 12px !important;
+  border-radius: 0 !important;
+  background: var(--ink-2) !important;
+  vertical-align: -1px;
+}
+
+.polrow {
+  display: grid;
+  grid-template-columns: 70px minmax(0, 1fr) 54px;
+  gap: 10px;
+  align-items: center;
+  font-size: 12px;
+}
+
+.polrow__name {
+  color: var(--ink-3);
+}
+
+.polrow__val {
+  font-family: var(--mono);
+  color: var(--ink-2);
+  text-align: right;
+}
+
+.gain {
+  margin-top: 34px;
+  max-width: 640px;
+  display: grid;
+  gap: 8px;
+}
+
+.gain__row {
+  display: grid;
+  grid-template-columns: 210px 1fr 48px;
+  align-items: center;
+  gap: 12px;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.gain__row i {
+  display: block;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.gain__row b {
+  font-family: var(--mono);
+  font-weight: 500;
+  text-align: right;
+}
+
+.ccards {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.ccard {
+  padding: 20px 22px;
+  border-radius: 16px;
+  border: 1px solid var(--line);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.025), transparent);
+}
+
+.ccard h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  font-size: 30px;
+  margin: 10px 0 4px;
+}
+
+.ccard h3 a {
+  text-decoration: none;
+}
+
+.ccard__tag {
+  display: inline-block;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  color: var(--ink-3);
+}
+
+.ccard__tag.is-held {
+  color: var(--accent-2);
+  border-color: rgba(242, 208, 138, 0.45);
+}
+
+.ccard__big {
+  font-family: var(--serif);
+  font-size: 64px;
+  line-height: 1;
+  color: var(--accent-2);
+  margin-top: 6px;
+}
+
+.ccard p {
+  font-size: 13px;
+  color: var(--ink-3);
+  margin: 6px 0 0;
+}
+
+.confusion__corner {
+  font-size: 10.5px;
+  color: var(--ink-4);
+  align-self: end;
+  padding: 6px 4px;
+}
+
+.confusion__c.is-diag {
+  outline: 1px solid rgba(242, 208, 138, 0.6);
+  outline-offset: -1px;
+}
+
+@media (max-width: 900px) {
+  .skill__head {
+    display: none;
+  }
+  .skill__row {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px 16px;
+  }
+  .skill__name,
+  .skill__bar {
+    grid-column: 1 / -1;
+  }
+  .skill__axis {
+    display: none;
+  }
+  .ccards {
+    grid-template-columns: 1fr;
+  }
+  .gain__row {
+    grid-template-columns: 1fr 1fr 40px;
+  }
+}
