@@ -1,7 +1,7 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useRoute } from "./lib/router";
 
-const Landing = lazy(() => import("./pages/Landing"));
+import Landing from "./pages/Landing"; // the default route ships in the main bundle: one less round trip to first paint
 const StagePage = lazy(() => import("./pages/StagePage"));
 const FieldGuide = lazy(() => import("./pages/FieldGuide"));
 const Proof = lazy(() => import("./pages/Proof"));

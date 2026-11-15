@@ -12,10 +12,12 @@ export function Finding({ entry }: { entry: StageIndexEntry | null }) {
   const [near, setNear] = useState(false);
   const [L, setL] = useState<Loaded | null>(null);
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "1200px 0px" });
+    // the section only exists once the stage index names a Punjab stage, so observe after that
+    if (!entry) return;
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "500px 0px" });
     if (ref.current) io.observe(ref.current);
     return () => io.disconnect();
-  }, []);
+  }, [entry]);
   useEffect(() => {
     if (!near || !entry) return;
     loadDecoded(entry.id).then(setL, () => undefined);

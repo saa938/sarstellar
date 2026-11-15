@@ -59,7 +59,7 @@ export function FloorStory({ entry }: { entry: StageIndexEntry | null }) {
   const stepRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
-    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "1400px 0px" });
+    const io = new IntersectionObserver(([e]) => e.isIntersecting && setNear(true), { rootMargin: "500px 0px" });
     if (ref.current) io.observe(ref.current);
     return () => io.disconnect();
   }, []);
