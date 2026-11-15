@@ -211,7 +211,7 @@ export default function App() {
         <aside className="side right" aria-label="Details">
           {selected && result && (
             <Suspense fallback={<p role="status">Loading change evidence…</p>}>
-              <ChangePanel area={selected} result={result} onClose={() => setSelectedId(null)} />
+              <ChangePanel area={selected} result={result} scorecard={scorecard} onClose={() => setSelectedId(null)} />
             </Suspense>
           )}
             <div hidden={Boolean(selected)}>
