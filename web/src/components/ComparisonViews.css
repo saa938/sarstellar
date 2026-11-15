@@ -1,0 +1,221 @@
+/* Before/after and L-band vs C-band comparisons; palette vars come from index.css. */
+
+.rv-range:focus-visible {
+  outline: 2px solid var(--l);
+  outline-offset: -2px;
+}
+
+.rv-map {
+  position: absolute;
+  inset: 0;
+}
+
+/* Provider attribution remains visible above our comparison legends. */
+.rv-map .maplibregl-ctrl-bottom-right { z-index: 4; }
+.rv-map .maplibregl-ctrl-attrib {
+  background: rgba(18, 24, 38, 0.94);
+  color: var(--muted);
+  font-size: 10px;
+}
+.rv-map .maplibregl-ctrl-attrib a { color: var(--text); }
+
+/* ---- Before | After */
+
+.rv-swipe {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.rv-swipe .maplibregl-compare {
+  background-color: var(--text);
+}
+
+.rv-swipe .maplibregl-compare .compare-swiper-vertical {
+  width: 44px;
+  height: 44px;
+  left: -22px;
+  margin: -22px 1px 0;
+  background-color: var(--panel);
+  box-shadow: inset 0 0 0 2px var(--l);
+}
+
+.rv-tag {
+  position: absolute;
+  bottom: 48px;
+  z-index: 2;
+  padding: 4px 10px;
+  border-radius: 6px;
+  background: rgba(18, 24, 38, 0.9);
+  border: 1px solid var(--line);
+  font-size: 12px;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.rv-tag-left {
+  left: 12px;
+}
+
+.rv-tag-right {
+  right: 12px;
+}
+
+.rv-range {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  z-index: 2;
+  width: min(320px, 60%);
+  transform: translateX(-50%);
+  accent-color: var(--l);
+}
+
+.rv-note {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 3;
+  transform: translate(-50%, -50%);
+  max-width: 420px;
+  padding: 14px 18px;
+  border-radius: 10px;
+  background: rgba(18, 24, 38, 0.92);
+  border: 1px dashed var(--muted);
+  text-align: center;
+}
+
+/* ---- L-band vs C-band */
+
+.rv-lc {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2px;
+  background: var(--line);
+}
+
+.rv-pane {
+  position: relative;
+  min-width: 0;
+  background: var(--bg);
+}
+
+.rv-card {
+  position: absolute;
+  left: 12px;
+  bottom: 28px;
+  z-index: 2;
+  max-width: calc(100% - 24px);
+  padding: 8px 12px;
+  border-radius: 8px;
+  background: rgba(18, 24, 38, 0.92);
+  border: 1px solid var(--line);
+  font-size: 13px;
+}
+
+.rv-sensor {
+  font-weight: 700;
+}
+
+.rv-sensor span {
+  margin-left: 6px;
+  color: var(--muted);
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.rv-period { margin-top: 2px; color: var(--muted); font-size: 10px; }
+
+.rv-lc .rv-card { bottom: 55px; }
+
+.rv-total {
+  margin: 2px 0;
+  font-size: 18px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-total.rv-none {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.rv-split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  color: var(--muted);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.rv-split i {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin-right: 5px;
+  border-radius: 2px;
+  vertical-align: -1px;
+}
+
+.rv-example {
+  display: inline-block;
+  margin-top: 6px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: #3b1d1d;
+  border: 1px solid #7f1d1d;
+  color: #fca5a5;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.rv-empty {
+  display: grid;
+  place-content: center;
+  height: 100%;
+  padding: 28px;
+  color: var(--muted);
+  text-align: center;
+  background: radial-gradient(ellipse at center, var(--panel2), var(--bg));
+}
+
+.rv-delta-key {
+  position: absolute;
+  top: 72px;
+  left: 12px;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  max-width: calc(100% - 24px);
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid var(--line);
+  background: rgba(11, 15, 23, 0.9);
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.35;
+  pointer-events: none;
+}
+
+.rv-delta-key i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  margin-right: 5px;
+}
+
+.rv-drop { background: #dc2626; }
+.rv-rise { background: #2563eb; }
+
+@media (max-width: 600px) {
+  .rv-lc { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+  .rv-card { bottom: 34px; padding: 6px 9px; }
+  .rv-sensor span { display: block; margin-left: 0; }
+  .rv-tag { max-width: 46%; font-size: 10px; }
+  .rv-delta-key { font-size: 10px; gap: 4px 8px; }
+}

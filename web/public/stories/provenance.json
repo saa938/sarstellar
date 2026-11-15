@@ -1,0 +1,66 @@
+{
+  "source_commit": "ec8604a2819fe2ea05044da8bdcb1f5a1012463c",
+  "modal_run": "https://modal.com/apps/tejas-16842/main/ap-wJJSrVV8sqMbmUNSGzttzI",
+  "fixture": false,
+  "explanations": "Template fallback: Anthropic API credit balance was insufficient during generation.",
+  "notes": "These are cropped full-pipeline demonstration results. Clearcuts uses 11 NISAR passes and Kaiser uses 5, versus 2 Sentinel-1 passes. They are not a fair sensor accuracy comparison; use the pair-only held-out scorecard. Headline numbers differ from the earlier exploratory spikes.",
+  "stories": [
+    {
+      "id": "clearcuts",
+      "n_areas": 141,
+      "area_ha_by_agreement": {
+        "C": 1154.0,
+        "both": 193.0,
+        "L": 334.0
+      },
+      "nisar_passes": 11,
+      "sentinel1_passes": 2,
+      "sha256": {
+        "clearcuts.json": "cece54c26031f957b5f9da047075207c1731a68cb02c285eaba12f794dfc93e5",
+        "clearcuts/after.png": "d5320dc69db1863067659bff075bb13696705fb901eff90678c93ae74a970cd6",
+        "clearcuts/before.png": "a9f070be78185aa23b718af36312f632342fa41f44037da4df3de39278224d01",
+        "clearcuts/c.png": "fbafffa6ee2e6314a4fad3d36fab25d96f3270617cad0fd67a5cc8a74a4342ab",
+        "clearcuts/change.png": "2fa68bfb2e58fc2b3cc657776e9bd88a4e83b9f185f9865b4d3ee629a095465c",
+        "clearcuts/l.png": "ac8fc64f9615891797760ffd65eb1691c7e981278af23403c532d78aa6401545"
+      }
+    },
+    {
+      "id": "kaiser",
+      "n_areas": 202,
+      "area_ha_by_agreement": {
+        "L": 1908.0,
+        "both": 259.0,
+        "C": 267.0
+      },
+      "nisar_passes": 5,
+      "sentinel1_passes": 2,
+      "sha256": {
+        "kaiser.json": "2973f28a684c22757062e231302cbabb680f8a63c3a134d5357f9c93fccbb42b",
+        "kaiser/after.png": "7b39fa3b3434645a85a5d0e809c25e2ca8673f75b84ce6ffad84ed4fe3f0f5eb",
+        "kaiser/before.png": "c8454161c6caaee5e50f46fb39e722ecb676f77e12688998c027fea17481301a",
+        "kaiser/c.png": "b7e56f8123396bd58b66b22c6a57e7816d116d4379465cd8eafe609ee8f08942",
+        "kaiser/change.png": "b47bae9792985f5662326ac7737bfc87b41af131770e65c3d0237c9bfac6899d",
+        "kaiser/l.png": "8d4d610b5646116597391c0bb77ac9db3272483aac2d0b6aad45b36c87eafc42"
+      }
+    },
+    {
+      "id": "edouard",
+      "n_areas": 277,
+      "area_ha_by_agreement": {
+        "L": 5829.0,
+        "C": 17.0,
+        "both": 6.0
+      },
+      "nisar_passes": 2,
+      "sentinel1_passes": 2,
+      "sha256": {
+        "edouard.json": "fc1961dc4e2c6e6eb0697b9a33a665a42f7b63f4b2398843c3504fa8106fd5f8",
+        "edouard/after.png": "069e25e1039c512393559d50ff847555de70da72b3c5024088e4d99fcf88bc2d",
+        "edouard/before.png": "61c3d3928cb9220a2622c14fb23916ab4a0e9e8a195e3c01a17b63a748426bad",
+        "edouard/c.png": "061069ea6ffc78dff346df0e49c0eaa633b7d7177a467b6d9eb43031c930193d",
+        "edouard/change.png": "e1b951a61984a3d1656e9715478b35bf462d9d5f8206a5bbf395a7afb8b63a63",
+        "edouard/l.png": "be4b114a7e48a4d7478b0143b2eb7e9f6a732c53b51816edd0e761bc463e9681"
+      }
+    }
+  ]
+}

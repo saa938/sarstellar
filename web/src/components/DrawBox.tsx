@@ -14,6 +14,8 @@ export interface DrawBoxProps {
   dates?: [IsoDate, IsoDate];
   /** Receives the finished Result, which should replace what the map currently shows. */
   onResult: (result: Result) => void;
+  /** Bring the interactive change map into view before drawing, if another view is open. */
+  onStartDrawing?: () => void;
   /** Drawing tool factory; defaults to terra-draw (loaded on first use). Tests pass a fake. */
   createDrawer?: (map: MaplibreMap) => BoxDrawer | Promise<BoxDrawer>;
 }
@@ -25,7 +27,7 @@ const TOOL_ERROR = "The drawing tool didn't load. Reload the page and try again.
 const loadTerraDraw = (map: MaplibreMap) =>
   import("./terraDrawBox.ts").then((m) => m.createTerraDrawBoxDrawer(map));
 
-export function DrawBox({ map, dates, onResult, createDrawer = loadTerraDraw }: DrawBoxProps) {
+export function DrawBox({ map, dates, onResult, onStartDrawing, createDrawer = loadTerraDraw }: DrawBoxProps) {
   const [phase, setPhase] = useState<Phase>("idle");
   const [box, setBox] = useState<Bbox | null>(null);
   const [toolError, setToolError] = useState<string | null>(null);
@@ -60,6 +62,7 @@ export function DrawBox({ map, dates, onResult, createDrawer = loadTerraDraw }: 
 
   const startDrawing = async () => {
     if (!map) return;
+    onStartDrawing?.();
     setBox(null);
     setToolError(null);
     setPhase("drawing");
@@ -137,6 +140,9 @@ export function DrawBox({ map, dates, onResult, createDrawer = loadTerraDraw }: 
           </button>
           <button type="button" className="db-btn db-small" onClick={startDrawing}>
             Redraw
+          </button>
+          <button type="button" className="db-btn db-small" onClick={cancelDrawing}>
+            Cancel
           </button>
         </div>
       )}
