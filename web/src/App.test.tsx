@@ -72,16 +72,11 @@ it("opens the real story and connects legend filtering to the map", async () => 
   expect(screen.getByRole("button", { name: "Map area a3" })).toBeTruthy();
 });
 
-it("lets the user compare light and dark appearance without changing the analysis", async () => {
+it("uses the story site's dark look and links back to its start", async () => {
   await open();
-  const appearance = screen.getByRole("combobox", { name: "Appearance" });
-  expect(document.documentElement.dataset.theme).toBe("light");
-  fireEvent.change(appearance, { target: { value: "dark" } });
   expect(document.documentElement.dataset.theme).toBe("dark");
-  expect(screen.getByRole("heading", { name: stories[0].title })).toBeTruthy();
-  expect(screen.getByRole("button", { name: "Map area a1" })).toBeTruthy();
-  fireEvent.change(appearance, { target: { value: "light" } });
-  expect(document.documentElement.dataset.theme).toBe("light");
+  expect(screen.getByRole("link", { name: "SARstellar home" }).getAttribute("href")).toBe("/");
+  expect(screen.getByRole("link", { name: "Analyze" }).getAttribute("href")).toBe("/map/");
 });
 
 it("switches saved stories and opens change evidence from the map", async () => {

@@ -4,7 +4,8 @@ import type { Map as MapLibreMap } from "maplibre-gl";
 import { lazy, Suspense, useCallback, useEffect, useRef, useState, useSyncExternalStore } from "react";
 import "./App.css";
 import { loadStory, loadStoryIndex } from "./api.ts";
-import { applyAppearance, readAppearance, type Appearance } from "./appearance.ts";
+import { applyAppearance } from "./appearance.ts";
+import { LAUNCH } from "./launch.ts";
 import { formatDateRange } from "./areas.ts";
 import { AreaList } from "./components/AreaList.tsx";
 import CaseStudy from "./components/CaseStudy.tsx";
@@ -62,8 +63,8 @@ export default function App() {
   const [mode, setMode] = useState<Mode>("change");
   const [map, setMap] = useState<MapLibreMap | null>(null);
   const [layerOpacity, setLayerOpacity] = useState(0.65);
-  const [theme, setTheme] = useState<Appearance>(readAppearance);
-  useEffect(() => { applyAppearance(theme); }, [theme]);
+  // One dark appearance, matching the story site.
+  useEffect(() => { applyAppearance("dark"); }, []);
   // Bumped by every story request and live result, so a slow story load can't replace newer content.
   const latest = useRef(0);
 
@@ -111,7 +112,8 @@ export default function App() {
     void loadStoryIndex().then((list) => {
       if (!alive) return;
       setStories(list);
-      if (list.length > 0) void openStory(list[0].id);
+      const start = list.find((s) => s.id === LAUNCH.story)?.id ?? (LAUNCH.focus ? null : list[0]?.id ?? null);
+      if (start) void openStory(start);
     }, () => alive && setError("The stories could not load. You can still draw a box to analyse."));
     return () => {
       alive = false;
@@ -127,33 +129,33 @@ export default function App() {
     });
   }, []);
 
+  // A ?bbox= link with no saved example frames the map there, ready to draw a box.
+  useEffect(() => {
+    if (!map || !LAUNCH.focus || LAUNCH.story) return;
+    const [w, s, e, n] = LAUNCH.focus;
+    map.fitBounds([[w, s], [e, n]], { padding: 40, duration: 0 });
+  }, [map]);
+
   const story = stories?.find((s) => s.id === storyId) ?? null;
   const selected = result?.areas.find((a) => a.id === selectedId) ?? null;
   const visible: Record<Agreement, boolean> = { L: !hidden.has("L"), both: !hidden.has("both"), C: !hidden.has("C") };
-  const nav: Route[] = scorecard ? ["explore", "scorecard", "about"] : ["explore", "about"];
 
   return (
-    <div className="app">
-      <header className="top">
-        <a className="logo" href={ROUTE_HASH.explore}>
-          SAR<span>stellar</span>
-        </a>
-        <span className="tagline">Radar change analysis</span>
-        <span className="spacer" />
-        {route === "explore" && result?.fixture && <ExampleTag />}
-        <nav aria-label="Pages">
-          {nav.map((r) => (
-            <a key={r} href={ROUTE_HASH[r]} aria-current={route === r ? "page" : undefined}>
-              {r === "explore" ? "Map" : r === "scorecard" ? "Benchmark" : "Methods"}
-            </a>
-          ))}
-        </nav>
-        <label className="appearance-control"><span>Appearance</span>
-          <select aria-label="Appearance" value={theme} onChange={(event) => setTheme(event.target.value as Appearance)}>
-            <option value="light">Light</option><option value="dark">Dark</option>
-          </select>
-        </label>
-      </header>
+    <div className={LAUNCH.embed ? "app app--embed" : "app"}>
+      {!LAUNCH.embed && (
+        <header className="top">
+          <a className="logo" href="/" aria-label="SARstellar home">SAR<em>stellar</em></a>
+          <span className="spacer" />
+          {route === "explore" && result?.fixture && <ExampleTag />}
+          <nav aria-label="Sections">
+            <a href="/#/">Story</a>
+            <a href="/#/places">Places</a>
+            <a href="/#/method">Method</a>
+            <a href="/map/" aria-current={route === "explore" ? "page" : undefined}>Analyze</a>
+            {scorecard && <a href="/map/#/scorecard" aria-current={route === "scorecard" ? "page" : undefined}>Benchmark</a>}
+          </nav>
+        </header>
+      )}
 
       {route === "about" && (
         <div className="pagewrap">

@@ -225,3 +225,15 @@ button:focus-visible, a:focus-visible, summary:focus-visible { outline: 2px soli
   .top nav a { padding: 0 12px; }
   .appearance-control { justify-self: end; }
 }
+
+/* Header matches the story site's nav: serif logo, pill links. */
+.top { height: 58px; gap: 18px; padding: 0 22px; background: rgba(6, 7, 11, 0.86); border-bottom: 1px solid rgba(255, 255, 255, 0.075); }
+.top .logo { font-family: var(--serif); font-size: 23px; font-weight: 400; letter-spacing: 0.005em; color: var(--text); white-space: nowrap; }
+.top .logo em { font-style: italic; color: #f7e3b5; }
+.top nav { gap: 4px; height: auto; align-items: center; }
+.top nav a { height: auto; font-weight: 450; padding: 7px 11px; border: 0; border-radius: 999px; font-size: 13px; color: #8f8d86; white-space: nowrap; }
+.top nav a:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+.top nav a[aria-current="page"] { color: var(--text); background: rgba(255, 255, 255, 0.08); border: 0; }
+@media (max-width: 760px) { .top nav { overflow-x: auto; } .top nav a { padding: 6px 9px; font-size: 12px; } }
+/* Embedded in a story-site place page: no site header, map fills the frame. */
+.app--embed .top { display: none; }
