@@ -105,176 +105,109 @@ export default function About() {
   return (
     <main className="pg">
       <div className="pg-inner">
-        <div className="pg-kicker">About and methods</div>
-        <h1>About SARstellar</h1>
-        <p className="pg-sub">
-          Two radars, one map. SARstellar compares what NISAR's L-band radar and Sentinel-1's C-band radar each see
-          change on the ground: on a box you draw, in three stories, and across the eligible US sites in the national
-          scorecard. Amber means only NISAR saw a change, violet means both did, cyan means only Sentinel-1 did.
-        </p>
+        <header className="pg-report-header">
+          <h1>Methods</h1>
+          <p className="pg-sub">NISAR L-band and Sentinel-1 C-band change detection on 1-hectare blocks.</p>
+        </header>
 
         <section className="pg-card">
-          <h2>Data we use</h2>
+          <h2>Data</h2>
           <div className="pg-data">
-            {DATA.map((d) => (
+            {DATA.slice(0, 2).map((d) => (
               <div key={d.name}>
-                <b>
-                  <a href={d.href} target="_blank" rel="noreferrer">
-                    {d.name}
-                  </a>
-                </b>
+                <b><a href={d.href} target="_blank" rel="noreferrer">{d.name}</a></b>
                 {d.use} <span>Source: {d.source}.</span>
               </div>
             ))}
           </div>
+          <details>
+            <summary>Reference layers and context</summary>
+            <div className="pg-data">
+              {DATA.slice(2).map((d) => (
+                <div key={d.name}>
+                  <b><a href={d.href} target="_blank" rel="noreferrer">{d.name}</a></b>
+                  {d.use} <span>Source: {d.source}.</span>
+                </div>
+              ))}
+            </div>
+          </details>
         </section>
 
         <section className="pg-card">
-          <h2>Method</h2>
+          <h2>Processing</h2>
           <ol className="pg-list">
-            <li>
-              <b>Find comparable passes.</b> For the box and dates, use one NISAR track, direction, mode and processing
-              version so every date is comparable. Skip BETA and mixed-mode passes. Compare the NISAR series with a
-              Sentinel-1 pair near its first and last dates (within six days), and record the offsets.
-            </li>
-            <li>
-              <b>Read only the box</b> from NASA's servers, with retries when a server hiccups.
-            </li>
-            <li>
-              <b>Average into 1-hectare blocks</b> (10 × 10 NISAR pixels, at least half of them valid), with Sentinel-1
-              on the same grid. Single pixels swing by about ±3 dB from radar speckle, so no number is ever quoted per
-              pixel.
-            </li>
-            <li>
-              <b>Remove the background shift.</b> Subtract the typical change of unchanged ground in the same land cover,
-              which cancels scene-wide shifts from moisture or calibration.
-            </li>
-            <li>
-              <b>Test every block.</b> The omnibus change test (Conradsen et al., 2016) gives each block a p-value per
-              radar band. The Benjamini–Hochberg procedure targets a 5% false discovery rate across the box. A block
-              counts as changed only if it is significant and moved by at least 2 dB.
-            </li>
-            <li>
-              <b>Compare the radars.</b> Connected changed blocks of at least 3 ha form a change area, marked as seen by
-              only NISAR, by both, or by only Sentinel-1.
-            </li>
-            <li>
-              <b>Name the likely cause</b> with physics rules (open-water flood, flooded vegetation, forest loss, burn,
-              crop cycle, soil wetting, construction and others), each with a confidence. Freeze-up is a known false
-              alarm and is suppressed; anything the rules can't explain is labelled uncertain.
-            </li>
-            <li>
-              <b>Explain in plain words.</b> A language model rewrites the rule output as two or three sentences (see AI
-              use below).
-            </li>
-            <li>
-              <b>Score it across US sites.</b> The scorecard reports actual attempted, eligible and held-out counts.
-              Its primary comparison pins both radars to two dates, uses identical valid blocks, and compares raw
-              NISAR and Sentinel-1 with Fisher and Bonferroni fusion. Supervised logistic fusion is compared separately
-              with equally trained single-radar models. Whole sites are resampled for confidence intervals.
-            </li>
+            <li><b>Acquisitions.</b> One NISAR track, direction, mode and processing version. Calibrated products only;
+              BETA and mixed-mode passes excluded. Sentinel-1 uses a pair within six days of the first and last NISAR dates.</li>
+            <li><b>Grid.</b> 100 m blocks (1 ha), with at least 50% valid NISAR pixels on every date.
+              Sentinel-1 is averaged onto the same grid.</li>
+            <li><b>Normalization.</b> Remove scene shifts using stable ground. Estimate radar noise from the data,
+              with separate land-cover strata where enough stable blocks exist.</li>
+            <li><b>Detection.</b> Omnibus change test; Benjamini–Hochberg FDR q = 0.05;
+              absolute relative change ≥ 2 dB. Connected change areas must cover at least 3 ha.</li>
+            <li><b>Interpretation.</b> Rules assign likely cause, confidence and supporting measurements.
+              Unsupported causes remain uncertain. Freeze-up is treated as a potential confounder.</li>
           </ol>
         </section>
 
         <section className="pg-card">
-          <h2>Limits</h2>
-          <div className="pg-callout">
-            <b>Neither radar always wins.</b> The early Kaiser Canyon spike favored Sentinel-1, but the full pipeline
-            changed that comparison. The story shows the pipeline's current areas and agreement, rather than the early
-            spike totals. A radar difference alone does not establish the cause of a change.
-          </div>
+          <h2>Validation</h2>
           <ul className="pg-list">
-            <li>
-              NISAR has no data at all from {GAP_TEXT} (UTC). Charts and the timeline show this gap rather than bridging
-              it.
-            </li>
-            <li>
-              Only calibrated NISAR products are used. Uncalibrated BETA data is excluded, which rules out NISAR's
-              December 2025 Washington floods.
-            </li>
-            <li>
-              The scorecard's references are other satellite products (optical alerts, fire perimeters, water and crop
-              maps), not field surveys. DSWx-S1 uses Sentinel-1 and is not an independent flood check. CDL identifies
-              cultivated land, not the timing or existence of a crop change.
-            </li>
-            <li>
-              NISAR is 10 m and Sentinel-1 is 30 m. The scorecard's "NISAR at 30 m" variant changes pixel sampling; it
-              does not isolate wavelength from timing, geometry, processing or other sensor differences.
-            </li>
-            <li>
-              The two radars rarely pass on the same day. A Sentinel-1 pass can be days away from the NISAR pass it is
-              paired with, and a flood can recede in between.
-            </li>
-            <li>
-              Cause labels come from rules and carry a confidence. Landslide and wet-snow labels are low confidence, and
-              changes only Sentinel-1 saw that no rule explains are marked "cause uncertain".
-            </li>
-            <li>
-              Claims are for the United States only. Drawn boxes are limited to 20 km a side, and live analysis may be
-              paused under heavy load; stories and the scorecard keep working.
-            </li>
-            <li>Saved examples from early test runs are marked "Example data" until the final pipeline replaces them.</li>
+            <li><b>Primary comparison.</b> Two catalogued dates per radar, identical valid blocks, raw single-sensor
+              detectors versus Fisher or Bonferroni fusion.</li>
+            <li><b>Geographic hold-out.</b> Fitting and method selection use training states only.
+              Results are evaluated on held-out states; uncertainty uses whole-site paired bootstrap intervals.</li>
+            <li><b>Supervised comparison.</b> Logistic fusion is evaluated separately against equally trained
+              single-sensor models. This benchmark does not validate cause labels.</li>
+          </ul>
+          <p className="pg-note"><a href="#/scorecard">Benchmark: sample counts, class results and confidence intervals</a></p>
+        </section>
+
+        <section className="pg-card">
+          <h2>Limits</h2>
+          <ul className="pg-list">
+            <li><b>Reference dependence.</b> DSWx-S1 uses Sentinel-1 and is not an independent flood check.
+              CDL identifies cultivated land, not confirmed crop change. Reference products are not field surveys.</li>
+            <li><b>Sampling.</b> The NISAR-at-30 m variant changes pixel sampling; it does not isolate wavelength from
+              acquisition timing, geometry, processing or other sensor differences.</li>
+            <li><b>Missing dates.</b> NISAR has no data from {GAP_TEXT} (UTC). Charts show the gap.
+              Offset radar acquisitions can also miss short-lived floods.</li>
+            <li><b>Case sensitivity.</b> The early Kaiser Canyon spike favored Sentinel-1; the full pipeline changed
+              that comparison. Published cases use the current pipeline, not the early spike totals.</li>
+            <li><b>Scope.</b> US reference coverage. Live boxes are limited to 20 km per side. Static cases and
+              benchmark results remain available when live analysis is paused.</li>
           </ul>
         </section>
 
         <section className="pg-card">
           <h2>AI use</h2>
-          <ul className="pg-list">
-            <li>
-              <b>Plain-language text.</b> Claude (Anthropic, model claude-sonnet-5-5) rewrites each change area's rule
-              output (class, confidence, evidence numbers) as two or three sentences, when configured. The prompt
-              requires it to use only supplied facts; the structured class and confidence remain unchanged. If the
-              call fails or no key is set, a fixed template is used instead.
-            </li>
-            <li>
-              <b>Cause labels and learned fusion.</b> Cause labels currently come from rules. The benchmark's logistic
-              fusion is a separate change-detection comparison; it does not validate the cause labels. The stretch
-              learned cause classifier has not shipped.
-            </li>
-            <li>
-              <b>Building the app.</b> The team wrote this software with AI coding assistants (Claude Code and OpenAI
-              Codex). Automated checks and real-data runs were used to validate the changes.
-            </li>
-            <li>
-              <b>Images.</b> Map overlays are rendered directly from radar data. The app contains no AI-generated images.
-            </li>
-          </ul>
+          <p className="pg-note">Cause labels currently come from rules. Optional Claude explanations use supplied
+            evidence; structured labels and confidence are unchanged. A fixed template is used when no key is set or a
+            call fails. Logistic fusion is a benchmark detector; the stretch learned cause classifier has not shipped.</p>
+          <details>
+            <summary>Implementation disclosure</summary>
+            <p>Claude Code and OpenAI Codex assisted development. Automated checks and real-data runs validate changes.
+              Radar overlays are rendered from data; no AI-generated imagery is used.
+              Optional text model: Anthropic claude-sonnet-5-5.</p>
+          </details>
         </section>
 
         <section className="pg-card">
           <h2>References</h2>
-          <ol className="pg-list pg-refs">
-            {REFERENCES.map((r) => (
-              <li key={r}>{r}</li>
-            ))}
-            <li>
-              NASA-ISRO SAR (NISAR) mission, NASA Jet Propulsion Laboratory:{" "}
-              <a href="https://nisar.jpl.nasa.gov/" target="_blank" rel="noreferrer">
-                nisar.jpl.nasa.gov
-              </a>
-              .
-            </li>
-            <li>
-              OPERA (Observational Products for End-Users from Remote Sensing Analysis), NASA Jet Propulsion Laboratory:{" "}
-              <a href="https://www.jpl.nasa.gov/go/opera" target="_blank" rel="noreferrer">
-                jpl.nasa.gov/go/opera
-              </a>
-              .
-            </li>
-          </ol>
+          <details>
+            <summary>Scientific references and mission documentation</summary>
+            <ol className="pg-list pg-refs">
+              {REFERENCES.map((r) => <li key={r}>{r}</li>)}
+              <li><a href="https://nisar.jpl.nasa.gov/" target="_blank" rel="noreferrer">NASA-ISRO SAR mission documentation</a></li>
+              <li><a href="https://www.jpl.nasa.gov/go/opera" target="_blank" rel="noreferrer">NASA OPERA mission documentation</a></li>
+            </ol>
+          </details>
         </section>
 
         <section className="pg-card">
           <h2>License</h2>
-          <p className="pg-note">
-            Code is open source under the Apache-2.0 license at{" "}
-            <a href={REPO} target="_blank" rel="noreferrer">
-              github.com/saa938/sarstellar
-            </a>
-            . NISAR, OPERA and FIRMS data are openly available from NASA. Sentinel-1 products contain modified Copernicus
-            Sentinel data (2025–2026). Basemap imagery © Esri and its data providers. Built for the NASA Space Apps
-            Challenge 2026 ("Dancing with the SARs"); not an official NASA product.
-          </p>
+          <p className="pg-note">Apache-2.0 code: <a href={REPO} target="_blank" rel="noreferrer">github.com/saa938/sarstellar</a>.
+            NASA data are openly available. Sentinel-1 products contain modified Copernicus Sentinel data (2025–2026).
+            Basemap imagery © Esri and its providers. NASA Space Apps Challenge 2026; not an official NASA product.</p>
         </section>
       </div>
     </main>

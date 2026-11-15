@@ -34,7 +34,7 @@ function fakeDrawer() {
 async function drawBox(bbox: Bbox, onResult = vi.fn()) {
   const { drawer, emit } = fakeDrawer();
   render(<DrawBox map={MAP} onResult={onResult} createDrawer={() => drawer} />);
-  await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw a box anywhere" })));
+  await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw analysis area" })));
   expect(drawer.start).toHaveBeenCalledTimes(1);
   await emit(bbox, true);
   return { drawer, emit, onResult };
@@ -77,15 +77,15 @@ describe("DrawBox", () => {
   it("can cancel a completed rectangle without starting an analysis", async () => {
     await drawBox(SMALL);
     fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
-    expect(screen.getByRole("button", { name: "Draw a box anywhere" })).toBeTruthy();
-    expect(screen.queryByRole("button", { name: "Analyze this box" })).toBeNull();
+    expect(screen.getByRole("button", { name: "Draw analysis area" })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Run analysis" })).toBeNull();
     expect(createJob).not.toHaveBeenCalled();
   });
 
   it("shows a live size readout while drawing", async () => {
     const { drawer, emit } = fakeDrawer();
     render(<DrawBox map={MAP} onResult={vi.fn()} createDrawer={() => drawer} />);
-    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw a box anywhere" })));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw analysis area" })));
     await emit(SMALL, false);
     expect(screen.getByText("7.6 × 5.6 km · 42 km²")).toBeTruthy();
     expect(screen.getByRole("button", { name: "Cancel drawing" })).toBeTruthy();
@@ -94,7 +94,7 @@ describe("DrawBox", () => {
   it("oversize box blocked before submit", async () => {
     await drawBox(OVERSIZE);
     expect(screen.getByRole("alert").textContent).toBe("Boxes are limited to 20 km a side.");
-    const submit = screen.getByRole("button", { name: "Analyze this box" }) as HTMLButtonElement;
+    const submit = screen.getByRole("button", { name: "Run analysis" }) as HTMLButtonElement;
     expect(submit.disabled).toBe(true);
     await act(async () => fireEvent.click(submit));
     expect(createJob).not.toHaveBeenCalled();
@@ -103,7 +103,7 @@ describe("DrawBox", () => {
   it("warns about an oversize box while it is still being drawn", async () => {
     const { drawer, emit } = fakeDrawer();
     render(<DrawBox map={MAP} onResult={vi.fn()} createDrawer={() => drawer} />);
-    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw a box anywhere" })));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw analysis area" })));
     await emit(OVERSIZE, false);
     expect(screen.getByRole("alert").textContent).toBe("Boxes are limited to 20 km a side.");
   });
@@ -116,7 +116,7 @@ describe("DrawBox", () => {
       throw new Error(serverMessage);
     });
     const { onResult } = await drawBox(SMALL);
-    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Analyze this box" })));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Run analysis" })));
     expect((await screen.findByRole("alert")).textContent).toBe(serverMessage);
     expect(onResult).not.toHaveBeenCalled();
   });
@@ -124,7 +124,7 @@ describe("DrawBox", () => {
   it("shows a 422 detail from the server verbatim", async () => {
     vi.mocked(createJob).mockRejectedValue(new ApiError("Box sides must be at most 20 km (got 20.4 km).", 422));
     await drawBox(SMALL);
-    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Analyze this box" })));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Run analysis" })));
     expect((await screen.findByRole("alert")).textContent).toBe("Box sides must be at most 20 km (got 20.4 km).");
   });
 
@@ -135,9 +135,9 @@ describe("DrawBox", () => {
     const { drawer, emit } = fakeDrawer();
     const onResult = vi.fn();
     render(<DrawBox map={MAP} dates={["2026-07-13", "2026-09-11"]} onResult={onResult} createDrawer={() => drawer} />);
-    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw a box anywhere" })));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Draw analysis area" })));
     await emit(SMALL, true);
-    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Analyze this box" })));
+    await act(async () => fireEvent.click(screen.getByRole("button", { name: "Run analysis" })));
 
     expect(await screen.findByText("Most of this box has no valid radar data.")).toBeTruthy();
     expect(screen.getByText("Analysis complete · no change areas")).toBeTruthy();
@@ -149,7 +149,7 @@ describe("DrawBox", () => {
 
   it("disables drawing until the map exists", () => {
     render(<DrawBox map={null} onResult={vi.fn()} createDrawer={() => fakeDrawer().drawer} />);
-    expect((screen.getByRole("button", { name: "Draw a box anywhere" }) as HTMLButtonElement).disabled).toBe(true);
+    expect((screen.getByRole("button", { name: "Draw analysis area" }) as HTMLButtonElement).disabled).toBe(true);
   });
 
   it("releases the drawer on unmount", async () => {

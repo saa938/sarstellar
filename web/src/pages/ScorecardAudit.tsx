@@ -11,21 +11,26 @@ export default function ScorecardAudit({ sc }: { sc: Scorecard }) {
   const floods = sites.filter((s) => s.kind === "flood" && s.split === "holdout");
   return (
     <section className="pg-card">
-      <h2>What was actually evaluated</h2>
-      <p>
-        {sc.n_comparable_sites ?? sc.n_sites} eligible sites from {attempted} attempted.
-        {sc.n_processed_sites !== undefined && ` ${sc.n_processed_sites} sites were processed;`}
-        {` ${failed} failed and ${excluded} were excluded from comparison.`}
-        {` ${held.nSites} held-out sites in ${held.states.length} states; `}
-        {sc.n_train_sites ?? sites.filter((s) => s.split === "train").length} training sites.
-      </p>
+      <h2>Evaluation sample</h2>
+      <dl className="pg-sample-counts" aria-label="Evaluation counts">
+        <div><dt>Attempted</dt><dd>{attempted}</dd></div>
+        {sc.n_processed_sites !== undefined && <div><dt>Processed</dt><dd>{sc.n_processed_sites}</dd></div>}
+        <div><dt>Eligible</dt><dd>{sc.n_comparable_sites ?? sc.n_sites}</dd></div>
+        <div><dt>Training</dt><dd>{sc.n_train_sites ?? sites.filter((s) => s.split === "train").length}</dd></div>
+        <div><dt>Held out</dt><dd>{held.nSites}</dd></div>
+        <div><dt>Failed</dt><dd>{failed}</dd></div>
+        <div><dt>Excluded</dt><dd>{excluded}</dd></div>
+      </dl>
       <p className="pg-note">
-        Every primary detector is measured on the same blocks with valid paired NISAR, Sentinel-1, coarser NISAR
-        and reference data. Sites were selected around reference events and controls; these scores do not estimate
-        national change prevalence or measure multiclass cause-label accuracy.
-        {floods.length > 0 && ` Flood results have only ${floods.length} held-out flood ${floods.length === 1 ? "site" : "sites"}, plus stable controls; interpret their uncertainty cautiously.`}
+        Eligibility requires common valid NISAR, Sentinel-1, coarser NISAR and reference blocks.
         {sc.status === "incomplete" && " This report is incomplete."}
       </p>
+      <ul className="pg-note pg-list">
+        {floods.length > 0 && <li>{floods.length} held-out flood {floods.length === 1 ? "site" : "sites"}, plus stable controls. Flood uncertainty is limited by this small sample.</li>}
+        <li>DSWx-S1 uses Sentinel-1; the flood reference is not sensor-independent.</li>
+        <li>CDL marks cultivated land, not confirmed crop change.</li>
+        <li>Reference-selected events and controls: no estimate of national prevalence or multiclass cause-label accuracy.</li>
+      </ul>
       {sc.bootstrap && <p className="pg-meta">
         {sc.bootstrap.n_draws} whole-site bootstrap draws · {sc.bootstrap.confidence * 100}% intervals
       </p>}

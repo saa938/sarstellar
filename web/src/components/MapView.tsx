@@ -1,5 +1,5 @@
 import "../pages/maplibreWorker.ts";
-import { Map, NavigationControl, type GeoJSONSource, type ImageSource } from "maplibre-gl";
+import { Map, NavigationControl, type GeoJSONSource } from "maplibre-gl";
 import "maplibre-gl/dist/maplibre-gl.css";
 import { useEffect, useRef, useState } from "react";
 import type { Agreement, Result } from "../types.ts";
@@ -10,6 +10,7 @@ export interface MapViewProps {
   result: Result | null;
   visible: Record<Agreement, boolean>;
   selectedAreaId: string | null;
+  opacity?: number;
   onSelectArea: (id: string) => void;
   onMapReady?: (map: Map | null) => void;
 }
@@ -17,8 +18,6 @@ export interface MapViewProps {
 const SOURCE = "sarstellar-areas";
 const FILL = "sarstellar-area-fill";
 const OUTLINE = "sarstellar-area-outline";
-const IMAGE = "sarstellar-agreement-image";
-const IMAGE_LAYER = "sarstellar-agreement";
 const START_ERROR = "The map could not start. Check that WebGL is enabled in your browser. Findings remain available in the list.";
 const LOAD_ERROR = "Some map imagery could not load. Findings remain available in the list.";
 
@@ -35,33 +34,19 @@ export default function MapView(props: MapViewProps) {
   const [attempt, setAttempt] = useState(0);
 
   function synchronize(map: Map) {
-    const { result, visible, selectedAreaId } = latest.current;
+    const { result, visible, selectedAreaId, opacity = 0.65 } = latest.current;
     (map.getSource(SOURCE) as GeoJSONSource).setData(areaFeatures(result));
     map.setFilter(FILL, agreementFilter(visible));
     map.setFilter(OUTLINE, selectionFilter(visible, selectedAreaId));
+    map.setPaintProperty(FILL, "fill-opacity", opacity);
 
     if (result) {
-      const image = { url: result.overlays.change_png, coordinates: result.overlays.bounds };
-      const source = map.getSource(IMAGE) as ImageSource | undefined;
-      if (source) {
-        if (displayed.current !== result) source.updateImage(image);
-      } else {
-        map.addSource(IMAGE, { type: "image", ...image });
-        map.addLayer({
-          id: IMAGE_LAYER, type: "raster", source: IMAGE,
-          paint: { "raster-opacity": 0.8, "raster-fade-duration": 0, "raster-resampling": "nearest" },
-        }, FILL);
-      }
-      // The image contains every category. Filtered views use the polygons alone so hidden
-      // agreements cannot remain painted underneath them in the baked PNG.
-      map.setLayoutProperty(IMAGE_LAYER, "visibility",
-        visible.L && visible.C && visible.both ? "visible" : "none");
+      // Show the selectable >=3 ha areas. The exported agreement PNG also contains small,
+      // unlabelled blocks, which must not appear as findings that cannot be inspected.
       if (displayed.current !== result) {
         const [w, s, e, n] = result.bbox;
         map.fitBounds([[w, s], [e, n]], { padding: 44, maxZoom: 13.5, duration: 0 });
       }
-    } else if (map.getLayer(IMAGE_LAYER)) {
-      map.setLayoutProperty(IMAGE_LAYER, "visibility", "none");
     }
     displayed.current = result;
   }
@@ -155,7 +140,7 @@ export default function MapView(props: MapViewProps) {
   useEffect(() => {
     const map = mapRef.current;
     if (map && loaded.current) synchronize(map);
-  }, [props.result, props.visible, props.selectedAreaId]);
+  }, [props.result, props.visible, props.selectedAreaId, props.opacity]);
 
   return (
     <div className="map-view" role="region" aria-label="Radar change map">

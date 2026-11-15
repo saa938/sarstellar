@@ -66,6 +66,10 @@ vi.mock("maplibre-gl", () => {
     }
     getLayer(id: string) { return this.layers.get(id); }
     setFilter(id: string, filter: unknown) { this.layers.get(id)!.filter = filter; }
+    setPaintProperty(id: string, key: string, value: unknown) {
+      const layer = this.layers.get(id)!;
+      layer.paint = { ...(layer.paint as object), [key]: value };
+    }
     setLayoutProperty(id: string, key: string, value: unknown) {
       const layer = this.layers.get(id)!;
       layer.layout = { ...(layer.layout as object), [key]: value };
@@ -88,7 +92,7 @@ beforeEach(() => {
 afterEach(cleanup);
 
 describe("MapView", () => {
-  it("loads the latest result, its image bounds and feature identities after the map is ready", () => {
+  it("loads only inspectable area features and the latest bounds after the map is ready", () => {
     const initial = props();
     const onMapReady = vi.fn();
     const { rerender } = render(<MapView {...initial} onMapReady={onMapReady} />);
@@ -98,13 +102,11 @@ describe("MapView", () => {
     expect(current().sources.size).toBe(0);
     load();
     const map = current();
-    expect(map.sources.get("sarstellar-agreement-image")!.spec).toMatchObject({
-      url: "/updated.png", coordinates: next.overlays.bounds,
-    });
+    expect(map.sources.size).toBe(1);
+    expect(map.sources.has("sarstellar-agreement-image")).toBe(false);
     expect(map.sources.get("sarstellar-areas")!.spec.data).toMatchObject({
       features: next.areas.map((area) => ({ id: area.id, properties: { id: area.id }, geometry: area.geometry })),
     });
-    expect(map.layers.get("sarstellar-agreement")!.before).toBe("sarstellar-area-fill");
     expect(map.fitBounds).toHaveBeenCalledWith(
       [[next.bbox[0], next.bbox[1]], [next.bbox[2], next.bbox[3]]], expect.any(Object),
     );
@@ -112,7 +114,7 @@ describe("MapView", () => {
     expect(screen.queryByText("Loading satellite map…")).toBeNull();
   });
 
-  it("filters every category, hides the baked image and keeps hidden selections outlined off", () => {
+  it("filters every category and keeps hidden selections outlined off", () => {
     const initial = props();
     const { rerender } = render(<MapView {...initial} />);
     load();
@@ -121,11 +123,19 @@ describe("MapView", () => {
     rerender(<MapView {...initial} visible={visible} selectedAreaId={selectedAreaId} />);
     expect(current().layers.get("sarstellar-area-fill")!.filter).toEqual(agreementFilter(visible));
     expect(current().layers.get("sarstellar-area-outline")!.filter).toEqual(selectionFilter(visible, selectedAreaId));
-    expect(current().layers.get("sarstellar-agreement")!.layout).toEqual({ visibility: "none" });
     expect(current().fitBounds).toHaveBeenCalledTimes(1);
     expect(agreementFilter({ L: false, both: false, C: false })).toEqual(["in", ["get", "agreement"], ["literal", []]]);
-    rerender(<MapView {...initial} />);
-    expect(current().layers.get("sarstellar-agreement")!.layout).toEqual({ visibility: "visible" });
+  });
+
+  it("changes area opacity without moving the map or replacing its source", () => {
+    const initial = props();
+    const { rerender } = render(<MapView {...initial} opacity={0.65} />);
+    load();
+    const source = current().sources.get("sarstellar-areas");
+    rerender(<MapView {...initial} opacity={0.2} />);
+    expect(current().layers.get("sarstellar-area-fill")!.paint).toMatchObject({ "fill-opacity": 0.2 });
+    expect(current().sources.get("sarstellar-areas")).toBe(source);
+    expect(current().fitBounds).toHaveBeenCalledTimes(1);
   });
 
   it("uses the newest click callback without replacing maps or duplicating handlers", () => {
@@ -141,20 +151,19 @@ describe("MapView", () => {
     expect(current().handlers.get("click:sarstellar-area-fill")!.size).toBe(1);
   });
 
-  it("updates the same image source for a new result and clears it when results disappear", () => {
+  it("updates the same feature source for a new result and clears it when results disappear", () => {
     const initial = props();
     const { rerender } = render(<MapView {...initial} />);
     load();
-    const source = current().sources.get("sarstellar-agreement-image");
+    const source = current().sources.get("sarstellar-areas");
     const next = result();
     next.overlays.change_png = "/next.png";
     rerender(<MapView {...initial} result={next} />);
-    expect(current().sources.get("sarstellar-agreement-image")).toBe(source);
-    expect(source!.spec.url).toBe("/next.png");
+    expect(current().sources.get("sarstellar-areas")).toBe(source);
+    expect(source!.spec.data).toMatchObject({ features: next.areas.map((area) => ({ id: area.id })) });
     expect(current().fitBounds).toHaveBeenCalledTimes(2);
     rerender(<MapView {...initial} result={null} />);
     expect(current().sources.get("sarstellar-areas")!.spec.data).toMatchObject({ features: [] });
-    expect(current().layers.get("sarstellar-agreement")!.layout).toEqual({ visibility: "none" });
   });
 
   it("resizes and releases maps, callbacks and event handlers in StrictMode", () => {
@@ -181,7 +190,7 @@ describe("MapView", () => {
     expect(disconnect).toHaveBeenCalledTimes(2);
     expect([...map.handlers.values()].every((handlers) => handlers.size === 0)).toBe(true);
     act(() => map.fire("load")); // A late event from a disposed map does not recreate layers.
-    expect(map.layers.size).toBe(3);
+    expect(map.layers.size).toBe(2);
   });
 
   it("shows a readable WebGL fallback and can retry", () => {

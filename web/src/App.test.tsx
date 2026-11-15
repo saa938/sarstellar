@@ -28,11 +28,12 @@ vi.mock("./components/DrawBox.tsx", () => ({
     map: MapLibreMap | null; onResult: (r: Result) => void; onStartDrawing: () => void;
   }) => <button disabled={!map} onClick={() => {
     onStartDrawing(); onResult(sampleResult({ message: "Live result from your box" }));
-  }}>Draw a box anywhere</button>,
+  }}>Draw analysis area</button>,
 }));
 vi.mock("./components/SwipeView.tsx", () => ({ default: () => <div>Before and after comparison</div> }));
 vi.mock("./components/LvsCView.tsx", () => ({ default: () => <div>NISAR and Sentinel-1 comparison</div> }));
 vi.mock("./components/ChangePanel.tsx", () => ({
+  ResultExports: () => <section aria-label="Exports">Exports</section>,
   default: ({ area, onClose }: { area: { id: string }; onClose: () => void }) =>
     <section aria-label="Selected change evidence">{area.id}<button onClick={onClose}>Close</button></section>,
 }));
@@ -58,16 +59,28 @@ afterEach(() => { cleanup(); vi.clearAllMocks(); });
 async function open() {
   render(<App />);
   await screen.findByRole("heading", { name: stories[0].title });
-  await waitFor(() => expect(screen.getByRole("button", { name: "Draw a box anywhere" }).hasAttribute("disabled")).toBe(false));
+  await waitFor(() => expect(screen.getByRole("button", { name: "Draw analysis area" }).hasAttribute("disabled")).toBe(false));
 }
 
 it("opens the real story and connects legend filtering to the map", async () => {
   await open();
   expect(screen.queryByText("Example data")).toBeNull();
   expect(screen.getByRole("button", { name: "Map area a1" })).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: /Only NISAR saw it/ }));
+  fireEvent.click(screen.getByRole("button", { name: /^NISAR only:/ }));
   expect(screen.queryByRole("button", { name: "Map area a1" })).toBeNull();
   expect(screen.getByRole("button", { name: "Map area a3" })).toBeTruthy();
+});
+
+it("lets the user compare light and dark appearance without changing the analysis", async () => {
+  await open();
+  const appearance = screen.getByRole("combobox", { name: "Appearance" });
+  expect(document.documentElement.dataset.theme).toBe("light");
+  fireEvent.change(appearance, { target: { value: "dark" } });
+  expect(document.documentElement.dataset.theme).toBe("dark");
+  expect(screen.getByRole("heading", { name: stories[0].title })).toBeTruthy();
+  expect(screen.getByRole("button", { name: "Map area a1" })).toBeTruthy();
+  fireEvent.change(appearance, { target: { value: "light" } });
+  expect(document.documentElement.dataset.theme).toBe("light");
 });
 
 it("switches saved stories and opens change evidence from the map", async () => {
@@ -87,9 +100,9 @@ it("renders both comparison modes and brings the change map back when drawing", 
   await screen.findByText("Before and after comparison");
   fireEvent.click(screen.getByRole("button", { name: "L-band vs C-band" }));
   await screen.findByText("NISAR and Sentinel-1 comparison");
-  fireEvent.click(screen.getByRole("button", { name: "Draw a box anywhere" }));
-  expect(screen.getByRole("button", { name: "Change map" }).getAttribute("aria-pressed")).toBe("true");
-  await screen.findByRole("heading", { name: "Your box" });
+  fireEvent.click(screen.getByRole("button", { name: "Draw analysis area" }));
+  expect(screen.getByRole("button", { name: "Detected areas" }).getAttribute("aria-pressed")).toBe("true");
+  await screen.findByRole("heading", { name: "Analysis area" });
   expect(screen.getByText("Live result from your box")).toBeTruthy();
 });
 

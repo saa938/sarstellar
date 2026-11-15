@@ -22,9 +22,9 @@ const BANDS: { key: Band; name: string; color: string; dash?: string }[] = [
   { key: "VH", name: "Sentinel-1 VH", color: AGREEMENT_COLORS.C },
   { key: "VV", name: "Sentinel-1 VV", color: AGREEMENT_COLORS.C, dash: "4 3" },
 ];
-const GAP_FILL = "#3b1d1d";
-const CHANGE_STROKE = "#fca5a5";
-const AXIS = { stroke: "#8b95ab", fontSize: 10 };
+const GAP_FILL = "var(--gap)";
+const CHANGE_STROKE = "var(--accent)";
+const AXIS = { stroke: "var(--muted)", fontSize: 10 };
 
 export default function SeriesChart({ series, changeDate = null, width = 340, height = 170 }: SeriesChartProps) {
   const rows = toRows(series);
@@ -48,7 +48,7 @@ export default function SeriesChart({ series, changeDate = null, width = 340, he
   return (
     <figure className="sc" aria-label="Radar brightness at every pass, averaged over this area">
       <LineChart width={width} height={height} data={rows} margin={{ top: 8, right: 10, bottom: 0, left: 0 }}>
-        <CartesianGrid stroke="#263049" vertical={false} />
+        <CartesianGrid stroke="var(--line)" vertical={false} />
         <XAxis
           dataKey="t"
           type="number"
@@ -80,8 +80,8 @@ export default function SeriesChart({ series, changeDate = null, width = 340, he
           />
         ))}
         <Tooltip
-          contentStyle={{ background: "#121826", border: "1px solid #263049", borderRadius: 6, fontSize: 12 }}
-          labelStyle={{ color: "#e6eaf2" }}
+          contentStyle={{ background: "var(--panel)", border: "1px solid var(--line)", borderRadius: 3, fontSize: 12 }}
+          labelStyle={{ color: "var(--text)" }}
           labelFormatter={(t) => longDate(Number(t))}
           formatter={(v) => (typeof v === "number" ? `${formatLevel(v)} dB` : String(v))}
         />
