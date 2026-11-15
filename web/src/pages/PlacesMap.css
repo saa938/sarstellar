@@ -1,0 +1,64 @@
+/* The places map. Same tokens as story.css; the map controls and attribution are already themed in stage.css. */
+
+.placesmap {
+  position: relative;
+  height: 440px;
+  margin-bottom: 18px;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  background: var(--bg-1);
+}
+
+.placesmap .placesmap__map,
+.placesmap .placesmap__map.maplibregl-map {
+  position: absolute;
+  inset: 0;
+}
+
+.placesmap__all {
+  position: absolute;
+  z-index: 2;
+  left: 10px;
+  top: 10px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--line-2);
+  background: rgba(12, 14, 21, 0.8);
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 11.5px;
+  cursor: pointer;
+  transition: border-color 0.3s, color 0.3s;
+}
+
+.placesmap__all:hover {
+  border-color: var(--line-3);
+  color: var(--ink);
+}
+
+/* the hover label: a quiet dark chip, never in the way of the pointer */
+.placesmap__tip,
+.placesmap__tip .maplibregl-popup-content {
+  pointer-events: none;
+}
+
+.placesmap__tip .maplibregl-popup-content {
+  padding: 6px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--line-2);
+  background: rgba(12, 14, 21, 0.92);
+  color: var(--ink);
+  font-size: 12.5px;
+  box-shadow: none;
+}
+
+.placesmap__tip .maplibregl-popup-tip {
+  display: none;
+}
+
+@media (max-width: 860px) {
+  .placesmap {
+    height: 320px;
+  }
+}
