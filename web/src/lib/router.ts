@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export interface Route {
-  name: "landing" | "stage" | "moves" | "move" | "proof" | "explore" | "present" | "constellation" | "about" | "notfound";
+  name: "story" | "places" | "place" | "method" | "present" | "notfound";
   id?: string;
   query: URLSearchParams;
 }
@@ -11,15 +11,12 @@ export function parseHash(hash: string): Route {
   const [path, qs] = raw.split("?");
   const query = new URLSearchParams(qs || "");
   const parts = path.split("/").filter(Boolean).map(decodeURIComponent);
-  if (parts.length === 0) return { name: "landing", query };
-  if (parts[0] === "stage" && parts[1]) return { name: "stage", id: parts[1], query };
-  if (parts[0] === "moves" && parts[1]) return { name: "move", id: parts[1], query };
-  if (parts[0] === "moves") return { name: "moves", query };
-  if (parts[0] === "proof") return { name: "proof", query };
-  if (parts[0] === "present") return { name: "present", query };
-  if (parts[0] === "constellation") return { name: "constellation", query };
-  if (parts[0] === "about") return { name: "about", query };
-  if (parts[0] === "explore" || parts[0] === "stages") return { name: "explore", query };
+  if (parts.length === 0) return { name: "story", query };
+  const [a, b] = parts;
+  if ((a === "places" || a === "stage") && b) return { name: "place", id: b, query };
+  if (a === "places" || a === "stages" || a === "explore" || a === "constellation") return { name: "places", query };
+  if (a === "method" || a === "proof" || a === "moves" || a === "about") return { name: "method", query };
+  if (a === "present") return { name: "present", query };
   return { name: "notfound", query };
 }
 
@@ -31,8 +28,4 @@ export function useRoute() {
     return () => window.removeEventListener("hashchange", on);
   }, []);
   return route;
-}
-
-export function href(path: string) {
-  return `#${path}`;
 }

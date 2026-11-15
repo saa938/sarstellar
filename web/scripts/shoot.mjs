@@ -1,5 +1,4 @@
-// Screenshots of every screen at desktop and phone sizes, plus the stage view mid-playback with a
-// brush selection and a solo card open. Usage (with the dev or preview server running):
+// Screenshots of every screen at desktop and phone sizes. With the dev or preview server running:
 //   node scripts/shoot.mjs [--base http://localhost:5199] [only-these-shot-ids...]
 // Writes PNGs to web/screenshots/ and prints any console errors.
 
@@ -27,71 +26,49 @@ const VIEWPORTS = {
 
 const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
-async function floorBox(page) {
-  return page.evaluate(() => {
-    const c = document.querySelector(".stage .floor__gl");
-    if (!c) return null;
-    const r = c.getBoundingClientRect();
-    return { x: r.left, y: r.top, w: r.width, h: r.height };
-  });
+async function scrollTo(page, sel) {
+  await page.evaluate((s) => {
+    const el = document.querySelector(s);
+    if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
+  }, sel);
 }
 
 const SHOTS = [
-  { id: "landing-hero", path: "#/", wait: 3500 },
-  { id: "landing-partners", path: "#/", wait: 2500, scrollTo: ".act--partners", extra: 1200 },
-  { id: "landing-floor", path: "#/", wait: 2500, scrollTo: ".act--floor", extra: 2500 },
-  { id: "landing-finding", path: "#/?fx=1", wait: 2500, scrollTo: ".act--finding", extra: 2500 },
-  { id: "landing-moves", path: "#/", wait: 2500, scrollTo: ".act--moves", extra: 1500 },
-  { id: "landing-tour", path: "#/", wait: 2500, scrollTo: ".act--tour", extra: 1500 },
-  { id: "landing-proof", path: "#/", wait: 2500, scrollTo: ".act--proof", extra: 1200 },
-  { id: "landing-future", path: "#/", wait: 2500, scrollTo: ".act--future", extra: 1200 },
-  { id: "stage-punjab", path: "#/stage/punjab?date=2026-09-17&play=0", wait: 5000 },
+  { id: "story-hero", path: "#/", wait: 3500 },
+  { id: "story-channels", path: "#/", wait: 2000, scrollTo: "#channels", extra: 3200 },
+  { id: "story-ex-wheat", path: "#/", wait: 2000, scrollTo: "#ex-wheat", extra: 5200 },
+  { id: "story-ex-rice", path: "#/", wait: 2000, scrollTo: "#ex-rice", extra: 5200 },
+  { id: "story-ex-flood-trees", path: "#/", wait: 2000, scrollTo: "#ex-flood-trees", extra: 5200 },
+  { id: "story-ex-forest-loss", path: "#/", wait: 2000, scrollTo: "#ex-forest-loss", extra: 5200 },
+  { id: "story-ex-ice", path: "#/", wait: 2000, scrollTo: "#ex-ice", extra: 2500 },
+  { id: "story-proof", path: "#/", wait: 2000, scrollTo: "#does-it-work", extra: 1800 },
+  { id: "story-apps", path: "#/", wait: 2000, scrollTo: ".apps", extra: 1500 },
+  { id: "places", path: "#/places", wait: 2500 },
   {
-    id: "stage-punjab-brush",
-    path: "#/stage/punjab?date=2026-02-01&play=0",
-    wait: 5000,
+    id: "place-punjab",
+    path: "#/places/punjab",
+    wait: 6500,
     async act(page, vp) {
-      const b = await floorBox(page);
+      const b = await page.evaluate(() => {
+        const r = document.querySelector(".dchart--place")?.getBoundingClientRect();
+        return r ? { x: r.left, y: r.top, w: r.width, h: r.height } : null;
+      });
       if (!b) return;
-      if (vp === "desktop") {
-        // brush the crops zone at peak wheat, click a dot, then play
-        await page.mouse.move(b.x + b.w * 0.5, b.y + b.h * 0.3);
-        await page.mouse.down();
-        await page.mouse.move(b.x + b.w * 0.68, b.y + b.h * 0.5, { steps: 8 });
-        await page.mouse.up();
-        await sleep(400);
-        await page.mouse.click(b.x + b.w * 0.6, b.y + b.h * 0.4);
-        await sleep(300);
-        await page.keyboard.press("Space");
-        await sleep(2600);
-      } else {
-        await page.evaluate(() => window.scrollTo(0, document.querySelector(".stage__floor").getBoundingClientRect().top + window.scrollY - 60));
-        await sleep(500);
-        const c = await floorBox(page);
-        await page.touchscreen.tap(c.x + c.w * 0.6, c.y + c.h * 0.4);
-        await sleep(700);
-      }
+      if (vp === "phone") await page.evaluate(() => window.scrollTo(0, document.querySelector(".dchart--place").getBoundingClientRect().top + window.scrollY - 80));
+      const c = await page.evaluate(() => {
+        const r = document.querySelector(".dchart--place").getBoundingClientRect();
+        return { x: r.left, y: r.top, w: r.width, h: r.height };
+      });
+      await page.mouse.click(c.x + c.w * 0.62, c.y + c.h * 0.42);
+      await sleep(900);
     },
   },
-  { id: "stage-morton", path: "#/stage/morton?date=2026-08-01&play=0", wait: 5000 },
-  { id: "stage-iowa", path: "#/stage/iowa?date=2026-07-20&play=0", wait: 5000 },
-  { id: "stage-rondonia", path: "#/stage/rondonia?t=6&play=0", wait: 5000 },
-  { id: "stage-edouard", path: "#/stage/edouard?date=2026-09-03&play=0", wait: 5000 },
-  { id: "stage-kaiser", path: "#/stage/kaiser?t=6&play=0", wait: 5000 },
-  { id: "stage-sylhet", path: "#/stage/sylhet?t=5&play=0", wait: 5000 },
-  { id: "stage-central_valley", path: "#/stage/central_valley?t=14&play=0", wait: 5000 },
-  { id: "stage-greenland", path: "#/stage/greenland?date=2026-08-19&play=0", wait: 5000 },
-  { id: "moves", path: "#/moves", wait: 2200 },
-  { id: "move-bounce", path: "#/moves/bounce", wait: 2200 },
-  { id: "proof", path: "#/proof", wait: 1500 },
-  { id: "explore", path: "#/explore", wait: 4000 },
-  { id: "constellation", path: "#/constellation", wait: 3000 },
-  { id: "about", path: "#/about", wait: 1500 },
+  { id: "place-greenland", path: "#/places/greenland", wait: 6000 },
+  { id: "place-edouard", path: "#/places/edouard", wait: 6000 },
+  { id: "method", path: "#/method", wait: 1500 },
 ];
 
-const browser = await chromium.launch({
-  args: ["--use-angle=metal", "--enable-gpu", "--ignore-gpu-blocklist"],
-});
+const browser = await chromium.launch({ args: ["--use-angle=metal", "--enable-gpu", "--ignore-gpu-blocklist"] });
 const errors = [];
 for (const [vpName, vp] of Object.entries(VIEWPORTS)) {
   const ctx = await browser.newContext({ viewport: { width: vp.width, height: vp.height }, deviceScaleFactor: vp.deviceScaleFactor, isMobile: !!vp.isMobile, hasTouch: !!vp.hasTouch });
@@ -105,10 +82,7 @@ for (const [vpName, vp] of Object.entries(VIEWPORTS)) {
     await page.goto(`${base}/${shot.path}`, { waitUntil: "domcontentloaded" });
     await sleep(shot.wait);
     if (shot.scrollTo) {
-      await page.evaluate((sel) => {
-        const el = document.querySelector(sel);
-        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY, behavior: "instant" });
-      }, shot.scrollTo);
+      await scrollTo(page, shot.scrollTo);
       await sleep(shot.extra ?? 1000);
     }
     if (shot.act) await shot.act(page, vpName);
@@ -120,7 +94,4 @@ for (const [vpName, vp] of Object.entries(VIEWPORTS)) {
   await ctx.close();
 }
 await browser.close();
-if (errors.length) {
-  console.log("\nConsole errors:");
-  for (const e of errors) console.log(e);
-} else console.log("\nNo console errors.");
+console.log(errors.length ? `\nConsole errors:\n${errors.join("\n")}` : "\nNo console errors.");

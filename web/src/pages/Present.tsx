@@ -10,7 +10,7 @@ import { loadIndex, loadProof, assetUrl } from "../lib/data";
 import { loadDecoded, baseState, type Loaded } from "../stage/loadDecoded";
 import { Clock } from "../stage/clock";
 import { DanceFloor, type TrailSpec } from "../stage/DanceFloor";
-import { useClockBeat } from "../stage/Timeline";
+import { useClockBeat } from "../stage/useClockBeat";
 import { fmtDate, fmtMonthYear, parseDate } from "../lib/format";
 import { MOVE_COLORS } from "../lib/moves";
 import type { StageIndexEntry } from "../lib/types";

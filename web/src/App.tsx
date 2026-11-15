@@ -1,46 +1,40 @@
 import { lazy, Suspense, useEffect } from "react";
 import { useRoute } from "./lib/router";
+import Story from "./pages/Story"; // the default route ships in the main bundle
 
-import Landing from "./pages/Landing"; // the default route ships in the main bundle: one less round trip to first paint
-const StagePage = lazy(() => import("./pages/StagePage"));
-const FieldGuide = lazy(() => import("./pages/FieldGuide"));
-const Proof = lazy(() => import("./pages/Proof"));
-const Explore = lazy(() => import("./pages/Explore"));
+const Places = lazy(() => import("./pages/Places").then((m) => ({ default: m.PlacesGrid })));
+const Place = lazy(() => import("./pages/Places").then((m) => ({ default: m.Place })));
+const Method = lazy(() => import("./pages/Method"));
 const Present = lazy(() => import("./pages/Present"));
-const Constellation = lazy(() => import("./pages/Constellation"));
-const About = lazy(() => import("./pages/About"));
 
 export default function App() {
   const route = useRoute();
   useEffect(() => {
-    if (route.name !== "landing") window.scrollTo(0, 0);
+    // old links land on the new pages
+    const h = window.location.hash;
+    const m = h.match(/^#\/stage\/([^?]+)/);
+    if (m) window.history.replaceState(null, "", `#/places/${m[1]}`);
+    else if (/^#\/(explore|constellation|stages)\b/.test(h)) window.history.replaceState(null, "", "#/places");
+    else if (/^#\/(proof|moves|about)\b/.test(h)) window.history.replaceState(null, "", "#/method");
+    window.scrollTo(0, 0);
   }, [route.name, route.id]);
   useEffect(() => {
     const titles: Record<string, string> = {
-      landing: "SARstellar: Earth is dancing",
-      stage: "SARstellar: stage",
-      moves: "SARstellar: field guide to the moves",
-      move: "SARstellar: field guide",
-      proof: "SARstellar: how we know",
-      explore: "SARstellar: all stages",
-      constellation: "SARstellar: the constellation of every dance",
+      story: "SARstellar: reading Earth's changes in NISAR radar",
+      places: "SARstellar: places",
+      place: "SARstellar: a place",
+      method: "SARstellar: method",
       present: "SARstellar",
-      about: "SARstellar: about and credits",
     };
     document.title = titles[route.name] ?? "SARstellar";
   }, [route.name]);
   return (
     <Suspense fallback={<div className="page-fallback" />}>
-      {route.name === "landing" && <Landing />}
-      {route.name === "stage" && route.id && <StagePage id={route.id} query={route.query} />}
-      {route.name === "moves" && <FieldGuide />}
-      {route.name === "move" && route.id && <FieldGuide moveId={route.id} />}
-      {route.name === "proof" && <Proof />}
-      {route.name === "explore" && <Explore />}
+      {(route.name === "story" || route.name === "notfound") && <Story />}
+      {route.name === "places" && <Places />}
+      {route.name === "place" && route.id && <Place id={route.id} />}
+      {route.name === "method" && <Method />}
       {route.name === "present" && <Present query={route.query} />}
-      {route.name === "constellation" && <Constellation />}
-      {route.name === "about" && <About />}
-      {route.name === "notfound" && <Landing />}
     </Suspense>
   );
 }
