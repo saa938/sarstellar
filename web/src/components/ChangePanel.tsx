@@ -1,5 +1,6 @@
 // Right-hand panel for one clicked change area (Task B3), laid out as in docs/mockups/app-mockup.html.
-import { AGREEMENT_COLORS, type ChangeArea, type Evidence, type Result } from "../types.ts";
+import { AGREEMENT_COLORS, type ChangeArea, type Evidence, type Result, type Scorecard } from "../types.ts";
+import { radarTrust } from "./radarTrust.ts";
 import { formatDateRange } from "../areas.ts";
 import {
   classTitle,
@@ -27,6 +28,8 @@ export interface ChangePanelProps {
   result: ChangePanelResult;
   /** When given, a close button is shown (e.g. to return to the story intro). */
   onClose?: () => void;
+  /** Held-out benchmark; drives the "Which radar should I trust?" verdict when loaded. */
+  scorecard?: Pick<Scorecard, "equal_recall" | "holdout_states"> | null;
 }
 
 const EXPORTS = [
@@ -36,8 +39,9 @@ const EXPORTS = [
 ] as const;
 const MAX_TRACTS = 3;
 
-export default function ChangePanel({ area, result, onClose }: ChangePanelProps) {
+export default function ChangePanel({ area, result, onClose, scorecard }: ChangePanelProps) {
   const guidance = guidanceFor(area.class);
+  const trust = radarTrust(area, scorecard?.equal_recall);
   const support = supportingEvidence(area.evidence);
   const changeT = area.change_date ? toTime(area.change_date) : NaN;
 
@@ -90,8 +94,15 @@ export default function ChangePanel({ area, result, onClose }: ChangePanelProps)
             {support.map((ev, i) => <EvidenceItem key={`${ev.label}-${i}`} ev={ev} compact />)}
           </ul> : <p className="cp-note">No supporting rule measurements supplied.</p>}
         </section>
+        <section className="cp-question cp-trust" data-tone={trust.tone} aria-label="Which radar should I trust?">
+          <h3 className="cp-question-title"><span className="cp-question-number">4</span> Which radar should I trust?</h3>
+          <p className="cp-trust-headline">{trust.headline}</p>
+          <p className="cp-note">{trust.detail}</p>
+          {trust.tone !== "none" && <p className="cp-caveat">From the <a href="#/scorecard">held-out benchmark</a>
+            {scorecard?.holdout_states.length ? ` (${scorecard.holdout_states.length} states never used for fitting)` : ""}; it assumes the cause hypothesis above.</p>}
+        </section>
         <section className="cp-question" aria-label="What to check next?">
-          <h3 className="cp-question-title"><span className="cp-question-number">4</span> What to check next?</h3>
+          <h3 className="cp-question-title"><span className="cp-question-number">5</span> What to check next?</h3>
           <ul className="cp-next" aria-label="Verification steps">
             {guidance.checks.map((check) => <li key={check}>{check}</li>)}
           </ul>
