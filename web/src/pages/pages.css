@@ -1,0 +1,283 @@
+/* Scorecard and About pages. Uses the palette variables from index.css (mockup colors); classes are pg-*
+   so they never collide with the map layout. Card/table look follows docs/mockups/real-results.html. */
+.pg {
+  height: 100%;
+  overflow: auto;
+  padding: 24px 28px 48px;
+}
+.pg-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.pg h1 {
+  font-size: 25px;
+  line-height: 1.3;
+  margin: 4px 0 6px;
+}
+.pg h2 {
+  font-size: 18px;
+  margin: 0 0 6px;
+}
+.pg h3 {
+  font-size: 15px;
+  margin: 0;
+}
+.pg a {
+  color: var(--c);
+}
+.pg-kicker {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--muted);
+  margin-bottom: 8px;
+}
+.pg-sub {
+  color: var(--muted);
+  margin: 0 0 22px;
+  max-width: 860px;
+}
+.pg-card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.pg-headline h1 {
+  font-size: 22px;
+  font-weight: 650;
+}
+.pg-headline.pg-gain {
+  border-color: var(--both);
+  background: #1a1530;
+}
+.pg-detail {
+  margin: 0 0 6px;
+}
+.pg-meta {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 2px 0 8px;
+}
+.pg-note {
+  color: var(--muted);
+  font-size: 13px;
+  margin: 0 0 12px;
+  max-width: 860px;
+}
+.pg-howto ul,
+.pg-list {
+  margin: 0;
+  padding-left: 18px;
+  font-size: 13.5px;
+}
+.pg-howto li,
+.pg-list li {
+  margin-bottom: 6px;
+}
+
+/* tables */
+.pg-scroll {
+  overflow-x: auto;
+}
+.pg-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 13.5px;
+}
+.pg-table th,
+.pg-table td {
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+.pg-table th {
+  color: var(--muted);
+  font-weight: 600;
+}
+.pg-table.pg-small {
+  font-size: 12.5px;
+  margin-top: 6px;
+}
+.pg-n {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.pg-up {
+  color: var(--ok);
+}
+.pg-down {
+  color: #f87171;
+}
+.pg-l {
+  color: var(--l);
+}
+.pg-c {
+  color: var(--c);
+}
+.pg-total td {
+  font-weight: 700;
+  border-bottom: 0;
+}
+
+/* per-class bars */
+.pg-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 14px;
+}
+.pg-class {
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+.pg-lc {
+  color: var(--muted);
+  font-weight: 500;
+}
+.pg-bar {
+  display: grid;
+  grid-template-columns: 170px 1fr 92px;
+  gap: 10px;
+  align-items: center;
+  padding: 3px 0;
+  font-size: 13px;
+}
+.pg-bar-name {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pg-track {
+  position: relative;
+  height: 12px;
+  background: var(--bg);
+  border-radius: 3px;
+}
+.pg-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  border-radius: 3px;
+}
+.pg-ci {
+  position: absolute;
+  top: 50%;
+  height: 2px;
+  margin-top: -1px;
+  background: var(--text);
+}
+.pg-ci::before,
+.pg-ci::after {
+  content: "";
+  position: absolute;
+  top: -4px;
+  width: 2px;
+  height: 10px;
+  background: var(--text);
+}
+.pg-ci::before {
+  left: 0;
+}
+.pg-ci::after {
+  right: 0;
+}
+.pg-bar-num {
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  text-align: right;
+}
+.pg-bar-num small {
+  color: var(--muted);
+  font-weight: 500;
+}
+.pg-sw {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+  flex: none;
+  vertical-align: -1px;
+}
+.pg-sw.pg-round {
+  border-radius: 50%;
+}
+.pg details {
+  margin-top: 8px;
+  font-size: 13px;
+  color: var(--muted);
+}
+.pg details summary {
+  cursor: pointer;
+  color: var(--text);
+}
+
+/* site map */
+.pg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  font-size: 13px;
+  margin: 4px 0 10px;
+}
+.pg-legend span {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.pg-sitemap {
+  position: relative;
+  height: 380px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 10px;
+  background: var(--panel2);
+}
+.pg-sitemap-off {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+/* about */
+.pg-data {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 10px;
+}
+.pg-data div {
+  background: var(--panel2);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13px;
+}
+.pg-data b {
+  display: block;
+  font-size: 13.5px;
+}
+.pg-data span {
+  color: var(--muted);
+}
+.pg-callout {
+  background: #10202a;
+  border: 1px solid #164e63;
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 13.5px;
+  margin-bottom: 10px;
+}
+.pg-refs li {
+  margin-bottom: 6px;
+  font-size: 13px;
+}
