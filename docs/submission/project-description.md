@@ -4,7 +4,7 @@ Submission draft, November 15, 2026. [Application](https://www.sarstellar.earth/
 
 ## Project summary
 
-SARstellar compares NISAR L-band and Sentinel-1 C-band backscatter changes on a one-hectare grid. Open one of three saved examples or draw a US box up to 20 km per side. Filter the detected areas, adjust layer opacity, compare before/after images and inspect each sensor's relative change. Select an area to review the measurements, timing, possible cause and uncertainty. Cause labels are rule-based hypotheses. A completed live analysis offers GeoTIFF, CSV and reproducible-notebook exports.
+SARstellar compares NISAR L-band and Sentinel-1 C-band backscatter changes on a one-hectare grid. Open one of three saved examples or draw a US box up to 20 km per side. Filter the detected areas, adjust layer opacity, compare before/after images and inspect each sensor's relative change. Select an area to review the measurements, timing, possible cause and uncertainty, plus which radar the held-out benchmark favours for that cause. Cause labels are rule-based hypotheses. A completed live analysis offers GeoTIFF, CSV and reproducible-notebook exports.
 
 The interface separates Map, Benchmark and Methods. It opens with the user-selected Light appearance and retains a Charcoal option. Area colors summarize block majorities: NISAR majority, Sentinel-1 majority, or both/mixed. The other radar may still flag some blocks; both/mixed includes shared majorities or split patches.
 
