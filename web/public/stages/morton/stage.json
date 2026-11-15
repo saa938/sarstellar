@@ -1,0 +1,196 @@
+{
+ "id": "morton",
+ "fixture": false,
+ "name": "Morton, Washington",
+ "country": "United States",
+ "bbox": [
+  -122.45,
+  46.55,
+  -122.05,
+  46.8
+ ],
+ "corners": [
+  [
+   -122.450886,
+   46.802829
+  ],
+  [
+   -122.044666,
+   46.800159
+  ],
+  [
+   -122.049111,
+   46.547315
+  ],
+  [
+   -122.453442,
+   46.549961
+  ]
+ ],
+ "grid": {
+  "nx": 310,
+  "ny": 281,
+  "res_m": 100,
+  "epsg": 32610
+ },
+ "stack": {
+  "track": 172,
+  "direction": "D",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 28
+ },
+ "dates": [
+  "2025-11-10",
+  "2025-11-22",
+  "2025-12-04",
+  "2025-12-16",
+  "2025-12-28",
+  "2026-01-09",
+  "2026-01-21",
+  "2026-02-02",
+  "2026-02-14",
+  "2026-02-26",
+  "2026-03-10",
+  "2026-03-22",
+  "2026-04-03",
+  "2026-04-15",
+  "2026-04-27",
+  "2026-05-09",
+  "2026-05-21",
+  "2026-06-02",
+  "2026-06-14",
+  "2026-06-26",
+  "2026-07-08",
+  "2026-07-20",
+  "2026-08-13",
+  "2026-08-25",
+  "2026-09-06",
+  "2026-09-18",
+  "2026-09-30",
+  "2026-10-12"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 20.0,
+  "nx": 1550,
+  "ny": 1405,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp",
+   "img/010.webp",
+   "img/011.webp",
+   "img/012.webp",
+   "img/013.webp",
+   "img/014.webp",
+   "img/015.webp",
+   "img/016.webp",
+   "img/017.webp",
+   "img/018.webp",
+   "img/019.webp",
+   "img/020.webp",
+   "img/021.webp",
+   "img/022.webp",
+   "img/023.webp",
+   "img/024.webp",
+   "img/025.webp",
+   "img/026.webp",
+   "img/027.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 84400,
+   "fall": 2377,
+   "scorch": 126,
+   "bounce": 182,
+   "vanish": 0,
+   "waltz": 18,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "The Fall",
+  "lede": "Around Morton and Mineral, Washington, commercial forests are harvested in blocks. Each clearcut makes the same move.",
+  "body": [
+   "A standing forest scatters a lot of HV back to the radar, because the signal bounces around inside the canopy. When the trees are cut, that volume is gone and HV drops by several decibels in a single pass.",
+   "Across 37 forest-loss reference sites, NISAR's L-band alerts were about eight times more often real than Sentinel-1's C-band alerts at the same detection rate."
+  ],
+  "beats": [],
+  "highlight": {
+   "blocks": [
+    76036,
+    25010,
+    9048,
+    67431,
+    1651,
+    69670
+   ],
+   "label": "fall"
+  }
+ },
+ "sources": [
+  {
+   "name": "OPERA DIST-ALERT-HLS (NASA JPL)",
+   "url": "https://www.jpl.nasa.gov/go/opera/products/"
+  },
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 87103,
+  "km2": 871.0
+ }
+}

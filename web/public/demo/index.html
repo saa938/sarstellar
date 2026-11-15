@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SARstellar: the 30-second film</title>
+<meta name="description" content="Earth is dancing. NISAR can see the steps. A 30-second film rendered from NASA-ISRO NISAR radar data.">
+<style>
+  :root { color-scheme: dark; }
+  html, body { margin: 0; height: 100%; background: #07080b; color: #ece6da;
+    font: 16px/1.5 "Inter", system-ui, -apple-system, Segoe UI, sans-serif; }
+  main { min-height: 100%; display: grid; place-items: center; padding: 4vh 4vw; box-sizing: border-box; }
+  .wrap { width: min(1280px, 100%); }
+  h1 { font-family: "Instrument Serif", Georgia, serif; font-weight: 400; font-size: clamp(28px, 4vw, 48px);
+    margin: 0 0 4px; letter-spacing: -0.01em; }
+  h1 em { color: #f0d9a6; }
+  p { margin: 0 0 18px; color: #b9b2a6; }
+  video { width: 100%; aspect-ratio: 16 / 9; background: #000; border-radius: 10px;
+    box-shadow: 0 30px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.06); }
+  .meta { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 14px; font-size: 14px; color: #8f897f; }
+  a { color: #f0d9a6; }
+</style>
+</head>
+<body>
+<main>
+  <div class="wrap">
+    <h1>Earth is dancing. <em>NISAR can see the steps.</em></h1>
+    <p>A 28-second film, every frame rendered from NASA-ISRO NISAR radar data. The soundtrack is synthesized from the same measurements.</p>
+    <video src="sarstellar-demo.mp4" poster="poster.jpg" controls playsinline preload="metadata"></video>
+    <div class="meta">
+      <a href="/">Open SARstellar</a>
+      <a href="sarstellar-demo.mp4" download>Download the MP4</a>
+      <span>NASA Space Apps Challenge 2026 · Dancing with the SARs</span>
+    </div>
+  </div>
+</main>
+</body>
+</html>

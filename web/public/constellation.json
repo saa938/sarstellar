@@ -1,0 +1,26 @@
+{
+ "fixture": false,
+ "count": 200000,
+ "stages": [
+  "punjab",
+  "iowa",
+  "central_valley",
+  "morton",
+  "rondonia",
+  "kaiser",
+  "edouard",
+  "sylhet"
+ ],
+ "moves": [
+  "still",
+  "fall",
+  "scorch",
+  "bounce",
+  "vanish",
+  "waltz",
+  "shimmer",
+  "melt"
+ ],
+ "layout": "N*2 float32 (x, y in 0..1), then N uint8 move, N uint8 stage index, N uint32 block index (little-endian)",
+ "note": "UMAP of the radar-only dance features of hectares from every stage with HV; similar dances sit together."
+}

@@ -1,0 +1,518 @@
+{
+ "fixture": false,
+ "generated_at": "2026-11-15T19:48:00+00:00",
+ "floor": {
+  "x": {
+   "pol": "HH",
+   "min": -30,
+   "max": 5
+  },
+  "y": {
+   "pol": "HV",
+   "min": -38,
+   "max": -5
+  },
+  "zones": [
+   {
+    "id": "water",
+    "label": "Open water",
+    "center": [
+     -24,
+     -32
+    ]
+   },
+   {
+    "id": "soil",
+    "label": "Bare soil",
+    "center": [
+     -13,
+     -25
+    ]
+   },
+   {
+    "id": "crops",
+    "label": "Grass and crops",
+    "center": [
+     -10,
+     -19
+    ]
+   },
+   {
+    "id": "forest",
+    "label": "Forest",
+    "center": [
+     -7,
+     -13
+    ]
+   },
+   {
+    "id": "bounce",
+    "label": "Double bounce: flooded forest, cities, paddies",
+    "center": [
+     0,
+     -12
+    ]
+   }
+  ]
+ },
+ "moves": [
+  {
+   "id": "still",
+   "name": "The Stillness",
+   "what": "Nothing changes on the ground.",
+   "physics": "A surface that does not change returns the same echo pass after pass. The dot only shivers inside the radar's speckle noise.",
+   "carried_by": [],
+   "future": "The baseline every alert is measured against: knowing what normal looks like is what makes a change trustworthy.",
+   "path": [
+    {
+     "HH": -7.2,
+     "HV": -13.1
+    },
+    {
+     "HH": -7.0,
+     "HV": -13.3
+    },
+    {
+     "HH": -7.3,
+     "HV": -13.0
+    }
+   ],
+   "path_from": [],
+   "path_note": "illustrative: a stable forest hectare",
+   "metrics": {
+    "auprc": 0.9166153943502081,
+    "auprc_ci": [
+     0.873546947411657,
+     0.9492597031738311
+    ],
+    "f1": 0.7865016747158379,
+    "f1_ci": [
+     0.7493912491819925,
+     0.8188257224591543
+    ],
+    "precision": 0.9183002565141083,
+    "recall": 0.6877873427619959,
+    "base_rate": 0.8131837710793013,
+    "n": 593368
+   },
+   "stages": []
+  },
+  {
+   "id": "fall",
+   "name": "The Fall",
+   "what": "A forest is cleared or logged.",
+   "physics": "Leaves and branches scatter the radar in every direction, which is what HV hears. Remove the canopy and HV drops several decibels in one pass; HH drops less.",
+   "carried_by": [
+    "HV"
+   ],
+   "future": "Deforestation alerts through the clouds of the tropical wet season, when optical satellites are blind for months.",
+   "path": [
+    {
+     "HH": -4.18,
+     "HV": -10.5
+    },
+    {
+     "HH": -3.99,
+     "HV": -10.56
+    },
+    {
+     "HH": -5.54,
+     "HV": -12.55
+    },
+    {
+     "HH": -6.33,
+     "HV": -13.53
+    },
+    {
+     "HH": -5.98,
+     "HV": -12.89
+    }
+   ],
+   "path_from": [
+    "morton",
+    "rondonia"
+   ],
+   "path_note": null,
+   "metrics": {
+    "auprc": 0.1124632559188758,
+    "auprc_ci": [
+     0.03772917981503249,
+     0.27760796288106687
+    ],
+    "f1": 0.04111195933490979,
+    "f1_ci": [
+     0.024043081631865575,
+     0.061626503778296926
+    ],
+    "precision": 0.02127782596126048,
+    "recall": 0.605927552140505,
+    "base_rate": 0.002496967869697198,
+    "n": 1822
+   },
+   "stages": [
+    "morton",
+    "rondonia"
+   ]
+  },
+  {
+   "id": "scorch",
+   "name": "The Scorch",
+   "what": "A wildfire burns.",
+   "physics": "Burned forest loses its canopy, so HV falls like a clearcut, but over a wide, connected patch. Grass and shrub fires barely register at L-band: its 24 cm waves pass through thin vegetation.",
+   "carried_by": [
+    "HV",
+    "HH"
+   ],
+   "future": "Burn severity and recovery mapping under smoke and at night, for fire managers and insurers.",
+   "path": [
+    {
+     "HH": -7.03,
+     "HV": -12.8
+    },
+    {
+     "HH": -5.08,
+     "HV": -12.4
+    },
+    {
+     "HH": -7.61,
+     "HV": -14.75
+    },
+    {
+     "HH": -8.74,
+     "HV": -15.58
+    },
+    {
+     "HH": -9.38,
+     "HV": -16.22
+    }
+   ],
+   "path_from": [
+    "kaiser"
+   ],
+   "path_note": null,
+   "metrics": {
+    "auprc": 0.11917777500456983,
+    "auprc_ci": [
+     0.06155844349527562,
+     0.18705620772407855
+    ],
+    "f1": 0.20272746016317636,
+    "f1_ci": [
+     0.12552886827767468,
+     0.2665995344787725
+    ],
+    "precision": 0.15891207979312894,
+    "recall": 0.279902399349329,
+    "base_rate": 0.08424868265073285,
+    "n": 61475
+   },
+   "stages": [
+    "kaiser"
+   ]
+  },
+  {
+   "id": "bounce",
+   "name": "The Bounce",
+   "what": "Water stands under plants: flooded forest or rice paddies.",
+   "physics": "The pulse bounces off the water, up the trunks or stems, and straight back to the radar. HH jumps by several decibels while HV barely moves. L-band reaches the water under a canopy; shorter radar waves cannot.",
+   "carried_by": [
+    "HH"
+   ],
+   "future": "Mapping floods hidden under forest canopies, and tracking rice planting across Asia's paddies for food-security forecasts.",
+   "path": [
+    {
+     "HH": -13.38,
+     "HV": -21.27
+    },
+    {
+     "HH": -11.52,
+     "HV": -20.92
+    },
+    {
+     "HH": -6.19,
+     "HV": -18.28
+    },
+    {
+     "HH": -5.11,
+     "HV": -17.61
+    },
+    {
+     "HH": -4.82,
+     "HV": -16.77
+    },
+    {
+     "HH": -3.36,
+     "HV": -16.53
+    },
+    {
+     "HH": -3.6,
+     "HV": -16.22
+    },
+    {
+     "HH": -4.61,
+     "HV": -16.59
+    }
+   ],
+   "path_from": [
+    "punjab",
+    "edouard"
+   ],
+   "path_note": null,
+   "metrics": null,
+   "stages": [
+    "edouard"
+   ]
+  },
+  {
+   "id": "vanish",
+   "name": "The Vanish",
+   "what": "Open water covers the land.",
+   "physics": "Calm water is a mirror: the pulse reflects away and almost nothing comes back. Both channels go dark. When the water drains, the dot returns.",
+   "carried_by": [
+    "HH",
+    "HV"
+   ],
+   "future": "Flood extent through storm clouds and at night, every 12 days everywhere on Earth.",
+   "path": [
+    {
+     "HH": -17.33,
+     "HV": -24.62
+    },
+    {
+     "HH": -18.52,
+     "HV": -25.05
+    },
+    {
+     "HH": -18.66,
+     "HV": -25.38
+    },
+    {
+     "HH": -17.57,
+     "HV": -25.02
+    },
+    {
+     "HH": -14.14,
+     "HV": -22.14
+    },
+    {
+     "HH": -14.22,
+     "HV": -22.09
+    }
+   ],
+   "path_from": [
+    "sylhet"
+   ],
+   "path_note": null,
+   "metrics": {
+    "auprc": 0.003837714097397843,
+    "auprc_ci": [
+     0.001346712853646851,
+     0.0075037865384638865
+    ],
+    "f1": 0.007508442899767205,
+    "f1_ci": [
+     0.0022629986470519754,
+     0.014275514905240975
+    ],
+    "precision": 0.003930318372951171,
+    "recall": 0.08379070618368094,
+    "base_rate": 0.003745451804545797,
+    "n": 2733
+   },
+   "stages": [
+    "sylhet"
+   ]
+  },
+  {
+   "id": "waltz",
+   "name": "The Waltz",
+   "what": "A crop grows and is harvested.",
+   "physics": "A growing canopy adds volume, so HV climbs pass after pass. Harvest removes it and the dot glides back to bare soil, ready for the next season.",
+   "carried_by": [
+    "HV"
+   ],
+   "future": "Crop calendars and yield early warnings for every farming region on Earth, cloud or no cloud.",
+   "path": [
+    {
+     "HH": -10.37,
+     "HV": -17.29
+    },
+    {
+     "HH": -10.12,
+     "HV": -17.19
+    },
+    {
+     "HH": -14.49,
+     "HV": -22.53
+    },
+    {
+     "HH": -14.52,
+     "HV": -22.47
+    },
+    {
+     "HH": -14.52,
+     "HV": -22.25
+    },
+    {
+     "HH": -14.59,
+     "HV": -22.47
+    },
+    {
+     "HH": -12.88,
+     "HV": -20.7
+    },
+    {
+     "HH": -14.1,
+     "HV": -21.69
+    },
+    {
+     "HH": -11.44,
+     "HV": -18.7
+    },
+    {
+     "HH": -12.44,
+     "HV": -19.81
+    },
+    {
+     "HH": -12.77,
+     "HV": -19.61
+    },
+    {
+     "HH": -15.52,
+     "HV": -22.48
+    },
+    {
+     "HH": -16.64,
+     "HV": -22.33
+    },
+    {
+     "HH": -11.34,
+     "HV": -18.5
+    },
+    {
+     "HH": -7.19,
+     "HV": -15.26
+    },
+    {
+     "HH": -10.23,
+     "HV": -17.73
+    },
+    {
+     "HH": -5.96,
+     "HV": -13.48
+    },
+    {
+     "HH": -6.16,
+     "HV": -13.89
+    },
+    {
+     "HH": -5.9,
+     "HV": -13.88
+    },
+    {
+     "HH": -5.34,
+     "HV": -13.2
+    },
+    {
+     "HH": -5.15,
+     "HV": -13.25
+    },
+    {
+     "HH": -7.0,
+     "HV": -17.67
+    }
+   ],
+   "path_from": [
+    "iowa",
+    "punjab",
+    "central_valley"
+   ],
+   "path_note": null,
+   "metrics": {
+    "auprc": 0.43969638896166596,
+    "auprc_ci": [
+     0.2521162892957116,
+     0.554945975139949
+    ],
+    "f1": 0.4485202957949855,
+    "f1_ci": [
+     0.29400557807318517,
+     0.5306805642763515
+    ],
+    "precision": 0.4601032393207152,
+    "recall": 0.4375062244796335,
+    "base_rate": 0.09632512659572282,
+    "n": 70287
+   },
+   "stages": [
+    "punjab",
+    "iowa",
+    "central_valley"
+   ]
+  },
+  {
+   "id": "shimmer",
+   "name": "The Shimmer",
+   "what": "Rain wets the soil.",
+   "physics": "Water raises the soil's dielectric constant, so the whole scene brightens a little in both channels at once and fades within days. It is not a change on the ground, and treating it as one would cause false alarms.",
+   "carried_by": [
+    "HH",
+    "HV"
+   ],
+   "future": "Soil moisture for drought and irrigation planning.",
+   "path": null,
+   "path_from": [],
+   "path_note": null,
+   "metrics": null,
+   "stages": []
+  },
+  {
+   "id": "melt",
+   "name": "The Melt",
+   "what": "An ice sheet's surface goes through its melt season.",
+   "physics": "Through the summer the surface switches between wet snow, bare ice and refrozen crust. Wet snow absorbs the radar; rough bare ice and refrozen crust send more of it back. On Greenland's melt zone HH swung 4 to 5 dB at the height of summer and settled by October. Over ice NISAR listens with HH alone.",
+   "carried_by": [
+    "HH"
+   ],
+   "future": "Melt onset and duration across Greenland and Antarctica, every 12 days.",
+   "path": [
+    {
+     "HH": -12.08,
+     "HV": null
+    },
+    {
+     "HH": -11.51,
+     "HV": null
+    },
+    {
+     "HH": -8.41,
+     "HV": null
+    },
+    {
+     "HH": -7.33,
+     "HV": null
+    },
+    {
+     "HH": -5.5,
+     "HV": null
+    },
+    {
+     "HH": -9.28,
+     "HV": null
+    },
+    {
+     "HH": -9.31,
+     "HV": null
+    }
+   ],
+   "path_from": [
+    "greenland"
+   ],
+   "path_note": null,
+   "metrics": null,
+   "stages": [
+    "greenland"
+   ]
+  }
+ ]
+}

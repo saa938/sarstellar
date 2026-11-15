@@ -1,0 +1,159 @@
+{
+ "generated_at": "2026-11-15T19:26:28+00:00",
+ "fixture": false,
+ "stages": [
+  {
+   "id": "punjab",
+   "name": "Punjab",
+   "country": "India",
+   "center": [
+    75.77,
+    30.75
+   ],
+   "move": "waltz",
+   "title": "Wheat waltzes, rice bounces",
+   "teaser": "The same Punjab fields dance twice a year, with two different partners.",
+   "n_passes": 24,
+   "first": "2025-11-21",
+   "last": "2026-10-11",
+   "thumb": "punjab/img/thumb.webp",
+   "order": 1
+  },
+  {
+   "id": "morton",
+   "name": "Morton, Washington",
+   "country": "United States",
+   "center": [
+    -122.25,
+    46.675
+   ],
+   "move": "fall",
+   "title": "The Fall",
+   "teaser": "Clearcuts in Washington's working forests, checked against optical satellites.",
+   "n_passes": 28,
+   "first": "2025-11-10",
+   "last": "2026-10-12",
+   "thumb": "morton/img/thumb.webp",
+   "order": 2
+  },
+  {
+   "id": "iowa",
+   "name": "Story County, Iowa",
+   "country": "United States",
+   "center": [
+    -93.575,
+    41.985
+   ],
+   "move": "waltz",
+   "title": "A corn belt waltz",
+   "teaser": "A full year of central Iowa: frozen fields, planting, the canopy and the harvest.",
+   "n_passes": 22,
+   "first": "2025-12-28",
+   "last": "2026-10-12",
+   "thumb": "iowa/img/thumb.webp",
+   "order": 3
+  },
+  {
+   "id": "rondonia",
+   "name": "Rondonia",
+   "country": "Brazil",
+   "center": [
+    -63.2,
+    -9.525
+   ],
+   "move": "fall",
+   "title": "The dry-season frontier",
+   "teaser": "Rondonia, Brazil: forest cleared in the months the clouds part.",
+   "n_passes": 8,
+   "first": "2026-06-25",
+   "last": "2026-10-11",
+   "thumb": "rondonia/img/thumb.webp",
+   "order": 3
+  },
+  {
+   "id": "edouard",
+   "name": "Village Creek, Texas",
+   "country": "United States",
+   "center": [
+    -94.225,
+    30.3
+   ],
+   "move": "bounce",
+   "title": "The flood under the trees",
+   "teaser": "Tropical Storm Edouard flooded East Texas forests. L-band saw the water through the canopy.",
+   "n_passes": 28,
+   "first": "2025-11-07",
+   "last": "2026-10-21",
+   "thumb": "edouard/img/thumb.webp",
+   "order": 4
+  },
+  {
+   "id": "kaiser",
+   "name": "Kaiser Canyon Fire, Washington",
+   "country": "United States",
+   "center": [
+    -119.045,
+    48.205
+   ],
+   "move": "scorch",
+   "title": "Kaiser Canyon Fire",
+   "teaser": "138,000 acres burned on the Colville Reservation in July 2026.",
+   "n_passes": 10,
+   "first": "2026-06-19",
+   "last": "2026-10-17",
+   "thumb": "kaiser/img/thumb.webp",
+   "order": 5
+  },
+  {
+   "id": "sylhet",
+   "name": "Sylhet haor basin",
+   "country": "Bangladesh",
+   "center": [
+    91.25,
+    24.575
+   ],
+   "move": "vanish",
+   "title": "A landscape that becomes a lake",
+   "teaser": "Bangladesh's haor wetlands flood every monsoon. Watch the land vanish and return.",
+   "n_passes": 10,
+   "first": "2026-06-18",
+   "last": "2026-10-16",
+   "thumb": "sylhet/img/thumb.webp",
+   "order": 5
+  },
+  {
+   "id": "central_valley",
+   "name": "Central Valley, California",
+   "country": "United States",
+   "center": [
+    -120.325,
+    36.75
+   ],
+   "move": "waltz",
+   "title": "Irrigated all year",
+   "teaser": "Orchards, tomatoes and cotton: many dances on one valley floor.",
+   "n_passes": 28,
+   "first": "2025-11-01",
+   "last": "2026-10-15",
+   "thumb": "central_valley/img/thumb.webp",
+   "order": 6
+  },
+  {
+   "id": "greenland",
+   "name": "Kangerlussuaq ice margin",
+   "country": "Greenland",
+   "center": [
+    -49.95,
+    67.125
+   ],
+   "move": "melt",
+   "title": "The ice sheet's summer",
+   "teaser": "At Greenland's edge, the melt zone changes its face through the summer.",
+   "n_passes": 10,
+   "first": "2026-06-20",
+   "last": "2026-10-18",
+   "thumb": "greenland/img/thumb.webp",
+   "order": 14
+  }
+ ]
+}

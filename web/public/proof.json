@@ -1,0 +1,323 @@
+{
+ "fixture": false,
+ "generated_at": "2026-11-15T19:48:00+00:00",
+ "headline": {
+  "reference_sites": 242,
+  "train_sites": 170,
+  "test_sites": 72,
+  "test_states": 12,
+  "hectares_scored": 2456950,
+  "passes_read": 231,
+  "stages": 9,
+  "countries": 5
+ },
+ "moves": [
+  {
+   "id": "still",
+   "name": "The Stillness",
+   "reference": "Stable sites + blocks the references call unchanged",
+   "auprc": 0.9166153943502081,
+   "auprc_ci": [
+    0.873546947411657,
+    0.9492597031738311
+   ],
+   "base_rate": 0.8131837710793013,
+   "lift": 1.1271934179572065,
+   "precision": 0.8630132004800175,
+   "recall": 0.9598899839559936,
+   "f1": 0.9088773712564149,
+   "f1_ci": null,
+   "n_flagged": 659976,
+   "n_test_blocks": 593368
+  },
+  {
+   "id": "fall",
+   "name": "The Fall",
+   "reference": "OPERA DIST-ALERT-HLS (optical forest loss)",
+   "auprc": 0.1124632559188758,
+   "auprc_ci": [
+    0.03772917981503249,
+    0.27760796288106687
+   ],
+   "base_rate": 0.002496967869697198,
+   "lift": 45.03992914114429,
+   "precision": 0.07886916713516987,
+   "recall": 0.5389681668496158,
+   "f1": 0.13760246619491345,
+   "f1_ci": null,
+   "n_flagged": 12451,
+   "n_test_blocks": 1822
+  },
+  {
+   "id": "scorch",
+   "name": "The Scorch",
+   "reference": "NIFC fire perimeters",
+   "auprc": 0.11917777500456983,
+   "auprc_ci": [
+    0.06155844349527562,
+    0.18705620772407855
+   ],
+   "base_rate": 0.08424868265073285,
+   "lift": 1.4145951159692483,
+   "precision": 0.24348080867272195,
+   "recall": 0.02703538023586824,
+   "f1": 0.04866693020599991,
+   "f1_ci": null,
+   "n_flagged": 6826,
+   "n_test_blocks": 61475
+  },
+  {
+   "id": "vanish",
+   "name": "The Vanish",
+   "reference": "OPERA DSWx (optical/radar water maps)",
+   "auprc": 0.003837714097397843,
+   "auprc_ci": [
+    0.001346712853646851,
+    0.0075037865384638865
+   ],
+   "base_rate": 0.003745451804545797,
+   "lift": 1.0246331544675247,
+   "precision": 0.002733983413833956,
+   "recall": 0.010976948408342482,
+   "f1": 0.00437764482708303,
+   "f1_ci": null,
+   "n_flagged": 10973,
+   "n_test_blocks": 2733
+  },
+  {
+   "id": "waltz",
+   "name": "The Waltz",
+   "reference": "USDA Cropland Data Layer (cultivated land)",
+   "auprc": 0.43969638896166596,
+   "auprc_ci": [
+    0.2521162892957116,
+    0.554945975139949
+   ],
+   "base_rate": 0.09632512659572282,
+   "lift": 4.564711249299205,
+   "precision": 0.6322765402062901,
+   "recall": 0.3549589540028739,
+   "f1": 0.454668051682977,
+   "f1_ci": null,
+   "n_flagged": 39459,
+   "n_test_blocks": 70287
+  }
+ ],
+ "macro_f1": {
+  "value": 0.1749670395482097,
+  "ci": [
+   0.1320534013191133,
+   0.20116498551599357
+  ]
+ },
+ "any_move": {
+  "precision": 0.6585806710754709,
+  "recall": 0.3367811791632738,
+  "base_rate": 0.18681622892069866
+ },
+ "gate": {
+  "hv_db": 2.5,
+  "hh_db": 3.0
+ },
+ "model": {
+  "features": [
+   "d_HH",
+   "d_HV",
+   "d_R"
+  ],
+  "source": "pairs",
+  "note": "LightGBM on the change in HH and HV between two passes (scene shift removed), trained on training states only. Precision and recall are for the labels the maps show: a move is named only where HV changed >= 2.5 dB or HH >= 3 dB. AUPRC ranks every hectare and does not depend on that cut."
+ },
+ "confusion": {
+  "classes": [
+   "still",
+   "fall",
+   "scorch",
+   "vanish",
+   "waltz"
+  ],
+  "rows_true_cols_pred": [
+   [
+    408111,
+    31785,
+    80582,
+    42299,
+    30591
+   ],
+   [
+    138,
+    1104,
+    375,
+    138,
+    67
+   ],
+   [
+    23530,
+    9087,
+    17207,
+    6955,
+    4696
+   ],
+   [
+    1125,
+    221,
+    428,
+    229,
+    730
+   ],
+   [
+    11516,
+    9688,
+    9688,
+    8644,
+    30751
+   ]
+  ]
+ },
+ "polarization": {
+  "classes": [
+   "fall",
+   "scorch",
+   "vanish",
+   "waltz"
+  ],
+  "variants": [
+   {
+    "name": "HH only",
+    "auprc": {
+     "fall": 0.0412670355780467,
+     "scorch": 0.09103330940191573,
+     "vanish": 0.004671567676094643,
+     "waltz": 0.39339356363784805
+    },
+    "auprc_ci": {
+     "fall": [
+      0.005855857809426902,
+      0.04841145924814469
+     ],
+     "scorch": [
+      0.0460149485006839,
+      0.15085578334777883
+     ],
+     "vanish": [
+      0.0015503833914521424,
+      0.009558465526570591
+     ],
+     "waltz": [
+      0.1829020689438416,
+      0.5178318089291954
+     ]
+    }
+   },
+   {
+    "name": "HV only",
+    "auprc": {
+     "fall": 0.2597012189104549,
+     "scorch": 0.12986738206896165,
+     "vanish": 0.00440017970423228,
+     "waltz": 0.3904003066167866
+    },
+    "auprc_ci": {
+     "fall": [
+      0.030960721336618865,
+      0.2271109068926984
+     ],
+     "scorch": [
+      0.07196824406516945,
+      0.20067359463141532
+     ],
+     "vanish": [
+      0.0013173396221095681,
+      0.009413131845897019
+     ],
+     "waltz": [
+      0.22858527473944348,
+      0.4972295181646613
+     ]
+    }
+   },
+   {
+    "name": "HH + HV",
+    "auprc": {
+     "fall": 0.1124632559188758,
+     "scorch": 0.11917777500456983,
+     "vanish": 0.003837714097397843,
+     "waltz": 0.43969638896166596
+    },
+    "auprc_ci": {
+     "fall": [
+      0.03772917981503249,
+      0.27760796288106687
+     ],
+     "scorch": [
+      0.06155844349527562,
+      0.18705620772407855
+     ],
+     "vanish": [
+      0.001346712853646851,
+      0.0075037865384638865
+     ],
+     "waltz": [
+      0.2521162892957116,
+      0.554945975139949
+     ]
+    }
+   }
+  ]
+ },
+ "importance_gain": {
+  "d_HV": 9735528.70437622,
+  "d_R": 7761778.974802971,
+  "d_HH": 5594843.700738907
+ },
+ "sentinel1": {
+  "n_sites": 37,
+  "recall": 0.5,
+  "precision_nisar": 0.311,
+  "precision_s1": 0.04,
+  "ratio": 7.8,
+  "auprc_nisar": 0.283,
+  "auprc_nisar_ci": [
+   0.185,
+   0.408
+  ],
+  "auprc_s1": 0.033,
+  "auprc_s1_ci": [
+   0.023,
+   0.056
+  ]
+ },
+ "cross_continent": [
+  {
+   "stage": "rondonia",
+   "move": "fall",
+   "reference": "OPERA DIST-ALERT-HLS",
+   "auprc": 0.036,
+   "base_rate": 0.0011,
+   "n_blocks": 170720,
+   "n_positive": 193,
+   "precision": 0.047,
+   "recall": 0.544
+  },
+  {
+   "stage": "morton",
+   "move": "fall",
+   "reference": "OPERA DIST-ALERT-HLS",
+   "auprc": 0.287,
+   "base_rate": 0.0064,
+   "n_blocks": 87103,
+   "n_positive": 558,
+   "precision": 0.157,
+   "recall": 0.67
+  }
+ ],
+ "limits": [
+  "References are independent of NISAR but imperfect: optical forest-loss alerts miss cloudy weeks, fire perimeters include unburned patches, and the cropland map labels cultivated land rather than a dated harvest.",
+  "The Bounce and the Melt have no labeled reference set here; they are physics rules, shown as such, not measured accuracies.",
+  "The model sees only how much HH and HV changed between two passes. On the stage maps we add one thing it cannot see, where each hectare started on the dance floor: a forest can fall, a field that loses HV is being harvested. Those context rules are not part of the held-out measurement.",
+  "Open-water floods (the Vanish) were not separable from two L-band passes at the reference flood sites; with only a few held-out flood sites and a reference built partly from Sentinel-1, this is an open question, not a verdict.",
+  "Reference sites were chosen where each kind of change happened, so accuracy describes these sites, not how common each change is across the country.",
+  "Held-out results come from states never used for training or tuning. Intervals resample whole sites, so they reflect how results vary from place to place.",
+  "NISAR data are provisional releases (2025 to 2026); NASA reprocessing can shift values."
+ ]
+}

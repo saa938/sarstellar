@@ -1,0 +1,202 @@
+{
+ "id": "iowa",
+ "fixture": false,
+ "name": "Story County, Iowa",
+ "country": "United States",
+ "bbox": [
+  -93.75,
+  41.85,
+  -93.4,
+  42.12
+ ],
+ "corners": [
+  [
+   -93.753674,
+   42.120228
+  ],
+  [
+   -93.399229,
+   42.122009
+  ],
+  [
+   -93.397528,
+   41.849113
+  ],
+  [
+   -93.750462,
+   41.847349
+  ]
+ ],
+ "grid": {
+  "nx": 293,
+  "ny": 303,
+  "res_m": 100,
+  "epsg": 32615
+ },
+ "stack": {
+  "track": 4,
+  "direction": "A",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 22
+ },
+ "dates": [
+  "2025-12-28",
+  "2026-01-09",
+  "2026-01-21",
+  "2026-02-02",
+  "2026-02-14",
+  "2026-02-26",
+  "2026-03-10",
+  "2026-03-22",
+  "2026-04-03",
+  "2026-04-15",
+  "2026-04-27",
+  "2026-05-09",
+  "2026-05-21",
+  "2026-06-26",
+  "2026-07-08",
+  "2026-07-20",
+  "2026-08-13",
+  "2026-08-25",
+  "2026-09-06",
+  "2026-09-18",
+  "2026-09-30",
+  "2026-10-12"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 20.0,
+  "nx": 1465,
+  "ny": 1515,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp",
+   "img/010.webp",
+   "img/011.webp",
+   "img/012.webp",
+   "img/013.webp",
+   "img/014.webp",
+   "img/015.webp",
+   "img/016.webp",
+   "img/017.webp",
+   "img/018.webp",
+   "img/019.webp",
+   "img/020.webp",
+   "img/021.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 30508,
+   "fall": 3790,
+   "scorch": 104,
+   "bounce": 10679,
+   "vanish": 715,
+   "waltz": 42983,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "A corn belt waltz",
+  "lede": "Central Iowa is corn and soybeans almost wall to wall. NISAR watched a full year.",
+  "body": [
+   "From bare fields in May to the peak of the canopy in late September, HV climbed about 8 dB as leaves and stalks filled the fields with scatterers. One pass after harvest began, it had fallen 4 dB.",
+   "In January, frozen ground darkened the fields: ice holds less liquid water, so the soil sends less of the radar back.",
+   "Medians over about 81,000 cultivated hectares north of Ames."
+  ],
+  "beats": [
+   {
+    "date": "2026-01-21",
+    "caption": "Frozen ground: the fields go dark"
+   },
+   {
+    "date": "2026-05-21",
+    "caption": "Planting: bare soil"
+   },
+   {
+    "date": "2026-07-08",
+    "caption": "The canopy closes: HV climbs"
+   },
+   {
+    "date": "2026-09-30",
+    "caption": "Peak canopy: HV up 8 dB since May"
+   },
+   {
+    "date": "2026-10-12",
+    "caption": "Harvest: down 4 dB in one pass"
+   }
+  ],
+  "highlight": {
+   "blocks": [
+    29515,
+    71779,
+    19812,
+    68203,
+    76380,
+    33682
+   ],
+   "label": "waltz"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 88779,
+  "km2": 887.8
+ }
+}

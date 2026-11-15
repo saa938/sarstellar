@@ -1,0 +1,166 @@
+{
+ "id": "kaiser",
+ "fixture": false,
+ "name": "Kaiser Canyon Fire, Washington",
+ "country": "United States",
+ "bbox": [
+  -119.37,
+  48.05,
+  -118.72,
+  48.36
+ ],
+ "corners": [
+  [
+   -119.369355,
+   48.382627
+  ],
+  [
+   -118.693146,
+   48.359262
+  ],
+  [
+   -118.720926,
+   48.027313
+  ],
+  [
+   -119.392799,
+   48.050409
+  ]
+ ],
+ "grid": {
+  "nx": 502,
+  "ny": 370,
+  "res_m": 100,
+  "epsg": 32610
+ },
+ "stack": {
+  "track": 71,
+  "direction": "D",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 10
+ },
+ "dates": [
+  "2026-06-19",
+  "2026-07-01",
+  "2026-07-13",
+  "2026-07-25",
+  "2026-08-18",
+  "2026-08-30",
+  "2026-09-11",
+  "2026-09-23",
+  "2026-10-05",
+  "2026-10-17"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 30.0,
+  "nx": 1673,
+  "ny": 1233,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 180788,
+   "fall": 1852,
+   "scorch": 1211,
+   "bounce": 134,
+   "vanish": 2,
+   "waltz": 1751,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "Kaiser Canyon Fire",
+  "lede": "Lightning started the Kaiser Canyon Fire on July 16, 2026. It burned about 138,000 acres of the Colville Reservation and forced evacuations in Nespelem.",
+  "body": [
+   "Where forest burned, HV falls like a clearcut. Where grass and shrubs burned, L-band barely notices: its 24 cm waves pass through thin vegetation. Sentinel-1's shorter waves see grass fires better, and we show that too."
+  ],
+  "beats": [
+   {
+    "date": "2026-07-13",
+    "caption": "Lightning starts the fire"
+   },
+   {
+    "date": "2026-09-11",
+    "caption": "Fire contained"
+   }
+  ],
+  "highlight": {
+   "blocks": [
+    74969,
+    99675,
+    47185,
+    54916
+   ],
+   "label": "scorch"
+  }
+ },
+ "sources": [
+  {
+   "name": "NIFC WFIGS fire perimeters",
+   "url": "https://data-nifc.opendata.arcgis.com/"
+  },
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 185738,
+  "km2": 1857.4
+ }
+}

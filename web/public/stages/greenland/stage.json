@@ -1,0 +1,163 @@
+{
+ "id": "greenland",
+ "fixture": false,
+ "name": "Kangerlussuaq ice margin",
+ "country": "Greenland",
+ "bbox": [
+  -50.3,
+  67.0,
+  -49.6,
+  67.25
+ ],
+ "corners": [
+  [
+   -50.360467,
+   67.248387
+  ],
+  [
+   -49.60315,
+   67.27393
+  ],
+  [
+   -49.54704,
+   67.001224
+  ],
+  [
+   -50.295224,
+   66.976015
+  ]
+ ],
+ "grid": {
+  "nx": 331,
+  "ny": 308,
+  "res_m": 100,
+  "epsg": 3413
+ },
+ "stack": {
+  "track": 88,
+  "direction": "A",
+  "bandwidth_mhz": 77.0,
+  "mode": "SH",
+  "pols": [
+   "HH"
+  ],
+  "crid": "P05023",
+  "n_granules": 17
+ },
+ "dates": [
+  "2026-06-20",
+  "2026-07-02",
+  "2026-07-14",
+  "2026-07-26",
+  "2026-08-19",
+  "2026-08-31",
+  "2026-09-12",
+  "2026-09-24",
+  "2026-10-06",
+  "2026-10-18"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH"
+  ]
+ },
+ "images": {
+  "res_m": 20.0,
+  "nx": 1655,
+  "ny": 1540,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -20.0,
+    -2.0
+   ],
+   "scheme": "HH ice ramp"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 36995,
+   "fall": 0,
+   "scorch": 0,
+   "bounce": 0,
+   "vanish": 0,
+   "waltz": 0,
+   "shimmer": 0,
+   "melt": 47723
+  }
+ },
+ "story": {
+  "title": "The ice sheet's summer",
+  "lede": "East of Kangerlussuaq the Greenland ice sheet meets the tundra. NISAR watched its melt zone from June to October.",
+  "body": [
+   "Over ice, NISAR listens with one channel, HH. Wet snow absorbs the radar. As the summer goes on, rough bare ice and refrozen crust send more of it back.",
+   "Across the ice in this box, HH rose 4 to 5 dB at the height of summer, peaking on the August 19 pass, and settled back by October. The tundra to the west barely moved."
+  ],
+  "beats": [
+   {
+    "date": "2026-06-20",
+    "caption": "Early summer: wet snow on the ice"
+   },
+   {
+    "date": "2026-08-19",
+    "caption": "Peak of summer: the ice brightens 4 to 5 dB"
+   },
+   {
+    "date": "2026-10-18",
+    "caption": "Autumn: the surface settles"
+   }
+  ],
+  "highlight": {
+   "blocks": [
+    18940,
+    78246,
+    46123,
+    31351,
+    35171,
+    19040
+   ],
+   "label": "melt"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 84718,
+  "km2": 847.2
+ }
+}

@@ -1,0 +1,151 @@
+{
+ "id": "rondonia",
+ "fixture": false,
+ "name": "Rondonia",
+ "country": "Brazil",
+ "bbox": [
+  -63.4,
+  -9.7,
+  -63.0,
+  -9.35
+ ],
+ "corners": [
+  [
+   -63.400702,
+   -9.349344
+  ],
+  [
+   -63.0,
+   -9.34957
+  ],
+  [
+   -63.0,
+   -9.700509
+  ],
+  [
+   -63.401111,
+   -9.700274
+  ]
+ ],
+ "grid": {
+  "nx": 440,
+  "ny": 388,
+  "res_m": 100,
+  "epsg": 32720
+ },
+ "stack": {
+  "track": 161,
+  "direction": "A",
+  "bandwidth_mhz": 20.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 10
+ },
+ "dates": [
+  "2026-06-25",
+  "2026-07-07",
+  "2026-07-19",
+  "2026-08-24",
+  "2026-09-05",
+  "2026-09-17",
+  "2026-09-29",
+  "2026-10-11"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 40.0,
+  "nx": 1100,
+  "ny": 970,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 149011,
+   "fall": 2238,
+   "scorch": 35,
+   "bounce": 1106,
+   "vanish": 247,
+   "waltz": 18083,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "The dry-season frontier",
+  "lede": "Rondonia is one of the most deforested states in the Brazilian Amazon. Clearing happens in the dry season, June to October.",
+  "body": [
+   "Optical satellites lose the Amazon to clouds for much of the year. Radar does not. The same fall in HV that marks a Washington clearcut marks a cleared Amazon plot."
+  ],
+  "beats": [],
+  "highlight": {
+   "blocks": [
+    88356,
+    126386,
+    37133,
+    151172,
+    139404,
+    127170
+   ],
+   "label": "fall"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 170720,
+  "km2": 1707.2
+ }
+}

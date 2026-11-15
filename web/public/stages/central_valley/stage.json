@@ -1,0 +1,191 @@
+{
+ "id": "central_valley",
+ "fixture": false,
+ "name": "Central Valley, California",
+ "country": "United States",
+ "bbox": [
+  -120.5,
+  36.6,
+  -120.15,
+  36.9
+ ],
+ "corners": [
+  [
+   -120.500307,
+   36.908135
+  ],
+  [
+   -120.138141,
+   36.899957
+  ],
+  [
+   -120.149562,
+   36.592035
+  ],
+  [
+   -120.510286,
+   36.600122
+  ]
+ ],
+ "grid": {
+  "nx": 323,
+  "ny": 342,
+  "res_m": 100,
+  "epsg": 32610
+ },
+ "stack": {
+  "track": 42,
+  "direction": "D",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 28
+ },
+ "dates": [
+  "2025-11-01",
+  "2025-11-13",
+  "2025-11-25",
+  "2025-12-07",
+  "2025-12-19",
+  "2025-12-31",
+  "2026-01-12",
+  "2026-01-24",
+  "2026-02-17",
+  "2026-03-01",
+  "2026-03-13",
+  "2026-03-25",
+  "2026-04-06",
+  "2026-04-18",
+  "2026-04-30",
+  "2026-05-12",
+  "2026-05-24",
+  "2026-06-05",
+  "2026-06-17",
+  "2026-06-29",
+  "2026-07-11",
+  "2026-07-23",
+  "2026-08-16",
+  "2026-08-28",
+  "2026-09-09",
+  "2026-09-21",
+  "2026-10-03",
+  "2026-10-15"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 20.0,
+  "nx": 1615,
+  "ny": 1710,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp",
+   "img/010.webp",
+   "img/011.webp",
+   "img/012.webp",
+   "img/013.webp",
+   "img/014.webp",
+   "img/015.webp",
+   "img/016.webp",
+   "img/017.webp",
+   "img/018.webp",
+   "img/019.webp",
+   "img/020.webp",
+   "img/021.webp",
+   "img/022.webp",
+   "img/023.webp",
+   "img/024.webp",
+   "img/025.webp",
+   "img/026.webp",
+   "img/027.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 96843,
+   "fall": 1028,
+   "scorch": 27,
+   "bounce": 4664,
+   "vanish": 2,
+   "waltz": 7902,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "Irrigated all year",
+  "lede": "On the west side of California's Central Valley, irrigation lets fields be planted and harvested on different calendars.",
+  "body": [
+   "Orchards hold steady near the forest zone of the floor. Row crops waltz on their own schedules, so the valley never moves all at once."
+  ],
+  "beats": [],
+  "highlight": {
+   "blocks": [
+    59042,
+    18896,
+    26526,
+    47915,
+    90441,
+    56555
+   ],
+   "label": "waltz"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 110466,
+  "km2": 1104.7
+ }
+}

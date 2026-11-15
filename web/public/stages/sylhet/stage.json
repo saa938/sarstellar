@@ -1,0 +1,173 @@
+{
+ "id": "sylhet",
+ "fixture": false,
+ "name": "Sylhet haor basin",
+ "country": "Bangladesh",
+ "bbox": [
+  91.05,
+  24.4,
+  91.45,
+  24.75
+ ],
+ "corners": [
+  [
+   91.044017,
+   24.750181
+  ],
+  [
+   91.45031,
+   24.754935
+  ],
+  [
+   91.454681,
+   24.39922
+  ],
+  [
+   91.049532,
+   24.394543
+  ]
+ ],
+ "grid": {
+  "nx": 411,
+  "ny": 394,
+  "res_m": 100,
+  "epsg": 32646
+ },
+ "stack": {
+  "track": 69,
+  "direction": "A",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 10
+ },
+ "dates": [
+  "2026-06-18",
+  "2026-06-30",
+  "2026-07-12",
+  "2026-07-24",
+  "2026-08-17",
+  "2026-08-29",
+  "2026-09-10",
+  "2026-09-22",
+  "2026-10-04",
+  "2026-10-16"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 30.0,
+  "nx": 1370,
+  "ny": 1313,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 106435,
+   "fall": 322,
+   "scorch": 12,
+   "bounce": 9041,
+   "vanish": 15641,
+   "waltz": 30483,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "A landscape that becomes a lake",
+  "lede": "The haors of northeastern Bangladesh are shallow basins that fill with monsoon water every year, turning farmland into an inland sea.",
+  "body": [
+   "Calm water reflects the radar away like a mirror, so flooded land goes dark in both channels: the Vanish. In this box, about 21,600 hectares looked like open water in June and 25,200 on September 10. By late September most had drained.",
+   "On August 17 the water lit up instead. Wind ripples roughen a water surface and send the pulse back: one of radar's known blind spots, and a reason one pass is never the whole story."
+  ],
+  "beats": [
+   {
+    "date": "2026-06-18",
+    "caption": "Monsoon water: 21,600 hectares vanish"
+   },
+   {
+    "date": "2026-08-17",
+    "caption": "Wind roughens the water: it lights up"
+   },
+   {
+    "date": "2026-09-10",
+    "caption": "Peak: 25,200 hectares of open water"
+   },
+   {
+    "date": "2026-10-16",
+    "caption": "The water drains"
+   }
+  ],
+  "highlight": {
+   "blocks": [
+    71781,
+    103031,
+    24545,
+    145596,
+    123443,
+    110356
+   ],
+   "label": "vanish"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 161934,
+  "km2": 1619.3
+ }
+}

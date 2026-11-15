@@ -1,0 +1,210 @@
+{
+ "id": "punjab",
+ "fixture": false,
+ "name": "Punjab",
+ "country": "India",
+ "bbox": [
+  75.62,
+  30.62,
+  75.92,
+  30.88
+ ],
+ "corners": [
+  [
+   75.619349,
+   30.8821
+  ],
+  [
+   75.922719,
+   30.880293
+  ],
+  [
+   75.920219,
+   30.617741
+  ],
+  [
+   75.617671,
+   30.619529
+  ]
+ ],
+ "grid": {
+  "nx": 290,
+  "ny": 291,
+  "res_m": 100,
+  "epsg": 32643
+ },
+ "stack": {
+  "track": 156,
+  "direction": "A",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 24
+ },
+ "dates": [
+  "2025-11-21",
+  "2025-12-03",
+  "2025-12-15",
+  "2025-12-27",
+  "2026-01-08",
+  "2026-01-20",
+  "2026-02-01",
+  "2026-02-25",
+  "2026-03-09",
+  "2026-03-21",
+  "2026-04-26",
+  "2026-05-08",
+  "2026-05-20",
+  "2026-06-01",
+  "2026-06-13",
+  "2026-06-25",
+  "2026-07-07",
+  "2026-07-19",
+  "2026-08-12",
+  "2026-08-24",
+  "2026-09-05",
+  "2026-09-17",
+  "2026-09-29",
+  "2026-10-11"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 20.0,
+  "nx": 1450,
+  "ny": 1455,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp",
+   "img/010.webp",
+   "img/011.webp",
+   "img/012.webp",
+   "img/013.webp",
+   "img/014.webp",
+   "img/015.webp",
+   "img/016.webp",
+   "img/017.webp",
+   "img/018.webp",
+   "img/019.webp",
+   "img/020.webp",
+   "img/021.webp",
+   "img/022.webp",
+   "img/023.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 33427,
+   "fall": 1363,
+   "scorch": 51,
+   "bounce": 12023,
+   "vanish": 288,
+   "waltz": 37238,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "Wheat waltzes, rice bounces",
+  "lede": "Punjab's fields grow wheat in winter and rice in the monsoon. NISAR watched both, and the two crops move in completely different ways.",
+  "body": [
+   "Wheat is a volume dance. As the canopy grows, leaves scatter the radar in every direction and HV climbs about 3 dB, from late November to February. Harvest in April drops the fields back to bare soil.",
+   "Rice is a bounce. Seedlings are planted into flooded paddies in July. By September the stalks stand in water, the pulse bounces off the water and up the stalks, and HH jumps about 8 dB while HV rises far less. The gap between HH and HV widens from about 8 dB to 12 dB: the double-bounce fingerprint.",
+   "Medians over about 70,000 cultivated hectares in a 29 by 29 km box near Ludhiana."
+  ],
+  "beats": [
+   {
+    "date": "2025-11-21",
+    "caption": "Wheat sown into bare fields"
+   },
+   {
+    "date": "2026-02-01",
+    "caption": "Wheat at its fullest: HV up 3 dB"
+   },
+   {
+    "date": "2026-04-26",
+    "caption": "Wheat harvest: back to bare soil"
+   },
+   {
+    "date": "2026-07-07",
+    "caption": "Paddies flooded and planted: the fields dim"
+   },
+   {
+    "date": "2026-09-17",
+    "caption": "Rice stands in water: HH jumps 8 dB, the Bounce"
+   },
+   {
+    "date": "2026-10-11",
+    "caption": "Rice harvest begins"
+   }
+  ],
+  "highlight": {
+   "blocks": [
+    23057,
+    9402,
+    59710,
+    67792,
+    16638,
+    51537
+   ],
+   "label": "waltz"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 84390,
+  "km2": 843.9
+ }
+}

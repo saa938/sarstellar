@@ -1,0 +1,205 @@
+{
+ "id": "edouard",
+ "fixture": false,
+ "name": "Village Creek, Texas",
+ "country": "United States",
+ "bbox": [
+  -94.4,
+  30.15,
+  -94.05,
+  30.45
+ ],
+ "corners": [
+  [
+   -94.405001,
+   30.450099
+  ],
+  [
+   -94.049903,
+   30.45344
+  ],
+  [
+   -94.046668,
+   30.149375
+  ],
+  [
+   -94.400672,
+   30.146075
+  ]
+ ],
+ "grid": {
+  "nx": 341,
+  "ny": 337,
+  "res_m": 100,
+  "epsg": 32615
+ },
+ "stack": {
+  "track": 134,
+  "direction": "A",
+  "bandwidth_mhz": 40.0,
+  "mode": "DH",
+  "pols": [
+   "HH",
+   "HV"
+  ],
+  "crid": "P05023",
+  "n_granules": 28
+ },
+ "dates": [
+  "2025-11-07",
+  "2025-11-19",
+  "2025-12-01",
+  "2025-12-13",
+  "2025-12-25",
+  "2026-01-06",
+  "2026-01-18",
+  "2026-01-30",
+  "2026-02-11",
+  "2026-02-23",
+  "2026-03-07",
+  "2026-03-19",
+  "2026-04-12",
+  "2026-04-24",
+  "2026-05-06",
+  "2026-05-18",
+  "2026-05-30",
+  "2026-06-11",
+  "2026-06-23",
+  "2026-07-05",
+  "2026-07-17",
+  "2026-08-10",
+  "2026-08-22",
+  "2026-09-03",
+  "2026-09-15",
+  "2026-09-27",
+  "2026-10-09",
+  "2026-10-21"
+ ],
+ "blocks": {
+  "file": "blocks.bin",
+  "encoding": "uint8",
+  "scale": 0.2,
+  "offset": -40.0,
+  "nodata": 255,
+  "layout": "TPN",
+  "pols": [
+   "HH",
+   "HV"
+  ]
+ },
+ "images": {
+  "res_m": 20.0,
+  "nx": 1705,
+  "ny": 1685,
+  "files": [
+   "img/000.webp",
+   "img/001.webp",
+   "img/002.webp",
+   "img/003.webp",
+   "img/004.webp",
+   "img/005.webp",
+   "img/006.webp",
+   "img/007.webp",
+   "img/008.webp",
+   "img/009.webp",
+   "img/010.webp",
+   "img/011.webp",
+   "img/012.webp",
+   "img/013.webp",
+   "img/014.webp",
+   "img/015.webp",
+   "img/016.webp",
+   "img/017.webp",
+   "img/018.webp",
+   "img/019.webp",
+   "img/020.webp",
+   "img/021.webp",
+   "img/022.webp",
+   "img/023.webp",
+   "img/024.webp",
+   "img/025.webp",
+   "img/026.webp",
+   "img/027.webp"
+  ],
+  "thumb": "img/thumb.webp",
+  "stretch": {
+   "HH": [
+    -22.0,
+    2.0
+   ],
+   "HV": [
+    -30.0,
+    -8.0
+   ],
+   "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"
+  }
+ },
+ "moves": {
+  "file": "moves.bin",
+  "ids": [
+   "still",
+   "fall",
+   "scorch",
+   "bounce",
+   "vanish",
+   "waltz",
+   "shimmer",
+   "melt"
+  ],
+  "layout": "N2 then TN",
+  "note": "First N*2 bytes: per block (move index, confidence 0-100). Then T*N bytes: move index per beat (255 = none).",
+  "counts": {
+   "still": 113105,
+   "fall": 709,
+   "scorch": 7,
+   "bounce": 863,
+   "vanish": 0,
+   "waltz": 233,
+   "shimmer": 0,
+   "melt": 0
+  }
+ },
+ "story": {
+  "title": "The flood under the trees",
+  "lede": "Edouard dropped more than 18 inches of rain on East Texas in early September 2026. Village Creek, which winds through the forests near Kountze, rose to 22 feet.",
+  "body": [
+   "Water under a forest canopy is invisible to optical satellites. L-band reaches the ground: its pulse bounces off the water, up the trunks and straight back to the radar. HH jumps while HV barely moves. That is the Bounce.",
+   "On the September 3 pass, in the middle of the storm, 3,572 forested hectares in this box jumped 3 dB or more in HH while their HV held still. Twelve days later only 266 were still bouncing: the water had drained."
+  ],
+  "beats": [
+   {
+    "date": "2026-08-22",
+    "caption": "Before the storm"
+   },
+   {
+    "date": "2026-09-03",
+    "caption": "Edouard: 3,572 forest hectares bounce in HH"
+   },
+   {
+    "date": "2026-09-15",
+    "caption": "The water drains: the forest settles"
+   }
+  ],
+  "highlight": {
+   "blocks": [
+    110182,
+    35005,
+    83694,
+    48876,
+    97388,
+    39809
+   ],
+   "label": "bounce"
+  }
+ },
+ "sources": [
+  {
+   "name": "NISAR L2 GCOV, NASA-ISRO (ASF DAAC)",
+   "url": "https://asf.alaska.edu/datasets/daac/nisar/"
+  }
+ ],
+ "stats": {
+  "valid_blocks": 114917,
+  "km2": 1149.2
+ }
+}
