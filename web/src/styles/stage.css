@@ -1062,8 +1062,8 @@
   }
   .stage__map .stagemap {
     position: relative;
-    height: 56vh;
-    min-height: 320px;
+    height: 42vh;
+    min-height: 280px;
     order: 2;
   }
   .storycard {
@@ -1099,8 +1099,20 @@
   }
   .caption {
     position: fixed;
-    bottom: 132px;
+    left: 12px;
+    right: 12px;
+    bottom: 128px;
     z-index: 40;
+    max-width: none;
+    transform: translateY(10px);
+    flex-direction: column;
+    gap: 4px;
+  }
+  .caption.is-on {
+    transform: none;
+  }
+  .caption__text {
+    font-size: 19px;
   }
   .stage__fixture {
     position: fixed;
