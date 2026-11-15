@@ -1,0 +1,163 @@
+/* DrawBox + JobProgress. Values from docs/mockups/app-mockup.html (.btn, .btn.primary, .facts, .toast). */
+.drawbox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.db-btn {
+  display: block;
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--line);
+  background: var(--panel2);
+  color: var(--text);
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: center;
+}
+
+.db-btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.db-btn.db-primary {
+  background: var(--l);
+  color: #1a1205;
+  border-color: var(--l);
+}
+
+.db-btn.db-small {
+  padding: 7px 10px;
+  font-size: 13px;
+}
+
+.db-actions {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 6px;
+}
+
+.db-hint {
+  margin: 0;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.db-size {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.db-size b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.db-size.db-over b {
+  color: #fca5a5;
+}
+
+.db-error,
+.job-error p {
+  margin: 0;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #3b1d1d;
+  border: 1px solid #7f1d1d;
+  color: #fca5a5;
+  font-size: 13px;
+}
+
+.job {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel2);
+}
+
+.job.job-error {
+  padding: 0;
+  border: 0;
+  background: none;
+}
+
+.job.job-done {
+  border-color: #065f46;
+}
+
+.job-bar {
+  height: 6px;
+  background: var(--line);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.job-bar i {
+  display: block;
+  height: 100%;
+  background: var(--l);
+  transition: width 0.4s ease;
+}
+
+.job-stages {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.job-stages li {
+  padding: 2px 0 2px 18px;
+  position: relative;
+}
+
+.job-stages li::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  top: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: 2px solid var(--muted);
+  box-sizing: border-box;
+}
+
+.job-stages li.done::before {
+  background: var(--ok);
+  border-color: var(--ok);
+}
+
+.job-stages li.on {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.job-stages li.on::before {
+  background: var(--l);
+  border-color: var(--l);
+}
+
+.job-msg,
+.job-note {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.job-title {
+  margin: 0;
+  font-weight: 600;
+  font-size: 13px;
+}
