@@ -22,7 +22,7 @@ import logging
 import re
 import time
 from contextlib import ExitStack
-from datetime import UTC, date, datetime, timedelta
+from datetime import date, datetime, timedelta
 from typing import Any
 
 import numpy as np
@@ -303,26 +303,40 @@ def cdl_crop(grid: Grid, year: int | None = None) -> np.ndarray:
 
 # --- NIFC / WFIGS fire perimeters ----------------------------------------------------------------
 
-WFIGS_URL = (
-    "https://services3.arcgis.com/T4QMspbfLg3qTGWY/arcgis/rest/services/"
-    "WFIGS_Interagency_Perimeters_YearToDate/FeatureServer/0/query"
-)
-_WFIGS_FIELDS = (
-    "poly_IncidentName,poly_GISAcres,attr_FireDiscoveryDateTime,attr_ContainmentDateTime,"
-    "attr_FireOutDateTime,poly_PolygonDateTime,attr_POOState,attr_IncidentTypeCategory,"
-    "attr_UniqueFireIdentifier"
-)
+
+def _drop_collapsed(geom):
+    """`geom` without polygon pieces that have fewer than 3 distinct points.
+
+    Server-side generalising (ArcGIS `maxAllowableOffset`) squashes small pieces of a MultiPolygon
+    into points. Beside a self-intersecting piece, `make_valid` raises "mixed-dimension" on them.
+    The test is point count, not area: a symmetric bow-tie also has an area of about zero.
+    """
+    from shapely.geometry import MultiPolygon
+
+    if geom.geom_type == "Polygon":
+        return geom if len(set(geom.exterior.coords)) >= 3 else None
+    if geom.geom_type == "MultiPolygon":
+        parts = [p for p in geom.geoms if len(set(p.exterior.coords)) >= 3]
+        return MultiPolygon(parts) if parts else None
+    return geom
 
 
 def _as_polygonal(geom):
     """A valid Polygon/MultiPolygon from a geometry, repairing it first if needed."""
     import shapely
+    from shapely.errors import GEOSException
     from shapely.validation import make_valid
 
     if geom is None or geom.is_empty:
         return None
     if not geom.is_valid:
-        geom = make_valid(geom)
+        geom = _drop_collapsed(geom)
+        if geom is None:
+            return None
+        try:
+            geom = make_valid(geom)
+        except GEOSException:  # still unrepairable: buffer(0) keeps what is polygonal
+            geom = geom.buffer(0)
     if geom.geom_type == "GeometryCollection":  # make_valid can return polygons plus slivers
         parts = [g for g in shapely.get_parts(geom) if g.geom_type in ("Polygon", "MultiPolygon")]
         geom = shapely.union_all(parts) if parts else None
@@ -373,86 +387,6 @@ def nifc_mask(grid: Grid, perimeters) -> np.ndarray:
             lon, lat = block_centres_lonlat(grid)
         mask |= shapely.contains_xy(geom, lon, lat)
     return mask
-
-
-def _ms_to_date(ms) -> date | None:
-    return datetime.fromtimestamp(ms / 1000, UTC).date() if ms else None
-
-
-def wfigs_perimeters(
-    bbox=None,
-    start: date | None = None,
-    end: date | None = None,
-    min_acres: float = 1000,
-    generalize_deg: float | None = None,
-) -> list[dict[str, Any]]:
-    """2026 NIFC/WFIGS fire perimeters, one dict per perimeter, optionally filtered.
-
-    Keeps perimeters of at least `min_acres` that touch `bbox` (west, south, east, north) and were
-    discovered from `start` to `end`. Each dict has name, acres, discovered, contained, out
-    (dates or None), state ("WA"), kind ("WF" wildfire, "RX" prescribed), fire_id and `geometry`
-    (GeoJSON, possibly invalid: `nifc_mask` repairs it). `generalize_deg` simplifies geometry.
-    """
-    where = [f"poly_GISAcres >= {float(min_acres)}"]
-    if start:
-        where.append(f"attr_FireDiscoveryDateTime >= timestamp '{start:%Y-%m-%d} 00:00:00'")
-    if end:
-        where.append(f"attr_FireDiscoveryDateTime <= timestamp '{end:%Y-%m-%d} 23:59:59'")
-    params: dict[str, Any] = {
-        "where": " AND ".join(where), "outFields": _WFIGS_FIELDS, "outSR": 4326, "f": "geojson",
-        "returnGeometry": "true", "resultRecordCount": 100,
-    }  # fmt: skip
-    if bbox is not None:
-        w, s, e, n = (float(v) for v in bbox)
-        params.update(
-            geometry=f"{w},{s},{e},{n}", geometryType="esriGeometryEnvelope", inSR=4326,
-            spatialRel="esriSpatialRelIntersects",
-        )  # fmt: skip
-    if generalize_deg:
-        params["maxAllowableOffset"] = generalize_deg
-    out: list[dict[str, Any]] = []
-    offset = 0
-    while True:
-        params["resultOffset"] = offset
-        resp = _get_json(WFIGS_URL, params)
-        feats = resp.get("features", [])
-        for f in feats:
-            a = f["properties"]
-            out.append(
-                {
-                    "name": a.get("poly_IncidentName"),
-                    "acres": a.get("poly_GISAcres"),
-                    "discovered": _ms_to_date(a.get("attr_FireDiscoveryDateTime")),
-                    "contained": _ms_to_date(a.get("attr_ContainmentDateTime")),
-                    "out": _ms_to_date(a.get("attr_FireOutDateTime")),
-                    "state": (a.get("attr_POOState") or "").removeprefix("US-") or None,
-                    "kind": a.get("attr_IncidentTypeCategory"),
-                    "fire_id": a.get("attr_UniqueFireIdentifier"),
-                    "geometry": f.get("geometry"),
-                }
-            )
-        offset += len(feats)
-        if not feats or not (
-            resp.get("exceededTransferLimit")
-            or resp.get("properties", {}).get("exceededTransferLimit")
-        ):
-            return out
-
-
-def _get_json(url: str, params: dict[str, Any]) -> dict[str, Any]:
-    for attempt in range(1, 5):
-        try:
-            resp = requests.get(url, params=params, timeout=120)
-            resp.raise_for_status()
-            data = resp.json()
-            if "error" in data:
-                raise RuntimeError(str(data["error"])[:200])
-            return data
-        except (requests.RequestException, RuntimeError, ValueError):
-            if attempt == 4:
-                raise
-            time.sleep(2**attempt)
-    raise AssertionError("unreachable")
 
 
 # --- shared plumbing -----------------------------------------------------------------------------
