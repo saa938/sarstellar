@@ -1,31 +1,37 @@
-// L-band vs C-band: NISAR and Sentinel-1 change images side by side on synced maps, with per-sensor hectares (Task B5).
+// NISAR and Sentinel-1 change images, with candidate-patch category areas rather than flagged-block totals.
 import "maplibre-gl/dist/maplibre-gl.css";
 import "./ComparisonViews.css";
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AGREEMENT_COLORS, type Result } from "../types.ts";
-import { createRadarMap, formatHa, formatPass, observeMaps, sensorTotals, syncMaps } from "./comparisonmaphelpers.ts";
+import { AGREEMENT_COLORS, type ChangeArea, type Result } from "../types.ts";
+import { createRadarMap, formatHa, formatPass, observeMaps, sensorTotals, syncMaps, updateSelectedArea } from "./comparisonmaphelpers.ts";
 
 export interface LvsCViewProps {
   result: Result;
+  selectedArea?: ChangeArea | null;
 }
 
-export default function LvsCView({ result }: LvsCViewProps) {
+export default function LvsCView({ result, selectedArea = null }: LvsCViewProps) {
   const { bbox, overlays, areas } = result;
   const lRef = useRef<HTMLDivElement>(null);
   const cRef = useRef<HTMLDivElement>(null);
   const wrapRef = useRef<HTMLDivElement>(null);
+  const mapsRef = useRef<ReturnType<typeof createRadarMap>[]>([]);
+  const selectedRef = useRef(selectedArea);
+  selectedRef.current = selectedArea;
   const [error, setError] = useState<string | null>(null);
   const totals = useMemo(() => sensorTotals(areas), [areas]);
 
   useEffect(() => {
     if (!lRef.current || !wrapRef.current) return;
     const maps: ReturnType<typeof createRadarMap>[] = [];
+    mapsRef.current = maps;
+    const syncSelection = () => maps.forEach((map) => updateSelectedArea(map, selectedRef.current));
     let stopSync = () => {};
     let stopResize = () => {};
     const cleanup = () => {
       stopResize();
       stopSync();
-      maps.splice(0).forEach((map) => map.remove());
+      maps.splice(0).forEach((map) => { map.off("load", syncSelection); map.remove(); });
     };
     setError(null);
     try {
@@ -34,18 +40,20 @@ export default function LvsCView({ result }: LvsCViewProps) {
         url: overlays.l_png,
         corners,
         resampling: "nearest",
-        outline: areas.filter((a) => a.agreement !== "C"),
+        outline: areas,
+        selectedArea: selectedRef.current,
       }, { zoomButtons: true });
       maps.push(l);
       if (result.s1 && cRef.current) {
         const c = createRadarMap(
           cRef.current, bbox,
-          { url: overlays.c_png, corners, resampling: "nearest", outline: areas.filter((a) => a.agreement !== "L") },
+          { url: overlays.c_png, corners, resampling: "nearest", outline: areas, selectedArea: selectedRef.current },
           { zoomButtons: true },
         );
         maps.push(c);
         stopSync = syncMaps(l, c);
       }
+      maps.forEach((map) => map.on("load", syncSelection));
       stopResize = observeMaps(wrapRef.current, maps);
     } catch {
       cleanup();
@@ -53,6 +61,8 @@ export default function LvsCView({ result }: LvsCViewProps) {
     }
     return cleanup;
   }, [bbox, overlays, areas, result.s1]);
+
+  useEffect(() => { mapsRef.current.forEach((map) => updateSelectedArea(map, selectedArea)); }, [selectedArea]);
 
   const example = result.fixture && <span className="rv-example">Example data</span>;
   const passLabel = (dates: string[]) =>
@@ -70,8 +80,8 @@ export default function LvsCView({ result }: LvsCViewProps) {
             NISAR <span>L-band, 24 cm waves</span>
           </div>
           <div className="rv-period">{passLabel(result.nisar.dates)}</div>
-          <div className="rv-total">{formatHa(totals.nisar)} changed</div>
-          <Breakdown only={totals.onlyNisar} onlyLabel="only NISAR" onlyColor={AGREEMENT_COLORS.L} both={totals.both} />
+          <div className="rv-total">{formatHa(totals.onlyNisar)} NISAR-majority area</div>
+          <Breakdown both={totals.both} />
           {example}
         </div>
       </div>
@@ -85,8 +95,8 @@ export default function LvsCView({ result }: LvsCViewProps) {
           {result.s1 && <div className="rv-period">{passLabel(result.s1.dates)}</div>}
           {result.s1 ? (
             <>
-              <div className="rv-total">{formatHa(totals.s1)} changed</div>
-              <Breakdown only={totals.onlyS1} onlyLabel="only Sentinel-1" onlyColor={AGREEMENT_COLORS.C} both={totals.both} />
+              <div className="rv-total">{formatHa(totals.onlyS1)} Sentinel-1-majority area</div>
+              <Breakdown both={totals.both} />
             </>
           ) : (
             <div className="rv-total rv-none">Change area unavailable</div>
@@ -97,7 +107,7 @@ export default function LvsCView({ result }: LvsCViewProps) {
       <div className="rv-delta-key" aria-label="Relative backscatter change colors">
         <span><i className="rv-drop" />Lower backscatter</span>
         <span><i className="rv-rise" />Higher backscatter</span>
-        <span>Changed-area totals include overlap.</span>
+        <span>All candidate patches are outlined on both maps. Category areas are whole patches, not exact per-sensor detected hectares.</span>
         {differentPasses && <span>Pass dates or counts differ; matched-pair metrics are in the scorecard.</span>}
       </div>
       {error && <div className="rv-note" role="alert">{error}</div>}
@@ -105,16 +115,12 @@ export default function LvsCView({ result }: LvsCViewProps) {
   );
 }
 
-function Breakdown({ only, onlyLabel, onlyColor, both }: { only: number; onlyLabel: string; onlyColor: string; both: number }) {
+function Breakdown({ both }: { both: number }) {
   return (
     <div className="rv-split">
       <span>
-        <i style={{ background: onlyColor }} />
-        {Math.round(only).toLocaleString("en-US")} {onlyLabel}
-      </span>
-      <span>
         <i style={{ background: AGREEMENT_COLORS.both }} />
-        {Math.round(both).toLocaleString("en-US")} both
+        {formatHa(both)} both / mixed area
       </span>
     </div>
   );

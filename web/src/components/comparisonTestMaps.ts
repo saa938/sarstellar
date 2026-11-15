@@ -59,6 +59,19 @@ export class FakeMap {
     return this;
   }
 
+  isStyleLoaded() { return true; }
+
+  getSource(id: string) {
+    const style = this.options.style as { sources?: Record<string, { data?: unknown }> } | undefined;
+    const source = style?.sources?.[id];
+    return source ? { setData: (data: unknown) => { source.data = data; } } : undefined;
+  }
+
+  get selectedAreaId(): string | null {
+    const style = this.options.style as { sources?: Record<string, { data?: { features: { properties: { id: string } }[] } }> };
+    return style.sources?.["selected-area"]?.data?.features[0]?.properties.id ?? null;
+  }
+
   getContainer() {
     return this.options.container as HTMLElement;
   }

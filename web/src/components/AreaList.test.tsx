@@ -20,7 +20,7 @@ describe("AreaList", () => {
   it("skips agreements hidden in the legend", () => {
     render(<AreaList areas={many} hidden={new Set<Agreement>(["L"])} onSelect={() => {}} />);
     const items = screen.getAllByRole("button");
-    expect(items.every((b) => b.textContent?.includes("Sentinel-1 only"))).toBe(true);
+    expect(items.every((b) => b.textContent?.includes("Sentinel-1 majority"))).toBe(true);
     // 77 areas are C; 25 listed.
     expect(screen.getByText("52 additional matching areas on the map.")).toBeTruthy();
   });

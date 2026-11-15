@@ -50,6 +50,7 @@ const stories = [
 
 beforeEach(() => {
   state.scorecard = null;
+  window.localStorage.clear();
   window.location.hash = "#/";
   vi.mocked(loadStoryIndex).mockResolvedValue(stories);
   vi.mocked(loadStory).mockImplementation(async () => sampleResult());
@@ -66,7 +67,7 @@ it("opens the real story and connects legend filtering to the map", async () => 
   await open();
   expect(screen.queryByText("Example data")).toBeNull();
   expect(screen.getByRole("button", { name: "Map area a1" })).toBeTruthy();
-  fireEvent.click(screen.getByRole("button", { name: /^NISAR only:/ }));
+  fireEvent.click(screen.getByRole("button", { name: /^NISAR majority:/ }));
   expect(screen.queryByRole("button", { name: "Map area a1" })).toBeNull();
   expect(screen.getByRole("button", { name: "Map area a3" })).toBeTruthy();
 });

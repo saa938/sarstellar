@@ -1,27 +1,27 @@
 # SARstellar demo script
 
-Draft for a 30-second screen recording at [sarstellar.earth](https://www.sarstellar.earth/). Open the three real stories and scorecard before recording so the clip follows completed results. Show actual live-job progress; a full analysis may exceed the clip length.
+Optional 30-second screen-recording script at [sarstellar.earth](https://www.sarstellar.earth/). The completed [editable six-slide deck](sarstellar-presentation-public.pptx) meets the supplied demo-length alternative and will have a [public viewer](https://www.sarstellar.earth/demo/) after publication. A video is optional when submitting that deck. The Light-default release is live with a Charcoal option; confirm the final workflow and viewer before submission. If recording, open the examples first and align the [timed captions](demo-captions.srt) to actual narration. Show actual live-job progress; a full analysis may exceed the clip length.
 
 | Time | Screen action | Voiceover |
 |---|---|---|
-| 0–4 s | Open Explore with the Morton / Mineral story. | SARstellar puts NISAR and Sentinel-1 changes on one map. |
-| 4–8 s | Toggle the amber and cyan legend entries; switch to Kaiser Canyon. | These Washington examples show where their detections differ. |
-| 8–13 s | Open Edouard and select a flooded-vegetation area. | At Edouard, inspect the evidence for possible flooded vegetation. |
-| 13–20 s | Open Scorecard; show the held-out cohort and fusion intervals. | We benchmarked 224 eligible sites, holding out 60 across twelve states. |
-| 20–25 s | Keep the forest-loss comparison and its interval visible. | Unsupervised fusion showed no clear gain; forest-loss fusion performed worse. |
-| 25–30 s | Return to Explore, draw a small valid box, then show its job status. | Draw a box to run the pipeline and export the evidence. |
+| 0–4 s | Open Map with the Morton / Mineral example. | SARstellar compares NISAR GCOV and Sentinel-1 surface change. |
+| 4–8 s | Toggle the NISAR-only and Sentinel-1-only layers; switch to Kaiser Canyon. | Open an example, compare detections, and select an area. |
+| 8–14 s | Open Edouard and select a possible flooded-vegetation area; show its evidence sections. | Inspect what changed, when, the possible cause, and the uncertainty. |
+| 14–21 s | Open Benchmark; show the held-out cohort and fusion intervals. | We held out sixty sites across twelve states. Unsupervised fusion showed no clear gain. |
+| 21–25 s | Keep the forest-loss comparison and its interval visible. | Forest-loss fusion performed worse in this benchmark. |
+| 25–30 s | Return to Map, draw a small valid box, then show its job status. | Draw a box, review the measurements, and export the result. |
 
 Keep these captions visible on the relevant screens:
 
-- Stories: “Detection areas; some examples use unequal numbers of radar dates.”
-- Scorecard: “Two dates per radar. Site-bootstrap 95% intervals. Selected US sites.”
+- Examples: “Detected areas; some examples use unequal numbers of radar dates.”
+- Benchmark: “Two dates per radar. Site-bootstrap 95% intervals. Selected US sites.”
 - Fusion: “Separate learned crop result uses cultivated-land labels, not confirmed crop change.”
 
-The narration contains 58 words, about 116 words per minute. If screen transitions need more time, shorten the opening rather than accelerating the scientific result.
+Read the narration at a measured pace and align the supplied captions to the actual recording. If screen transitions need more time, shorten the opening rather than accelerating the scientific result.
 
 ## Six-slide outline
 
-1. **Two radars, one map.** For researchers and land managers: locate changes, compare sensor evidence, inspect and export findings.
+1. **Radar change comparison.** For researchers and land managers: locate changes, compare sensor evidence, inspect and export findings.
 2. **One reproducible pipeline.** Windowed NISAR GCOV and OPERA RTC-S1 reads; one-hectare blocks; relative backscatter changes; significance plus a 2 dB effect gate; connected areas of at least 3 ha.
 3. **Three real examples.** Morton / Mineral: 141 areas, 1,681 ha. Kaiser Canyon: 202 areas, 2,434 ha. Edouard: 277 areas, 5,852 ha. These are detected areas, not verified event extents or sensor-accuracy rankings.
 4. **A geographic test.** 254 sites attempted; 242 processed; 224 eligible; 164 training and 60 held out across 12 states. Primary detectors use the same 2,173,521 comparable blocks and one pair per radar.

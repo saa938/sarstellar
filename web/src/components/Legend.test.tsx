@@ -15,29 +15,31 @@ function row(name: string): HTMLElement {
 describe("Legend", () => {
   it("hectare sums match areas", () => {
     render(<Legend areas={areas} hidden={new Set()} onToggle={() => {}} />);
-    expect(row("NISAR only").textContent).toContain("6,240 ha");
-    expect(row("Both sensors").textContent).toContain("410 ha");
-    expect(row("Sentinel-1 only").textContent).toContain("1,580 ha");
+    expect(row("NISAR majority").textContent).toContain("6,240 ha");
+    expect(row("Both / mixed").textContent).toContain("410 ha");
+    expect(row("Sentinel-1 majority").textContent).toContain("1,580 ha");
+    expect(screen.getByText(/Area labels summarize block majorities/).textContent).toContain("the other radar may flag some blocks");
+    expect(screen.getByText(/Both \/ mixed means/).textContent).toContain("both or neither radar flagged a majority");
   });
 
   it("legend toggle hides agreement", () => {
     const onToggle = vi.fn<(a: Agreement) => void>();
     const { rerender } = render(<Legend areas={areas} hidden={new Set()} onToggle={onToggle} />);
-    expect(row("NISAR only").getAttribute("aria-pressed")).toBe("true");
+    expect(row("NISAR majority").getAttribute("aria-pressed")).toBe("true");
 
-    fireEvent.click(row("NISAR only"));
+    fireEvent.click(row("NISAR majority"));
     expect(onToggle).toHaveBeenCalledWith("L");
 
     rerender(<Legend areas={areas} hidden={new Set<Agreement>(["L"])} onToggle={onToggle} />);
-    expect(row("NISAR only").getAttribute("aria-pressed")).toBe("false");
-    expect(row("NISAR only").className).toContain("off");
-    expect(row("Both sensors").getAttribute("aria-pressed")).toBe("true");
+    expect(row("NISAR majority").getAttribute("aria-pressed")).toBe("false");
+    expect(row("NISAR majority").className).toContain("off");
+    expect(row("Both / mixed").getAttribute("aria-pressed")).toBe("true");
   });
 
   it("disables layer controls when they do not apply to the current view", () => {
     const onToggle = vi.fn();
     render(<Legend areas={areas} hidden={new Set()} onToggle={onToggle} disabled />);
-    const button = row("NISAR only") as HTMLButtonElement;
+    const button = row("NISAR majority") as HTMLButtonElement;
     expect(button.disabled).toBe(true);
     fireEvent.click(button);
     expect(onToggle).not.toHaveBeenCalled();

@@ -118,14 +118,16 @@ describe("SwipeView", () => {
 });
 
 describe("LvsCView", () => {
-  it("includes both-sensor areas in each total and preserves delta imagery", () => {
+  it("shows honest category areas and all candidate outlines over each delta image", () => {
     render(<LvsCView result={result()} />);
-    expect(screen.getByRole("group", { name: /NISAR/ }).textContent).toContain("6,650 ha");
-    expect(screen.getByRole("group", { name: /Sentinel-1/ }).textContent).toContain("790 ha");
+    expect(screen.getByRole("group", { name: /NISAR/ }).textContent).toContain("6,240 ha NISAR-majority area");
+    expect(screen.getByRole("group", { name: /Sentinel-1/ }).textContent).toContain("380 ha Sentinel-1-majority area");
+    expect(screen.getAllByText("410 ha both / mixed area")).toHaveLength(2);
     const [l, c] = FakeMap.instances;
     expect([l.radarUrl, c.radarUrl]).toEqual(["http://x/l.png", "http://x/c.png"]);
-    expect(l.outlined.sort()).toEqual(["L", "both"]);
-    expect(c.outlined.sort()).toEqual(["C", "both"]);
+    expect(l.outlined.sort()).toEqual(["C", "L", "both"]);
+    expect(c.outlined.sort()).toEqual(["C", "L", "both"]);
+    expect(screen.getByText(/not exact per-sensor detected hectares/)).toBeTruthy();
     expect(screen.getByText("Lower backscatter")).toBeTruthy();
     expect(screen.getByText("Higher backscatter")).toBeTruthy();
     expect(l.options.bounds).toEqual([[-119.1, 48.1], [-119, 48.2]]);
@@ -157,5 +159,21 @@ describe("LvsCView", () => {
     const missing = screen.getByRole("group", { name: /Sentinel-1/ });
     expect(missing.textContent).toContain("unavailable");
     expect(missing.textContent).not.toContain("ha changed");
+  });
+});
+
+describe.each([{ name: "SwipeView", View: SwipeView }, { name: "LvsCView", View: LvsCView }])("$name selection", ({ View }) => {
+  it("keeps the selected polygon highlighted on both maps without resetting location", async () => {
+    const r = result();
+    const view = render(<View result={r} selectedArea={r.areas[0]} />);
+    await flush();
+    expect(FakeMap.instances.map((map) => map.selectedAreaId)).toEqual(["a1", "a1"]);
+    FakeMap.instances[0].jumpTo({ center: { lng: -119.04, lat: 48.16 }, zoom: 12 });
+    view.rerender(<View result={r} selectedArea={r.areas[2]} />);
+    expect(FakeMap.instances).toHaveLength(2);
+    expect(FakeMap.instances.map((map) => map.selectedAreaId)).toEqual(["a3", "a3"]);
+    expect(FakeMap.instances[0].zoom).toBe(12);
+    view.rerender(<View result={r} selectedArea={null} />);
+    expect(FakeMap.instances.every((map) => map.selectedAreaId === null)).toBe(true);
   });
 });

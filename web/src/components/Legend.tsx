@@ -12,7 +12,7 @@ export interface LegendProps {
 }
 
 export const DETECTION_LABELS: Record<Agreement, string> = {
-  L: "NISAR only", both: "Both sensors", C: "Sentinel-1 only",
+  L: "NISAR majority", both: "Both / mixed", C: "Sentinel-1 majority",
 };
 
 export function Legend({ areas, hidden, onToggle, disabled = false }: LegendProps) {
@@ -32,6 +32,8 @@ export function Legend({ areas, hidden, onToggle, disabled = false }: LegendProp
           </button>
         );
       })}
+      <p className="section-note">Area labels summarize block majorities; the other radar may flag some blocks.
+        {" "}Both / mixed means both or neither radar flagged a majority.</p>
     </div>
   );
 }

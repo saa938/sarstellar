@@ -1,0 +1,26 @@
+{
+  "clearcuts": {
+    "csv": "/stories/clearcuts/areas.csv",
+    "sha256": "1206d848badadbd30e35fceb95358a9d76e70e19adf2fbe32167dc7875c13788",
+    "source_json": "/stories/clearcuts.json",
+    "source_json_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+    "row_count": 141,
+    "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+  },
+  "kaiser": {
+    "csv": "/stories/kaiser/areas.csv",
+    "sha256": "827b196120d34a16454baa6ff0f0c6d7c4c0b168867dce86155ff0e0b59e8696",
+    "source_json": "/stories/kaiser.json",
+    "source_json_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+    "row_count": 202,
+    "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+  },
+  "edouard": {
+    "csv": "/stories/edouard/areas.csv",
+    "sha256": "fa0b702e4f7c9eeb4d7a5576c9818b2c02f8d70ab466ae1cbf3f07ed87805d39",
+    "source_json": "/stories/edouard.json",
+    "source_json_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+    "row_count": 277,
+    "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+  }
+}

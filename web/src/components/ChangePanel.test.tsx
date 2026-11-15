@@ -61,14 +61,19 @@ describe("ChangePanel", () => {
 
   it("shows class, agreement and the confidence label, never the raw score", () => {
     const { container } = render(<ChangePanel area={makeArea({ confidence: 0.96 })} result={makeResult()} />);
-    expect(screen.getByRole("heading", { name: "Forest loss" })).toBeTruthy();
-    expect(screen.getByText("NISAR only")).toBeTruthy();
-    expect(screen.getByText("Classification (rule-based)")).toBeTruthy();
-    expect(screen.getByText(/Provisional class hypothesis/)).toBeTruthy();
-    const conf = container.querySelector(".cp-conf")!;
-    expect(conf.textContent).toContain("High");
-    expect(conf.textContent).toContain("p < 0.001");
-    expect(conf.textContent).toContain("8 ha");
+    expect(screen.getByRole("heading", { name: "Change detected" })).toBeTruthy();
+    expect(screen.getByText("Possible forest loss")).toBeTruthy();
+    expect(screen.getByText("NISAR majority")).toBeTruthy();
+    expect(screen.getByText("Provisional rule-based interpretation.")).toBeTruthy();
+    const technical = screen.getByText("Technical statistics").closest("details")!;
+    expect(technical.open).toBe(false);
+    fireEvent.click(screen.getByText("Technical statistics"));
+    const statistics = screen.getByRole("region", { name: "Detector statistics" });
+    expect(statistics.textContent).toContain("High");
+    expect(statistics.textContent).toContain("p < 0.001");
+    expect(statistics.textContent).toContain("8 ha");
+    expect(statistics.textContent).toContain("not a class probability");
+    expect(container.querySelector(".cp-bar")).toBeNull();
     expect(container.textContent).not.toMatch(/96|0\.96/);
     expect(screen.getByText(/About 8 ha of forest darkened/)).toBeTruthy();
   });
@@ -105,9 +110,13 @@ describe("ChangePanel", () => {
     const exports = screen.getByRole("region", { name: "Exports" });
     const measurements = screen.getByRole("region", { name: "Measurements" });
     const interpretation = screen.getByRole("region", { name: "Interpretation" });
+    const technical = screen.getByText("Technical statistics");
+    const next = screen.getByRole("region", { name: "What to check next?" });
+    expect(next.compareDocumentPosition(exports) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(exports.compareDocumentPosition(technical) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(exports.compareDocumentPosition(measurements) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
     expect(measurements.compareDocumentPosition(interpretation) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(screen.getByText("First flagged acquisition: Sep 30, 2026 (UTC).")).toBeTruthy();
+    expect(screen.getByText(/First flagged acquisition: Sep 30, 2026 \(UTC\)/)).toBeTruthy();
   });
 
   it("returns to the area list through a named action", () => {
@@ -121,5 +130,66 @@ describe("ChangePanel", () => {
     render(<ResultExports files={{ geotiff: "https://data.example/change.tif", csv: null, notebook: null }} />);
     expect(screen.getByRole("link", { name: "GeoTIFF" }).getAttribute("href")).toBe("https://data.example/change.tif");
     expect((screen.getByRole("button", { name: "CSV" }) as HTMLButtonElement).disabled).toBe(true);
+  });
+
+  it("answers the four observation questions before technical statistics", () => {
+    render(<ChangePanel area={makeArea()} result={makeResult()} />);
+    const observed = screen.getByRole("region", { name: "What changed?" });
+    const when = screen.getByRole("region", { name: "When?" });
+    const why = screen.getByRole("region", { name: "Why this hypothesis?" });
+    const next = screen.getByRole("region", { name: "What to check next?" });
+    const statistics = screen.getByText("Technical statistics");
+    expect(observed.textContent).toContain("8 ha");
+    expect(observed.textContent).toContain("does not establish a physical cause");
+    expect(when.textContent).toContain("First flagged acquisition: Sep 30, 2026 (UTC)");
+    expect(when.textContent).toContain("no event date is established");
+    expect(why.textContent).toContain("Possible forest loss");
+    expect(next.textContent).toContain("independent pre/post optical imagery");
+    expect(next.compareDocumentPosition(statistics) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+  });
+
+  it("does not invent an event date when no onset acquisition is identified", () => {
+    render(<ChangePanel area={makeArea({ change_date: null })} result={makeResult()} />);
+    const when = screen.getByRole("region", { name: "When?" });
+    expect(when.textContent).toContain("No onset acquisition identified");
+    expect(when.textContent).toContain("no event date is established");
+    expect(when.textContent).not.toContain("First flagged acquisition:");
+  });
+
+  it("shows both available sensor windows because majority labels do not imply exclusive detection", () => {
+    render(<ChangePanel area={makeArea({ agreement: "C" })} result={makeResult({
+      nisar: { track: 71, direction: "D", dates: ["2026-07-13", "2026-09-11"] },
+      s1: { track: 166, dates: ["2026-07-11", "2026-09-09"] },
+    })} />);
+    const when = screen.getByRole("region", { name: "When?" });
+    const windows = within(when).getByText("Acquisition windows");
+    expect(windows.closest("details")!.open).toBe(false);
+    fireEvent.click(windows);
+    expect(when.textContent).toContain("Sentinel-1 window: Jul 11 – Sep 9, 2026");
+    expect(when.textContent).toContain("NISAR window: Jul 13 – Sep 11, 2026");
+  });
+
+  it("qualifies saved rule wording in support and measurements and links internal sources to Methods", () => {
+    const rule = Object.freeze({ label: "Rule fired", value: "HV fell 3 dB or more (canopy removed)",
+      ci: null, unit: "", note: "research table (docs/research/science.md, literature values)" });
+    const area = makeArea({ evidence: [rule], plain_text: "Rule: double bounce off standing water." });
+    const original = JSON.stringify(area);
+    const { container } = render(<ChangePanel area={area} result={makeResult()} />);
+    expect(screen.getAllByText("HV fell 3 dB or more (consistent with canopy loss)")).toHaveLength(2);
+    expect(screen.getByRole("link", { name: "Methods and rule criteria" }).getAttribute("href")).toBe("#/about");
+    expect(container.textContent).toContain("possible double-bounce response");
+    expect(container.textContent).not.toContain("(canopy removed)");
+    expect(container.textContent).not.toContain("docs/research/science.md");
+    expect(JSON.stringify(area)).toBe(original);
+  });
+
+  it("keeps unresolved classifications unresolved and supplies verification steps", () => {
+    render(<ChangePanel area={makeArea({ class: "uncertain" })} result={makeResult()} />);
+    const why = screen.getByRole("region", { name: "Why this hypothesis?" });
+    expect(why.textContent).toContain("Cause unresolved");
+    expect(why.textContent).not.toContain("Possible forest loss");
+    const next = screen.getByRole("list", { name: "Verification steps" });
+    expect(within(next).getAllByRole("listitem")).toHaveLength(2);
+    expect(next.textContent).toContain("independent pre/post imagery");
   });
 });
