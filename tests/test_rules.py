@@ -234,7 +234,7 @@ def test_c_only_other_is_uncertain():
     cls, label, evidence = classify(stats(agreement="C", dVH=-2.5, landcover="Evergreen Forest"))
     assert cls == "uncertain"
     assert label == "Low"
-    assert has_note(evidence, "only Sentinel-1")
+    assert has_note(evidence, "Sentinel-1-majority area")
 
 
 def test_c_only_never_uses_l_band_rules():

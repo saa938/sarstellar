@@ -28,6 +28,8 @@ SYSTEM_PROMPT = (
     "calibrated probability that the cause is correct. State that independent verification is needed "
     "to establish the cause. Sensor agreement or a larger detected area does not establish accuracy "
     "or that one radar performs better; missing observations are not evidence of no change."
+    " Area labels summarize block majorities: L or C means that radar alone flagged a majority, "
+    "not that the other radar detected nothing; both includes shared majorities or split patches."
 )
 
 _CAUSE = {
@@ -45,9 +47,9 @@ _CAUSE = {
     "uncertain": "A change with an uncertain cause",
 }
 _SEEN_BY = {
-    "L": "only NISAR (L-band) met the detection criteria",
-    "C": "only Sentinel-1 (C-band) met the detection criteria",
-    "both": "both NISAR and Sentinel-1 met the detection criteria",
+    "L": "only NISAR (L-band) flagged a majority of the area's blocks",
+    "C": "only Sentinel-1 (C-band) flagged a majority of the area's blocks",
+    "both": "both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks)",
 }
 # Supporting evidence the template mentions, and how each reads inside a sentence.
 _CONTEXT_LABELS = {
