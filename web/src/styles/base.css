@@ -539,3 +539,9 @@ button {
     scroll-behavior: auto !important;
   }
 }
+
+/* Overlay nav sits on bright radar imagery: darker scrim and brighter, shadowed links so it stays readable. */
+.nav--overlay { background: linear-gradient(to bottom, rgba(6, 7, 11, 0.92), rgba(6, 7, 11, 0.55) 70%, rgba(6, 7, 11, 0)); }
+.nav--overlay .nav__links a { color: var(--ink-2); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.85); }
+.nav--overlay .nav__links a:hover,
+.nav--overlay .nav__links a.is-on { color: var(--ink); background: rgba(6, 7, 11, 0.55); }
