@@ -1,9 +1,0 @@
-/* Measured backscatter time series. Chart drawing colors come from semantic theme variables. */
-.sc { margin: 0; }
-.sc-legend { display: flex; flex-wrap: wrap; gap: 5px 12px; margin-top: 7px; font-size: 11px; color: var(--muted); }
-.sc-key { display: inline-flex; align-items: center; gap: 5px; }
-.sc-gap-swatch { display: inline-block; width: 12px; height: 10px; border: 1px solid var(--line); background: var(--gap); }
-.sc-empty { color: var(--muted); font-size: 12px; }
-.sc .recharts-default-tooltip { background: var(--panel) !important; border: 1px solid var(--line) !important; border-radius: 2px !important; box-shadow: var(--shadow); }
-.sc .recharts-tooltip-label { color: var(--text) !important; }
-.sc .recharts-cartesian-grid line { stroke: var(--chart-grid); }

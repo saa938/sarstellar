@@ -1,0 +1,54 @@
+{
+ "generated_at": "2026-11-15T18:12:22Z",
+ "fixture": true,
+ "stages": [
+  {
+   "id": "rondonia",
+   "name": "Rond\u00f4nia",
+   "country": "Brazil",
+   "center": [
+    -63.3,
+    -10.05
+   ],
+   "move": "fall",
+   "title": "The forest falls, then burns",
+   "teaser": "The Amazon's deforestation frontier. Forest falls, then burns, in the dry season.",
+   "n_passes": 21,
+   "first": "2026-01-14",
+   "last": "2026-10-29",
+   "thumb": "rondonia/img/thumb.webp"
+  },
+  {
+   "id": "punjab",
+   "name": "Punjab",
+   "country": "India",
+   "center": [
+    75.8,
+    30.78
+   ],
+   "move": "waltz",
+   "title": "Two waltzes a year",
+   "teaser": "Rice in the monsoon, wheat in the winter: the same fields dance twice a year.",
+   "n_passes": 24,
+   "first": "2025-11-21",
+   "last": "2026-10-11",
+   "thumb": "punjab/img/thumb.webp"
+  },
+  {
+   "id": "village-creek",
+   "name": "Village Creek",
+   "country": "Texas, USA",
+   "center": [
+    -94.25,
+    30.33
+   ],
+   "move": "bounce",
+   "title": "The flood under the trees",
+   "teaser": "A flood hidden under the forest canopy. Optical satellites see trees; radar sees the water.",
+   "n_passes": 28,
+   "first": "2025-11-04",
+   "last": "2026-10-06",
+   "thumb": "village-creek/img/thumb.webp"
+  }
+ ]
+}

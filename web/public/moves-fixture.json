@@ -1,0 +1,349 @@
+{
+ "fixture": true,
+ "floor": {
+  "x": {
+   "pol": "HH",
+   "min": -30,
+   "max": 5
+  },
+  "y": {
+   "pol": "HV",
+   "min": -38,
+   "max": -5
+  },
+  "zones": [
+   {
+    "id": "water",
+    "label": "Open water",
+    "center": [
+     -24,
+     -32
+    ]
+   },
+   {
+    "id": "soil",
+    "label": "Bare soil",
+    "center": [
+     -13,
+     -25
+    ]
+   },
+   {
+    "id": "crops",
+    "label": "Grass and crops",
+    "center": [
+     -10,
+     -19
+    ]
+   },
+   {
+    "id": "forest",
+    "label": "Forest",
+    "center": [
+     -7,
+     -13
+    ]
+   },
+   {
+    "id": "bounce",
+    "label": "Double bounce: flooded forest, cities",
+    "center": [
+     0,
+     -11
+    ]
+   }
+  ]
+ },
+ "moves": [
+  {
+   "id": "still",
+   "name": "The Stillness",
+   "what": "Nothing changes on the ground.",
+   "physics": "Every radar image carries speckle, a grainy noise from millions of tiny echoes adding up. A hectare where nothing happens jitters in place inside that noise.",
+   "carried_by": [],
+   "path": [
+    {
+     "HH": -7.0,
+     "HV": -13.0
+    },
+    {
+     "HH": -7.4,
+     "HV": -12.7
+    },
+    {
+     "HH": -6.7,
+     "HV": -13.3
+    },
+    {
+     "HH": -7.2,
+     "HV": -13.2
+    },
+    {
+     "HH": -7.0,
+     "HV": -13.0
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "rondonia",
+    "village-creek"
+   ],
+   "future": "A calibrated baseline, so every other alert can say how unusual a change really is."
+  },
+  {
+   "id": "fall",
+   "name": "The Fall",
+   "what": "A forest is cleared or logged.",
+   "physics": "Leaves and branches scatter the radar in every direction, which is what HV hears. Remove the canopy and HV drops 3 to 6 dB; HH drops less.",
+   "carried_by": [
+    "HV"
+   ],
+   "path": [
+    {
+     "HH": -7.0,
+     "HV": -12.6
+    },
+    {
+     "HH": -7.3,
+     "HV": -13.6
+    },
+    {
+     "HH": -8.6,
+     "HV": -17.4
+    },
+    {
+     "HH": -9.4,
+     "HV": -18.3
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "rondonia",
+    "village-creek"
+   ],
+   "future": "Deforestation alerts through the clouds of the tropical wet season, when optical satellites go blind."
+  },
+  {
+   "id": "scorch",
+   "name": "The Scorch",
+   "what": "A wildfire burns through.",
+   "physics": "Fire removes the leaves and twigs that HV hears, so HV drops. HH can rise or fall, depending on how wet the soil is and how many trunks are left standing.",
+   "carried_by": [
+    "HV",
+    "HH"
+   ],
+   "path": [
+    {
+     "HH": -7.2,
+     "HV": -13.0
+    },
+    {
+     "HH": -6.3,
+     "HV": -15.6
+    },
+    {
+     "HH": -7.6,
+     "HV": -17.4
+    },
+    {
+     "HH": -8.4,
+     "HV": -17.9
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "rondonia"
+   ],
+   "future": "Burn scars mapped through smoke within days, and regrowth tracked for years after."
+  },
+  {
+   "id": "bounce",
+   "name": "The Bounce",
+   "what": "Floodwater spreads under a forest canopy.",
+   "physics": "The pulse slips through the leaves, reflects off the water into a trunk and comes straight back. That double bounce makes HH jump 3 to 6 dB while HV stays flat.",
+   "carried_by": [
+    "HH"
+   ],
+   "path": [
+    {
+     "HH": -7.2,
+     "HV": -13.4
+    },
+    {
+     "HH": -3.0,
+     "HV": -13.1
+    },
+    {
+     "HH": -1.4,
+     "HV": -12.9
+    },
+    {
+     "HH": -3.6,
+     "HV": -13.2
+    },
+    {
+     "HH": -7.2,
+     "HV": -13.4
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "village-creek",
+    "punjab"
+   ],
+   "future": "Flood maps that include the forests, where people and wildlife are hardest to see from above."
+  },
+  {
+   "id": "vanish",
+   "name": "The Vanish",
+   "what": "Open ground floods.",
+   "physics": "Smooth water acts like a mirror and sends the pulse away from the satellite, so almost nothing comes back. HH and HV both go dark, and return when the water drains.",
+   "carried_by": [
+    "HH",
+    "HV"
+   ],
+   "path": [
+    {
+     "HH": -11.0,
+     "HV": -20.0
+    },
+    {
+     "HH": -17.0,
+     "HV": -26.0
+    },
+    {
+     "HH": -22.0,
+     "HV": -30.5
+    },
+    {
+     "HH": -16.0,
+     "HV": -25.0
+    },
+    {
+     "HH": -11.0,
+     "HV": -20.0
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "punjab",
+    "village-creek"
+   ],
+   "future": "Flood extent every 12 days, day or night, for emergency managers and insurers."
+  },
+  {
+   "id": "waltz",
+   "name": "The Waltz",
+   "what": "A crop grows and is harvested.",
+   "physics": "Growing leaves and stems add volume, so HV climbs several dB through the season. Harvest removes it in a day and the dot falls back to bare soil.",
+   "carried_by": [
+    "HV",
+    "HH"
+   ],
+   "path": [
+    {
+     "HH": -13.5,
+     "HV": -25.0
+    },
+    {
+     "HH": -11.6,
+     "HV": -22.6
+    },
+    {
+     "HH": -10.4,
+     "HV": -19.4
+    },
+    {
+     "HH": -9.6,
+     "HV": -16.4
+    },
+    {
+     "HH": -10.2,
+     "HV": -15.4
+    },
+    {
+     "HH": -12.0,
+     "HV": -20.4
+    },
+    {
+     "HH": -13.5,
+     "HV": -25.0
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "punjab"
+   ],
+   "future": "Crop calendars and planted area for food security, in the monsoon when clouds cover the fields."
+  },
+  {
+   "id": "shimmer",
+   "name": "The Shimmer",
+   "what": "Rain wets the soil.",
+   "physics": "Water raises the soil's dielectric constant, so it reflects more strongly. HH and HV rise together by 1 to 3 dB across the whole scene and fade within days.",
+   "carried_by": [
+    "HH",
+    "HV"
+   ],
+   "path": [
+    {
+     "HH": -12.8,
+     "HV": -24.6
+    },
+    {
+     "HH": -11.2,
+     "HV": -23.4
+    },
+    {
+     "HH": -12.0,
+     "HV": -24.0
+    },
+    {
+     "HH": -12.8,
+     "HV": -24.6
+    }
+   ],
+   "metrics": null,
+   "stages": [
+    "rondonia",
+    "punjab",
+    "village-creek"
+   ],
+   "future": "Soil moisture after storms, and fewer false alarms: a move that is not a real change."
+  },
+  {
+   "id": "melt",
+   "name": "The Melt",
+   "what": "Snow and ice start to melt.",
+   "physics": "Liquid water absorbs the pulse, so a melting surface goes quiet and HH plunges. It recovers when the surface freezes again. NISAR images ice with HH only, so this is a dance for one partner.",
+   "carried_by": [
+    "HH"
+   ],
+   "path": [
+    {
+     "HH": -6.0,
+     "HV": null
+    },
+    {
+     "HH": -11.0,
+     "HV": null
+    },
+    {
+     "HH": -19.0,
+     "HV": null
+    },
+    {
+     "HH": -15.0,
+     "HV": null
+    },
+    {
+     "HH": -7.0,
+     "HV": null
+    }
+   ],
+   "metrics": null,
+   "stages": [],
+   "future": "The start and end of the melt season on Greenland, every 12 days, for sea level forecasts."
+  }
+ ]
+}
