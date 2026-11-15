@@ -58,7 +58,7 @@ export function Sidebar({ actions, stories, activeStoryId, onSelectStory, result
       {result && (
         <>
           <div className="label legend-heading">Layers</div>
-          <p className="section-note">Detection overlap · ha</p>
+          <p className="section-note">Area labels · ha</p>
           <Legend areas={result.areas} hidden={hidden} onToggle={onToggleAgreement} disabled={!layerControlsEnabled} />
           {onOpacityChange && (
             <label className="layer-opacity">

@@ -128,7 +128,7 @@ export function fusionHeadline(sc: Scorecard): Headline {
   if (gains.length === 0) {
     return {
       kind: "null",
-      text: "No detectable fusion gain on held-out states.",
+      text: "No demonstrated fusion gain on held-out states.",
       detail: lossNote ?? "All 95% intervals on the AUPRC difference include zero.",
     };
   }

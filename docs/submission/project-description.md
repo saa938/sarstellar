@@ -1,10 +1,12 @@
-# SARstellar: Two Radars, One Map
+# SARstellar: Radar Change Comparison
 
-Submission draft, November 15, 2026. [Frontend demo](https://www.sarstellar.earth/). [Source repository](https://github.com/saa938/sarstellar). [Live API](https://tejas-16842--sarstellar-web.us-east.modal.run/health).
+Submission draft, November 15, 2026. [Application](https://www.sarstellar.earth/). [Public six-slide demo](https://www.sarstellar.earth/demo/) (publication pending). [Editable presentation](sarstellar-presentation-public.pptx). The source repository remains private by the user's choice. The approved Light-default release is live; the final selected-area workflow and public slide viewer still need production verification.
 
 ## Project summary
 
-With SARstellar, researchers and land managers can compare surface-change detections from NISAR L-band and Sentinel-1 C-band on one map. Draw a US box up to 20 km per side, or open one of three saved real-data stories. Inspect a change area's radar evidence, rule-based cause hypothesis and time series, then export a live result as GeoTIFF, CSV or a reproducible notebook.
+SARstellar compares NISAR L-band and Sentinel-1 C-band backscatter changes on a one-hectare grid. Open one of three saved examples or draw a US box up to 20 km per side. Filter the detected areas, adjust layer opacity, compare before/after images and inspect each sensor's relative change. Select an area to review the measurements, timing, possible cause and uncertainty. Cause labels are rule-based hypotheses. A completed live analysis offers GeoTIFF, CSV and reproducible-notebook exports.
+
+The interface separates Map, Benchmark and Methods. It opens with the user-selected Light appearance and retains a Charcoal option. Detection categories mean NISAR only, both sensors or Sentinel-1 only; they describe the pipeline's detections rather than verified absence in the other sensor.
 
 We also tested whether combining the radars improves detection on states excluded from fitting. We attempted 254 sites, processed 242 and retained 224 with comparable radar and reference data. We trained on 164 sites and evaluated 60 across 12 held-out states. The primary comparison uses one pair per radar on 2,173,521 common one-hectare blocks. The saved output lists 12 failed reads and 18 processed sites excluded from comparison. [Benchmark and methods notes](../../web/public/scorecard.json).
 
@@ -47,4 +49,4 @@ We used Claude Code and OpenAI Codex for implementation, debugging, tests and dr
 
 ## Reproduction and credits
 
-The repository contains the Python engine, Modal jobs, React/MapLibre interface, saved stories and benchmark JSON. The [README](../../README.md) gives setup and rebuild commands. Story file hashes and the source run appear in [provenance](../../web/public/stories/provenance.json); the scorecard includes source/dependency hashes and failed/excluded sites. Core methods include the Conradsen change test, Benjamini–Hochberg FDR, Fisher/Bonferroni fusion and site-level paired bootstrap. Code license: [Apache 2.0](../../LICENSE), copied from the [Apache Software Foundation's standard text](https://www.apache.org/licenses/LICENSE-2.0.txt). Data and basemap providers retain their own terms and attribution requirements.
+The private repository contains the Python engine, Modal jobs and React/MapLibre interface. Public readers can inspect the [measured benchmark](https://www.sarstellar.earth/scorecard.json), [story provenance](https://www.sarstellar.earth/stories/provenance.json) and [methods](https://www.sarstellar.earth/#/about) without repository access. The repository's [README](../../README.md) gives setup and rebuild commands for authorized collaborators. Core methods include the Conradsen change test, Benjamini–Hochberg FDR, Fisher/Bonferroni fusion and site-level paired bootstrap. The code carries [Apache 2.0](../../LICENSE) licensing; that license does not make the repository public. Data and basemap providers retain their own terms and attribution requirements.

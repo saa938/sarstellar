@@ -37,7 +37,7 @@ describe("fusionHeadline", () => {
     const h = fusionHeadline(sampleScorecard({ fusion: [fusionRow("forest_loss", 0.03, -0.01, 0.07)] }));
     expect(h.kind).toBe("null");
     expect(h.text).toBe(
-      "No detectable fusion gain on held-out states.",
+      "No demonstrated fusion gain on held-out states.",
     );
     expect(h.detail).toContain("include zero");
   });
