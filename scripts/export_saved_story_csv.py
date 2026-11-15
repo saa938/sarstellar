@@ -119,9 +119,11 @@ def export(*, check: bool = False) -> dict:
         }
         artifacts[story_id] = blob
     manifest_path = STORIES / "exports.json"
+    runtime_manifest = ROOT / "web" / "src" / "generated" / "storyExports.json"
     manifest_blob = (json.dumps(manifest, indent=2, ensure_ascii=False) + "\n").encode("utf-8")
     if check:
         assert manifest_path.read_bytes() == manifest_blob
+        assert runtime_manifest.read_bytes() == manifest_blob
         supplemental = provenance["supplemental_exports"]
         assert supplemental["generator_sha256"] == digest(Path(__file__).read_bytes())
         assert supplemental["manifest_sha256"] == digest(manifest_blob)
@@ -133,6 +135,8 @@ def export(*, check: bool = False) -> dict:
         for story_id, blob in artifacts.items():
             (STORIES / story_id / "areas.csv").write_bytes(blob)
         manifest_path.write_bytes(manifest_blob)
+        runtime_manifest.parent.mkdir(parents=True, exist_ok=True)
+        runtime_manifest.write_bytes(manifest_blob)
         provenance["supplemental_exports"] = {
             "generated_at": datetime.now(UTC).isoformat(),
             "generator": "scripts/export_saved_story_csv.py",
