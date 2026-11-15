@@ -138,7 +138,7 @@ async function pollApi(id: string, onProgress: (job: Job) => void, intervalMs: n
     onProgress(job);
     if (job.status === "done") {
       if (!isResult(job.result)) throw new Error("The analysis finished without a usable result.");
-      return normalize(job.result, `${base}/`);
+      return normalize(job.result, apiUrl(base));
     }
     if (job.status === "error") throw new Error(job.message || "The analysis failed.");
     await sleep(intervalMs, signal);
@@ -175,7 +175,7 @@ export async function loadStory(id: string): Promise<Result> {
   for (const dir of ["stories", "fixtures"]) {
     const url = siteUrl(`${dir}/${id}.json`);
     const data = await tryFetchJson(url);
-    if (isResult(data)) return normalize(data, url);
+    if (isResult(data)) return normalize(data, relativeTo(url));
   }
   throw new Error(`Story "${id}" is not available.`);
 }
@@ -184,7 +184,7 @@ async function loadFixture(id: string): Promise<Result> {
   const url = siteUrl(`fixtures/${id}.json`);
   const data = await tryFetchJson(url);
   if (!isResult(data)) throw new Error(`Example "${id}" is not available.`);
-  return normalize(data, url);
+  return normalize(data, relativeTo(url));
 }
 
 /** The stories list from /stories/index.json, falling back to /fixtures/index.json. */
@@ -228,9 +228,18 @@ async function errorDetail(res: Response): Promise<string> {
   return `The analysis server returned an error (HTTP ${res.status}).`;
 }
 
-/** Fill optional-ish fields and make overlay/export URLs absolute relative to where the JSON came from. */
-function normalize(r: Result, base: string): Result {
-  const abs = (u: string) => new URL(u, base).href;
+/** Job results carry URLs like /overlays/{job_id}/{name}: join them onto the API base, keeping any path in it. */
+function apiUrl(base: string): (u: string) => string {
+  return (u) => (/^[a-z][a-z\d+.-]*:/i.test(u) ? u : `${base}/${u.replace(/^\/+/, "")}`);
+}
+
+/** Static JSON (stories, fixtures) names its files relative to where the JSON was loaded from. */
+function relativeTo(jsonUrl: string): (u: string) => string {
+  return (u) => new URL(u, jsonUrl).href;
+}
+
+/** Fill optional-ish fields and make overlay/export URLs absolute with `abs`. */
+function normalize(r: Result, abs: (u: string) => string): Result {
   const overlays = { ...r.overlays };
   for (const k of OVERLAY_KEYS) overlays[k] = abs(overlays[k]);
   const ex: Record<string, unknown> = isObj(r.exports) ? r.exports : {};

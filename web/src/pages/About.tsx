@@ -51,7 +51,7 @@ const DATA: DataSource[] = [
   },
   {
     name: "USDA Cropland Data Layer",
-    use: "The crop reference for the scorecard, and the crop-cycle and harvest labels.",
+    use: "Cultivated-land reference for the scorecard. The live app uses NLCD cropland as a contextual proxy.",
     source: "USDA NASS",
     href: "https://www.nass.usda.gov/Research_and_Science/Cropland/SARS1a.php",
   },
@@ -69,15 +69,9 @@ const DATA: DataSource[] = [
   },
   {
     name: "Open-Meteo historical weather",
-    use: "Rain and minimum temperature on pass dates, for the soil-wetting and freeze-up rules.",
+    use: "Rain and minimum temperature at the box center on the final NISAR date, when available.",
     source: "Open-Meteo",
     href: "https://open-meteo.com/en/docs/historical-weather-api",
-  },
-  {
-    name: "USGS stream gauges",
-    use: "Water levels that back up the flood stories.",
-    source: "USGS Water Data for the Nation",
-    href: "https://waterdata.usgs.gov/",
   },
   {
     name: "Esri World Imagery",
@@ -115,7 +109,7 @@ export default function About() {
         <h1>About SARstellar</h1>
         <p className="pg-sub">
           Two radars, one map. SARstellar compares what NISAR's L-band radar and Sentinel-1's C-band radar each see
-          change on the ground: on any box you draw, in three stories, and across 300+ US sites in the national
+          change on the ground: on a box you draw, in three stories, and across the eligible US sites in the national
           scorecard. Amber means only NISAR saw a change, violet means both did, cyan means only Sentinel-1 did.
         </p>
 
@@ -140,8 +134,8 @@ export default function About() {
           <ol className="pg-list">
             <li>
               <b>Find comparable passes.</b> For the box and dates, use one NISAR track, direction, mode and processing
-              version so every date is comparable. Skip BETA and mixed-mode passes. Pair each NISAR date with the nearest
-              Sentinel-1 pass and record how many days apart they are.
+              version so every date is comparable. Skip BETA and mixed-mode passes. Compare the NISAR series with a
+              Sentinel-1 pair near its first and last dates (within six days), and record the offsets.
             </li>
             <li>
               <b>Read only the box</b> from NASA's servers, with retries when a server hiccups.
@@ -157,7 +151,7 @@ export default function About() {
             </li>
             <li>
               <b>Test every block.</b> The omnibus change test (Conradsen et al., 2016) gives each block a p-value per
-              radar band. The Benjamini–Hochberg procedure holds the false discovery rate at 5% across the box. A block
+              radar band. The Benjamini–Hochberg procedure targets a 5% false discovery rate across the box. A block
               counts as changed only if it is significant and moved by at least 2 dB.
             </li>
             <li>
@@ -174,10 +168,10 @@ export default function About() {
               use below).
             </li>
             <li>
-              <b>Score it nationally.</b> The same pipeline runs on 300+ US sites with independent reference maps. NISAR,
-              Sentinel-1, NISAR degraded to 30 m, and two ways of combining both radars (Fisher's method on the two
-              p-values, and a logistic model fit on training states only) are compared on held-out states, with
-              confidence intervals from resampling whole sites.
+              <b>Score it across US sites.</b> The scorecard reports actual attempted, eligible and held-out counts.
+              Its primary comparison pins both radars to two dates, uses identical valid blocks, and compares raw
+              NISAR and Sentinel-1 with Fisher and Bonferroni fusion. Supervised logistic fusion is compared separately
+              with equally trained single-radar models. Whole sites are resampled for confidence intervals.
             </li>
           </ol>
         </section>
@@ -185,10 +179,9 @@ export default function About() {
         <section className="pg-card">
           <h2>Limits</h2>
           <div className="pg-callout">
-            <b>NISAR does not always win.</b> On the Kaiser Canyon fire on the Colville Reservation in Washington, a
-            grass and shrub fire, Sentinel-1 saw the burn far more clearly than NISAR. C-band's short wavelength responds
-            to the small leaves and stems a grass fire removes, which L-band mostly passes through. That story stays in
-            the app on purpose.
+            <b>Neither radar always wins.</b> The early Kaiser Canyon spike favored Sentinel-1, but the full pipeline
+            changed that comparison. The story shows the pipeline's current areas and agreement, rather than the early
+            spike totals. A radar difference alone does not establish the cause of a change.
           </div>
           <ul className="pg-list">
             <li>
@@ -201,11 +194,12 @@ export default function About() {
             </li>
             <li>
               The scorecard's references are other satellite products (optical alerts, fire perimeters, water and crop
-              maps), not field surveys. They have errors of their own.
+              maps), not field surveys. DSWx-S1 uses Sentinel-1 and is not an independent flood check. CDL identifies
+              cultivated land, not the timing or existence of a crop change.
             </li>
             <li>
-              NISAR is 10 m and Sentinel-1 is 30 m. The scorecard's "NISAR at 30 m" variant separates the effect of
-              wavelength from the effect of resolution.
+              NISAR is 10 m and Sentinel-1 is 30 m. The scorecard's "NISAR at 30 m" variant changes pixel sampling; it
+              does not isolate wavelength from timing, geometry, processing or other sensor differences.
             </li>
             <li>
               The two radars rarely pass on the same day. A Sentinel-1 pass can be days away from the NISAR pass it is
@@ -228,16 +222,18 @@ export default function About() {
           <ul className="pg-list">
             <li>
               <b>Plain-language text.</b> Claude (Anthropic, model claude-sonnet-5-5) rewrites each change area's rule
-              output (class, confidence, evidence numbers) as two or three sentences. It cannot change the class, the
-              confidence or any number. If the call fails, a fixed template is used instead.
+              output (class, confidence, evidence numbers) as two or three sentences, when configured. The prompt
+              requires it to use only supplied facts; the structured class and confidence remain unchanged. If the
+              call fails or no key is set, a fixed template is used instead.
             </li>
             <li>
-              <b>Learned cause model (optional).</b> If a gradient-boosted tree model beats the rules for a change type on
-              held-out states, the app uses it for that type only. The Scorecard shows that comparison when it exists.
+              <b>Cause labels and learned fusion.</b> Cause labels currently come from rules. The benchmark's logistic
+              fusion is a separate change-detection comparison; it does not validate the cause labels. The stretch
+              learned cause classifier has not shipped.
             </li>
             <li>
               <b>Building the app.</b> The team wrote this software with AI coding assistants (Claude Code and OpenAI
-              Codex); people reviewed and tested the changes.
+              Codex). Automated checks and real-data runs were used to validate the changes.
             </li>
             <li>
               <b>Images.</b> Map overlays are rendered directly from radar data. The app contains no AI-generated images.

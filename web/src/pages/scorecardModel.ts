@@ -10,7 +10,7 @@ export const BAR_METRIC = "auprc" as const;
 export const BAR_METRIC_LABEL = "AUPRC";
 
 /** Display order: NISAR, NISAR degraded to 30 m, Sentinel-1, then the two fused detectors. */
-export const DETECTORS: Detector[] = ["L", "L30", "C", "fused_fisher", "fused_logistic"];
+export const DETECTORS: Detector[] = ["L", "L30", "C", "fused_fisher", "fused_bonferroni", "fused_logistic"];
 
 interface DetectorInfo {
   label: string;
@@ -24,7 +24,10 @@ const DETECTOR_INFO: Record<Detector, DetectorInfo> = {
   L30: { label: "NISAR at 30 m", color: AGREEMENT_COLORS.L, dim: true },
   C: { label: "Sentinel-1 (C-band)", color: AGREEMENT_COLORS.C, dim: false },
   fused_fisher: { label: "Both radars, Fisher fusion", color: AGREEMENT_COLORS.both, dim: false },
+  fused_bonferroni: { label: "Both radars, Bonferroni fusion", color: AGREEMENT_COLORS.both, dim: false },
   fused_logistic: { label: "Both radars, logistic fusion", color: AGREEMENT_COLORS.both, dim: true },
+  learned_L: { label: "Learned NISAR-only model", color: AGREEMENT_COLORS.L, dim: true },
+  learned_C: { label: "Learned Sentinel-1-only model", color: AGREEMENT_COLORS.C, dim: true },
 };
 
 export function detectorInfo(d: string): DetectorInfo {
@@ -35,7 +38,7 @@ const CLASS_LABELS: Record<string, string> = {
   forest_loss: "forest loss",
   flood_open_water: "open-water flood",
   flooded_vegetation: "flooded vegetation",
-  crop_cycle: "crop cycle",
+  crop_cycle: "cultivated land (proxy)",
   low_veg_loss: "low-vegetation loss",
   soil_wetting: "soil wetting",
   wet_snow: "wet snow",
@@ -100,9 +103,13 @@ function plural(n: number, word: string): string {
 // ---------------------------------------------------------------- headline
 
 export function holdoutSummary(sc: Scorecard): { nSites: number; states: string[] } {
-  const held = (sc.sites ?? []).filter((s) => s.split === "holdout");
+  const held = eligibleSites(sc).filter((s) => s.split === "holdout");
   const states = sc.holdout_states?.length ? sc.holdout_states : [...new Set(held.map((s) => s.state))].sort();
-  return { nSites: held.length, states };
+  return { nSites: sc.n_holdout_sites ?? held.length, states };
+}
+
+export function eligibleSites(sc: Scorecard) {
+  return (sc.sites ?? []).filter((s) => s.status === undefined || s.status === "done");
 }
 
 export interface Headline {

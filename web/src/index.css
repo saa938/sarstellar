@@ -1,11 +1,12 @@
 /* Palette from docs/mockups/app-mockup.html. Agreement colors are fixed app-wide. */
 :root {
-  --bg: #0b0f17;
-  --panel: #121826;
-  --panel2: #182033;
-  --line: #263049;
-  --text: #e6eaf2;
-  --muted: #8b95ab;
+  color-scheme: dark;
+  --bg: #0d1217;
+  --panel: #131a21;
+  --panel2: #1d2731;
+  --line: #2b3641;
+  --text: #e8edf1;
+  --muted: #a0abb5;
   --l: #f59e0b;
   --both: #a78bfa;
   --c: #22d3ee;
@@ -24,5 +25,11 @@ body,
   height: 100%;
   background: var(--bg);
   color: var(--text);
-  font: 14px/1.45 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
+
+button, input, select { font: inherit; }
+button, a, summary { -webkit-tap-highlight-color: transparent; }
+button { touch-action: manipulation; }
+::selection { background: #64768a80; color: #fff; }

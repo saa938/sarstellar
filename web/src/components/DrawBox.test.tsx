@@ -74,6 +74,14 @@ afterEach(() => {
 });
 
 describe("DrawBox", () => {
+  it("can cancel a completed rectangle without starting an analysis", async () => {
+    await drawBox(SMALL);
+    fireEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    expect(screen.getByRole("button", { name: "Draw a box anywhere" })).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "Analyze this box" })).toBeNull();
+    expect(createJob).not.toHaveBeenCalled();
+  });
+
   it("shows a live size readout while drawing", async () => {
     const { drawer, emit } = fakeDrawer();
     render(<DrawBox map={MAP} onResult={vi.fn()} createDrawer={() => drawer} />);

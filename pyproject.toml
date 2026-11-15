@@ -1,0 +1,49 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sarstellar"
+version = "0.1.0"
+description = "NISAR vs Sentinel-1 radar change detection engine"
+requires-python = ">=3.11"
+dependencies = [
+    "numpy",
+    "scipy",
+    "h5py",
+    "fsspec",
+    "aiohttp",
+    "earthaccess",
+    "pyproj",
+    "rasterio",
+    "shapely",
+    "pillow",
+    "requests",
+    "anthropic",
+    "nbformat",
+    "pandas",
+    "pyarrow",
+]
+
+[project.optional-dependencies]
+modal = ["modal", "fastapi", "httpx"]
+ml = ["lightgbm", "scikit-learn"]
+dev = ["pytest", "ruff", "httpx"]
+
+# The import name is `sarstellar`, but the source lives in `core/sarstellar/`.
+[tool.setuptools.packages.find]
+where = ["core"]
+
+[tool.setuptools.package-dir]
+"" = "core"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+# Keep tmp_path folders inside the repo (git-ignored) instead of the shared per-user
+# temp folder, which can be unreadable on some machines.
+addopts = "--basetemp=.pytest_tmp"
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["core", "tests"]

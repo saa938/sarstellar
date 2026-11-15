@@ -5,6 +5,10 @@
 .venv/
 __pycache__/
 *.pyc
+*.egg-info/
+.pytest_tmp*/
+.pytest_cache/
+.ruff_cache/
 # node
 node_modules/
 dist/
@@ -18,3 +22,4 @@ data/
 *.npz
 *.h5
 *.tif
+.claude/worktrees/

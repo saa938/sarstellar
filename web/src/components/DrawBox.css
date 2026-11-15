@@ -37,9 +37,10 @@
 
 .db-actions {
   display: grid;
-  grid-template-columns: 2fr 1fr;
+  grid-template-columns: 1fr 1fr;
   gap: 6px;
 }
+.db-actions .db-primary { grid-column: 1 / -1; }
 
 .db-hint {
   margin: 0;

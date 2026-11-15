@@ -1,0 +1,11292 @@
+[
+ {
+  "id": "forest-loss-va-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.4029,
+   36.8871,
+   -77.2905,
+   36.9769
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 82,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -82.6532,
+   31.5739,
+   -82.5477,
+   31.6638
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_026_D_073_4005_DHDH_A_20260523T002013_20260523T002050_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_026_D_072_4005_DHDH_A_20260815T001937_20260815T002012_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-05-26",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-05-23",
+   "2026-08-15"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 117,
+   "track": 26,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-23",
+    "2026-08-15"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-la-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.8873,
+   30.6193,
+   -92.7829,
+   30.7091
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_084_D_073_4005_DHDH_A_20260620T005333_20260620T005406_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_084_D_073_4005_DHDH_A_20260912T005330_20260912T005403_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 149,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-al-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -88.1946,
+   31.4904,
+   -88.0892,
+   31.5803
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_073_4005_DHDH_A_20260501T003654_20260501T003730_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_073_4005_DHDH_A_20260724T003649_20260724T003726_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 110,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ar-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.6875,
+   33.8314,
+   -92.5793,
+   33.9212
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_012_D_071_4005_DHDH_A_20260522T010045_20260522T010120_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_012_D_071_4005_DHDH_A_20260814T010040_20260814T010115_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-05-16",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    -6,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "AR",
+   "ref_ha": 93,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-nc-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.3651,
+   34.1884,
+   -78.2564,
+   34.2783
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_019_4005_DHDH_A_20260620T102155_20260620T102232_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_019_4005_DHDH_A_20260912T102151_20260912T102229_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 64,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-wa-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -122.0898,
+   46.9584,
+   -121.9581,
+   47.0483
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_065_4005_DHDH_A_20260521T031853_20260521T031928_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_065_4005_DHDH_A_20260813T031848_20260813T031923_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "WA-west",
+   "ref_ha": 54,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-me-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -68.7206,
+   46.5778,
+   -68.5898,
+   46.6677
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_075_A_025_4005_DHDH_A_20260619T092705_20260619T092740_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_075_A_025_4005_DHDH_A_20260911T092701_20260911T092736_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 164,
+   "dates": [
+    "2026-06-15",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ME",
+   "ref_ha": 71,
+   "track": 75,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-or-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -123.4106,
+   45.2305,
+   -123.2829,
+   45.3203
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_066_4005_DHDH_A_20260521T031927_20260521T032002_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_066_4005_DHDH_A_20260813T031922_20260813T031957_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "OR-west",
+   "ref_ha": 58,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-mn-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.0488,
+   48.0738,
+   -91.9142,
+   48.1637
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_041_D_064_4005_DHDH_A_20260617T011325_20260617T011356_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_041_D_064_4005_DHDH_A_20260909T011321_20260909T011352_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-06-17",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    0,
+    6
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 1574,
+   "track": 41,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-tx-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.8375,
+   30.6531,
+   -93.733,
+   30.7429
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_134_A_017_4005_DHDH_A_20260518T113547_20260518T113622_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_134_A_017_4005_DHDH_A_20260810T113542_20260810T113617_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-05-18",
+   "2026-08-10"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 96,
+   "track": 134,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-18",
+    "2026-08-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-sc-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -80.5992,
+   34.668,
+   -80.49,
+   34.7578
+  ],
+  "state": "SC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_098_D_071_4005_DHDH_A_20260621T001047_20260621T001122_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_098_D_071_4005_DHDH_A_20260913T001044_20260913T001118_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 150,
+   "dates": [
+    "2026-06-26",
+    "2026-09-13"
+   ],
+   "offset_days": [
+    5,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 66,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ms-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -88.493,
+   31.0454,
+   -88.3881,
+   31.1352
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_073_4005_DHDH_A_20260501T003654_20260501T003730_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_073_4005_DHDH_A_20260724T003649_20260724T003726_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 35,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-mt-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -115.2639,
+   47.4388,
+   -115.1309,
+   47.5287
+  ],
+  "state": "MT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_042_D_064_4005_DHDH_A_20260617T025318_20260617T025353_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_042_D_064_4005_DHDH_A_20260909T025314_20260909T025350_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -4,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "ID-north",
+   "ref_ha": 31,
+   "track": 42,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-wv-01",
+  "kind": "forest_loss",
+  "bbox": [
+   -81.8023,
+   38.4122,
+   -81.6876,
+   38.5021
+  ],
+  "state": "WV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_018_A_021_4005_DHDH_A_20260627T103124_20260627T103159_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_018_A_021_4005_DHDH_A_20260919T103121_20260919T103156_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 150,
+   "dates": [
+    "2026-06-26",
+    "2026-09-13"
+   ],
+   "offset_days": [
+    -1,
+    -6
+   ]
+  },
+  "ref_window": [
+   "2026-06-27",
+   "2026-09-19"
+  ],
+  "meta": {
+   "region": "WV-KY",
+   "ref_ha": 29,
+   "track": 18,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-27",
+    "2026-09-19"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.2364,
+   36.9533,
+   -77.1239,
+   37.0432
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 70,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -81.8954,
+   31.7075,
+   -81.7898,
+   31.7973
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_017_4005_DHDH_A_20260617T104549_20260617T104623_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_017_4005_DHDH_A_20260909T104542_20260909T104620_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 82,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-la-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.2215,
+   30.6824,
+   -93.117,
+   30.7723
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_084_D_073_4005_DHDH_A_20260620T005333_20260620T005406_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_084_D_073_4005_DHDH_A_20260912T005330_20260912T005403_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 107,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-al-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -87.4768,
+   31.1971,
+   -87.3717,
+   31.2869
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_073_4005_DHDH_A_20260501T003654_20260501T003730_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_073_4005_DHDH_A_20260724T003649_20260724T003726_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 42,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ar-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -91.9479,
+   33.3039,
+   -91.8404,
+   33.3937
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_084_D_072_4005_DHDH_A_20260503T005301_20260503T005336_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_084_D_072_4005_DHDH_A_20260726T005256_20260726T005331_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-05-04",
+    "2026-07-22"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-05-03",
+   "2026-07-26"
+  ],
+  "meta": {
+   "region": "AR",
+   "ref_ha": 71,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-03",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-nc-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.4715,
+   33.8932,
+   -78.3633,
+   33.983
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_019_4005_DHDH_A_20260620T102155_20260620T102232_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_019_4005_DHDH_A_20260912T102151_20260912T102229_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 42,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-wa-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -122.0224,
+   47.0478,
+   -121.8905,
+   47.1377
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_065_4005_DHDH_A_20260521T031853_20260521T031928_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_065_4005_DHDH_A_20260813T031848_20260813T031923_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "WA-west",
+   "ref_ha": 39,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-me-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -68.8255,
+   46.4521,
+   -68.695,
+   46.5419
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_075_A_025_4005_DHDH_A_20260619T092705_20260619T092740_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_075_A_025_4005_DHDH_A_20260911T092701_20260911T092736_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 164,
+   "dates": [
+    "2026-06-15",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ME",
+   "ref_ha": 37,
+   "track": 75,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-or-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -123.064,
+   43.1152,
+   -122.9409,
+   43.2051
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_066_4005_DHDH_A_20260521T031927_20260521T032002_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_066_4005_DHDH_A_20260813T031922_20260813T031957_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 35,
+   "dates": [
+    "2026-05-20",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    -1,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "OR-west",
+   "ref_ha": 41,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-mn-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.0471,
+   48.1638,
+   -91.9123,
+   48.2536
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_041_D_064_4005_DHDH_A_20260617T011325_20260617T011356_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_041_D_064_4005_DHDH_A_20260909T011321_20260909T011352_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-06-17",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    0,
+    6
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 1467,
+   "track": 41,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-tx-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -94.0547,
+   30.4621,
+   -93.9504,
+   30.552
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_134_A_017_4005_DHDH_A_20260518T113547_20260518T113622_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_134_A_017_4005_DHDH_A_20260810T113542_20260810T113617_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-05-18",
+   "2026-08-10"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 32,
+   "track": 134,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-18",
+    "2026-08-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-sc-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -79.713,
+   33.3448,
+   -79.6054,
+   33.4347
+  ],
+  "state": "SC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_098_D_071_4005_DHDH_A_20260621T001047_20260621T001122_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_098_D_071_4005_DHDH_A_20260913T001044_20260913T001118_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 56,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ms-02",
+  "kind": "forest_loss",
+  "bbox": [
+   -88.4762,
+   32.6332,
+   -88.3695,
+   32.723
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_072_4005_DHDH_A_20260501T003622_20260501T003657_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_072_4005_DHDH_A_20260724T003617_20260724T003652_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 27,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -76.8943,
+   37.6531,
+   -76.7808,
+   37.7429
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_162_A_021_4005_DHDH_A_20260625T101448_20260625T101521_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_162_A_021_4005_DHDH_A_20260917T101445_20260917T101517_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-28",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-25",
+   "2026-09-17"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 51,
+   "track": 162,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-25",
+    "2026-09-17"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -81.9173,
+   31.7885,
+   -81.8116,
+   31.8784
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_017_4005_DHDH_A_20260617T104549_20260617T104623_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_017_4005_DHDH_A_20260909T104542_20260909T104620_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 78,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-la-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.9598,
+   31.9186,
+   -92.8539,
+   32.0085
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_084_D_072_4005_DHDH_A_20260503T005301_20260503T005336_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_084_D_072_4005_DHDH_A_20260726T005256_20260726T005331_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-05-04",
+    "2026-07-22"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-05-03",
+   "2026-07-26"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 47,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-03",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-al-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -86.8152,
+   31.1976,
+   -86.7101,
+   31.2874
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_073_4005_DHDH_A_20260501T003654_20260501T003730_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_073_4005_DHDH_A_20260724T003649_20260724T003726_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 26,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ar-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.5395,
+   33.4702,
+   -93.4318,
+   33.56
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_012_D_071_4005_DHDH_A_20260615T010044_20260615T010123_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_012_D_072_4005_DHDH_A_20260907T010114_20260907T010149_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-09",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    -6,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-06-15",
+   "2026-09-07"
+  ],
+  "meta": {
+   "region": "AR",
+   "ref_ha": 46,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-15",
+    "2026-09-07"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-nc-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.2514,
+   35.0061,
+   -78.1416,
+   35.096
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_019_4005_DHDH_A_20260620T102155_20260620T102232_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_019_4005_DHDH_A_20260912T102151_20260912T102229_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 26,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-wa-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -122.3737,
+   46.3036,
+   -122.2435,
+   46.3934
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_065_4005_DHDH_A_20260521T031853_20260521T031928_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_065_4005_DHDH_A_20260813T031848_20260813T031923_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "WA-west",
+   "ref_ha": 39,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-me-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -68.9557,
+   46.4973,
+   -68.8251,
+   46.5871
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_075_A_025_4005_DHDH_A_20260619T092705_20260619T092740_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_075_A_025_4005_DHDH_A_20260911T092701_20260911T092736_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 164,
+   "dates": [
+    "2026-06-15",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ME",
+   "ref_ha": 23,
+   "track": 75,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-or-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -123.8959,
+   45.282,
+   -123.7681,
+   45.3718
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_066_4005_DHDH_A_20260521T031927_20260521T032002_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_066_4005_DHDH_A_20260813T031922_20260813T031957_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "OR-west",
+   "ref_ha": 26,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-mn-03",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.4173,
+   47.8259,
+   -93.2834,
+   47.9157
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_064_4005_DHDH_A_20260619T013004_20260619T013039_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_064_4005_DHDH_A_20260911T013000_20260911T013035_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-06-17",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -2,
+    4
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 31,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.7655,
+   37.6541,
+   -78.652,
+   37.7439
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_021_4005_DHDH_A_20260620T102305_20260620T102340_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_021_4005_DHDH_A_20260912T102302_20260912T102336_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 46,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -83.0941,
+   32.4245,
+   -82.9876,
+   32.5143
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_018_4005_DHDH_A_20260617T104622_20260617T104657_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_018_4005_DHDH_A_20260909T104619_20260909T104653_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 70,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-la-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.9255,
+   32.1863,
+   -93.8193,
+   32.2761
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_134_A_018_4005_DHDH_A_20260623T113619_20260623T113653_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_134_A_018_4005_DHDH_A_20260915T113615_20260915T113650_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 136,
+   "dates": [
+    "2026-06-26",
+    "2026-09-13"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-23",
+   "2026-09-15"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 47,
+   "track": 134,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-23",
+    "2026-09-15"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-al-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -87.5508,
+   31.278,
+   -87.4456,
+   31.3679
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_073_4005_DHDH_A_20260501T003654_20260501T003730_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_073_4005_DHDH_A_20260724T003649_20260724T003726_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 24,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ar-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.6563,
+   33.5336,
+   -92.5485,
+   33.6235
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_012_D_071_4005_DHDH_A_20260522T010045_20260522T010120_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_012_D_071_4005_DHDH_A_20260814T010040_20260814T010115_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-05-16",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    -6,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "AR",
+   "ref_ha": 36,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-nc-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.1175,
+   34.7596,
+   -78.0081,
+   34.8494
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_019_4005_DHDH_A_20260620T102155_20260620T102232_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_019_4005_DHDH_A_20260912T102151_20260912T102229_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 22,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-wa-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -123.3219,
+   46.2244,
+   -123.192,
+   46.3142
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_065_4005_DHDH_A_20260521T031853_20260521T031928_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_065_4005_DHDH_A_20260813T031848_20260813T031923_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "WA-west",
+   "ref_ha": 33,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-me-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -68.6061,
+   46.1454,
+   -68.4764,
+   46.2353
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_075_A_025_4005_DHDH_A_20260619T092705_20260619T092740_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_075_A_025_4005_DHDH_A_20260911T092701_20260911T092736_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 164,
+   "dates": [
+    "2026-06-15",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ME",
+   "ref_ha": 21,
+   "track": 75,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-or-04",
+  "kind": "forest_loss",
+  "bbox": [
+   -122.6519,
+   44.195,
+   -122.5265,
+   44.2848
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_066_4005_DHDH_A_20260521T031927_20260521T032002_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_066_4005_DHDH_A_20260813T031922_20260813T031957_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "OR-west",
+   "ref_ha": 20,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.6606,
+   36.8727,
+   -77.5482,
+   36.9625
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 40,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -83.672,
+   32.1793,
+   -83.5658,
+   32.2692
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_148_A_017_4005_DHDH_A_20260519T105410_20260519T105449_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_148_A_017_4005_DHDH_A_20260811T105405_20260811T105444_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-05-19",
+   "2026-08-11"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 59,
+   "track": 148,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-19",
+    "2026-08-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-la-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.9186,
+   30.6825,
+   -92.814,
+   30.7723
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_084_D_073_4005_DHDH_A_20260620T005333_20260620T005406_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_084_D_073_4005_DHDH_A_20260912T005330_20260912T005403_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 46,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-al-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -86.3338,
+   30.9612,
+   -86.229,
+   31.051
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_076_A_017_4005_DHDH_A_20260619T110227_20260619T110302_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_076_A_017_4005_DHDH_A_20260911T110224_20260911T110258_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-06-17",
+    "2026-09-16"
+   ],
+   "offset_days": [
+    -2,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 24,
+   "track": 76,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ar-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -92.377,
+   34.8942,
+   -92.2674,
+   34.984
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_012_D_071_4005_DHDH_A_20260522T010045_20260522T010120_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_012_D_071_4005_DHDH_A_20260814T010040_20260814T010115_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-05-16",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    -6,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "AR",
+   "ref_ha": 34,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-nc-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.9998,
+   34.9911,
+   -77.8901,
+   35.0809
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_019_4005_DHDH_A_20260620T102155_20260620T102232_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_019_4005_DHDH_A_20260912T102151_20260912T102229_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "SC-NC",
+   "ref_ha": 20,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-wa-05",
+  "kind": "forest_loss",
+  "bbox": [
+   -122.8536,
+   46.6384,
+   -122.7227,
+   46.7283
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_172_D_065_4005_DHDH_A_20260521T031853_20260521T031928_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_172_D_065_4005_DHDH_A_20260813T031848_20260813T031923_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "WA-west",
+   "ref_ha": 29,
+   "track": 172,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-06",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.2734,
+   37.4393,
+   -77.1602,
+   37.5291
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 36,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-06",
+  "kind": "forest_loss",
+  "bbox": [
+   -82.7033,
+   32.0063,
+   -82.5973,
+   32.0961
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_018_4005_DHDH_A_20260617T104622_20260617T104657_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_018_4005_DHDH_A_20260909T104619_20260909T104653_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 27,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-la-06",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.0542,
+   30.4931,
+   -92.9499,
+   30.5829
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_084_D_073_4005_DHDH_A_20260620T005333_20260620T005406_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_084_D_073_4005_DHDH_A_20260912T005330_20260912T005403_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "LA-TX",
+   "ref_ha": 40,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-al-06",
+  "kind": "forest_loss",
+  "bbox": [
+   -87.0042,
+   31.1617,
+   -86.8992,
+   31.2515
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_055_D_073_4005_DHDH_A_20260501T003654_20260501T003730_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_055_D_073_4005_DHDH_A_20260724T003649_20260724T003726_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-05-05",
+    "2026-07-23"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "AL-MS",
+   "ref_ha": 23,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ar-06",
+  "kind": "forest_loss",
+  "bbox": [
+   -93.0771,
+   34.1205,
+   -92.9685,
+   34.2104
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_012_D_071_4005_DHDH_A_20260522T010045_20260522T010120_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_012_D_071_4005_DHDH_A_20260814T010040_20260814T010115_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-05-16",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    -6,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "AR",
+   "ref_ha": 28,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-07",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.5372,
+   36.8753,
+   -77.4248,
+   36.9652
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 34,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-07",
+  "kind": "forest_loss",
+  "bbox": [
+   -82.7866,
+   31.933,
+   -82.6807,
+   32.0228
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_018_4005_DHDH_A_20260617T104622_20260617T104657_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_018_4005_DHDH_A_20260909T104619_20260909T104653_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 27,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-08",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.086,
+   37.6736,
+   -77.9724,
+   37.7634
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 34,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-ga-08",
+  "kind": "forest_loss",
+  "bbox": [
+   -82.9948,
+   31.7766,
+   -82.8891,
+   31.8665
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_018_4005_DHDH_A_20260617T104622_20260617T104657_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_018_4005_DHDH_A_20260909T104619_20260909T104653_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "GA-south",
+   "ref_ha": 22,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-09",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.5579,
+   37.8211,
+   -77.4441,
+   37.911
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 32,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-10",
+  "kind": "forest_loss",
+  "bbox": [
+   -76.8737,
+   37.7345,
+   -76.76,
+   37.8244
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_162_A_021_4005_DHDH_A_20260625T101448_20260625T101521_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_162_A_021_4005_DHDH_A_20260917T101445_20260917T101517_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-28",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-25",
+   "2026-09-17"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 29,
+   "track": 162,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-25",
+    "2026-09-17"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-11",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.0376,
+   37.083,
+   -76.9249,
+   37.1728
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 28,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-12",
+  "kind": "forest_loss",
+  "bbox": [
+   -77.6675,
+   37.0708,
+   -77.5548,
+   37.1606
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 28,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-13",
+  "kind": "forest_loss",
+  "bbox": [
+   -80.2631,
+   37.6188,
+   -80.1496,
+   37.7086
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_098_D_070_4005_DHDH_A_20260621T001013_20260621T001048_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_098_D_070_4005_DHDH_A_20260913T001010_20260913T001045_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "WV-KY",
+   "ref_ha": 28,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-14",
+  "kind": "forest_loss",
+  "bbox": [
+   -78.6201,
+   36.9919,
+   -78.5076,
+   37.0817
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 26,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "forest-loss-va-15",
+  "kind": "forest_loss",
+  "bbox": [
+   -76.8871,
+   36.9142,
+   -76.7747,
+   37.004
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_020_4005_DHDH_A_20260620T102231_20260620T102306_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_020_4005_DHDH_A_20260912T102228_20260912T102303_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "VA",
+   "ref_ha": 24,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-wa-01",
+  "kind": "fire",
+  "bbox": [
+   -120.5759,
+   47.9103,
+   -120.4418,
+   48.0001
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_071_D_064_4005_DHDH_A_20260713T030956_20260713T031031_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_071_D_064_4005_DHDH_A_20260830T030953_20260830T031029_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 115,
+   "dates": [
+    "2026-07-13",
+    "2026-08-30"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-16",
+   "2026-08-30"
+  ],
+  "meta": {
+   "region": "Little Giant",
+   "ref_ha": 10634,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-13",
+    "2026-08-30"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-or-01",
+  "kind": "fire",
+  "bbox": [
+   -119.8592,
+   44.3989,
+   -119.7333,
+   44.4887
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_005_A_024_4005_DHDH_A_20260720T125434_20260720T125509_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_005_A_024_4005_DHDH_A_20260906T125433_20260906T125508_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-07-20",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-23",
+   "2026-09-06"
+  ],
+  "meta": {
+   "region": "Shingle",
+   "ref_ha": 10816,
+   "track": 5,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-20",
+    "2026-09-06"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-id-01",
+  "kind": "fire",
+  "bbox": [
+   -117.137,
+   44.3879,
+   -117.0112,
+   44.4777
+  ],
+  "state": "ID",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_042_D_066_4005_DHDH_A_20260723T025424_20260723T025459_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_042_D_066_4005_DHDH_A_20260909T025423_20260909T025502_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 166,
+   "dates": [
+    "2026-07-23",
+    "2026-09-09"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-24",
+   "2026-09-03"
+  ],
+  "meta": {
+   "region": "Tartar",
+   "ref_ha": 10302,
+   "track": 42,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-23",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    1,
+    6
+   ]
+  }
+ },
+ {
+  "id": "fire-ca-01",
+  "kind": "fire",
+  "bbox": [
+   -120.2592,
+   40.6119,
+   -120.1408,
+   40.7017
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_143_D_068_4005_DHDH_A_20260718T030352_20260718T030427_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_143_D_068_4005_DHDH_A_20260811T030351_20260811T030426_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-07-20",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-07-18",
+   "2026-08-09"
+  ],
+  "meta": {
+   "region": "Biscar",
+   "ref_ha": 10813,
+   "track": 143,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-18",
+    "2026-08-11"
+   ],
+   "slack_days": [
+    0,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fire-nv-01",
+  "kind": "fire",
+  "bbox": [
+   -119.9953,
+   39.7262,
+   -119.8784,
+   39.816
+  ],
+  "state": "NV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_034_A_021_4005_DHDH_A_20260722T130932_20260722T131006_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_034_A_021_4005_DHDH_A_20260827T130930_20260827T131005_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-07-22",
+    "2026-08-27"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-08-08",
+   "2026-08-27"
+  ],
+  "meta": {
+   "region": "Bug",
+   "ref_ha": 10744,
+   "track": 34,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-22",
+    "2026-08-27"
+   ],
+   "slack_days": [
+    17,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-co-01",
+  "kind": "fire",
+  "bbox": [
+   -108.8053,
+   37.6922,
+   -108.6918,
+   37.7821
+  ],
+  "state": "CO",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_128_D_069_4005_DHDH_A_20260623T020612_20260623T020646_P05023_N_F_J_002",
+   "NISAR_L2_PR_GCOV_028_128_D_069_4005_DHDH_A_20260822T020608_20260822T020643_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 129,
+   "dates": [
+    "2026-06-25",
+    "2026-08-19"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-27",
+   "2026-08-11"
+  ],
+  "meta": {
+   "region": "Ferris",
+   "ref_ha": 5539,
+   "track": 128,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-23",
+    "2026-08-22"
+   ],
+   "slack_days": [
+    4,
+    11
+   ]
+  }
+ },
+ {
+  "id": "fire-tx-01",
+  "kind": "fire",
+  "bbox": [
+   -94.2626,
+   29.585,
+   -94.1593,
+   29.6748
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_030_012_D_073_4005_DHDH_A_20260907T010148_20260907T010222_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_032_012_D_073_4005_DHDH_A_20261001T010148_20261001T010222_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 136,
+   "dates": [
+    "2026-09-01",
+    "2026-09-25"
+   ],
+   "offset_days": [
+    -6,
+    -6
+   ]
+  },
+  "ref_window": [
+   "2026-09-11",
+   "2026-09-25"
+  ],
+  "meta": {
+   "region": "Star Lake",
+   "ref_ha": 5200,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-07",
+    "2026-10-01"
+   ],
+   "slack_days": [
+    4,
+    6
+   ]
+  }
+ },
+ {
+  "id": "fire-ut-01",
+  "kind": "fire",
+  "bbox": [
+   -109.7692,
+   37.7938,
+   -109.6554,
+   37.8836
+  ],
+  "state": "UT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_048_A_021_4005_DHDH_A_20260617T122757_20260617T122831_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_048_A_021_4005_DHDH_A_20260816T122753_20260816T122828_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 27,
+   "dates": [
+    "2026-06-18",
+    "2026-08-12"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-26",
+   "2026-08-10"
+  ],
+  "meta": {
+   "region": "Babylon",
+   "ref_ha": 10276,
+   "track": 48,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-08-16"
+   ],
+   "slack_days": [
+    9,
+    6
+   ]
+  }
+ },
+ {
+  "id": "fire-ak-01",
+  "kind": "fire",
+  "bbox": [
+   -148.4093,
+   64.2005,
+   -148.2026,
+   64.2903
+  ],
+  "state": "AK",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_044_D_055_4005_DHDH_A_20260617T060749_20260617T060826_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_028_044_D_055_4005_DHDH_A_20260816T060746_20260816T060823_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 94,
+   "dates": [
+    "2026-06-18",
+    "2026-08-11"
+   ],
+   "offset_days": [
+    1,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-08-05"
+  ],
+  "meta": {
+   "region": "Tatlanika",
+   "ref_ha": 5317,
+   "track": 44,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-08-16"
+   ],
+   "slack_days": [
+    4,
+    11
+   ]
+  }
+ },
+ {
+  "id": "fire-mt-01",
+  "kind": "fire",
+  "bbox": [
+   -113.3707,
+   45.4415,
+   -113.2426,
+   45.5314
+  ],
+  "state": "MT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_013_D_065_4005_DHDH_A_20260721T023711_20260721T023746_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_013_D_065_4005_DHDH_A_20260919T023710_20260919T023745_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-07-25",
+    "2026-09-23"
+   ],
+   "offset_days": [
+    4,
+    4
+   ]
+  },
+  "ref_window": [
+   "2026-08-01",
+   "2026-09-15"
+  ],
+  "meta": {
+   "region": "Sand Creek",
+   "ref_ha": 5137,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-21",
+    "2026-09-19"
+   ],
+   "slack_days": [
+    11,
+    4
+   ]
+  }
+ },
+ {
+  "id": "fire-fl-01",
+  "kind": "fire",
+  "bbox": [
+   -80.8553,
+   25.4961,
+   -80.7557,
+   25.586
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_027_170_D_076_4005_DHDH_A_20260813T000513_20260813T000548_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_170_D_076_4005_DHDH_A_20260906T000513_20260906T000547_P05023_N_F_J_002"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-08-13",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-08-20",
+   "2026-08-26"
+  ],
+  "meta": {
+   "region": "Chipmunk",
+   "ref_ha": 5134,
+   "track": 170,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-13",
+    "2026-09-06"
+   ],
+   "slack_days": [
+    7,
+    11
+   ]
+  }
+ },
+ {
+  "id": "fire-az-01",
+  "kind": "fire",
+  "bbox": [
+   -111.8408,
+   34.9666,
+   -111.7311,
+   35.0565
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_019_4005_DHDH_A_20260619T124328_20260619T124403_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_077_A_019_4005_DHDH_A_20260818T124325_20260818T124359_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-08-18"
+   ],
+   "offset_days": [
+    -6,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-07-30"
+  ],
+  "meta": {
+   "region": "Pocket",
+   "ref_ha": 5168,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-08-18"
+   ],
+   "slack_days": [
+    1,
+    19
+   ]
+  }
+ },
+ {
+  "id": "fire-wy-01",
+  "kind": "fire",
+  "bbox": [
+   -108.5957,
+   42.591,
+   -108.4736,
+   42.6808
+  ],
+  "state": "WY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_019_A_023_4005_DHDH_A_20260721T121223_20260721T121258_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_019_A_023_4005_DHDH_A_20260826T121222_20260826T121257_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 27,
+   "dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "offset_days": [
+    -2,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-08-09",
+   "2026-08-18"
+  ],
+  "meta": {
+   "region": "Weiser Knoll",
+   "ref_ha": 5112,
+   "track": 19,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-21",
+    "2026-08-26"
+   ],
+   "slack_days": [
+    19,
+    8
+   ]
+  }
+ },
+ {
+  "id": "fire-nm-01",
+  "kind": "fire",
+  "bbox": [
+   -108.6832,
+   33.2702,
+   -108.5757,
+   33.36
+  ],
+  "state": "NM",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_048_A_018_4005_DHDH_A_20260617T122615_20260617T122650_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_048_A_018_4005_DHDH_A_20260723T122613_20260723T122648_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 56,
+   "dates": [
+    "2026-06-20",
+    "2026-07-21"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-07-21"
+  ],
+  "meta": {
+   "region": "Sacaton",
+   "ref_ha": 3769,
+   "track": 48,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-07-23"
+   ],
+   "slack_days": [
+    4,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fire-mn-01",
+  "kind": "fire",
+  "bbox": [
+   -92.251,
+   48.1195,
+   -92.1163,
+   48.2093
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_041_D_064_4005_DHDH_A_20260629T011324_20260629T011355_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_041_D_064_4005_DHDH_A_20260723T011323_20260723T011354_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-07-09",
+   "2026-07-23"
+  ],
+  "meta": {
+   "region": "Sioux",
+   "ref_ha": 2749,
+   "track": 41,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-29",
+    "2026-07-23"
+   ],
+   "slack_days": [
+    10,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-ks-01",
+  "kind": "fire",
+  "bbox": [
+   -96.6181,
+   37.6415,
+   -96.5046,
+   37.7313
+  ],
+  "state": "KS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_015_033_A_021_4005_DHDH_A_20260312T112944_20260312T113018_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_016_033_A_021_4005_DHDH_A_20260324T112944_20260324T113018_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-03-15",
+    "2026-03-27"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-03-21",
+   "2026-03-24"
+  ],
+  "meta": {
+   "region": "Grey Road",
+   "ref_ha": 842,
+   "track": 33,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-03-12",
+    "2026-03-24"
+   ],
+   "slack_days": [
+    9,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-la-01",
+  "kind": "fire",
+  "bbox": [
+   -93.6303,
+   29.8078,
+   -93.5267,
+   29.8976
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_012_D_073_4005_DHDH_A_20260721T010149_20260721T010224_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_012_D_073_4005_DHDH_A_20260814T010148_20260814T010223_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 136,
+   "dates": [
+    "2026-07-27",
+    "2026-08-20"
+   ],
+   "offset_days": [
+    6,
+    6
+   ]
+  },
+  "ref_window": [
+   "2026-08-08",
+   "2026-08-11"
+  ],
+  "meta": {
+   "region": "Sabine NWR",
+   "ref_ha": 2452,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-21",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    18,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-ms-01",
+  "kind": "fire",
+  "bbox": [
+   -89.9933,
+   33.3289,
+   -89.8858,
+   33.4187
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_016_004_A_018_4005_DHDH_A_20260322T111124_20260322T111158_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_018_004_A_018_4005_DHDH_A_20260415T111123_20260415T111158_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-03-26",
+   "2026-04-09"
+  ],
+  "meta": {
+   "region": "Carroll - CR 145",
+   "ref_ha": 1386,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-03-22",
+    "2026-04-15"
+   ],
+   "slack_days": [
+    4,
+    6
+   ]
+  }
+ },
+ {
+  "id": "fire-ok-01",
+  "kind": "fire",
+  "bbox": [
+   -98.3016,
+   35.2989,
+   -98.1914,
+   35.3887
+  ],
+  "state": "OK",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_030_062_A_019_4005_DHDH_A_20260910T114508_20260910T114543_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_032_062_A_019_4005_DHDH_A_20261004T114508_20261004T114543_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 107,
+   "dates": [
+    "2026-09-11",
+    "2026-10-05"
+   ],
+   "offset_days": [
+    1,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-09-13",
+   "2026-09-27"
+  ],
+  "meta": {
+   "region": "Gracemont",
+   "ref_ha": 1085,
+   "track": 62,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-10",
+    "2026-10-04"
+   ],
+   "slack_days": [
+    3,
+    7
+   ]
+  }
+ },
+ {
+  "id": "fire-sd-01",
+  "kind": "fire",
+  "bbox": [
+   -102.493,
+   43.5724,
+   -102.369,
+   43.6622
+  ],
+  "state": "SD",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_027_D_066_4005_DHDH_A_20260722T015608_20260722T015643_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_027_D_066_4005_DHDH_A_20260827T015607_20260827T015642_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 5,
+   "dates": [
+    "2026-07-24",
+    "2026-08-29"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-25"
+  ],
+  "meta": {
+   "region": "XU Hill",
+   "ref_ha": 520,
+   "track": 27,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-22",
+    "2026-08-27"
+   ],
+   "slack_days": [
+    20,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fire-ne-01",
+  "kind": "fire",
+  "bbox": [
+   -103.7054,
+   42.7338,
+   -103.5831,
+   42.8236
+  ],
+  "state": "NE",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_027_D_067_4005_DHDH_A_20260628T015644_20260628T015719_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_025_027_D_067_4005_DHDH_A_20260710T015643_20260710T015718_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 5,
+   "dates": [
+    "2026-06-30",
+    "2026-07-12"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-29",
+   "2026-07-05"
+  ],
+  "meta": {
+   "region": "Log Road",
+   "ref_ha": 617,
+   "track": 27,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-28",
+    "2026-07-10"
+   ],
+   "slack_days": [
+    1,
+    5
+   ]
+  }
+ },
+ {
+  "id": "fire-ky-01",
+  "kind": "fire",
+  "bbox": [
+   -84.6031,
+   36.6965,
+   -84.491,
+   36.7863
+  ],
+  "state": "KY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_017_047_A_020_4005_DHDH_A_20260406T104733_20260406T104808_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_019_047_A_020_4005_DHDH_A_20260430T104732_20260430T104807_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-04-08",
+    "2026-05-02"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-04-12",
+   "2026-04-30"
+  ],
+  "meta": {
+   "region": "STE - Alum",
+   "ref_ha": 443,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-04-06",
+    "2026-04-30"
+   ],
+   "slack_days": [
+    6,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-ga-01",
+  "kind": "fire",
+  "bbox": [
+   -82.317,
+   30.5753,
+   -82.2126,
+   30.6651
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_028_047_A_017_4005_DHDH_A_20260816T104542_20260816T104620_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_047_A_017_4005_DHDH_A_20260828T104542_20260828T104620_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-08-13",
+    "2026-08-25"
+   ],
+   "offset_days": [
+    -3,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-08-23",
+   "2026-08-28"
+  ],
+  "meta": {
+   "region": "Mitchell",
+   "ref_ha": 412,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-16",
+    "2026-08-28"
+   ],
+   "slack_days": [
+    7,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-sc-01",
+  "kind": "fire",
+  "bbox": [
+   -79.7258,
+   33.1237,
+   -79.6185,
+   33.2135
+  ],
+  "state": "SC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_098_D_072_4005_DHDH_A_20260715T001120_20260715T001154_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_029_098_D_072_4005_DHDH_A_20260901T001117_20260901T001152_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 150,
+   "dates": [
+    "2026-07-15",
+    "2026-09-01"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-18",
+   "2026-09-01"
+  ],
+  "meta": {
+   "region": "Horse Island",
+   "ref_ha": 412,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-15",
+    "2026-09-01"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-al-01",
+  "kind": "fire",
+  "bbox": [
+   -85.9858,
+   33.3427,
+   -85.8782,
+   33.4325
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_015_055_D_072_4005_DHDH_A_20260314T003622_20260314T003657_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_017_055_D_072_4005_DHDH_A_20260407T003623_20260407T003657_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-03-13",
+    "2026-04-06"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-03-21",
+   "2026-03-24"
+  ],
+  "meta": {
+   "region": "Burgess East",
+   "ref_ha": 405,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-03-14",
+    "2026-04-07"
+   ],
+   "slack_days": [
+    7,
+    14
+   ]
+  }
+ },
+ {
+  "id": "fire-wa-02",
+  "kind": "fire",
+  "bbox": [
+   -119.2054,
+   48.1631,
+   -119.0706,
+   48.2529
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_071_D_064_4005_DHDH_A_20260713T030956_20260713T031031_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_071_D_064_4005_DHDH_A_20260830T030953_20260830T031029_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 115,
+   "dates": [
+    "2026-07-13",
+    "2026-08-30"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-16",
+   "2026-08-30"
+  ],
+  "meta": {
+   "region": "Kaiser Canyon",
+   "ref_ha": 10588,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-13",
+    "2026-08-30"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-or-02",
+  "kind": "fire",
+  "bbox": [
+   -119.925,
+   44.3464,
+   -119.7993,
+   44.4363
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_005_A_024_4005_DHDH_A_20260720T125434_20260720T125509_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_005_A_024_4005_DHDH_A_20260906T125433_20260906T125508_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-07-20",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-23",
+   "2026-09-06"
+  ],
+  "meta": {
+   "region": "Shingle",
+   "ref_ha": 5615,
+   "track": 5,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-20",
+    "2026-09-06"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-id-02",
+  "kind": "fire",
+  "bbox": [
+   -117.0456,
+   42.4365,
+   -116.9238,
+   42.5264
+  ],
+  "state": "ID",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_042_D_067_4005_DHDH_A_20260723T025458_20260723T025533_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_042_D_067_4005_DHDH_A_20260909T025457_20260909T025532_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 166,
+   "dates": [
+    "2026-07-23",
+    "2026-09-09"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-23",
+   "2026-09-06"
+  ],
+  "meta": {
+   "region": "Big Grass",
+   "ref_ha": 10167,
+   "track": 42,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-23",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-ca-02",
+  "kind": "fire",
+  "bbox": [
+   -120.0656,
+   39.8071,
+   -119.9486,
+   39.8969
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_034_A_021_4005_DHDH_A_20260722T130932_20260722T131006_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_034_A_021_4005_DHDH_A_20260827T130930_20260827T131005_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-07-22",
+    "2026-08-27"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-08-08",
+   "2026-08-27"
+  ],
+  "meta": {
+   "region": "Bug",
+   "ref_ha": 5230,
+   "track": 34,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-22",
+    "2026-08-27"
+   ],
+   "slack_days": [
+    17,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-nv-02",
+  "kind": "fire",
+  "bbox": [
+   -114.3397,
+   37.3894,
+   -114.2266,
+   37.4792
+  ],
+  "state": "NV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_022_085_D_070_4005_DHDH_A_20260608T023144_20260608T023219_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_085_D_070_4005_DHDH_A_20260726T023142_20260726T023216_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 100,
+   "dates": [
+    "2026-06-11",
+    "2026-07-24"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-07-18"
+  ],
+  "meta": {
+   "region": "Grapevine",
+   "ref_ha": 5592,
+   "track": 85,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-08",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    9,
+    8
+   ]
+  }
+ },
+ {
+  "id": "fire-co-02",
+  "kind": "fire",
+  "bbox": [
+   -107.6619,
+   38.023,
+   -107.5478,
+   38.1129
+  ],
+  "state": "CO",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_128_D_069_4005_DHDH_A_20260623T020612_20260623T020646_P05023_N_F_J_002",
+   "NISAR_L2_PR_GCOV_028_128_D_069_4005_DHDH_A_20260822T020608_20260822T020643_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 129,
+   "dates": [
+    "2026-06-25",
+    "2026-08-19"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-27",
+   "2026-08-11"
+  ],
+  "meta": {
+   "region": "Gold Mountain",
+   "ref_ha": 5321,
+   "track": 128,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-23",
+    "2026-08-22"
+   ],
+   "slack_days": [
+    4,
+    11
+   ]
+  }
+ },
+ {
+  "id": "fire-tx-02",
+  "kind": "fire",
+  "bbox": [
+   -98.3951,
+   32.7571,
+   -98.2883,
+   32.8469
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_028_163_A_018_4005_DHDH_A_20260824T115254_20260824T115329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_163_A_018_4005_DHDH_A_20260917T115254_20260917T115329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 107,
+   "dates": [
+    "2026-08-18",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -6,
+    -6
+   ]
+  },
+  "ref_window": [
+   "2026-08-24",
+   "2026-09-16"
+  ],
+  "meta": {
+   "region": "Ross",
+   "ref_ha": 5050,
+   "track": 163,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-24",
+    "2026-09-17"
+   ],
+   "slack_days": [
+    0,
+    1
+   ]
+  }
+ },
+ {
+  "id": "fire-ut-02",
+  "kind": "fire",
+  "bbox": [
+   -112.3741,
+   38.7207,
+   -112.2589,
+   38.8106
+  ],
+  "state": "UT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_157_D_069_4005_DHDH_A_20260719T022249_20260719T022324_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_157_D_069_4005_DHDH_A_20260917T022247_20260917T022322_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 100,
+   "dates": [
+    "2026-07-24",
+    "2026-09-22"
+   ],
+   "offset_days": [
+    5,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-07-27",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "Widemouth 2",
+   "ref_ha": 10216,
+   "track": 157,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-09-17"
+   ],
+   "slack_days": [
+    8,
+    7
+   ]
+  }
+ },
+ {
+  "id": "fire-ak-02",
+  "kind": "fire",
+  "bbox": [
+   -143.0816,
+   63.3267,
+   -142.8811,
+   63.4165
+  ],
+  "state": "AK",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_028_063_A_034_4005_DHDH_A_20260817T133336_20260817T133413_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_032_063_A_034_4005_DHDH_A_20261004T133336_20261004T133413_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 116,
+   "dates": [
+    "2026-08-18",
+    "2026-10-05"
+   ],
+   "offset_days": [
+    1,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-08-17",
+   "2026-10-01"
+  ],
+  "meta": {
+   "region": "Mukluk",
+   "ref_ha": 2959,
+   "track": 63,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-17",
+    "2026-10-04"
+   ],
+   "slack_days": [
+    0,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-mt-02",
+  "kind": "fire",
+  "bbox": [
+   -107.5382,
+   45.4112,
+   -107.4101,
+   45.501
+  ],
+  "state": "MT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_030_019_A_024_4005_DHDH_A_20260907T121256_20260907T121331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_032_019_A_024_4005_DHDH_A_20261001T121256_20261001T121331_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 151,
+   "dates": [
+    "2026-09-08",
+    "2026-10-02"
+   ],
+   "offset_days": [
+    1,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-09-14",
+   "2026-09-30"
+  ],
+  "meta": {
+   "region": "Davis Coulee",
+   "ref_ha": 4781,
+   "track": 19,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-07",
+    "2026-10-01"
+   ],
+   "slack_days": [
+    7,
+    1
+   ]
+  }
+ },
+ {
+  "id": "fire-fl-02",
+  "kind": "fire",
+  "bbox": [
+   -80.6558,
+   25.6698,
+   -80.5561,
+   25.7596
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_018_170_D_075_4005_DHDH_A_20260427T000446_20260427T000520_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_019_170_D_075_4005_DHDH_A_20260509T000445_20260509T000520_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-05-02",
+    "2026-05-14"
+   ],
+   "offset_days": [
+    5,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-04-27",
+   "2026-05-05"
+  ],
+  "meta": {
+   "region": "HWY 41",
+   "ref_ha": 3206,
+   "track": 170,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-04-27",
+    "2026-05-09"
+   ],
+   "slack_days": [
+    0,
+    4
+   ]
+  }
+ },
+ {
+  "id": "fire-az-02",
+  "kind": "fire",
+  "bbox": [
+   -110.7712,
+   33.5873,
+   -110.6633,
+   33.6771
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_022_128_D_072_4005_DHDH_A_20260611T020754_20260611T020828_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_025_128_D_072_4005_DHDH_A_20260717T020752_20260717T020826_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 129,
+   "dates": [
+    "2026-06-13",
+    "2026-07-14"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-15",
+   "2026-07-10"
+  ],
+  "meta": {
+   "region": "Sycamore",
+   "ref_ha": 4789,
+   "track": 128,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-11",
+    "2026-07-17"
+   ],
+   "slack_days": [
+    4,
+    7
+   ]
+  }
+ },
+ {
+  "id": "fire-wy-02",
+  "kind": "fire",
+  "bbox": [
+   -105.3576,
+   41.9238,
+   -105.2368,
+   42.0136
+  ],
+  "state": "WY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_029_091_A_023_4005_DHDH_A_20260831T120402_20260831T120437_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_091_A_023_4005_DHDH_A_20260924T120402_20260924T120437_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 78,
+   "dates": [
+    "2026-09-03",
+    "2026-09-27"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-09-07",
+   "2026-09-21"
+  ],
+  "meta": {
+   "region": "Moonshine",
+   "ref_ha": 2968,
+   "track": 91,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-31",
+    "2026-09-24"
+   ],
+   "slack_days": [
+    7,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-nm-02",
+  "kind": "fire",
+  "bbox": [
+   -108.6326,
+   33.3305,
+   -108.525,
+   33.4203
+  ],
+  "state": "NM",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_017_128_D_072_4005_DHDH_A_20260412T020756_20260412T020831_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_022_128_D_072_4005_DHDH_A_20260611T020754_20260611T020828_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 129,
+   "dates": [
+    "2026-04-14",
+    "2026-06-13"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-04-20",
+   "2026-06-04"
+  ],
+  "meta": {
+   "region": "Hummingbird",
+   "ref_ha": 2303,
+   "track": 128,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-04-12",
+    "2026-06-11"
+   ],
+   "slack_days": [
+    8,
+    7
+   ]
+  }
+ },
+ {
+  "id": "fire-mn-02",
+  "kind": "fire",
+  "bbox": [
+   -91.7904,
+   47.9694,
+   -91.6561,
+   48.0593
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_142_D_064_4005_DHDH_A_20260706T012144_20260706T012219_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_142_D_064_4005_DHDH_A_20260823T012141_20260823T012216_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-07-05",
+    "2026-08-22"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-07-07",
+   "2026-08-21"
+  ],
+  "meta": {
+   "region": "Camp",
+   "ref_ha": 1758,
+   "track": 142,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-06",
+    "2026-08-23"
+   ],
+   "slack_days": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fire-ks-02",
+  "kind": "fire",
+  "bbox": [
+   -96.6379,
+   39.0188,
+   -96.5222,
+   39.1086
+  ],
+  "state": "KS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_017_033_A_021_4005_DHDH_A_20260405T112944_20260405T113019_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_018_033_A_021_4005_DHDH_A_20260417T112944_20260417T113018_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-04-08",
+    "2026-04-20"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-04-14",
+   "2026-04-17"
+  ],
+  "meta": {
+   "region": "311 Konza",
+   "ref_ha": 754,
+   "track": 33,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-04-05",
+    "2026-04-17"
+   ],
+   "slack_days": [
+    9,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-la-02",
+  "kind": "fire",
+  "bbox": [
+   -93.5325,
+   29.8056,
+   -93.4289,
+   29.8954
+  ],
+  "state": "LA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_012_D_073_4005_DHDH_A_20260721T010149_20260721T010224_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_012_D_073_4005_DHDH_A_20260814T010148_20260814T010223_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 136,
+   "dates": [
+    "2026-07-27",
+    "2026-08-20"
+   ],
+   "offset_days": [
+    6,
+    6
+   ]
+  },
+  "ref_window": [
+   "2026-07-22",
+   "2026-07-27"
+  ],
+  "meta": {
+   "region": "Brown Ditch",
+   "ref_ha": 1008,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-21",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    1,
+    18
+   ]
+  }
+ },
+ {
+  "id": "fire-ms-02",
+  "kind": "fire",
+  "bbox": [
+   -89.1745,
+   31.1033,
+   -89.0695,
+   31.1931
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_004_A_017_4005_DHDH_A_20260720T111045_20260720T111119_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_004_A_017_4005_DHDH_A_20260813T111044_20260813T111118_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 92,
+   "dates": [
+    "2026-07-23",
+    "2026-08-16"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-08-05",
+   "2026-08-08"
+  ],
+  "meta": {
+   "region": "Range 39",
+   "ref_ha": 1027,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-20",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    16,
+    5
+   ]
+  }
+ },
+ {
+  "id": "fire-ok-02",
+  "kind": "fire",
+  "bbox": [
+   -96.5053,
+   36.8828,
+   -96.3929,
+   36.9726
+  ],
+  "state": "OK",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_134_A_020_4005_DHDH_A_20260717T113725_20260717T113800_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_134_A_020_4005_DHDH_A_20260822T113723_20260822T113758_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-07-20",
+    "2026-08-25"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-08-05",
+   "2026-08-11"
+  ],
+  "meta": {
+   "region": "B.B",
+   "ref_ha": 933,
+   "track": 134,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-17",
+    "2026-08-22"
+   ],
+   "slack_days": [
+    19,
+    11
+   ]
+  }
+ },
+ {
+  "id": "fire-sd-02",
+  "kind": "fire",
+  "bbox": [
+   -102.3898,
+   43.2723,
+   -102.2663,
+   43.3621
+  ],
+  "state": "SD",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_027_163_A_023_4005_DHDH_A_20260812T115544_20260812T115619_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_163_A_023_4005_DHDH_A_20260905T115543_20260905T115618_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 107,
+   "dates": [
+    "2026-08-12",
+    "2026-09-05"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-08-12",
+   "2026-08-26"
+  ],
+  "meta": {
+   "region": "Rancher fire",
+   "ref_ha": 200,
+   "track": 163,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-12",
+    "2026-09-05"
+   ],
+   "slack_days": [
+    0,
+    10
+   ]
+  }
+ },
+ {
+  "id": "fire-wa-03",
+  "kind": "fire",
+  "bbox": [
+   -119.5806,
+   48.7492,
+   -119.4442,
+   48.839
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_071_D_064_4005_DHDH_A_20260725T030955_20260725T031030_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_071_D_064_4005_DHDH_A_20260911T030953_20260911T031028_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 115,
+   "dates": [
+    "2026-07-25",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-26",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "Sinlahekin",
+   "ref_ha": 5613,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-25",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    1,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fire-or-03",
+  "kind": "fire",
+  "bbox": [
+   -120.5768,
+   44.0295,
+   -120.4518,
+   44.1194
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_071_D_066_4005_DHDH_A_20260713T031104_20260713T031139_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_071_D_066_4005_DHDH_A_20260830T031102_20260830T031137_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 115,
+   "dates": [
+    "2026-07-13",
+    "2026-08-30"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-07-16",
+   "2026-08-30"
+  ],
+  "meta": {
+   "region": "Coyote",
+   "ref_ha": 5360,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-13",
+    "2026-08-30"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-id-03",
+  "kind": "fire",
+  "bbox": [
+   -116.7895,
+   42.194,
+   -116.6682,
+   42.2838
+  ],
+  "state": "ID",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_005_A_023_4005_DHDH_A_20260720T125400_20260720T125435_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_005_A_023_4005_DHDH_A_20260906T125359_20260906T125434_P05023_N_F_J_002"
+  ],
+  "s1": {
+   "track": 71,
+   "dates": [
+    "2026-07-22",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-07-23",
+   "2026-09-06"
+  ],
+  "meta": {
+   "region": "Big Grass",
+   "ref_ha": 5149,
+   "track": 5,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-20",
+    "2026-09-06"
+   ],
+   "slack_days": [
+    3,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-ca-03",
+  "kind": "fire",
+  "bbox": [
+   -120.1881,
+   40.558,
+   -120.0698,
+   40.6478
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_143_D_068_4005_DHDH_A_20260718T030352_20260718T030427_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_143_D_068_4005_DHDH_A_20260811T030351_20260811T030426_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-07-20",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-07-18",
+   "2026-08-09"
+  ],
+  "meta": {
+   "region": "Biscar",
+   "ref_ha": 5204,
+   "track": 143,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-18",
+    "2026-08-11"
+   ],
+   "slack_days": [
+    0,
+    2
+   ]
+  }
+ },
+ {
+  "id": "fire-nv-03",
+  "kind": "fire",
+  "bbox": [
+   -117.435,
+   41.8316,
+   -117.3144,
+   41.9214
+  ],
+  "state": "NV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_028_114_D_067_4005_DHDH_A_20260821T024638_20260821T024713_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_114_D_067_4005_DHDH_A_20260914T024637_20260914T024712_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 144,
+   "dates": [
+    "2026-08-20",
+    "2026-09-13"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-26",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "Calico",
+   "ref_ha": 5364,
+   "track": 114,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-21",
+    "2026-09-14"
+   ],
+   "slack_days": [
+    5,
+    4
+   ]
+  }
+ },
+ {
+  "id": "fire-co-03",
+  "kind": "fire",
+  "bbox": [
+   -109.0706,
+   39.0582,
+   -108.9548,
+   39.1481
+  ],
+  "state": "CO",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_056_D_069_4005_DHDH_A_20260618T021431_20260618T021506_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_024_056_D_069_4005_DHDH_A_20260630T021430_20260630T021505_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 27,
+   "dates": [
+    "2026-06-18",
+    "2026-06-25"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-27",
+   "2026-06-30"
+  ],
+  "meta": {
+   "region": "Jones",
+   "ref_ha": 4724,
+   "track": 56,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-06-30"
+   ],
+   "slack_days": [
+    9,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-tx-03",
+  "kind": "fire",
+  "bbox": [
+   -94.3937,
+   29.5468,
+   -94.2904,
+   29.6366
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_031_012_D_074_4005_DHDH_A_20260919T010221_20260919T010300_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_032_012_D_074_4005_DHDH_A_20261001T010221_20261001T010256_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 136,
+   "dates": [
+    "2026-09-13",
+    "2026-09-25"
+   ],
+   "offset_days": [
+    -6,
+    -6
+   ]
+  },
+  "ref_window": [
+   "2026-09-20",
+   "2026-09-23"
+  ],
+  "meta": {
+   "region": "Mud Bayou",
+   "ref_ha": 3914,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-19",
+    "2026-10-01"
+   ],
+   "slack_days": [
+    1,
+    8
+   ]
+  }
+ },
+ {
+  "id": "fire-ut-03",
+  "kind": "fire",
+  "bbox": [
+   -113.0113,
+   40.7032,
+   -112.8928,
+   40.793
+  ],
+  "state": "UT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_085_D_068_4005_DHDH_A_20260620T023036_20260620T023111_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_024_085_D_068_4005_DHDH_A_20260702T023035_20260702T023110_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 100,
+   "dates": [
+    "2026-06-23",
+    "2026-06-30"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-06-27"
+  ],
+  "meta": {
+   "region": "Hastings",
+   "ref_ha": 5389,
+   "track": 85,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-07-02"
+   ],
+   "slack_days": [
+    0,
+    5
+   ]
+  }
+ },
+ {
+  "id": "fire-ak-03",
+  "kind": "fire",
+  "bbox": [
+   -153.9217,
+   66.6299,
+   -153.6948,
+   66.7197
+  ],
+  "state": "AK",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_020_A_036_4005_DHDH_A_20260709T135948_20260709T140024_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_020_A_036_4005_DHDH_A_20260826T135946_20260826T140022_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 36,
+   "dates": [
+    "2026-07-14",
+    "2026-08-31"
+   ],
+   "offset_days": [
+    5,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-07-09",
+   "2026-08-23"
+  ],
+  "meta": {
+   "region": "Hogatza",
+   "ref_ha": 1455,
+   "track": 20,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-09",
+    "2026-08-26"
+   ],
+   "slack_days": [
+    0,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-mt-03",
+  "kind": "fire",
+  "bbox": [
+   -113.1217,
+   47.3905,
+   -112.9889,
+   47.4803
+  ],
+  "state": "MT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_028_013_D_065_4005_DHDH_A_20260814T023710_20260814T023745_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_013_D_065_4005_DHDH_A_20260907T023710_20260907T023745_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 122,
+   "dates": [
+    "2026-08-13",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-21",
+   "2026-09-04"
+  ],
+  "meta": {
+   "region": "Camp Creek",
+   "ref_ha": 3897,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-14",
+    "2026-09-07"
+   ],
+   "slack_days": [
+    7,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-fl-03",
+  "kind": "fire",
+  "bbox": [
+   -84.9814,
+   30.1186,
+   -84.8775,
+   30.2084
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_015_026_D_073_4005_DHDH_A_20260312T002014_20260312T002052_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_020_026_D_073_4005_DHDH_A_20260511T002013_20260511T002051_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-03-13",
+    "2026-05-12"
+   ],
+   "offset_days": [
+    1,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-03-17",
+   "2026-05-01"
+  ],
+  "meta": {
+   "region": "139",
+   "ref_ha": 2626,
+   "track": 26,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-03-12",
+    "2026-05-11"
+   ],
+   "slack_days": [
+    5,
+    10
+   ]
+  }
+ },
+ {
+  "id": "fire-az-03",
+  "kind": "fire",
+  "bbox": [
+   -114.7323,
+   33.2485,
+   -114.6248,
+   33.3384
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_157_D_072_4005_DHDH_A_20260719T022429_20260719T022505_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_157_D_072_4005_DHDH_A_20260812T022428_20260812T022504_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 173,
+   "dates": [
+    "2026-07-17",
+    "2026-08-10"
+   ],
+   "offset_days": [
+    -2,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-07-26",
+   "2026-08-11"
+  ],
+  "meta": {
+   "region": "Island",
+   "ref_ha": 1274,
+   "track": 157,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-12"
+   ],
+   "slack_days": [
+    7,
+    1
+   ]
+  }
+ },
+ {
+  "id": "fire-wy-03",
+  "kind": "fire",
+  "bbox": [
+   -106.4841,
+   44.7637,
+   -106.3575,
+   44.8535
+  ],
+  "state": "WY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_056_D_066_4005_DHDH_A_20260724T021247_20260724T021322_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_056_D_066_4005_DHDH_A_20260817T021246_20260817T021321_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 129,
+   "dates": [
+    "2026-07-26",
+    "2026-08-19"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-07-31",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "Lumin",
+   "ref_ha": 2941,
+   "track": 56,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-24",
+    "2026-08-17"
+   ],
+   "slack_days": [
+    7,
+    3
+   ]
+  }
+ },
+ {
+  "id": "fire-nm-03",
+  "kind": "fire",
+  "bbox": [
+   -106.1681,
+   36.7014,
+   -106.056,
+   36.7912
+  ],
+  "state": "NM",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_120_A_020_4005_DHDH_A_20260622T121903_20260622T121938_P05023_N_F_J_002",
+   "NISAR_L2_PR_GCOV_025_120_A_020_4005_DHDH_A_20260716T121902_20260716T121937_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 158,
+   "dates": [
+    "2026-06-27",
+    "2026-07-16"
+   ],
+   "offset_days": [
+    5,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-26",
+   "2026-07-16"
+  ],
+  "meta": {
+   "region": "Beehive",
+   "ref_ha": 1896,
+   "track": 120,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-22",
+    "2026-07-16"
+   ],
+   "slack_days": [
+    4,
+    0
+   ]
+  }
+ },
+ {
+  "id": "fire-mn-03",
+  "kind": "fire",
+  "bbox": [
+   -91.2192,
+   48.0717,
+   -91.0847,
+   48.1615
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_142_D_064_4005_DHDH_A_20260706T012144_20260706T012219_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_142_D_064_4005_DHDH_A_20260811T012142_20260811T012217_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-06-30",
+    "2026-08-05"
+   ],
+   "offset_days": [
+    -6,
+    -6
+   ]
+  },
+  "ref_window": [
+   "2026-07-15",
+   "2026-07-29"
+  ],
+  "meta": {
+   "region": "Little Knife",
+   "ref_ha": 1657,
+   "track": 142,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-06",
+    "2026-08-11"
+   ],
+   "slack_days": [
+    9,
+    13
+   ]
+  }
+ },
+ {
+  "id": "flood-in-01",
+  "kind": "flood",
+  "bbox": [
+   -87.5597,
+   39.3408,
+   -87.4435,
+   39.4306
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_084_D_068_2005_QPDH_A_20260726T005041_20260726T005116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_084_D_068_2005_QPDH_A_20260819T005040_20260819T005114_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-30",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    4,
+    4
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 496,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-26",
+    "2026-08-19"
+   ],
+   "slack_days": [
+    16,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-al-01",
+  "kind": "flood",
+  "bbox": [
+   -88.0643,
+   30.7743,
+   -87.9597,
+   30.8641
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_004_A_017_4005_DHDH_A_20260930T111043_20260930T111118_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-AL",
+   "ref_ha": 885,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-30",
+    "2026-10-12"
+   ],
+   "slack_days": [
+    6,
+    1
+   ]
+  }
+ },
+ {
+  "id": "flood-fl-01",
+  "kind": "flood",
+  "bbox": [
+   -85.0272,
+   30.6289,
+   -84.9227,
+   30.7187
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_026_D_073_4005_DHDH_A_20261002T002008_20261002T002045_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_026_D_073_4005_DHDH_A_20261014T002008_20261014T002045_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-10-05",
+    "2026-10-17"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-FL",
+   "ref_ha": 93,
+   "track": 26,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-10-02",
+    "2026-10-14"
+   ],
+   "slack_days": [
+    4,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-il-01",
+  "kind": "flood",
+  "bbox": [
+   -87.6395,
+   39.1692,
+   -87.5235,
+   39.259
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_084_D_068_2005_QPDH_A_20260726T005041_20260726T005116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_084_D_069_2005_QPDH_A_20260819T005113_20260819T005148_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-30",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    4,
+    4
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 300,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-26",
+    "2026-08-19"
+   ],
+   "slack_days": [
+    16,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-ia-01",
+  "kind": "flood",
+  "bbox": [
+   -96.2248,
+   42.2593,
+   -96.1033,
+   42.3491
+  ],
+  "state": "IA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_142_D_067_4005_DHDH_A_20260624T012327_20260624T012402_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_024_142_D_067_4005_DHDH_A_20260706T012326_20260706T012401_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-07-04"
+   ],
+   "offset_days": [
+    -3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-07-01",
+   "2026-07-06"
+  ],
+  "meta": {
+   "region": "IA",
+   "ref_ha": 475,
+   "track": 142,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-24",
+    "2026-07-06"
+   ],
+   "slack_days": [
+    7,
+    0
+   ]
+  }
+ },
+ {
+  "id": "flood-ky-01",
+  "kind": "flood",
+  "bbox": [
+   -84.0833,
+   37.6376,
+   -83.9698,
+   37.7274
+  ],
+  "state": "KY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_127_D_070_4005_DHDH_A_20260623T002652_20260623T002727_P05023_N_F_J_002",
+   "NISAR_L2_PR_GCOV_024_127_D_069_4005_DHDH_A_20260705T002618_20260705T002653_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-26",
+    "2026-07-08"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-25",
+   "2026-07-01"
+  ],
+  "meta": {
+   "region": "KY",
+   "ref_ha": 90,
+   "track": 127,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-23",
+    "2026-07-05"
+   ],
+   "slack_days": [
+    2,
+    4
+   ]
+  }
+ },
+ {
+  "id": "flood-tx-01",
+  "kind": "flood",
+  "bbox": [
+   -95.3158,
+   30.2136,
+   -95.2118,
+   30.3034
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_029_012_D_073_4005_DHDH_A_20260826T010148_20260826T010222_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_012_D_073_4005_DHDH_A_20260907T010148_20260907T010222_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-08-25",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-09-01",
+   "2026-09-04"
+  ],
+  "meta": {
+   "region": "Edouard-TX",
+   "ref_ha": 61,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-08-26",
+    "2026-09-07"
+   ],
+   "slack_days": [
+    6,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-in-02",
+  "kind": "flood",
+  "bbox": [
+   -87.6403,
+   39.2593,
+   -87.5242,
+   39.3491
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_084_D_068_2005_QPDH_A_20260726T005041_20260726T005116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_084_D_068_2005_QPDH_A_20260819T005040_20260819T005114_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-30",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    4,
+    4
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 379,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-26",
+    "2026-08-19"
+   ],
+   "slack_days": [
+    16,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-al-02",
+  "kind": "flood",
+  "bbox": [
+   -88.0426,
+   30.6932,
+   -87.938,
+   30.783
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_004_A_017_4005_DHDH_A_20260930T111043_20260930T111118_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-AL",
+   "ref_ha": 785,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-30",
+    "2026-10-12"
+   ],
+   "slack_days": [
+    6,
+    1
+   ]
+  }
+ },
+ {
+  "id": "flood-fl-02",
+  "kind": "flood",
+  "bbox": [
+   -86.8122,
+   30.5903,
+   -86.7078,
+   30.6801
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_055_D_073_4005_DHDH_A_20261004T003648_20261004T003724_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_055_D_073_4005_DHDH_A_20261016T003648_20261016T003724_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-09-28",
+    "2026-10-10"
+   ],
+   "offset_days": [
+    -6,
+    -6
+   ]
+  },
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-FL",
+   "ref_ha": 20,
+   "track": 55,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-10-04",
+    "2026-10-16"
+   ],
+   "slack_days": [
+    2,
+    5
+   ]
+  }
+ },
+ {
+  "id": "flood-il-02",
+  "kind": "flood",
+  "bbox": [
+   -87.638,
+   39.007,
+   -87.5223,
+   39.0969
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_026_084_D_069_2005_QPDH_A_20260726T005115_20260726T005154_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_084_D_069_2005_QPDH_A_20260819T005113_20260819T005148_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-30",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    4,
+    4
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 108,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-26",
+    "2026-08-19"
+   ],
+   "slack_days": [
+    16,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-in-03",
+  "kind": "flood",
+  "bbox": [
+   -87.5414,
+   38.4668,
+   -87.4266,
+   38.5566
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 124,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-al-03",
+  "kind": "flood",
+  "bbox": [
+   -88.1554,
+   30.5209,
+   -88.0511,
+   30.6107
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_004_A_017_4005_DHDH_A_20260930T111043_20260930T111118_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-AL",
+   "ref_ha": 234,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-30",
+    "2026-10-12"
+   ],
+   "slack_days": [
+    6,
+    1
+   ]
+  }
+ },
+ {
+  "id": "flood-fl-03",
+  "kind": "flood",
+  "bbox": [
+   -85.08,
+   30.0613,
+   -84.9762,
+   30.1512
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_026_D_073_4005_DHDH_A_20261002T002008_20261002T002045_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_026_D_073_4005_DHDH_A_20261014T002008_20261014T002045_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-10-05",
+    "2026-10-17"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-FL",
+   "ref_ha": 13,
+   "track": 26,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-10-02",
+    "2026-10-14"
+   ],
+   "slack_days": [
+    4,
+    3
+   ]
+  }
+ },
+ {
+  "id": "flood-in-04",
+  "kind": "flood",
+  "bbox": [
+   -87.3129,
+   38.6748,
+   -87.1978,
+   38.7646
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 124,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-al-04",
+  "kind": "flood",
+  "bbox": [
+   -88.0454,
+   30.9549,
+   -87.9406,
+   31.0447
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_004_A_017_4005_DHDH_A_20260930T111043_20260930T111118_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-AL",
+   "ref_ha": 158,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-30",
+    "2026-10-12"
+   ],
+   "slack_days": [
+    6,
+    1
+   ]
+  }
+ },
+ {
+  "id": "flood-in-05",
+  "kind": "flood",
+  "bbox": [
+   -87.0486,
+   38.9904,
+   -86.9329,
+   39.0803
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 96,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-al-05",
+  "kind": "flood",
+  "bbox": [
+   -88.1643,
+   30.3945,
+   -88.0601,
+   30.4843
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_004_A_017_4005_DHDH_A_20260930T111043_20260930T111118_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-AL",
+   "ref_ha": 114,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-30",
+    "2026-10-12"
+   ],
+   "slack_days": [
+    6,
+    1
+   ]
+  }
+ },
+ {
+  "id": "flood-in-06",
+  "kind": "flood",
+  "bbox": [
+   -87.301,
+   38.5666,
+   -87.186,
+   38.6565
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 90,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-al-06",
+  "kind": "flood",
+  "bbox": [
+   -88.0834,
+   30.6117,
+   -87.979,
+   30.7015
+  ],
+  "state": "AL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_032_004_A_017_4005_DHDH_A_20260930T111043_20260930T111118_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_033_004_A_017_4005_DHDH_A_20261012T111043_20261012T111118_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-10-06",
+   "2026-10-11"
+  ],
+  "meta": {
+   "region": "Isaias-AL",
+   "ref_ha": 88,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-09-30",
+    "2026-10-12"
+   ],
+   "slack_days": [
+    6,
+    1
+   ]
+  }
+ },
+ {
+  "id": "flood-in-07",
+  "kind": "flood",
+  "bbox": [
+   -87.5547,
+   38.701,
+   -87.4395,
+   38.7908
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 56,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-in-08",
+  "kind": "flood",
+  "bbox": [
+   -87.4383,
+   38.4852,
+   -87.3235,
+   38.575
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 46,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-in-09",
+  "kind": "flood",
+  "bbox": [
+   -87.163,
+   38.5218,
+   -87.0482,
+   38.6116
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 21,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "flood-in-10",
+  "kind": "flood",
+  "bbox": [
+   -87.6331,
+   38.4573,
+   -87.5183,
+   38.5472
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_025_156_D_069_2005_QPDH_A_20260719T004256_20260719T004331_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_156_D_069_2005_QPDH_A_20260824T004254_20260824T004329_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-07-18",
+    "2026-08-23"
+   ],
+   "offset_days": [
+    -1,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-08-11",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "Indiana-south",
+   "ref_ha": 12,
+   "track": 156,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-19",
+    "2026-08-24"
+   ],
+   "slack_days": [
+    23,
+    8
+   ]
+  }
+ },
+ {
+  "id": "crops-mn-01",
+  "kind": "crops",
+  "bbox": [
+   -95.1682,
+   44.3765,
+   -95.0425,
+   44.4664
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_024_4005_DHDH_A_20260621T112303_20260621T112338_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_024_4005_DHDH_A_20260913T112259_20260913T112334_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 10215,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ca-01",
+  "kind": "crops",
+  "bbox": [
+   -120.2743,
+   36.4162,
+   -120.1626,
+   36.506
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_042_D_070_4005_DHDH_A_20260524T025643_20260524T025718_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_042_D_070_4005_DHDH_A_20260816T025639_20260816T025713_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-05-26",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-05-24",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "CA-central-valley",
+   "ref_ha": 10632,
+   "track": 42,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-24",
+    "2026-08-16"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-il-01",
+  "kind": "crops",
+  "bbox": [
+   -89.0507,
+   41.0893,
+   -88.9314,
+   41.1792
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_076_A_022_2005_QPDH_A_20260619T110516_20260619T110551_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_076_A_022_2005_QPDH_A_20260911T110512_20260911T110547_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "IL",
+   "ref_ha": 10494,
+   "track": 76,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ar-01",
+  "kind": "crops",
+  "bbox": [
+   -90.6376,
+   35.5458,
+   -90.5272,
+   35.6356
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_084_D_071_4005_DHDH_A_20260503T005227_20260503T005302_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_084_D_071_4005_DHDH_A_20260726T005222_20260726T005257_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-04-29",
+    "2026-07-29"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-05-03",
+   "2026-07-26"
+  ],
+  "meta": {
+   "region": "AR-delta",
+   "ref_ha": 10364,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-03",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ia-01",
+  "kind": "crops",
+  "bbox": [
+   -95.0161,
+   41.8041,
+   -94.8955,
+   41.894
+  ],
+  "state": "IA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_023_4005_DHDH_A_20260621T112229_20260621T112304_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_023_4005_DHDH_A_20260913T112225_20260913T112300_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "IA",
+   "ref_ha": 10076,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ne-01",
+  "kind": "crops",
+  "bbox": [
+   -97.8508,
+   41.6291,
+   -97.7305,
+   41.7189
+  ],
+  "state": "NE",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_067_4005_DHDH_A_20260619T013146_20260619T013221_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_067_4005_DHDH_A_20260911T013142_20260911T013217_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "NE",
+   "ref_ha": 10050,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-in-01",
+  "kind": "crops",
+  "bbox": [
+   -85.806,
+   40.3268,
+   -85.6881,
+   40.4166
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_022_2005_QPDH_A_20260617T104837_20260617T104912_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_022_2005_QPDH_A_20260909T104834_20260909T104908_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-12",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "IN",
+   "ref_ha": 9839,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ks-01",
+  "kind": "crops",
+  "bbox": [
+   -98.3091,
+   38.3976,
+   -98.1944,
+   38.4875
+  ],
+  "state": "KS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_022_134_A_021_4005_DHDH_A_20260611T113801_20260611T113835_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_134_A_021_4005_DHDH_A_20260903T113756_20260903T113831_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-06-07",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-11",
+   "2026-09-03"
+  ],
+  "meta": {
+   "region": "KS",
+   "ref_ha": 9475,
+   "track": 134,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-11",
+    "2026-09-03"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-nd-01",
+  "kind": "crops",
+  "bbox": [
+   -97.1509,
+   46.9401,
+   -97.0192,
+   47.0299
+  ],
+  "state": "ND",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_065_4005_DHDH_A_20260619T013038_20260619T013113_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_065_4005_DHDH_A_20260911T013034_20260911T013109_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ND",
+   "ref_ha": 10359,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-wa-01",
+  "kind": "crops",
+  "bbox": [
+   -119.6294,
+   46.1494,
+   -119.4996,
+   46.2392
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_071_D_065_4005_DHDH_A_20260619T031031_20260619T031106_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_071_D_065_4005_DHDH_A_20260911T031027_20260911T031103_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "WA-columbia-basin",
+   "ref_ha": 10031,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ms-01",
+  "kind": "crops",
+  "bbox": [
+   -90.9149,
+   33.7782,
+   -90.8067,
+   33.868
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_105_A_018_4005_DHDH_A_20260504T111943_20260504T112017_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_105_A_018_4005_DHDH_A_20260727T111938_20260727T112013_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-04-29",
+    "2026-07-29"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-05-04",
+   "2026-07-27"
+  ],
+  "meta": {
+   "region": "MS-delta",
+   "ref_ha": 9874,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-04",
+    "2026-07-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-id-01",
+  "kind": "crops",
+  "bbox": [
+   -113.7529,
+   42.7559,
+   -113.6305,
+   42.8458
+  ],
+  "state": "ID",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_085_D_067_4005_DHDH_A_20260620T023002_20260620T023037_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_085_D_067_4005_DHDH_A_20260912T022958_20260912T023033_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 93,
+   "dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "offset_days": [
+    -2,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "ID-snake",
+   "ref_ha": 9598,
+   "track": 85,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-tx-01",
+  "kind": "crops",
+  "bbox": [
+   -102.0612,
+   34.3517,
+   -101.9523,
+   34.4415
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_071_4005_DHDH_A_20260619T013402_20260619T013436_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_071_4005_DHDH_A_20260911T013358_20260911T013433_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 85,
+   "dates": [
+    "2026-06-22",
+    "2026-09-09"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "TX-plains",
+   "ref_ha": 9433,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-mn-02",
+  "kind": "crops",
+  "bbox": [
+   -94.9092,
+   44.8237,
+   -94.7824,
+   44.9135
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_024_4005_DHDH_A_20260621T112303_20260621T112338_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_024_4005_DHDH_A_20260913T112259_20260913T112334_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 10147,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ca-02",
+  "kind": "crops",
+  "bbox": [
+   -120.0525,
+   36.0929,
+   -119.9412,
+   36.1827
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_042_D_070_4005_DHDH_A_20260524T025643_20260524T025718_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_042_D_070_4005_DHDH_A_20260816T025639_20260816T025713_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 42,
+   "dates": [
+    "2026-05-26",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-05-24",
+   "2026-08-16"
+  ],
+  "meta": {
+   "region": "CA-central-valley",
+   "ref_ha": 10569,
+   "track": 42,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-24",
+    "2026-08-16"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-il-02",
+  "kind": "crops",
+  "bbox": [
+   -89.2639,
+   40.1161,
+   -89.1464,
+   40.206
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_076_A_022_2005_QPDH_A_20260619T110516_20260619T110551_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_076_A_022_2005_QPDH_A_20260911T110512_20260911T110547_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-06-17",
+    "2026-09-16"
+   ],
+   "offset_days": [
+    -2,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "IL",
+   "ref_ha": 10474,
+   "track": 76,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ar-02",
+  "kind": "crops",
+  "bbox": [
+   -90.9535,
+   35.8281,
+   -90.8426,
+   35.918
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_019_4005_DHDH_A_20260621T112014_20260621T112048_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_019_4005_DHDH_A_20260913T112010_20260913T112045_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "AR-delta",
+   "ref_ha": 9944,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ia-02",
+  "kind": "crops",
+  "bbox": [
+   -94.5292,
+   41.8887,
+   -94.4084,
+   41.9785
+  ],
+  "state": "IA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_023_4005_DHDH_A_20260621T112229_20260621T112304_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_023_4005_DHDH_A_20260913T112225_20260913T112300_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "IA",
+   "ref_ha": 10023,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ne-02",
+  "kind": "crops",
+  "bbox": [
+   -96.7581,
+   41.2823,
+   -96.6385,
+   41.3722
+  ],
+  "state": "NE",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_033_A_022_4005_DHDH_A_20260628T113014_20260628T113049_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_033_A_022_4005_DHDH_A_20260920T113011_20260920T113046_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 136,
+   "dates": [
+    "2026-06-26",
+    "2026-09-25"
+   ],
+   "offset_days": [
+    -2,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-06-28",
+   "2026-09-20"
+  ],
+  "meta": {
+   "region": "NE",
+   "ref_ha": 9939,
+   "track": 33,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-28",
+    "2026-09-20"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-in-02",
+  "kind": "crops",
+  "bbox": [
+   -86.3028,
+   40.1867,
+   -86.1851,
+   40.2766
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_022_2005_QPDH_A_20260617T104837_20260617T104912_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_022_2005_QPDH_A_20260909T104834_20260909T104908_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-12",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "IN",
+   "ref_ha": 9649,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ks-02",
+  "kind": "crops",
+  "bbox": [
+   -99.4527,
+   38.1036,
+   -99.3385,
+   38.1934
+  ],
+  "state": "KS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_069_4005_DHDH_A_20260619T013254_20260619T013329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_069_4005_DHDH_A_20260911T013250_20260911T013325_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 107,
+   "dates": [
+    "2026-06-24",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    5,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "KS",
+   "ref_ha": 9447,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-nd-02",
+  "kind": "crops",
+  "bbox": [
+   -97.0286,
+   47.4836,
+   -96.8955,
+   47.5735
+  ],
+  "state": "ND",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_065_4005_DHDH_A_20260619T013038_20260619T013113_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_065_4005_DHDH_A_20260911T013034_20260911T013109_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ND",
+   "ref_ha": 10329,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-wa-02",
+  "kind": "crops",
+  "bbox": [
+   -118.9365,
+   46.8275,
+   -118.8051,
+   46.9173
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_071_D_065_4005_DHDH_A_20260619T031031_20260619T031106_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_071_D_065_4005_DHDH_A_20260911T031027_20260911T031103_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-06-21",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    2,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "WA-columbia-basin",
+   "ref_ha": 9751,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ms-02",
+  "kind": "crops",
+  "bbox": [
+   -90.8417,
+   33.2371,
+   -90.7343,
+   33.3269
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_084_D_072_4005_DHDH_A_20260503T005301_20260503T005336_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_084_D_072_4005_DHDH_A_20260726T005256_20260726T005331_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-04-29",
+    "2026-07-29"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-05-03",
+   "2026-07-26"
+  ],
+  "meta": {
+   "region": "MS-delta",
+   "ref_ha": 9845,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-03",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-id-02",
+  "kind": "crops",
+  "bbox": [
+   -114.286,
+   42.4082,
+   -114.1643,
+   42.4981
+  ],
+  "state": "ID",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_013_D_067_4005_DHDH_A_20260627T023821_20260627T023856_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_013_D_067_4005_DHDH_A_20260919T023818_20260919T023853_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 173,
+   "dates": [
+    "2026-06-28",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-27",
+   "2026-09-19"
+  ],
+  "meta": {
+   "region": "ID-snake",
+   "ref_ha": 9524,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-27",
+    "2026-09-19"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-tx-02",
+  "kind": "crops",
+  "bbox": [
+   -101.6042,
+   34.1057,
+   -101.4956,
+   34.1955
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_071_4005_DHDH_A_20260619T013402_20260619T013436_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_071_4005_DHDH_A_20260911T013358_20260911T013433_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 5,
+   "dates": [
+    "2026-06-17",
+    "2026-09-16"
+   ],
+   "offset_days": [
+    -2,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "TX-plains",
+   "ref_ha": 9007,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-mn-03",
+  "kind": "crops",
+  "bbox": [
+   -94.9135,
+   44.5542,
+   -94.7873,
+   44.644
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_024_4005_DHDH_A_20260621T112303_20260621T112338_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_024_4005_DHDH_A_20260913T112259_20260913T112334_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -5,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 10094,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ca-03",
+  "kind": "crops",
+  "bbox": [
+   -120.6074,
+   36.7163,
+   -120.4952,
+   36.8061
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_135_A_020_4005_DHDH_A_20260518T131721_20260518T131756_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_135_A_020_4005_DHDH_A_20260810T131717_20260810T131751_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-16",
+    "2026-08-08"
+   ],
+   "offset_days": [
+    -2,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-05-18",
+   "2026-08-10"
+  ],
+  "meta": {
+   "region": "CA-central-valley",
+   "ref_ha": 10507,
+   "track": 135,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-18",
+    "2026-08-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-il-03",
+  "kind": "crops",
+  "bbox": [
+   -88.7373,
+   40.6238,
+   -88.6189,
+   40.7137
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_076_A_022_2005_QPDH_A_20260619T110516_20260619T110551_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_076_A_022_2005_QPDH_A_20260911T110512_20260911T110547_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "IL",
+   "ref_ha": 10435,
+   "track": 76,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ar-03",
+  "kind": "crops",
+  "bbox": [
+   -91.0882,
+   35.4761,
+   -90.9778,
+   35.5659
+  ],
+  "state": "AR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_084_D_071_4005_DHDH_A_20260503T005227_20260503T005302_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_084_D_071_4005_DHDH_A_20260726T005222_20260726T005257_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-04-29",
+    "2026-07-29"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-05-03",
+   "2026-07-26"
+  ],
+  "meta": {
+   "region": "AR-delta",
+   "ref_ha": 9621,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-03",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ia-03",
+  "kind": "crops",
+  "bbox": [
+   -94.8806,
+   42.6975,
+   -94.7583,
+   42.7873
+  ],
+  "state": "IA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_023_4005_DHDH_A_20260621T112229_20260621T112304_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_023_4005_DHDH_A_20260913T112225_20260913T112300_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-21",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "IA",
+   "ref_ha": 9962,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ne-03",
+  "kind": "crops",
+  "bbox": [
+   -97.3548,
+   41.0097,
+   -97.2357,
+   41.0996
+  ],
+  "state": "NE",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_068_4005_DHDH_A_20260619T013220_20260619T013255_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_068_4005_DHDH_A_20260911T013216_20260911T013251_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "NE",
+   "ref_ha": 9924,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-in-03",
+  "kind": "crops",
+  "bbox": [
+   -86.0173,
+   40.5233,
+   -85.899,
+   40.6132
+  ],
+  "state": "IN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_022_2005_QPDH_A_20260617T104837_20260617T104912_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_022_2005_QPDH_A_20260909T104834_20260909T104908_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-12",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "IN",
+   "ref_ha": 9491,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ks-03",
+  "kind": "crops",
+  "bbox": [
+   -98.9848,
+   37.9371,
+   -98.8708,
+   38.0269
+  ],
+  "state": "KS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_022_142_D_069_4005_DHDH_A_20260612T012435_20260612T012510_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_029_142_D_069_4005_DHDH_A_20260904T012431_20260904T012506_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 12,
+   "dates": [
+    "2026-06-17",
+    "2026-09-04"
+   ],
+   "offset_days": [
+    5,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-12",
+   "2026-09-04"
+  ],
+  "meta": {
+   "region": "KS",
+   "ref_ha": 9136,
+   "track": 142,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-12",
+    "2026-09-04"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-nd-03",
+  "kind": "crops",
+  "bbox": [
+   -97.0242,
+   47.2122,
+   -96.8919,
+   47.3021
+  ],
+  "state": "ND",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_065_4005_DHDH_A_20260619T013038_20260619T013113_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_065_4005_DHDH_A_20260911T013034_20260911T013109_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "ND",
+   "ref_ha": 10000,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-wa-03",
+  "kind": "crops",
+  "bbox": [
+   -119.8577,
+   47.1341,
+   -119.7255,
+   47.224
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_071_D_064_4005_DHDH_A_20260619T030957_20260619T031032_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_071_D_065_4005_DHDH_A_20260911T031027_20260911T031103_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-06-21",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    2,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "WA-columbia-basin",
+   "ref_ha": 9543,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-ms-03",
+  "kind": "crops",
+  "bbox": [
+   -91.0405,
+   33.5149,
+   -90.9327,
+   33.6047
+  ],
+  "state": "MS",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_084_D_071_4005_DHDH_A_20260503T005227_20260503T005302_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_084_D_072_4005_DHDH_A_20260726T005256_20260726T005331_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-04-29",
+    "2026-07-29"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-05-03",
+   "2026-07-26"
+  ],
+  "meta": {
+   "region": "MS-delta",
+   "ref_ha": 9640,
+   "track": 84,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-03",
+    "2026-07-26"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-id-03",
+  "kind": "crops",
+  "bbox": [
+   -113.0267,
+   42.8533,
+   -112.904,
+   42.9432
+  ],
+  "state": "ID",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_048_A_023_4005_DHDH_A_20260617T122904_20260617T122939_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_048_A_023_4005_DHDH_A_20260909T122901_20260909T122936_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -4,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "ID-snake",
+   "ref_ha": 9021,
+   "track": 48,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-tx-03",
+  "kind": "crops",
+  "bbox": [
+   -101.5849,
+   33.8378,
+   -101.4767,
+   33.9276
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_071_4005_DHDH_A_20260619T013402_20260619T013436_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_071_4005_DHDH_A_20260911T013358_20260911T013433_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 5,
+   "dates": [
+    "2026-06-17",
+    "2026-09-16"
+   ],
+   "offset_days": [
+    -2,
+    5
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "TX-plains",
+   "ref_ha": 8965,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "crops-mn-04",
+  "kind": "crops",
+  "bbox": [
+   -95.9235,
+   44.8286,
+   -95.7967,
+   44.9184
+  ],
+  "state": "MN",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_070_D_066_4005_DHDH_A_20260619T013112_20260619T013147_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_070_D_066_4005_DHDH_A_20260911T013108_20260911T013143_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 63,
+   "dates": [
+    "2026-06-16",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "MN",
+   "ref_ha": 10086,
+   "track": 70,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ca-01",
+  "kind": "stable",
+  "bbox": [
+   -118.0429,
+   33.7692,
+   -117.9348,
+   33.859
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_013_D_071_4005_DHDH_A_20260522T024038_20260522T024116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_013_D_071_4005_DHDH_A_20260814T024034_20260814T024111_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-05-22",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "urban-CA-la",
+   "ref_ha": 0,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-az-01",
+  "kind": "stable",
+  "bbox": [
+   -111.8724,
+   33.3142,
+   -111.7649,
+   33.4041
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_018_4005_DHDH_A_20260619T124254_20260619T124329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_077_A_018_4005_DHDH_A_20260911T124251_20260911T124325_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -6,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "urban-AZ",
+   "ref_ha": 0,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wv-01",
+  "kind": "stable",
+  "bbox": [
+   -80.3372,
+   38.2654,
+   -80.2227,
+   38.3552
+  ],
+  "state": "WV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_098_D_069_4005_DHDH_A_20260621T000940_20260621T001014_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_098_D_069_4005_DHDH_A_20260913T000936_20260913T001011_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "forest-WV",
+   "ref_ha": 0,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ny-01",
+  "kind": "stable",
+  "bbox": [
+   -74.237,
+   44.0956,
+   -74.1118,
+   44.1854
+  ],
+  "state": "NY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_133_A_024_4005_DHDH_A_20260705T095948_20260705T100026_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_133_A_024_4005_DHDH_A_20260927T095945_20260927T100024_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 33,
+   "dates": [
+    "2026-07-07",
+    "2026-09-23"
+   ],
+   "offset_days": [
+    2,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-07-05",
+   "2026-09-27"
+  ],
+  "meta": {
+   "region": "forest-NY-adirondack",
+   "ref_ha": 0,
+   "track": 133,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-05",
+    "2026-09-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-pa-01",
+  "kind": "stable",
+  "bbox": [
+   -77.9543,
+   41.4845,
+   -77.8343,
+   41.5743
+  ],
+  "state": "PA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_098_D_067_4005_DHDH_A_20260621T000832_20260621T000907_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_098_D_068_4005_DHDH_A_20260913T000902_20260913T000937_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "forest-PA-wilds",
+   "ref_ha": 0,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wa-01",
+  "kind": "stable",
+  "bbox": [
+   -121.8164,
+   48.2915,
+   -121.6813,
+   48.3813
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_106_A_026_4005_DHDH_A_20260621T130404_20260621T130439_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_106_A_026_4005_DHDH_A_20260913T130400_20260913T130435_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-06-21",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "forest-WA-cascades",
+   "ref_ha": 0,
+   "track": 106,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nv-01",
+  "kind": "stable",
+  "bbox": [
+   -116.0091,
+   38.5332,
+   -115.8942,
+   38.623
+  ],
+  "state": "NV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_005_A_021_4005_DHDH_A_20260626T125254_20260626T125329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_005_A_021_4005_DHDH_A_20260918T125251_20260918T125326_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 71,
+   "dates": [
+    "2026-06-28",
+    "2026-09-20"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-26",
+   "2026-09-18"
+  ],
+  "meta": {
+   "region": "desert-NV",
+   "ref_ha": 0,
+   "track": 5,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-26",
+    "2026-09-18"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nm-01",
+  "kind": "stable",
+  "bbox": [
+   -106.4585,
+   32.9037,
+   -106.3515,
+   32.9935
+  ],
+  "state": "NM",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_099_D_072_4005_DHDH_A_20260621T015114_20260621T015149_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_099_D_072_4005_DHDH_A_20260913T015110_20260913T015145_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 49,
+   "dates": [
+    "2026-06-15",
+    "2026-09-13"
+   ],
+   "offset_days": [
+    -6,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "desert-NM",
+   "ref_ha": 0,
+   "track": 99,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ut-01",
+  "kind": "stable",
+  "bbox": [
+   -113.3649,
+   39.9509,
+   -113.2477,
+   40.0407
+  ],
+  "state": "UT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_021_4005_DHDH_A_20260619T124435_20260619T124510_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_077_A_021_4005_DHDH_A_20260911T124432_20260911T124507_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 100,
+   "dates": [
+    "2026-06-23",
+    "2026-09-10"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "desert-UT",
+   "ref_ha": 0,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wy-01",
+  "kind": "stable",
+  "bbox": [
+   -108.3402,
+   42.1605,
+   -108.2189,
+   42.2504
+  ],
+  "state": "WY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_056_D_067_4005_DHDH_A_20260618T021323_20260618T021358_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_056_D_067_4005_DHDH_A_20260910T021320_20260910T021354_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 27,
+   "dates": [
+    "2026-06-18",
+    "2026-09-05"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-18",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "desert-WY",
+   "ref_ha": 0,
+   "track": 56,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-or-01",
+  "kind": "stable",
+  "bbox": [
+   -120.4622,
+   43.0836,
+   -120.3391,
+   43.1734
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_106_A_023_4005_DHDH_A_20260504T130225_20260504T130300_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_106_A_023_4005_DHDH_A_20260727T130220_20260727T130255_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-05-04",
+    "2026-07-28"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-04",
+   "2026-07-27"
+  ],
+  "meta": {
+   "region": "desert-OR-high-desert",
+   "ref_ha": 0,
+   "track": 106,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-04",
+    "2026-07-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-me-01",
+  "kind": "stable",
+  "bbox": [
+   -69.0332,
+   45.9507,
+   -68.9039,
+   46.0406
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_075_A_025_4005_DHDH_A_20260619T092705_20260619T092740_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_075_A_025_4005_DHDH_A_20260911T092701_20260911T092736_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 164,
+   "dates": [
+    "2026-06-15",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "forest-ME-north",
+   "ref_ha": 0,
+   "track": 75,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-mo-01",
+  "kind": "stable",
+  "bbox": [
+   -91.2482,
+   37.2182,
+   -91.1353,
+   37.308
+  ],
+  "state": "MO",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_012_D_070_4005_DHDH_A_20260627T010009_20260627T010047_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_012_D_070_4005_DHDH_A_20260919T010006_20260919T010044_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-06-28",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-27",
+   "2026-09-19"
+  ],
+  "meta": {
+   "region": "forest-MO-AR-ozarks",
+   "ref_ha": 0,
+   "track": 12,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-27",
+    "2026-09-19"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nc-01",
+  "kind": "stable",
+  "bbox": [
+   -83.6189,
+   35.5204,
+   -83.5084,
+   35.6103
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_127_D_070_4005_DHDH_A_20260530T002654_20260530T002728_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_127_D_071_4005_DHDH_A_20260822T002723_20260822T002757_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-05-26",
+    "2026-08-25"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-05-30",
+   "2026-08-22"
+  ],
+  "meta": {
+   "region": "forest-TN-NC-smokies",
+   "ref_ha": 0,
+   "track": 127,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-30",
+    "2026-08-22"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-va-01",
+  "kind": "stable",
+  "bbox": [
+   -79.2167,
+   37.7304,
+   -79.103,
+   37.8202
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_021_4005_DHDH_A_20260620T102305_20260620T102340_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_021_4005_DHDH_A_20260912T102302_20260912T102336_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "forest-VA-blue-ridge",
+   "ref_ha": 0,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-il-01",
+  "kind": "stable",
+  "bbox": [
+   -87.7798,
+   41.845,
+   -87.6591,
+   41.9348
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_023_2005_QPDH_A_20260617T104911_20260617T104946_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_023_2005_QPDH_A_20260909T104907_20260909T104942_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "urban-IL",
+   "ref_ha": 0,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-tx-01",
+  "kind": "stable",
+  "bbox": [
+   -95.5979,
+   29.6422,
+   -95.4945,
+   29.7321
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_062_A_016_4005_DHDH_A_20260501T114334_20260501T114408_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_062_A_016_4005_DHDH_A_20260724T114329_20260724T114403_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-05-02",
+    "2026-07-20"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "urban-TX-houston",
+   "ref_ha": 0,
+   "track": 62,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-mi-01",
+  "kind": "stable",
+  "bbox": [
+   -88.2157,
+   46.7486,
+   -88.0845,
+   46.8384
+  ],
+  "state": "MI",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_119_A_025_2005_QPDH_A_20260529T104201_20260529T104236_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_119_A_025_2005_QPDH_A_20260821T104156_20260821T104231_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 19,
+   "dates": [
+    "2026-05-30",
+    "2026-08-17"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-05-29",
+   "2026-08-21"
+  ],
+  "meta": {
+   "region": "forest-MI-up",
+   "ref_ha": 0,
+   "track": 119,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-29",
+    "2026-08-21"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nj-01",
+  "kind": "stable",
+  "bbox": [
+   -74.2456,
+   40.7026,
+   -74.127,
+   40.7924
+  ],
+  "state": "NJ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_069_D_068_4005_DHDH_A_20260501T235230_20260501T235304_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_069_D_068_4005_DHDH_A_20260724T235225_20260724T235300_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 33,
+   "dates": [
+    "2026-05-01",
+    "2026-07-19"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "urban-NY",
+   "ref_ha": 0,
+   "track": 69,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ga-01",
+  "kind": "stable",
+  "bbox": [
+   -84.3845,
+   33.8232,
+   -84.2764,
+   33.9131
+  ],
+  "state": "GA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_019_4005_DHDH_A_20260617T104656_20260617T104731_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_019_4005_DHDH_A_20260909T104652_20260909T104727_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-12",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "urban-GA",
+   "ref_ha": 0,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-fl-01",
+  "kind": "stable",
+  "bbox": [
+   -80.3684,
+   25.673,
+   -80.2687,
+   25.7628
+  ],
+  "state": "FL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_020_170_D_075_4005_DHDH_A_20260521T000445_20260521T000519_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_027_170_D_075_4005_DHDH_A_20260813T000440_20260813T000514_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-05-26",
+    "2026-08-13"
+   ],
+   "offset_days": [
+    5,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-05-21",
+   "2026-08-13"
+  ],
+  "meta": {
+   "region": "urban-FL",
+   "ref_ha": 0,
+   "track": 170,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-21",
+    "2026-08-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ma-01",
+  "kind": "stable",
+  "bbox": [
+   -71.2324,
+   42.3097,
+   -71.1109,
+   42.3995
+  ],
+  "state": "MA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_104_A_023_4005_DHDH_A_20260703T094235_20260703T094310_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_104_A_023_4005_DHDH_A_20260925T094232_20260925T094307_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 113,
+   "dates": [
+    "2026-07-01",
+    "2026-09-23"
+   ],
+   "offset_days": [
+    -2,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-07-03",
+   "2026-09-25"
+  ],
+  "meta": {
+   "region": "urban-MA",
+   "ref_ha": 0,
+   "track": 104,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-03",
+    "2026-09-25"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ca-02",
+  "kind": "stable",
+  "bbox": [
+   -118.3051,
+   33.902,
+   -118.1968,
+   33.9918
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_013_D_071_4005_DHDH_A_20260522T024038_20260522T024116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_013_D_071_4005_DHDH_A_20260814T024034_20260814T024111_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-05-22",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "urban-CA-la",
+   "ref_ha": 0,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-az-02",
+  "kind": "stable",
+  "bbox": [
+   -112.2289,
+   33.4458,
+   -112.1212,
+   33.5356
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_018_4005_DHDH_A_20260619T124254_20260619T124329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_077_A_018_4005_DHDH_A_20260911T124251_20260911T124325_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -6,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "urban-AZ",
+   "ref_ha": 0,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wv-02",
+  "kind": "stable",
+  "bbox": [
+   -79.8985,
+   38.6607,
+   -79.7834,
+   38.7505
+  ],
+  "state": "WV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_021_4005_DHDH_A_20260620T102305_20260620T102340_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_021_4005_DHDH_A_20260912T102302_20260912T102336_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "forest-WV",
+   "ref_ha": 0,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ny-02",
+  "kind": "stable",
+  "bbox": [
+   -73.9285,
+   43.8593,
+   -73.8038,
+   43.9491
+  ],
+  "state": "NY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_133_A_024_4005_DHDH_A_20260705T095948_20260705T100026_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_133_A_024_4005_DHDH_A_20260927T095945_20260927T100024_P05023_N_F_J_001"
+  ],
+  "s1": null,
+  "ref_window": [
+   "2026-07-05",
+   "2026-09-27"
+  ],
+  "meta": {
+   "region": "forest-NY-adirondack",
+   "ref_ha": 0,
+   "track": 133,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-05",
+    "2026-09-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-pa-02",
+  "kind": "stable",
+  "bbox": [
+   -77.4805,
+   41.4159,
+   -77.3607,
+   41.5058
+  ],
+  "state": "PA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_061_A_023_4005_DHDH_A_20260618T100734_20260618T100809_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_061_A_023_4005_DHDH_A_20260910T100730_20260910T100805_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 106,
+   "dates": [
+    "2026-06-23",
+    "2026-09-10"
+   ],
+   "offset_days": [
+    5,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-18",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "forest-PA-wilds",
+   "ref_ha": 0,
+   "track": 61,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wa-02",
+  "kind": "stable",
+  "bbox": [
+   -121.7092,
+   48.0291,
+   -121.5748,
+   48.119
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_071_D_064_4005_DHDH_A_20260619T030957_20260619T031032_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_071_D_064_4005_DHDH_A_20260911T030953_20260911T031028_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-06-21",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    2,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "forest-WA-cascades",
+   "ref_ha": 0,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nv-02",
+  "kind": "stable",
+  "bbox": [
+   -116.8132,
+   38.0328,
+   -116.6991,
+   38.1226
+  ],
+  "state": "NV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_106_A_021_4005_DHDH_A_20260504T130117_20260504T130152_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_106_A_021_4005_DHDH_A_20260727T130112_20260727T130147_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 71,
+   "dates": [
+    "2026-05-04",
+    "2026-07-28"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-04",
+   "2026-07-27"
+  ],
+  "meta": {
+   "region": "desert-NV",
+   "ref_ha": 0,
+   "track": 106,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-04",
+    "2026-07-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nm-02",
+  "kind": "stable",
+  "bbox": [
+   -106.973,
+   33.4867,
+   -106.8652,
+   33.5766
+  ],
+  "state": "NM",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_048_A_018_4005_DHDH_A_20260617T122615_20260617T122650_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_048_A_018_4005_DHDH_A_20260909T122612_20260909T122646_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 56,
+   "dates": [
+    "2026-06-20",
+    "2026-09-07"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "desert-NM",
+   "ref_ha": 0,
+   "track": 48,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ut-02",
+  "kind": "stable",
+  "bbox": [
+   -113.5972,
+   39.9184,
+   -113.48,
+   40.0082
+  ],
+  "state": "UT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_021_4005_DHDH_A_20260619T124435_20260619T124510_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_077_A_021_4005_DHDH_A_20260911T124432_20260911T124507_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 100,
+   "dates": [
+    "2026-06-23",
+    "2026-09-10"
+   ],
+   "offset_days": [
+    4,
+    -1
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "desert-UT",
+   "ref_ha": 0,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wy-02",
+  "kind": "stable",
+  "bbox": [
+   -108.1725,
+   41.9061,
+   -108.0517,
+   41.9959
+  ],
+  "state": "WY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_056_D_067_4005_DHDH_A_20260618T021323_20260618T021358_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_056_D_067_4005_DHDH_A_20260910T021320_20260910T021354_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 49,
+   "dates": [
+    "2026-06-15",
+    "2026-09-13"
+   ],
+   "offset_days": [
+    -3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-18",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "desert-WY",
+   "ref_ha": 0,
+   "track": 56,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-or-02",
+  "kind": "stable",
+  "bbox": [
+   -120.6061,
+   42.7783,
+   -120.4836,
+   42.8682
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_106_A_023_4005_DHDH_A_20260504T130225_20260504T130300_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_106_A_023_4005_DHDH_A_20260727T130220_20260727T130255_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 137,
+   "dates": [
+    "2026-05-04",
+    "2026-07-27"
+   ],
+   "offset_days": [
+    0,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-05-04",
+   "2026-07-27"
+  ],
+  "meta": {
+   "region": "desert-OR-high-desert",
+   "ref_ha": 0,
+   "track": 106,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-04",
+    "2026-07-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-me-02",
+  "kind": "stable",
+  "bbox": [
+   -68.8222,
+   45.8136,
+   -68.6932,
+   45.9034
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_075_A_025_4005_DHDH_A_20260619T092705_20260619T092740_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_075_A_025_4005_DHDH_A_20260911T092701_20260911T092736_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 164,
+   "dates": [
+    "2026-06-15",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "forest-ME-north",
+   "ref_ha": 0,
+   "track": 75,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-mo-02",
+  "kind": "stable",
+  "bbox": [
+   -91.1461,
+   37.0353,
+   -91.0335,
+   37.1251
+  ],
+  "state": "MO",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_004_A_020_4005_DHDH_A_20260626T111227_20260626T111255_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_004_A_020_4005_DHDH_A_20260918T111224_20260918T111252_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-06-28",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-26",
+   "2026-09-18"
+  ],
+  "meta": {
+   "region": "forest-MO-AR-ozarks",
+   "ref_ha": 0,
+   "track": 4,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-26",
+    "2026-09-18"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nc-02",
+  "kind": "stable",
+  "bbox": [
+   -83.2581,
+   35.6619,
+   -83.1475,
+   35.7518
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_022_127_D_070_4005_DHDH_A_20260611T002653_20260611T002728_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_029_127_D_070_4005_DHDH_A_20260903T002649_20260903T002724_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-07",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    -4,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-11",
+   "2026-09-03"
+  ],
+  "meta": {
+   "region": "forest-TN-NC-smokies",
+   "ref_ha": 0,
+   "track": 127,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-11",
+    "2026-09-03"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-va-02",
+  "kind": "stable",
+  "bbox": [
+   -79.3223,
+   38.2888,
+   -79.2077,
+   38.3786
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_021_4005_DHDH_A_20260620T102305_20260620T102340_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_021_4005_DHDH_A_20260912T102302_20260912T102336_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "forest-VA-blue-ridge",
+   "ref_ha": 0,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-il-02",
+  "kind": "stable",
+  "bbox": [
+   -87.8007,
+   41.6669,
+   -87.6803,
+   41.7567
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_023_2005_QPDH_A_20260617T104911_20260617T104946_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_023_2005_QPDH_A_20260909T104907_20260909T104942_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "urban-IL",
+   "ref_ha": 0,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-tx-02",
+  "kind": "stable",
+  "bbox": [
+   -96.7816,
+   32.9133,
+   -96.6745,
+   33.0031
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_134_A_018_4005_DHDH_A_20260623T113619_20260623T113653_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_134_A_018_4005_DHDH_A_20260915T113615_20260915T113650_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-06-26",
+    "2026-09-18"
+   ],
+   "offset_days": [
+    3,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-23",
+   "2026-09-15"
+  ],
+  "meta": {
+   "region": "urban-TX-dallas",
+   "ref_ha": 0,
+   "track": 134,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-23",
+    "2026-09-15"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-mi-02",
+  "kind": "stable",
+  "bbox": [
+   -88.8857,
+   46.6042,
+   -88.7548,
+   46.694
+  ],
+  "state": "MI",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_025_2005_QPDH_A_20260617T105019_20260617T105052_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_025_2005_QPDH_A_20260909T105015_20260909T105048_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-19",
+    "2026-09-05"
+   ],
+   "offset_days": [
+    2,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "forest-MI-up",
+   "ref_ha": 0,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nj-02",
+  "kind": "stable",
+  "bbox": [
+   -74.0748,
+   40.8561,
+   -73.9559,
+   40.946
+  ],
+  "state": "NJ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_069_D_068_4005_DHDH_A_20260501T235230_20260501T235304_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_069_D_068_4005_DHDH_A_20260724T235225_20260724T235300_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 33,
+   "dates": [
+    "2026-05-01",
+    "2026-07-19"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-05-01",
+   "2026-07-24"
+  ],
+  "meta": {
+   "region": "urban-NY",
+   "ref_ha": 0,
+   "track": 69,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-01",
+    "2026-07-24"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ca-03",
+  "kind": "stable",
+  "bbox": [
+   -118.4877,
+   34.142,
+   -118.3791,
+   34.2318
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_013_D_071_4005_DHDH_A_20260522T024038_20260522T024116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_013_D_071_4005_DHDH_A_20260814T024034_20260814T024111_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-05-22",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "urban-CA-la",
+   "ref_ha": 0,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-az-03",
+  "kind": "stable",
+  "bbox": [
+   -112.0335,
+   33.5642,
+   -111.9256,
+   33.654
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_018_4005_DHDH_A_20260619T124254_20260619T124329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_077_A_018_4005_DHDH_A_20260911T124251_20260911T124325_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -6,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "urban-AZ",
+   "ref_ha": 0,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wv-03",
+  "kind": "stable",
+  "bbox": [
+   -80.1467,
+   38.6027,
+   -80.0316,
+   38.6925
+  ],
+  "state": "WV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_021_4005_DHDH_A_20260620T102305_20260620T102340_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_021_4005_DHDH_A_20260912T102302_20260912T102336_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "forest-WV",
+   "ref_ha": 0,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ny-03",
+  "kind": "stable",
+  "bbox": [
+   -73.9352,
+   44.229,
+   -73.8097,
+   44.3189
+  ],
+  "state": "NY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_133_A_024_4005_DHDH_A_20260705T095948_20260705T100026_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_133_A_024_4005_DHDH_A_20260927T095945_20260927T100024_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 33,
+   "dates": [
+    "2026-07-07",
+    "2026-09-23"
+   ],
+   "offset_days": [
+    2,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-07-05",
+   "2026-09-27"
+  ],
+  "meta": {
+   "region": "forest-NY-adirondack",
+   "ref_ha": 0,
+   "track": 133,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-07-05",
+    "2026-09-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-pa-03",
+  "kind": "stable",
+  "bbox": [
+   -78.118,
+   41.3258,
+   -77.9983,
+   41.4156
+  ],
+  "state": "PA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_098_D_068_4005_DHDH_A_20260621T000906_20260621T000941_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_098_D_068_4005_DHDH_A_20260913T000902_20260913T000937_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 4,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "forest-PA-wilds",
+   "ref_ha": 0,
+   "track": 98,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wa-03",
+  "kind": "stable",
+  "bbox": [
+   -121.4879,
+   48.1648,
+   -121.3531,
+   48.2546
+  ],
+  "state": "WA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_071_D_064_4005_DHDH_A_20260619T030957_20260619T031032_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_071_D_064_4005_DHDH_A_20260911T030953_20260911T031028_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-06-21",
+    "2026-09-14"
+   ],
+   "offset_days": [
+    2,
+    3
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "forest-WA-cascades",
+   "ref_ha": 0,
+   "track": 71,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nv-03",
+  "kind": "stable",
+  "bbox": [
+   -116.1868,
+   38.3214,
+   -116.0722,
+   38.4112
+  ],
+  "state": "NV",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_024_005_A_021_4005_DHDH_A_20260626T125254_20260626T125329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_031_005_A_021_4005_DHDH_A_20260918T125251_20260918T125326_P05023_F_F_J_001"
+  ],
+  "s1": {
+   "track": 71,
+   "dates": [
+    "2026-06-28",
+    "2026-09-20"
+   ],
+   "offset_days": [
+    2,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-26",
+   "2026-09-18"
+  ],
+  "meta": {
+   "region": "desert-NV",
+   "ref_ha": 0,
+   "track": 5,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-26",
+    "2026-09-18"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nm-03",
+  "kind": "stable",
+  "bbox": [
+   -107.2068,
+   32.8326,
+   -107.0999,
+   32.9225
+  ],
+  "state": "NM",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_048_A_018_4005_DHDH_A_20260617T122615_20260617T122650_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_048_A_018_4005_DHDH_A_20260909T122612_20260909T122646_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 56,
+   "dates": [
+    "2026-06-20",
+    "2026-09-07"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "desert-NM",
+   "ref_ha": 0,
+   "track": 48,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ut-03",
+  "kind": "stable",
+  "bbox": [
+   -112.9854,
+   39.3684,
+   -112.8691,
+   39.4583
+  ],
+  "state": "UT",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_085_D_068_4005_DHDH_A_20260620T023036_20260620T023111_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_085_D_068_4005_DHDH_A_20260912T023032_20260912T023107_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 100,
+   "dates": [
+    "2026-06-23",
+    "2026-09-10"
+   ],
+   "offset_days": [
+    3,
+    -2
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "desert-UT",
+   "ref_ha": 0,
+   "track": 85,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-wy-03",
+  "kind": "stable",
+  "bbox": [
+   -108.3819,
+   41.7059,
+   -108.2615,
+   41.7957
+  ],
+  "state": "WY",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_056_D_067_4005_DHDH_A_20260618T021323_20260618T021358_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_056_D_067_4005_DHDH_A_20260910T021320_20260910T021354_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 27,
+   "dates": [
+    "2026-06-18",
+    "2026-09-05"
+   ],
+   "offset_days": [
+    0,
+    -5
+   ]
+  },
+  "ref_window": [
+   "2026-06-18",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "desert-WY",
+   "ref_ha": 0,
+   "track": 56,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-or-03",
+  "kind": "stable",
+  "bbox": [
+   -119.6831,
+   43.0445,
+   -119.5601,
+   43.1343
+  ],
+  "state": "OR",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_019_106_A_023_4005_DHDH_A_20260504T130225_20260504T130300_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_026_106_A_023_4005_DHDH_A_20260727T130220_20260727T130255_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-05-04",
+    "2026-07-28"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-04",
+   "2026-07-27"
+  ],
+  "meta": {
+   "region": "desert-OR-high-desert",
+   "ref_ha": 0,
+   "track": 106,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-04",
+    "2026-07-27"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-me-03",
+  "kind": "stable",
+  "bbox": [
+   -69.3145,
+   46.5709,
+   -69.1837,
+   46.6607
+  ],
+  "state": "ME",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_069_D_065_4005_DHDH_A_20260618T235045_20260618T235120_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_069_D_065_4005_DHDH_A_20260910T235041_20260910T235116_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 62,
+   "dates": [
+    "2026-06-20",
+    "2026-09-07"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-18",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "forest-ME-north",
+   "ref_ha": 0,
+   "track": 69,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-mo-03",
+  "kind": "stable",
+  "bbox": [
+   -91.3894,
+   36.7767,
+   -91.2772,
+   36.8666
+  ],
+  "state": "MO",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_105_A_020_4005_DHDH_A_20260621T112048_20260621T112122_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_105_A_020_4005_DHDH_A_20260913T112045_20260913T112118_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 165,
+   "dates": [
+    "2026-06-16",
+    "2026-09-15"
+   ],
+   "offset_days": [
+    -5,
+    2
+   ]
+  },
+  "ref_window": [
+   "2026-06-21",
+   "2026-09-13"
+  ],
+  "meta": {
+   "region": "forest-MO-AR-ozarks",
+   "ref_ha": 0,
+   "track": 105,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-21",
+    "2026-09-13"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-nc-03",
+  "kind": "stable",
+  "bbox": [
+   -83.3982,
+   35.4969,
+   -83.2878,
+   35.5867
+  ],
+  "state": "NC",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_019_4005_DHDH_A_20260617T104656_20260617T104731_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_019_4005_DHDH_A_20260909T104652_20260909T104727_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 48,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    2,
+    -3
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "forest-TN-NC-smokies",
+   "ref_ha": 0,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-va-03",
+  "kind": "stable",
+  "bbox": [
+   -79.3625,
+   38.1131,
+   -79.2483,
+   38.2029
+  ],
+  "state": "VA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_090_A_021_4005_DHDH_A_20260620T102305_20260620T102340_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_090_A_021_4005_DHDH_A_20260912T102302_20260912T102336_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 77,
+   "dates": [
+    "2026-06-21",
+    "2026-09-08"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-20",
+   "2026-09-12"
+  ],
+  "meta": {
+   "region": "forest-VA-blue-ridge",
+   "ref_ha": 0,
+   "track": 90,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-20",
+    "2026-09-12"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-il-03",
+  "kind": "stable",
+  "bbox": [
+   -88.0013,
+   42.0385,
+   -87.8803,
+   42.1283
+  ],
+  "state": "IL",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_047_A_023_2005_QPDH_A_20260617T104911_20260617T104946_P05023_F_F_J_001",
+   "NISAR_L2_PR_GCOV_030_047_A_023_2005_QPDH_A_20260909T104907_20260909T104942_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 121,
+   "dates": [
+    "2026-06-19",
+    "2026-09-05"
+   ],
+   "offset_days": [
+    2,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-17",
+   "2026-09-09"
+  ],
+  "meta": {
+   "region": "urban-IL",
+   "ref_ha": 0,
+   "track": 47,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-17",
+    "2026-09-09"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-tx-03",
+  "kind": "stable",
+  "bbox": [
+   -97.1009,
+   32.6419,
+   -96.9942,
+   32.7317
+  ],
+  "state": "TX",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_062_A_018_4005_DHDH_A_20260618T114438_20260618T114515_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_062_A_018_4005_DHDH_A_20260910T114435_20260910T114512_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 34,
+   "dates": [
+    "2026-06-19",
+    "2026-09-06"
+   ],
+   "offset_days": [
+    1,
+    -4
+   ]
+  },
+  "ref_window": [
+   "2026-06-18",
+   "2026-09-10"
+  ],
+  "meta": {
+   "region": "urban-TX-dallas",
+   "ref_ha": 0,
+   "track": 62,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-18",
+    "2026-09-10"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-ca-04",
+  "kind": "stable",
+  "bbox": [
+   -118.1181,
+   34.0303,
+   -118.0097,
+   34.1202
+  ],
+  "state": "CA",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_021_013_D_071_4005_DHDH_A_20260522T024038_20260522T024116_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_028_013_D_071_4005_DHDH_A_20260814T024034_20260814T024111_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 64,
+   "dates": [
+    "2026-05-22",
+    "2026-08-15"
+   ],
+   "offset_days": [
+    0,
+    1
+   ]
+  },
+  "ref_window": [
+   "2026-05-22",
+   "2026-08-14"
+  ],
+  "meta": {
+   "region": "urban-CA-la",
+   "ref_ha": 0,
+   "track": 13,
+   "direction": "D",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-05-22",
+    "2026-08-14"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ },
+ {
+  "id": "stable-az-04",
+  "kind": "stable",
+  "bbox": [
+   -112.2658,
+   33.6222,
+   -112.1579,
+   33.712
+  ],
+  "state": "AZ",
+  "nisar_pair": [
+   "NISAR_L2_PR_GCOV_023_077_A_018_4005_DHDH_A_20260619T124254_20260619T124329_P05023_N_F_J_001",
+   "NISAR_L2_PR_GCOV_030_077_A_018_4005_DHDH_A_20260911T124251_20260911T124325_P05023_N_F_J_001"
+  ],
+  "s1": {
+   "track": 20,
+   "dates": [
+    "2026-06-13",
+    "2026-09-11"
+   ],
+   "offset_days": [
+    -6,
+    0
+   ]
+  },
+  "ref_window": [
+   "2026-06-19",
+   "2026-09-11"
+  ],
+  "meta": {
+   "region": "urban-AZ",
+   "ref_ha": 0,
+   "track": 77,
+   "direction": "A",
+   "crid": "P05023",
+   "pair_dates": [
+    "2026-06-19",
+    "2026-09-11"
+   ],
+   "slack_days": [
+    0,
+    0
+   ]
+  }
+ }
+]

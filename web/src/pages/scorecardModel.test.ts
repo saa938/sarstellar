@@ -30,7 +30,7 @@ describe("fusionHeadline", () => {
     const h = fusionHeadline(sc);
     expect(h.text).toContain("improved forest loss detection by +0.12");
     expect(h.detail).toContain("burn (+0.05)");
-    expect(h.detail).toContain("worse than the best single radar for crop cycle (−0.08)");
+    expect(h.detail).toContain("worse than the best single radar for cultivated land (proxy) (−0.08)");
   });
 
   it("reports the honest null when every interval includes zero", () => {
@@ -51,6 +51,23 @@ describe("helpers", () => {
   it("counts held-out sites and falls back to their states", () => {
     expect(holdoutSummary(sampleScorecard())).toEqual({ nSites: 4, states: ["OR", "GA"] });
     expect(holdoutSummary(sampleScorecard({ holdout_states: [] })).states).toEqual(["GA", "OR"]);
+  });
+
+  it("excludes failed and unavailable sites from held-out headline counts", () => {
+    const sc = sampleScorecard();
+    sc.sites[4].status = "error";
+    sc.sites[5].status = "excluded";
+    expect(holdoutSummary(sc).nSites).toBe(2);
+    expect(holdoutSummary({ ...sc, n_holdout_sites: 2 }).nSites).toBe(2);
+  });
+
+  it("orders and labels Bonferroni fusion after Fisher fusion", () => {
+    const sc = sampleScorecard();
+    const prototype = sc.classes.find((r) => r.class === "forest_loss")!;
+    const groups = groupClasses([...sc.classes, { ...prototype, detector: "fused_bonferroni" }]);
+    expect(groups[0].rows.map((r) => r.detector)).toEqual(
+      ["L", "L30", "C", "fused_fisher", "fused_bonferroni", "fused_logistic"],
+    );
   });
 
   it("groups class rows in contract order with detectors in a fixed order", () => {

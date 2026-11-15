@@ -1,0 +1,480 @@
+{
+ "meta": {
+  "concept-type": "granule",
+  "concept-id": "G4354283484-ASF",
+  "revision-id": 1,
+  "native-id": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0",
+  "collection-concept-id": "C2777436413-ASF",
+  "provider-id": "ASF",
+  "format": "application/vnd.nasa.cmr.umm+json",
+  "revision-date": "2026-10-10T06:01:14.154Z"
+ },
+ "umm": {
+  "TemporalExtent": {
+   "RangeDateTime": {
+    "BeginningDateTime": "2026-07-15T01:58:32Z",
+    "EndingDateTime": "2026-07-15T01:58:36Z"
+   }
+  },
+  "OrbitCalculatedSpatialDomains": [
+   {
+    "OrbitNumber": 3678
+   }
+  ],
+  "GranuleUR": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0",
+  "AdditionalAttributes": [
+   {
+    "Name": "ASCENDING_DESCENDING",
+    "Values": [
+     "ASCENDING"
+    ]
+   },
+   {
+    "Name": "BEAM_MODE",
+    "Values": [
+     "IW"
+    ]
+   },
+   {
+    "Name": "BISTATIC_DELAY_CORRECTION",
+    "Values": [
+     "TRUE"
+    ]
+   },
+   {
+    "Name": "GROUP_ID",
+    "Values": [
+     "S1D_IWDV_0111_0116_003678_137"
+    ]
+   },
+   {
+    "Name": "LOOK_DIRECTION",
+    "Values": [
+     "RIGHT"
+    ]
+   },
+   {
+    "Name": "NOISE_CORRECTION",
+    "Values": [
+     "TRUE"
+    ]
+   },
+   {
+    "Name": "OPERA_BURST_ID",
+    "Values": [
+     "T137_292329_IW2"
+    ]
+   },
+   {
+    "Name": "PATH_NUMBER",
+    "Values": [
+     "137"
+    ]
+   },
+   {
+    "Name": "POLARIZATION",
+    "Values": [
+     "VV",
+     "VH"
+    ]
+   },
+   {
+    "Name": "POST_PROCESSING_FILTER",
+    "Values": [
+     "FALSE"
+    ]
+   },
+   {
+    "Name": "PROCESSING_TYPE",
+    "Values": [
+     "RTC"
+    ]
+   },
+   {
+    "Name": "PRODUCT_VERSION",
+    "Values": [
+     "1.0"
+    ]
+   },
+   {
+    "Name": "RADIOMETRIC_TERRAIN_CORRECTION",
+    "Values": [
+     "TRUE"
+    ]
+   },
+   {
+    "Name": "STATIC_TROPO_CORRECTION",
+    "Values": [
+     "TRUE"
+    ]
+   },
+   {
+    "Name": "SUBSWATH_NAME",
+    "Values": [
+     "IW2"
+    ]
+   },
+   {
+    "Name": "WET_TROPO_CORRECTION",
+    "Values": [
+     "FALSE"
+    ]
+   }
+  ],
+  "SpatialExtent": {
+   "HorizontalSpatialDomain": {
+    "Geometry": {
+     "GPolygons": [
+      {
+       "Boundary": {
+        "Points": [
+         {
+          "Latitude": 35.91267,
+          "Longitude": -120.40074
+         },
+         {
+          "Latitude": 36.05563,
+          "Longitude": -119.40401
+         },
+         {
+          "Latitude": 36.24168,
+          "Longitude": -119.44378
+         },
+         {
+          "Latitude": 36.09874,
+          "Longitude": -120.44332
+         },
+         {
+          "Latitude": 35.91267,
+          "Longitude": -120.40074
+         }
+        ]
+       }
+      }
+     ]
+    }
+   }
+  },
+  "ProviderDates": [
+   {
+    "Type": "Insert",
+    "Date": "2026-10-10T06:01:11Z"
+   },
+   {
+    "Type": "Update",
+    "Date": "2026-10-10T06:01:11Z"
+   }
+  ],
+  "CollectionReference": {
+   "ShortName": "OPERA_L2_RTC-S1_V1",
+   "Version": "1"
+  },
+  "PGEVersionClass": {
+   "PGEName": "RTC_S1_PGE",
+   "PGEVersion": "2.1.5"
+  },
+  "RelatedUrls": [
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5",
+    "Type": "GET DATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5",
+    "Format": "HDF5"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5",
+    "Type": "GET DATA VIA DIRECT ACCESS",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5",
+    "Format": "HDF5"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif",
+    "Type": "GET DATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif",
+    "Format": "GeoTIFF"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif",
+    "Type": "GET DATA VIA DIRECT ACCESS",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif",
+    "Format": "GeoTIFF"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif",
+    "Type": "GET DATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif",
+    "Format": "GeoTIFF"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif",
+    "Type": "GET DATA VIA DIRECT ACCESS",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif",
+    "Format": "GeoTIFF"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif",
+    "Type": "GET DATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif",
+    "Format": "GeoTIFF"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif",
+    "Type": "GET DATA VIA DIRECT ACCESS",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif",
+    "Format": "GeoTIFF"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/BROWSE/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png",
+    "Type": "GET RELATED VISUALIZATION",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png",
+    "Format": "PNG"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-browse/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png",
+    "Type": "GET RELATED VISUALIZATION",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png",
+    "Format": "PNG"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/BROWSE/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png",
+    "Type": "GET RELATED VISUALIZATION",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png",
+    "Format": "PNG"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-browse/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png",
+    "Type": "GET RELATED VISUALIZATION",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png",
+    "Format": "PNG"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/BROWSE/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png",
+    "Type": "GET RELATED VISUALIZATION",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png",
+    "Format": "PNG"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-browse/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png",
+    "Type": "GET RELATED VISUALIZATION",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png",
+    "Format": "PNG"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml",
+    "Format": "XML"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml",
+    "Format": "XML"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/BROWSE/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-browse/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE.png.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/BROWSE/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-browse/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_low-res.png.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/BROWSE/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-browse/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_BROWSE_thumbnail.png.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/OPERA/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "Download OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "s3://asf-cumulus-prod-opera-products/OPERA_L2_RTC-S1/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0/OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif.md5",
+    "Type": "EXTENDED METADATA",
+    "Description": "This link provides direct download access via S3 to OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif.md5",
+    "Format": "Text File"
+   },
+   {
+    "URL": "https://cumulus.asf.earthdatacloud.nasa.gov/s3credentials",
+    "Type": "VIEW RELATED INFORMATION",
+    "Description": "S3 credentials endpoint for direct in-region bucket access"
+   }
+  ],
+  "InputGranules": [
+   "S1D_IW_SLC__1SDV_20260715T015810_20260715T015837_003678_006920_E35C"
+  ],
+  "Projects": [
+   {
+    "ShortName": "SNWG/OPERA"
+   }
+  ],
+  "DataGranule": {
+   "DayNightFlag": "Unspecified",
+   "ProductionDateTime": "2026-10-10T05:30:14Z",
+   "ArchiveAndDistributionInformation": [
+    {
+     "Name": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.h5",
+     "SizeInBytes": 105840,
+     "Format": "HDF5",
+     "Checksum": {
+      "Value": "5323eb22fb7f6ecfb1b0e4ff7b03b35b",
+      "Algorithm": "MD5"
+     }
+    },
+    {
+     "Name": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VH.tif",
+     "SizeInBytes": 7303033,
+     "Format": "GeoTIFF",
+     "Checksum": {
+      "Value": "c43f9cd69a818cb9cab92f3413e8ad26",
+      "Algorithm": "MD5"
+     }
+    },
+    {
+     "Name": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_VV.tif",
+     "SizeInBytes": 7213621,
+     "Format": "GeoTIFF",
+     "Checksum": {
+      "Value": "c3c25c0d6630c98e9e72e02678b4da63",
+      "Algorithm": "MD5"
+     }
+    },
+    {
+     "Name": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0_mask.tif",
+     "SizeInBytes": 52716,
+     "Format": "GeoTIFF",
+     "Checksum": {
+      "Value": "945c9a6e27e0998d3137891df4f32867",
+      "Algorithm": "MD5"
+     }
+    },
+    {
+     "Name": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0.iso.xml",
+     "SizeInBytes": 160088,
+     "Format": "XML",
+     "Checksum": {
+      "Value": "2518eef6aa86ea4a67aeef625bd77bf6",
+      "Algorithm": "MD5"
+     }
+    }
+   ],
+   "Identifiers": [
+    {
+     "IdentifierType": "ProducerGranuleId",
+     "Identifier": "OPERA_L2_RTC-S1_T137-292329-IW2_20260715T015832Z_20261010T052116Z_S1D_30_v1.0"
+    },
+    {
+     "Identifier": "0.15.0",
+     "IdentifierType": "Other",
+     "IdentifierName": "ISCE3Version"
+    },
+    {
+     "Identifier": "0.2.6",
+     "IdentifierType": "Other",
+     "IdentifierName": "S1ReaderVersion"
+    },
+    {
+     "Identifier": "1.0.5",
+     "IdentifierType": "Other",
+     "IdentifierName": "SASVersionId"
+    }
+   ]
+  },
+  "Platforms": [
+   {
+    "ShortName": "Sentinel-1D",
+    "Instruments": [
+     {
+      "ShortName": "C-SAR",
+      "Characteristics": [
+       {
+        "Name": "LookDirection",
+        "Value": "RIGHT"
+       }
+      ],
+      "OperationalModes": [
+       "IW"
+      ]
+     }
+    ]
+   }
+  ],
+  "MetadataSpecification": {
+   "URL": "https://cdn.earthdata.nasa.gov/umm/granule/v1.6.7",
+   "Name": "UMM-G",
+   "Version": "1.6.7"
+  }
+ }
+}

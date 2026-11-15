@@ -19,10 +19,15 @@ describe("About page", () => {
     expect(screen.getByRole("link", { name: "github.com/saa938/sarstellar" })).toBeTruthy();
   });
 
-  it("keeps the Kaiser Canyon result (Sentinel-1 wins) and the NISAR gap visible", () => {
+  it("explains the revised Kaiser comparison, reference limitations and NISAR gap", () => {
     render(<About />);
     const text = document.body.textContent ?? "";
     expect(text).toMatch(/Kaiser Canyon[^.]*Sentinel-1/);
+    expect(text).toContain("the full pipeline changed that comparison");
+    expect(text).toContain("not an independent flood check");
+    expect(text).toContain("does not isolate wavelength");
+    expect(text).not.toContain("300+");
+    expect(text).not.toContain("Sentinel-1 saw the burn far more clearly");
     expect(text).toContain("Jul 27 to Aug 10, 2026");
   });
 });
