@@ -7,6 +7,7 @@ const FieldGuide = lazy(() => import("./pages/FieldGuide"));
 const Proof = lazy(() => import("./pages/Proof"));
 const Explore = lazy(() => import("./pages/Explore"));
 const Present = lazy(() => import("./pages/Present"));
+const Constellation = lazy(() => import("./pages/Constellation"));
 
 export default function App() {
   const route = useRoute();
@@ -21,6 +22,8 @@ export default function App() {
       move: "SARstellar: field guide",
       proof: "SARstellar: how we know",
       explore: "SARstellar: all stages",
+      constellation: "SARstellar: the constellation of every dance",
+      present: "SARstellar",
     };
     document.title = titles[route.name] ?? "SARstellar";
   }, [route.name]);
@@ -33,6 +36,7 @@ export default function App() {
       {route.name === "proof" && <Proof />}
       {route.name === "explore" && <Explore />}
       {route.name === "present" && <Present query={route.query} />}
+      {route.name === "constellation" && <Constellation />}
       {route.name === "notfound" && <Landing />}
     </Suspense>
   );

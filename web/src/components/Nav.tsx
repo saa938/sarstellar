@@ -11,6 +11,7 @@ const LINKS = [
   { href: "#/", label: "Story", id: "landing" },
   { href: "#/explore", label: "Stages", id: "explore" },
   { href: "#/moves", label: "Field guide", id: "moves" },
+  { href: "#/constellation", label: "Constellation", id: "constellation" },
   { href: "#/proof", label: "How we know", id: "proof" },
 ];
 

@@ -77,6 +77,7 @@ const SHOTS = [
   { id: "move-bounce", path: "#/moves/bounce", wait: 2200 },
   { id: "proof", path: "#/proof", wait: 1500 },
   { id: "explore", path: "#/explore", wait: 4000 },
+  { id: "constellation", path: "#/constellation", wait: 3000 },
 ];
 
 const browser = await chromium.launch({

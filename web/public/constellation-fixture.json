@@ -1,0 +1,21 @@
+{
+ "fixture": true,
+ "file": "constellation-fixture.bin",
+ "count": 66000,
+ "stages": [
+  "rondonia",
+  "punjab",
+  "village-creek"
+ ],
+ "moves": [
+  "still",
+  "fall",
+  "scorch",
+  "bounce",
+  "vanish",
+  "waltz",
+  "shimmer",
+  "melt"
+ ],
+ "layout": "planar: N x (x float32, y float32) in 0..1, then N uint8 move, then N uint8 stage index, then N uint32 block index; little-endian"
+}

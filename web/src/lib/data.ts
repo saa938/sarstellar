@@ -129,3 +129,70 @@ export function assetUrl(base: string, rel: string) {
   return base + rel;
 }
 
+
+// ---------------------------------------------------------------- constellation
+
+export interface ConstellationDoc {
+  fixture?: boolean;
+  file?: string;
+  count: number;
+  stages: string[];
+  moves?: string[];
+  layout?: string;
+}
+
+export interface Constellation {
+  doc: ConstellationDoc;
+  fixture: boolean;
+  N: number;
+  xy: Float32Array; // N x (x, y) in 0..1, y up
+  move: Uint8Array;
+  stage: Uint8Array;
+  block: Uint32Array;
+}
+
+let constPromise: Promise<Constellation | null> | null = null;
+
+export function loadConstellation(): Promise<Constellation | null> {
+  constPromise ??= (async () => {
+    let doc = await tryJSON<ConstellationDoc>(`${ROOT}constellation.json`);
+    let fixture = false;
+    let bin = `${ROOT}${doc?.file ?? "constellation.bin"}`;
+    if (!doc) {
+      doc = await tryJSON<ConstellationDoc>(`${ROOT}constellation-fixture.json`);
+      fixture = true;
+      bin = `${ROOT}${doc?.file ?? "constellation-fixture.bin"}`;
+    }
+    if (!doc) return null;
+    const res = await fetch(bin);
+    if (!res.ok) return null;
+    const buf = await res.arrayBuffer();
+    const N = doc.count;
+    const dv = new DataView(buf);
+    const xy = new Float32Array(N * 2);
+    const move = new Uint8Array(N);
+    const stage = new Uint8Array(N);
+    const block = new Uint32Array(N);
+    if (/interleav/i.test(doc.layout ?? "")) {
+      // per point: x f32, y f32, move u8, stage u8, block u32 (14 bytes)
+      for (let i = 0; i < N; i++) {
+        const o = i * 14;
+        xy[i * 2] = dv.getFloat32(o, true);
+        xy[i * 2 + 1] = dv.getFloat32(o + 4, true);
+        move[i] = dv.getUint8(o + 8);
+        stage[i] = dv.getUint8(o + 9);
+        block[i] = dv.getUint32(o + 10, true);
+      }
+    } else {
+      for (let i = 0; i < N * 2; i++) xy[i] = dv.getFloat32(i * 4, true);
+      const o1 = N * 8;
+      for (let i = 0; i < N; i++) move[i] = dv.getUint8(o1 + i);
+      const o2 = o1 + N;
+      for (let i = 0; i < N; i++) stage[i] = dv.getUint8(o2 + i);
+      const o3 = o2 + N;
+      for (let i = 0; i < N; i++) block[i] = dv.getUint32(o3 + i * 4, true);
+    }
+    return { doc, fixture: fixture || !!doc.fixture, N, xy, move, stage, block };
+  })();
+  return constPromise;
+}
