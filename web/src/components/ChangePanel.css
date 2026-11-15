@@ -1,209 +1,33 @@
-/* Change-area panel (Task B3), styled after the right panel in docs/mockups/app-mockup.html. */
-.cp {
-  font-size: 14px;
-}
-
-.cp-chips {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.cp-chip,
-.cp-example {
-  display: inline-block;
-  padding: 3px 9px;
-  border-radius: 999px;
-  font-size: 12px;
-  font-weight: 700;
-}
-
-.cp-example {
-  background: #3b1d1d;
-  color: #fca5a5;
-  border: 1px solid #7f1d1d;
-  font-weight: 600;
-  cursor: help;
-}
-
-.cp-close {
-  margin-left: auto;
-  background: none;
-  border: 0;
-  color: var(--muted);
-  font-size: 20px;
-  line-height: 1;
-  cursor: pointer;
-}
-
-.cp-close:hover {
-  color: var(--text);
-}
-
-.cp-title {
-  margin: 6px 0;
-  font-size: 19px;
-}
-
-.cp-conf {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-  margin: 8px 0 4px;
-  font-size: 13px;
-  color: var(--muted);
-}
-
-.cp-conf b {
-  color: var(--text);
-  font-weight: 600;
-}
-
-.cp-bar {
-  flex: 1;
-  min-width: 40px;
-  height: 6px;
-  background: var(--line);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-.cp-bar i {
-  display: block;
-  height: 100%;
-}
-
-.cp-when {
-  margin: 0 0 12px;
-  font-size: 12px;
-  color: var(--muted);
-}
-
-.cp-plain {
-  background: #10202a;
-  border: 1px solid #164e63;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 13.5px;
-}
-
-.cp-plain small {
-  display: block;
-  color: var(--muted);
-  margin-top: 6px;
-  font-size: 11px;
-}
-
-.cp-label {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 0.8px;
-  color: var(--muted);
-  margin: 16px 0 8px;
-}
-
-.cp-ev {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cp-ev li {
-  padding: 8px 10px;
-  border-left: 3px solid var(--line);
-  background: var(--panel2);
-  margin-bottom: 6px;
-  border-radius: 0 6px 6px 0;
-  font-size: 13px;
-}
-
-.cp-ev b {
-  color: var(--text);
-}
-
-.cp-ci {
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.cp-src {
-  display: block;
-  color: var(--muted);
-  font-size: 11px;
-  margin-top: 2px;
-}
-
-.cp-who {
-  background: #1f1630;
-  border: 1px solid #4c1d95;
-  padding: 10px 12px;
-  border-radius: 8px;
-  font-size: 13px;
-}
-
-.cp-who p {
-  margin: 0 0 6px;
-  color: var(--muted);
-  font-size: 12px;
-}
-
-.cp-who ul {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.cp-who li {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 2px 0;
-}
-
-.cp-who li b {
-  white-space: nowrap;
-  font-variant-numeric: tabular-nums;
-}
-
-.cp-who small {
-  display: block;
-  margin-top: 4px;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.cp-exports {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 6px;
-}
-
-.cp-btn {
-  display: block;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid var(--line);
-  background: var(--panel2);
-  color: var(--text);
-  font: inherit;
-  font-size: 13px;
-  font-weight: 600;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.cp-btn:hover:not(:disabled) {
-  border-color: var(--muted);
-}
-
-.cp-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-.cp-note {
-  margin: 6px 0 0;
-  font-size: 11px;
-  color: var(--muted);
-}
+/* Evidence inspector uses rows and tables, with color reserved for measurements. */
+.cp { font-size: 13px; }
+.cp-chips { display: flex; align-items: center; gap: 8px; padding-bottom: 10px; border-bottom: 1px solid var(--line); }
+.cp-chip, .cp-example { display: inline-block; padding: 0; border-radius: 0; font-size: 12px; font-weight: 500; }
+.cp-chip { padding-left: 7px; border-left: 3px solid var(--line); background: transparent !important; color: var(--text) !important; }
+.cp-example { color: var(--danger); cursor: help; }
+.cp-close { margin-left: auto; width: auto; min-width: 70px; height: 30px; padding: 0 8px; background: none; border: 1px solid var(--line); border-radius: 2px; color: var(--accent); font-size: 12px; line-height: 1; white-space: nowrap; cursor: pointer; }
+.cp-close:hover { background: var(--hover); color: var(--text); }
+.cp-title { margin: 12px 0 8px; font-size: 19px; font-weight: 600; }
+.cp-conf { display: flex; gap: 10px; align-items: center; margin: 8px 0 4px; font-size: 12px; color: var(--muted); }
+.cp-conf b { color: var(--text); font-weight: 500; }
+.cp-bar { flex: 1; min-width: 40px; height: 4px; background: var(--line); overflow: hidden; }
+.cp-bar i { display: block; height: 100%; }
+.cp-when { margin: 0 0 14px; font-size: 12px; color: var(--muted); }
+.cp-plain { background: transparent; border: 0; border-bottom: 1px solid var(--line); padding: 0 0 14px; border-radius: 0; font-size: 13px; line-height: 1.65; }
+.cp-plain small { display: block; color: var(--muted); margin-top: 7px; font-size: 11px; }
+.cp-label { font-size: 12px; font-weight: 600; text-transform: none; letter-spacing: 0; color: var(--text); margin: 20px 0 9px; }
+.cp-ev { margin: 0; padding: 0; list-style: none; }
+.cp-ev li { padding: 9px 0; border: 0; border-bottom: 1px solid var(--line); background: transparent; margin: 0; border-radius: 0; font-size: 12px; line-height: 1.55; }
+.cp-ev b { color: var(--text); font-weight: 600; }
+.cp-ci { color: var(--muted); font-variant-numeric: tabular-nums; }
+.cp-src { display: block; color: var(--muted); font-size: 11px; margin-top: 2px; }
+.cp-who { background: transparent; border: 0; padding: 0; border-radius: 0; font-size: 12px; }
+.cp-who p { margin: 0 0 7px; color: var(--muted); font-size: 12px; }
+.cp-who ul { margin: 0; padding: 0; list-style: none; }
+.cp-who li { display: flex; justify-content: space-between; gap: 10px; padding: 5px 0; border-bottom: 1px solid var(--line); }
+.cp-who li b { white-space: nowrap; font-variant-numeric: tabular-nums; font-weight: 500; }
+.cp-who small { display: block; margin-top: 7px; color: var(--muted); font-size: 11px; }
+.cp-exports { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.cp-btn { display: block; padding: 8px 5px; border: 1px solid var(--line); border-radius: 2px; background: var(--panel); color: var(--accent); font: inherit; font-size: 12px; font-weight: 500; text-align: center; text-decoration: none; cursor: pointer; }
+.cp-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
+.cp-btn:disabled { opacity: 1; background: var(--panel2); color: var(--muted); cursor: not-allowed; }
+.cp-note { margin: 7px 0 0; font-size: 11px; color: var(--muted); line-height: 1.55; }

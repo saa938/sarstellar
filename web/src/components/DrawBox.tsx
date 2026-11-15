@@ -1,4 +1,4 @@
-// "Draw a box anywhere": rectangle drawing on the map, a live size readout, the 20 km rule enforced
+// "Draw analysis area": rectangle drawing on the map, a live size readout, the 20 km rule enforced
 // before submit, and the live job (progress, server messages) via useLiveJob/JobProgress.
 import type { Map as MaplibreMap } from "maplibre-gl";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -108,7 +108,7 @@ export function DrawBox({ map, dates, onResult, onStartDrawing, createDrawer = l
           disabled={!map || job.running}
           title={map ? undefined : "The map is still loading"}
         >
-          Draw a box anywhere
+          Draw analysis area
         </button>
       )}
       {phase === "drawing" && <p className="db-hint">Click one corner, then the opposite corner (or drag). Up to 20 km a side.</p>}
@@ -136,7 +136,7 @@ export function DrawBox({ map, dates, onResult, onStartDrawing, createDrawer = l
       {phase === "drawn" && (
         <div className="db-actions">
           <button type="button" className="db-btn db-primary" onClick={submit} disabled={!!boxError || job.running}>
-            Analyze this box
+            Run analysis
           </button>
           <button type="button" className="db-btn db-small" onClick={startDrawing}>
             Redraw
