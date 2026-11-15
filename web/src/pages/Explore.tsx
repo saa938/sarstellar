@@ -102,7 +102,8 @@ export default function Explore() {
     mapRef.current?.dragPan.enable();
   };
   const local = (e: React.PointerEvent) => {
-    const r = el.current!.getBoundingClientRect();
+    if (!el.current) return [0, 0];
+    const r = el.current.getBoundingClientRect();
     return [e.clientX - r.left, e.clientY - r.top];
   };
   const onDown = (e: React.PointerEvent) => {

@@ -77,7 +77,8 @@ export function Timeline({ dates, clock, beats, compact = false, score = null }:
   }, [t0, t1, w]);
 
   const seekFromX = (clientX: number) => {
-    const r = track.current!.getBoundingClientRect();
+    if (!track.current) return clock.t;
+    const r = track.current.getBoundingClientRect();
     const px = clientX - r.left;
     const x = xsRef.current;
     if (px <= x[0]) return 0;

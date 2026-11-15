@@ -2245,3 +2245,16 @@
     grid-template-columns: 1fr;
   }
 }
+
+.btn--film {
+  border-color: transparent;
+  background: none;
+  padding-left: 8px;
+  padding-right: 8px;
+  color: var(--accent-2);
+}
+
+.btn--film:hover {
+  background: rgba(242, 208, 138, 0.08);
+  border-color: transparent;
+}

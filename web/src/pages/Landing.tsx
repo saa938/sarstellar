@@ -90,6 +90,13 @@ export default function Landing() {
             <a className="btn" href="#partners">
               How to read the dance
             </a>
+            <a className="btn btn--film" href="/demo/">
+              <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden>
+                <circle cx="12" cy="12" r="10.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+                <path d="M10 8.2v7.6a.6.6 0 0 0 .9.5l6-3.8a.6.6 0 0 0 0-1l-6-3.8a.6.6 0 0 0-.9.5z" fill="currentColor" />
+              </svg>
+              Watch the 30-second film
+            </a>
           </div>
           {heroMoves.length > 0 && (
             <div className="hero__moves" aria-label="Five of the moves">
@@ -316,7 +323,7 @@ export function ProofTeaser({ proof }: { proof: Record<string, unknown> | null |
   const stats: [string, Num][] = [
     ["reference sites", h.reference_sites],
     ["hectares scored", h.hectares_scored],
-    ["NISAR passes read", h.passes_read],
+    ["NISAR granules read", h.passes_read],
     ["stages", h.stages],
     ["countries", h.countries],
   ];

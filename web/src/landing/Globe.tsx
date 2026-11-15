@@ -26,7 +26,9 @@ export default function Globe({ stages, fill = 0.4, spin = true, startLng = -40,
   useEffect(() => {
     if (!el.current) return;
     const zoomFor = () => {
-      const r = el.current!.getBoundingClientRect();
+      const node = el.current;
+      if (!node) return null;
+      const r = node.getBoundingClientRect();
       const radius = Math.max(60, Math.min(r.width, r.height) * fill);
       return Math.log2(radius / 81.5);
     };
@@ -64,9 +66,14 @@ export default function Globe({ stages, fill = 0.4, spin = true, startLng = -40,
       fadeDuration: 0,
     });
     mapRef.current = map;
-    const fit = () => map.setZoom(zoomFor());
+    const fit = () => {
+      const z = zoomFor();
+      if (z != null) map.setZoom(z);
+    };
     fit();
+    let alive = true;
     const ro = new ResizeObserver(() => {
+      if (!alive || !el.current) return;
       map.resize();
       if (!focusRef.current) fit();
     });
@@ -104,6 +111,7 @@ export default function Globe({ stages, fill = 0.4, spin = true, startLng = -40,
     };
     raf = requestAnimationFrame(tick);
     return () => {
+      alive = false;
       clearTimeout(fallback);
       cancelAnimationFrame(raf);
       ro.disconnect();

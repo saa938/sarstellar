@@ -174,7 +174,7 @@ function ProofBody({ p }: { p: R }) {
               ["held out", h.test_sites],
               ["states never seen", h.test_states],
               ["hectares scored", h.hectares_scored],
-              ["NISAR passes read", h.passes_read],
+              ["NISAR granules read", h.passes_read],
               ["stages", h.stages],
               ["countries", h.countries],
             ] as [string, N][]

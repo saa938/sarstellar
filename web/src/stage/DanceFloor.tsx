@@ -234,7 +234,8 @@ export function DanceFloor(props: Props) {
     return [view.xmin + (px - g.x) / g.s, view.ymax - (py - g.y) / g.s];
   };
   const local = (e: React.PointerEvent) => {
-    const r = wrapRef.current!.getBoundingClientRect();
+    if (!wrapRef.current) return [0, 0] as [number, number];
+    const r = wrapRef.current.getBoundingClientRect();
     return [e.clientX - r.left, e.clientY - r.top] as [number, number];
   };
   const pickAt = (px: number, py: number, radius: number) => {

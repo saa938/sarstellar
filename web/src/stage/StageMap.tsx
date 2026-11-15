@@ -371,7 +371,8 @@ export function StageMap(props: Props) {
     cb.current.onSelect(count ? mask : null, count, final);
   };
   const onBoxDown = (ev: React.PointerEvent) => {
-    const r = el.current!.getBoundingClientRect();
+    if (!el.current) return;
+    const r = el.current.getBoundingClientRect();
     const x = ev.clientX - r.left;
     const y = ev.clientY - r.top;
     boxRef.current = { x0: x, y0: y, x1: x, y1: y, id: ev.pointerId };
@@ -380,8 +381,8 @@ export function StageMap(props: Props) {
   };
   const onBoxMove = (ev: React.PointerEvent) => {
     const b = boxRef.current;
-    if (!b) return;
-    const r = el.current!.getBoundingClientRect();
+    if (!b || !el.current) return;
+    const r = el.current.getBoundingClientRect();
     b.x1 = ev.clientX - r.left;
     b.y1 = ev.clientY - r.top;
     setBox({ ...b });

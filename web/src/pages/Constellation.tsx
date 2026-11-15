@@ -70,7 +70,8 @@ export default function Constellation() {
     glRef.current = gl;
     gl.setData(c.xy, 1, c.N);
     const ro = new ResizeObserver(() => {
-      const r = wrap.current!.getBoundingClientRect();
+      if (!wrap.current || glRef.current !== gl) return;
+      const r = wrap.current.getBoundingClientRect();
       sizeRef.current = { w: r.width, h: r.height };
       gl.resize(r.width, r.height, Math.min(window.devicePixelRatio || 1, 2));
       drawRef.current();
@@ -130,7 +131,8 @@ export default function Constellation() {
     return best;
   };
   const local = (e: React.PointerEvent | React.WheelEvent) => {
-    const r = wrap.current!.getBoundingClientRect();
+    if (!wrap.current) return [0, 0];
+    const r = wrap.current.getBoundingClientRect();
     return [e.clientX - r.left, e.clientY - r.top];
   };
   const onWheel = (e: React.WheelEvent) => {
