@@ -43,7 +43,7 @@ KILL_MESSAGE = "Live analysis is paused; stories and scorecard still work."
 RATE_MESSAGE = "Too many analyses from your address in the last hour; try again later."
 DAILY_MESSAGE = "The daily limit of live analyses has been reached; stories and scorecard still work."
 # Bump when result/export semantics change. Existing job IDs remain readable.
-CACHE_REVISION = "source-notebook-v1"
+CACHE_REVISION = "cause-hypotheses-majority-v3"
 
 _JOB_ID = re.compile(r"[0-9a-f]{16}")
 _EXPORT_TYPES = {

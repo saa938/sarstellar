@@ -101,6 +101,42 @@ def test_template_survives_missing_numbers():
     assert text.strip()
 
 
+@pytest.mark.parametrize("cls", ["forest_loss", "burn", "flood_open_water", "flooded_vegetation",
+                                 "crop_cycle", "harvest", "soil_wetting", "construction"])
+def test_template_distinguishes_detection_from_cause_hypothesis(cls):
+    text = template_text(make_area(cls=cls))
+    assert text.startswith("Radar change detected across 12.4 ha")
+    assert "Cause hypothesis:" in text
+    assert "independent verification is needed" in text
+    assert "not a calibrated cause probability" in text
+    assert "rule confidence is high" in text
+
+
+def test_template_date_is_flagged_acquisition_not_established_event_date():
+    text = template_text(make_area())
+    assert "first flagged acquisition 2026-09-02" in text
+    assert "not a confirmed event date" in text
+    assert ", dated" not in text
+    assert "first flagged acquisition" not in template_text(make_area(change_date=None))
+
+
+def test_hypothesis_framing_keeps_measurements_and_intervals():
+    text = template_text(make_area())
+    for value in ("12.4 ha", "-3.5 dB", "-4.1 to -2.9", "-0.5 dB"):
+        assert value in text
+    assert "flagged a majority of the area's blocks" in text
+    assert "Sentinel-1 (C-band) did not" not in text
+
+
+def test_prompt_requires_hypotheses_date_semantics_and_no_radar_performance_claim():
+    assert "cause hypothesis" in SYSTEM_PROMPT
+    assert "first flagged acquisition" in SYSTEM_PROMPT
+    assert "not a confirmed event date" in SYSTEM_PROMPT
+    assert "independent verification" in SYSTEM_PROMPT
+    assert "larger detected area does not establish accuracy" in SYSTEM_PROMPT
+    assert "missing observations are not evidence of no change" in SYSTEM_PROMPT
+
+
 # ---- the LLM path --------------------------------------------------------------------------
 
 

@@ -193,6 +193,7 @@ describe("static stories and scorecard", () => {
 
     expect(fetchFn.mock.calls.map((c) => new URL(String(c[0])).pathname)).toEqual(["/stories/kaiser.json", "/fixtures/kaiser.json"]);
     expect(story.fixture).toBe(true);
+    expect(story.exports.csv).toBeNull();
     expect(story.message).toBe(FIXTURE_MESSAGE);
     // Relative overlay URLs resolve against the JSON file they came from.
     expect(new URL(story.overlays.l_png).pathname).toBe("/fixtures/kaiser/l.png");
@@ -215,6 +216,15 @@ describe("static stories and scorecard", () => {
     expect(story.fixture).toBe(false);
     expect(story.message).toBeNull();
     expect(new URL(story.overlays.change_png).pathname).toBe("/stories/kaiser/change.png");
+    expect(new URL(story.exports.csv!).pathname).toBe("/stories/kaiser/areas.csv");
+    expect(story.exports.geotiff).toBeNull();
+    expect(story.exports.notebook).toBeNull();
+  });
+
+  it("preserves an existing saved-result export instead of replacing it with a supplement", async () => {
+    const exports = { geotiff: null, csv: "https://archive.example.test/exact-result.csv", notebook: null };
+    routeFetch({ "/stories/kaiser.json": () => json(sampleResult({ exports })) });
+    expect((await loadStory("kaiser")).exports.csv).toBe(exports.csv);
   });
 
   it("loadStory keeps a fixture's own message after the disclosure", async () => {

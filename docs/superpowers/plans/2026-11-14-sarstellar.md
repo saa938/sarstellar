@@ -14,7 +14,7 @@
 
 ## Current status — November 15, 2026
 
-This status supersedes the original schedule and unchecked implementation checklist below.
+This status supersedes the original schedule and unchecked implementation checklist below. The original checklist remains a historical implementation brief; it is not evidence that every initial target was met.
 
 | Work | Status |
 | --- | --- |
@@ -22,16 +22,28 @@ This status supersedes the original schedule and unchecked implementation checkl
 | A8 stories | Complete: three real pipeline results and 15 overlay PNGs, with provenance and date-count caveats. |
 | C1 site catalog | Complete under the later relaxed target: 254 sites; original 300-site target was not reached. |
 | C2 scorecard | Complete: 242 processed, 224 comparable, 60 held-out sites in 12 states. Twelve failures and 18 exclusions retained. No supported primary unsupervised fusion gain. |
-| B1, B3, B4, B6 | Existing components recovered from main and integrated; scorecard/method text updated to actual results. |
-| B2 map shell | Complete: recovered stopped Multica work, integrated the app, and verified clean desktop/mobile layouts and map interactions. |
+| B1, B3, B4, B6 | Recovered and integrated: job progress/errors, area evidence, dataset exports, measured benchmark and methods. The selected-area question workflow is receiving its final usability pass. |
+| B2 map shell | Complete: selectable minimum-area polygons, layer visibility/opacity, class filtering, acquisition metadata, coordinates and mobile layout. The user selected Light as the default with Charcoal retained as an option. |
 | B5 comparison views | Recovered stopped Multica work; before/after and synchronized L/C views implemented and tested. |
-| B7 deployment | Existing Vercel project and custom domain verified; production update in progress after passing frontend tests and build. |
-| D1 submission preparation | Draft 30-second script, six-slide outline, project description and Apache-2.0 license in `docs/submission/` and `LICENSE`. Recording and final event submission remain human steps. |
+| B7 deployment | The approved Light-default/Charcoal-option release merged in PR 7 at `0952fd9`; Vercel succeeded and a production browser reload verified the default. The later selected-area workflow release is still pending final production verification. Initial Lighthouse and warm-latency targets have not been established. |
+| D1 submission preparation | Complete local materials: project-page copy, a rendered and validated editable six-slide deck, optional 30-second narration/captions, source credits, AI disclosure and license. The supplied application accepts a public demo of up to seven slides OR up to 30 seconds; the six-slide artifact satisfies the media-length choice. Its public `/demo/` viewer is being prepared. Project-form entry and final submission remain pending. |
 | C3 and other stretch work | Deferred until the core demo and submission are safe, as originally required. |
 
-Backend work was pushed to `build/engine` at `73a4ffe`. The working branch also
-integrates the existing frontend from `main`. Continue with UI QA and deployment;
-do not tune the detectors on held-out results to manufacture an improvement.
+The recovered implementation integrates the frontend with the engine and measured outputs. Later user-approved presentation changes replace the original bright amber/violet/cyan chrome with neutral Light/Charcoal themes and muted ochre/slate-violet/steel-blue data categories. The category meanings are unchanged. The main map displays selectable change-area polygons rather than the baked agreement PNG; before/after and relative-dB images remain available in their comparison views.
+
+Remaining delivery steps:
+
+- [x] Recover and test the engine, live API, real stories and measured scorecard.
+- [x] Integrate Map, Benchmark and Methods, including layer controls and live-result exports.
+- [x] Prepare the user's selected Light default and optional Charcoal appearance.
+- [x] Prepare factual submission copy, narration, captions, six-slide deck, README and license. The deck is `docs/submission/sarstellar-presentation-public.pptx`, with two embedded measured radar images and three editable tables. Source/AI notes and file metadata disclose assistance and private repository status.
+- [x] Verify the approved Light-default release on the public demo after PR 7 deployment.
+- [ ] Finish and verify the latest selected-area workflow on the production release.
+- [ ] Verify the subsequent selected-area workflow build and its demo, benchmark and export links.
+- [ ] Publish and verify the six-slide viewer at `https://www.sarstellar.earth/demo/`. An additional video is optional under the supplied media alternatives.
+- [ ] Enter the project page, attach final media, submit, and retain the submission confirmation.
+
+The user explicitly keeps the repository private. A public application and slide viewer satisfy the requested public-link delivery without changing repository visibility. The original 300-site target was relaxed to an honest 254-site attempt, with 224 sites eligible for comparison. The measured primary unsupervised fusion result is negative or inconclusive, not a failed implementation. Forest-loss fusion is worse within the reported interval. A separate learned cultivated-land proxy result improves; it does not establish crop-change accuracy. Keep the held-out split fixed. The learned cause model and other stretch work remain deferred.
 
 ## Global Constraints
 

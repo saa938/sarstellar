@@ -31,3 +31,20 @@
 .cp-btn:hover:not(:disabled) { border-color: var(--accent); background: var(--accent-soft); }
 .cp-btn:disabled { opacity: 1; background: var(--panel2); color: var(--muted); cursor: not-allowed; }
 .cp-note { margin: 7px 0 0; font-size: 11px; color: var(--muted); line-height: 1.55; }
+.cp-workflow { margin: 8px 0 12px; }
+.cp-question { padding: 9px 0; border-top: 1px solid var(--line); }
+.cp-question:last-child { border-bottom: 1px solid var(--line); }
+.cp-question-title { display: flex; align-items: baseline; gap: 8px; margin: 0 0 5px; color: var(--text); font-size: 13px; font-weight: 600; line-height: 1.45; }
+.cp-question-number { color: var(--muted); font-size: 11px; font-weight: 400; }
+.cp-observed, .cp-hypothesis { margin: 0 0 5px; color: var(--text); font-size: 13px; line-height: 1.6; }
+.cp-support, .cp-next { margin: 4px 0 0; padding-left: 17px; color: var(--muted); font-size: 12px; line-height: 1.65; }
+.cp-support li, .cp-next li { margin: 2px 0; }
+.cp-caveat { margin: 5px 0 0; padding-left: 9px; border-left: 2px solid var(--line); color: var(--muted); font-size: 11px; line-height: 1.6; }
+.cp-summary-facts { margin: 10px 0 16px; font-size: 12px; }
+.cp-summary-facts > div { display: flex; align-items: baseline; justify-content: space-between; gap: 10px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.cp-summary-facts dt { color: var(--muted); }
+.cp-summary-facts dd { margin: 0; color: var(--text); text-align: right; font-variant-numeric: tabular-nums; }
+.cp-acquisition-context, .cp-technical { margin-top: 12px; color: var(--muted); font-size: 12px; }
+.cp-acquisition-context > summary, .cp-technical > summary { padding: 5px 0; color: var(--text); font-size: 12px; font-weight: 500; }
+.cp-question .cp-when { margin-bottom: 6px; }
+.cp-question .cp-acquisition-context { margin-top: 6px; }

@@ -11,7 +11,7 @@ function area(agreement: Agreement, area_ha: number): ChangeArea {
 }
 
 describe("sensorTotals", () => {
-  it("counts 'both' toward each sensor", () => {
+  it("sums whole-patch categories and retains legacy combined sums without claiming flagged-block area", () => {
     const t = sensorTotals([area("L", 100), area("both", 10), area("C", 5), area("L", 1.5)]);
     expect(t).toEqual({ nisar: 111.5, s1: 15, onlyNisar: 101.5, onlyS1: 5, both: 10 });
   });
@@ -39,7 +39,7 @@ describe("radarStyle", () => {
     const corners: [number, number][] = [[0, 1], [1, 1], [1, 0], [0, 0]];
     const style = radarStyle({ url: "http://x/l.png", corners: corners as never, resampling: "nearest" });
     expect(style.sources.radar).toMatchObject({ type: "image", url: "http://x/l.png", coordinates: corners });
-    expect(style.layers.map((l) => l.id)).toEqual(["background", "satellite-imagery", "radar", "areas"]);
+    expect(style.layers.map((l) => l.id)).toEqual(["background", "satellite-imagery", "radar", "areas", "selected-area-halo", "selected-area-outline"]);
   });
 });
 

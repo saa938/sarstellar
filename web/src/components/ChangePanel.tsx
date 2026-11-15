@@ -1,5 +1,6 @@
 // Right-hand panel for one clicked change area (Task B3), laid out as in docs/mockups/app-mockup.html.
-import { AGREEMENT_COLORS, type ChangeArea, type ConfidenceLabel, type Evidence, type Result } from "../types.ts";
+import { AGREEMENT_COLORS, type ChangeArea, type Evidence, type Result } from "../types.ts";
+import { formatDateRange } from "../areas.ts";
 import {
   classTitle,
   formatHa,
@@ -11,11 +12,13 @@ import {
   withUnit,
 } from "./changeFormat.ts";
 import { DETECTION_LABELS } from "./Legend.tsx";
+import { displayRuleText, guidanceFor, supportingEvidence } from "./selectedAreaGuidance.ts";
 import SeriesChart from "./SeriesChart.tsx";
 import "./ChangePanel.css";
 
 /** The parts of the Result the panel reads (pass the whole Result). */
-export type ChangePanelResult = Pick<Result, "fixture" | "people" | "exports">;
+export type ChangePanelResult = Pick<Result, "fixture" | "people" | "exports"> &
+  Partial<Pick<Result, "nisar" | "s1">>;
 
 export interface ChangePanelProps {
   /** The clicked change area. */
@@ -26,7 +29,6 @@ export interface ChangePanelProps {
   onClose?: () => void;
 }
 
-const CONF_COLOR: Record<ConfidenceLabel, string> = { High: "var(--ok)", Medium: "var(--warn)", Low: "var(--muted)" };
 const EXPORTS = [
   { key: "geotiff", label: "GeoTIFF", hint: "Change map: agreement and per-band dB changes on the 1-ha grid" },
   { key: "csv", label: "CSV", hint: "One row per change area" },
@@ -35,12 +37,12 @@ const EXPORTS = [
 const MAX_TRACTS = 3;
 
 export default function ChangePanel({ area, result, onClose }: ChangePanelProps) {
-  const title = classTitle(area.class);
-  const confidence = Math.min(1, Math.max(0, Number.isFinite(area.confidence) ? area.confidence : 0));
+  const guidance = guidanceFor(area.class);
+  const support = supportingEvidence(area.evidence);
   const changeT = area.change_date ? toTime(area.change_date) : NaN;
 
   return (
-    <section className="cp" aria-label={`Change area: ${title}`}>
+    <section className="cp" aria-label="Selected change area">
       <div className="cp-chips">
         <span className="cp-chip" data-agreement={area.agreement}
           style={{ borderLeftColor: AGREEMENT_COLORS[area.agreement], color: "var(--text)" }}>
@@ -57,21 +59,59 @@ export default function ChangePanel({ area, result, onClose }: ChangePanelProps)
           </button>
         )}
       </div>
-      <div className="cp-label">Classification (rule-based)</div>
-      <h2 className="cp-title">{title}</h2>
-      <p className="cp-note">Provisional class hypothesis · area {area.id}</p>
-
-      <div className="cp-conf">
-        <span>Detection confidence</span>
-        <div className="cp-bar" aria-hidden="true">
-          <i style={{ width: `${confidence * 100}%`, background: CONF_COLOR[area.confidence_label] ?? "var(--muted)" }} />
-        </div>
-        <span>
-          <b>{area.confidence_label}</b> · {formatP(area.p_value)} · {formatHa(area.area_ha)} ha
-        </span>
+      <h2 className="cp-title">Change detected</h2>
+      <p className="cp-note">Area {area.id}</p>
+      <div className="cp-workflow">
+        <section className="cp-question" aria-label="What changed?">
+          <h3 className="cp-question-title"><span className="cp-question-number">1</span> What changed?</h3>
+          <p className="cp-observed">Radar signal changed across <b>{formatHa(area.area_ha)} ha</b>.</p>
+          <p className="cp-caveat">The radar detection does not establish a physical cause.</p>
+        </section>
+        <section className="cp-question" aria-label="When?">
+          <h3 className="cp-question-title"><span className="cp-question-number">2</span> When?</h3>
+          <p className="cp-when">{Number.isFinite(changeT)
+            ? `First flagged acquisition: ${longDate(changeT)} (UTC).`
+            : "No onset acquisition identified."}{" "}
+            <span className="cp-caveat">Observation timing; no event date is established.</span></p>
+          {(result.nisar?.dates.length || result.s1?.dates.length) ?
+            <details className="cp-acquisition-context">
+              <summary>Acquisition windows</summary>
+              {result.nisar?.dates.length ?
+                <p className="cp-note">NISAR window: {formatDateRange(result.nisar.dates)}</p> : null}
+              {result.s1?.dates.length ?
+                <p className="cp-note">Sentinel-1 window: {formatDateRange(result.s1.dates)}</p> : null}
+            </details> : null}
+        </section>
+        <section className="cp-question" aria-label="Why this hypothesis?">
+          <h3 className="cp-question-title"><span className="cp-question-number">3</span> Why this hypothesis?</h3>
+          <p className="cp-hypothesis">{guidance.hypothesis}</p>
+          <p className="cp-caveat">Provisional rule-based interpretation.</p>
+          {support.length > 0 ? <ul className="cp-support" aria-label="Supporting rule evidence">
+            {support.map((ev, i) => <EvidenceItem key={`${ev.label}-${i}`} ev={ev} compact />)}
+          </ul> : <p className="cp-note">No supporting rule measurements supplied.</p>}
+        </section>
+        <section className="cp-question" aria-label="What to check next?">
+          <h3 className="cp-question-title"><span className="cp-question-number">4</span> What to check next?</h3>
+          <ul className="cp-next" aria-label="Verification steps">
+            {guidance.checks.map((check) => <li key={check}>{check}</li>)}
+          </ul>
+          <p className="cp-caveat">{guidance.caveat}</p>
+        </section>
       </div>
-      {Number.isFinite(changeT) && <p className="cp-when">First flagged acquisition: {longDate(changeT)} (UTC).</p>}
+
       <ResultExports files={result.exports} />
+      <details className="cp-technical">
+        <summary>Technical statistics</summary>
+        <section aria-label="Detector statistics">
+        <dl className="cp-summary-facts">
+          <div><dt>Area</dt><dd>{formatHa(area.area_ha)} ha</dd></div>
+          <div><dt>Rule class</dt><dd>{classTitle(area.class)}</dd></div>
+          <div><dt>Nominal detector p-value</dt><dd>{formatP(area.p_value)}</dd></div>
+          <div><dt>Heuristic confidence label</dt><dd>{area.confidence_label}</dd></div>
+        </dl>
+        <p className="cp-note">The detector p-value is not a class probability. The confidence label is heuristic, not a calibrated probability.</p>
+        </section>
+      </details>
 
       <section aria-label="Measurements">
         <h3 className="cp-label">Measurements</h3>
@@ -91,7 +131,7 @@ export default function ChangePanel({ area, result, onClose }: ChangePanelProps)
         <section aria-label="Interpretation">
           <h3 className="cp-label">Interpretation</h3>
           <div className="cp-plain">
-            {area.plain_text}
+            {displayRuleText(area.plain_text)}
             <small>Verify the class hypothesis against independent reference data.</small>
           </div>
         </section>
@@ -126,12 +166,12 @@ export function ResultExports({ files }: { files: Result["exports"] }) {
   );
 }
 
-function EvidenceItem({ ev }: { ev: Evidence }) {
+function EvidenceItem({ ev, compact = false }: { ev: Evidence; compact?: boolean }) {
   const value =
     typeof ev.value === "number" && Number.isFinite(ev.value)
       ? withUnit(formatNumber(ev.value, ev.unit), ev.unit)
       : typeof ev.value === "string" && ev.value
-        ? withUnit(ev.value, ev.unit)
+        ? withUnit(displayRuleText(ev.value), ev.unit)
         : null;
   const ci =
     ev.ci && ev.ci.every((x) => typeof x === "number" && Number.isFinite(x))
@@ -139,14 +179,16 @@ function EvidenceItem({ ev }: { ev: Evidence }) {
       : null;
   return (
     <li>
-      <b>{ev.label}</b>
+      <b>{displayRuleText(ev.label)}</b>
       {value && (
         <>
           : <b>{value}</b>
         </>
       )}
-      {ci && <span className="cp-ci"> ({ci})</span>}
-      {ev.note && <span className="cp-src">{ev.note}</span>}
+      {!compact && ci && <span className="cp-ci"> ({ci})</span>}
+      {!compact && ev.note && <span className="cp-src">{ /\bdocs[\\/]/i.test(ev.note)
+        ? <a href="#/about">Methods and rule criteria</a>
+        : displayRuleText(ev.note)}</span>}
     </li>
   );
 }

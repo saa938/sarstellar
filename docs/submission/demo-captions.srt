@@ -1,0 +1,29 @@
+1
+00:00:00,000 --> 00:00:04,000
+SARstellar compares NISAR GCOV and
+Sentinel-1 surface change.
+
+2
+00:00:04,000 --> 00:00:08,000
+Open an example, compare detections,
+and select an area.
+
+3
+00:00:08,000 --> 00:00:14,000
+Inspect what changed, when,
+the possible cause, and the uncertainty.
+
+4
+00:00:14,000 --> 00:00:21,000
+We held out sixty sites across twelve states.
+Unsupervised fusion showed no clear gain.
+
+5
+00:00:21,000 --> 00:00:25,000
+Forest-loss fusion performed worse
+in this benchmark.
+
+6
+00:00:25,000 --> 00:00:30,000
+Draw a box, review the measurements,
+and export the result.

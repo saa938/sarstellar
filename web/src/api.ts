@@ -1,6 +1,7 @@
 // Client for the job API (Task A7) and the static stories/scorecard files.
 // VITE_API_URL unset or empty -> mock mode: jobs resolve to the nearest fixture after a simulated 3 s.
 import type { Bbox, IsoDate, Job, Result, Scorecard, StoryIndexEntry } from "./types.ts";
+import savedExports from "../public/stories/exports.json";
 
 const MOCK_DURATION_MS = 3000;
 const MAX_POLL_FAILURES = 5;
@@ -175,7 +176,14 @@ export async function loadStory(id: string): Promise<Result> {
   for (const dir of ["stories", "fixtures"]) {
     const url = siteUrl(`${dir}/${id}.json`);
     const data = await tryFetchJson(url);
-    if (isResult(data)) return normalize(data, relativeTo(url));
+    if (isResult(data)) {
+      const result = normalize(data, relativeTo(url));
+      const files = savedExports[id as keyof typeof savedExports];
+      if (dir === "stories" && !result.fixture && files && !result.exports.csv) {
+        return { ...result, exports: { ...result.exports, csv: siteUrl(files.csv.replace(/^\//, "")) } };
+      }
+      return result;
+    }
   }
   throw new Error(`Story "${id}" is not available.`);
 }

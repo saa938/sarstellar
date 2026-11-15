@@ -16,7 +16,7 @@
       "nisar_passes": 11,
       "sentinel1_passes": 2,
       "sha256": {
-        "clearcuts.json": "cece54c26031f957b5f9da047075207c1731a68cb02c285eaba12f794dfc93e5",
+        "clearcuts.json": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
         "clearcuts/after.png": "d5320dc69db1863067659bff075bb13696705fb901eff90678c93ae74a970cd6",
         "clearcuts/before.png": "a9f070be78185aa23b718af36312f632342fa41f44037da4df3de39278224d01",
         "clearcuts/c.png": "fbafffa6ee2e6314a4fad3d36fab25d96f3270617cad0fd67a5cc8a74a4342ab",
@@ -35,7 +35,7 @@
       "nisar_passes": 5,
       "sentinel1_passes": 2,
       "sha256": {
-        "kaiser.json": "2973f28a684c22757062e231302cbabb680f8a63c3a134d5357f9c93fccbb42b",
+        "kaiser.json": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
         "kaiser/after.png": "7b39fa3b3434645a85a5d0e809c25e2ca8673f75b84ce6ffad84ed4fe3f0f5eb",
         "kaiser/before.png": "c8454161c6caaee5e50f46fb39e722ecb676f77e12688998c027fea17481301a",
         "kaiser/c.png": "b7e56f8123396bd58b66b22c6a57e7816d116d4379465cd8eafe609ee8f08942",
@@ -54,7 +54,7 @@
       "nisar_passes": 2,
       "sentinel1_passes": 2,
       "sha256": {
-        "edouard.json": "fc1961dc4e2c6e6eb0697b9a33a665a42f7b63f4b2398843c3504fa8106fd5f8",
+        "edouard.json": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
         "edouard/after.png": "069e25e1039c512393559d50ff847555de70da72b3c5024088e4d99fcf88bc2d",
         "edouard/before.png": "61c3d3928cb9220a2622c14fb23916ab4a0e9e8a195e3c01a17b63a748426bad",
         "edouard/c.png": "061069ea6ffc78dff346df0e49c0eaa633b7d7177a467b6d9eb43031c930193d",
@@ -62,5 +62,116 @@
         "edouard/l.png": "be4b114a7e48a4d7478b0143b2eb7e9f6a732c53b51816edd0e761bc463e9681"
       }
     }
-  ]
+  ],
+  "text_revisions": [
+    {
+      "revised_at": "2026-11-15T09:14:53.133749+00:00",
+      "template_module": "sarstellar.explain",
+      "template_sha256": "1a51ab87776ea5d09163e6ddf33253cb1a547e2e9dc033e251acf7b9f1d71bd8",
+      "original_source_commit": "ec8604a2819fe2ea05044da8bdcb1f5a1012463c",
+      "scientific_rerun": false,
+      "notes": "Prose only; no scientific rerun. Only area plain_text strings changed. Original pipeline source, measurements, labels, dates, confidence and PNGs are retained.",
+      "files": [
+        {
+          "file": "clearcuts.json",
+          "areas_checked": 141,
+          "areas_changed": 141,
+          "original_sha256": "cece54c26031f957b5f9da047075207c1731a68cb02c285eaba12f794dfc93e5",
+          "new_sha256": "27f4501790f78b845ed592881944808657b15b0c1a715e6c98612939e34b379d",
+          "scientific_sha256_before": "de53058987124a2515d7a2a76b4f645f98cc421145d80952e2197beb7c86fbbf",
+          "scientific_sha256_after": "de53058987124a2515d7a2a76b4f645f98cc421145d80952e2197beb7c86fbbf"
+        },
+        {
+          "file": "kaiser.json",
+          "areas_checked": 202,
+          "areas_changed": 202,
+          "original_sha256": "2973f28a684c22757062e231302cbabb680f8a63c3a134d5357f9c93fccbb42b",
+          "new_sha256": "efcdaa75c5f9d4d5c492cd4cd98f9516956110996769e2377cd84797f52ecf77",
+          "scientific_sha256_before": "e65398d2fd7f08b6b7a2a4d8fc2335ef3a52376d494969ddc0ce35a72e6c064a",
+          "scientific_sha256_after": "e65398d2fd7f08b6b7a2a4d8fc2335ef3a52376d494969ddc0ce35a72e6c064a"
+        },
+        {
+          "file": "edouard.json",
+          "areas_checked": 277,
+          "areas_changed": 277,
+          "original_sha256": "fc1961dc4e2c6e6eb0697b9a33a665a42f7b63f4b2398843c3504fa8106fd5f8",
+          "new_sha256": "92f3ff8d406f5e2cf1a48934aec609f6e27aac7f5888eab7d9dfd9028fb698a6",
+          "scientific_sha256_before": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c",
+          "scientific_sha256_after": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c"
+        }
+      ]
+    },
+    {
+      "revised_at": "2026-11-15T09:28:34.053834+00:00",
+      "template_module": "sarstellar.explain",
+      "template_sha256": "278cc4466de94ad8d4e19c3f9e7879fa0c0a2367576bbb1d270e7bc093666dfa",
+      "original_source_commit": "ec8604a2819fe2ea05044da8bdcb1f5a1012463c",
+      "scientific_rerun": false,
+      "notes": "Prose only; no scientific rerun. Only area plain_text strings changed. Original pipeline source, measurements, labels, dates, confidence and PNGs are retained.",
+      "files": [
+        {
+          "file": "clearcuts.json",
+          "areas_checked": 141,
+          "areas_changed": 141,
+          "original_sha256": "27f4501790f78b845ed592881944808657b15b0c1a715e6c98612939e34b379d",
+          "new_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+          "scientific_sha256_before": "de53058987124a2515d7a2a76b4f645f98cc421145d80952e2197beb7c86fbbf",
+          "scientific_sha256_after": "de53058987124a2515d7a2a76b4f645f98cc421145d80952e2197beb7c86fbbf"
+        },
+        {
+          "file": "kaiser.json",
+          "areas_checked": 202,
+          "areas_changed": 202,
+          "original_sha256": "efcdaa75c5f9d4d5c492cd4cd98f9516956110996769e2377cd84797f52ecf77",
+          "new_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+          "scientific_sha256_before": "e65398d2fd7f08b6b7a2a4d8fc2335ef3a52376d494969ddc0ce35a72e6c064a",
+          "scientific_sha256_after": "e65398d2fd7f08b6b7a2a4d8fc2335ef3a52376d494969ddc0ce35a72e6c064a"
+        },
+        {
+          "file": "edouard.json",
+          "areas_checked": 277,
+          "areas_changed": 277,
+          "original_sha256": "92f3ff8d406f5e2cf1a48934aec609f6e27aac7f5888eab7d9dfd9028fb698a6",
+          "new_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+          "scientific_sha256_before": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c",
+          "scientific_sha256_after": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c"
+        }
+      ]
+    }
+  ],
+  "supplemental_exports": {
+    "generated_at": "2026-11-15T09:28:34.447238+00:00",
+    "generator": "scripts/export_saved_story_csv.py",
+    "generator_sha256": "8c6ae9ded212838d560aeda6f083f2e640376b686fe368b122ce3412ba02d86f",
+    "scientific_rerun": false,
+    "manifest": "exports.json",
+    "manifest_sha256": "ebc4aaafb727218303820ec51cc1b65f8a188cb7c82fee95ed3cef0aecfee5d2",
+    "stories": {
+      "clearcuts": {
+        "csv": "/stories/clearcuts/areas.csv",
+        "sha256": "1206d848badadbd30e35fceb95358a9d76e70e19adf2fbe32167dc7875c13788",
+        "source_json": "/stories/clearcuts.json",
+        "source_json_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+        "row_count": 141,
+        "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+      },
+      "kaiser": {
+        "csv": "/stories/kaiser/areas.csv",
+        "sha256": "827b196120d34a16454baa6ff0f0c6d7c4c0b168867dce86155ff0e0b59e8696",
+        "source_json": "/stories/kaiser.json",
+        "source_json_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+        "row_count": 202,
+        "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+      },
+      "edouard": {
+        "csv": "/stories/edouard/areas.csv",
+        "sha256": "fa0b702e4f7c9eeb4d7a5576c9818b2c02f8d70ab466ae1cbf3f07ed87805d39",
+        "source_json": "/stories/edouard.json",
+        "source_json_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+        "row_count": 277,
+        "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+      }
+    },
+    "notes": "CSV serialization of existing saved areas only. Original result JSON, overlay hashes, pipeline source and prose-revision provenance are unchanged."
+  }
 }

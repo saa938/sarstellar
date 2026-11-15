@@ -1013,7 +1013,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 262.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.7 dB (interval -2.9 to +1.6), VH by +1.0 dB (interval +0.8 to +1.3), HH by -0.1 dB (interval -0.1 to +0.1), HV by +0.2 dB (interval +0.1 to +0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 262.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.7 dB (interval -2.9 to +1.6), VH by +1.0 dB (interval +0.8 to +1.3), HH by -0.1 dB (interval -0.1 to +0.1), HV by +0.2 dB (interval +0.1 to +0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -1448,7 +1448,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 58.0 ha, dated 2026-06-26: both NISAR and Sentinel-1 saw it. HH changed by -1.3 dB (interval -1.6 to -1.2), HV by -2.0 dB (interval -2.3 to -1.6), VV by -2.6 dB (interval -2.8 to -2.4), VH by -2.8 dB (interval -3.1 to -2.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 58.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by -1.3 dB (interval -1.6 to -1.2), HV by -2.0 dB (interval -2.3 to -1.6), VV by -2.6 dB (interval -2.8 to -2.4), VH by -2.8 dB (interval -3.1 to -2.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -1889,7 +1889,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 55.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.9 dB (interval -3.0 to -2.6), VH by -3.1 dB (interval -3.4 to -2.8), HH by -0.5 dB (interval -0.5 to -0.4), HV by -0.7 dB (interval -0.8 to -0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 55.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.9 dB (interval -3.0 to -2.6), VH by -3.1 dB (interval -3.4 to -2.8), HH by -0.5 dB (interval -0.5 to -0.4), HV by -0.7 dB (interval -0.8 to -0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -2234,7 +2234,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 47.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.8 dB (interval -3.2 to -2.7), VH by -3.0 dB (interval -3.3 to -2.7), HH by -0.7 dB (interval -0.8 to -0.6), HV by -1.0 dB (interval -1.2 to -0.7). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 47.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.8 dB (interval -3.2 to -2.7), VH by -3.0 dB (interval -3.3 to -2.7), HH by -0.7 dB (interval -0.8 to -0.6), HV by -1.0 dB (interval -1.2 to -0.7). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -2645,7 +2645,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 42.0 ha, dated 2026-08-13: both NISAR and Sentinel-1 saw it. HH changed by +1.5 dB (interval -0.1 to +3.4), HV by +0.1 dB (interval -0.1 to +0.4), VV by +3.1 dB (interval +2.0 to +4.1), VH by +0.9 dB (interval +0.4 to +1.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 42.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-08-13 (not a confirmed event date). HH changed by +1.5 dB (interval -0.1 to +3.4), HV by +0.1 dB (interval -0.1 to +0.4), VV by +3.1 dB (interval +2.0 to +4.1), VH by +0.9 dB (interval +0.4 to +1.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -2936,7 +2936,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Likely forest loss covering 42.0 ha, dated 2026-06-26: both NISAR and Sentinel-1 saw it. HH changed by -2.4 dB (interval -2.6 to -2.1), HV by -3.5 dB (interval -4.2 to -3.3), VV by -1.0 dB (interval -1.5 to -0.6), VH by -2.5 dB (interval -2.9 to -1.8). Confidence is medium.",
+   "plain_text": "Radar change detected across 42.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by -2.4 dB (interval -2.6 to -2.1), HV by -3.5 dB (interval -4.2 to -3.3), VV by -1.0 dB (interval -1.5 to -0.6), VH by -2.5 dB (interval -2.9 to -1.8). Cause hypothesis: forest loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -3243,7 +3243,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 39.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.7 dB (interval -3.0 to -2.5), VH by -3.7 dB (interval -4.0 to -3.1), HH by -0.8 dB (interval -0.9 to -0.6), HV by -0.6 dB (interval -0.8 to -0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 39.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.7 dB (interval -3.0 to -2.5), VH by -3.7 dB (interval -4.0 to -3.1), HH by -0.8 dB (interval -0.9 to -0.6), HV by -0.6 dB (interval -0.8 to -0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -3570,7 +3570,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 33.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -2.7 to -1.9), VH by -3.2 dB (interval -3.5 to -2.9), HH by -0.8 dB (interval -1.0 to -0.7), HV by -0.9 dB (interval -1.1 to -0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 33.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -2.7 to -1.9), VH by -3.2 dB (interval -3.5 to -2.9), HH by -0.8 dB (interval -1.0 to -0.7), HV by -0.9 dB (interval -1.1 to -0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -3845,7 +3845,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Likely forest loss covering 31.0 ha, dated 2026-06-14: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.4 dB (interval -3.1 to -2.2), HV by -4.7 dB (interval -5.3 to -3.5), VV by -0.8 dB (interval -1.1 to -0.04), VH by -1.4 dB (interval -1.8 to -1.1). Confidence is high.",
+   "plain_text": "Radar change detected across 31.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-14 (not a confirmed event date). HH changed by -2.4 dB (interval -3.1 to -2.2), HV by -4.7 dB (interval -5.3 to -3.5), VV by -0.8 dB (interval -1.1 to -0.04), VH by -1.4 dB (interval -1.8 to -1.1). Cause hypothesis: forest loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -4144,7 +4144,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Likely forest loss covering 28.0 ha, dated 2026-07-20: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.1 dB (interval -2.3 to -1.8), HV by -4.0 dB (interval -4.7 to -3.3), VV by -0.8 dB (interval -1.6 to -0.5), VH by -1.8 dB (interval -2.4 to -1.5). Confidence is high.",
+   "plain_text": "Radar change detected across 28.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-07-20 (not a confirmed event date). HH changed by -2.1 dB (interval -2.3 to -1.8), HV by -4.0 dB (interval -4.7 to -3.3), VV by -0.8 dB (interval -1.6 to -0.5), VH by -1.8 dB (interval -2.4 to -1.5). Cause hypothesis: forest loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -4467,7 +4467,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 28.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -2.9 to -1.9), VH by -3.2 dB (interval -3.6 to -3.0), HH by -0.5 dB (interval -0.6 to -0.4), HV by -0.3 dB (interval -0.5 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 28.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -2.9 to -1.9), VH by -3.2 dB (interval -3.6 to -3.0), HH by -0.5 dB (interval -0.6 to -0.4), HV by -0.3 dB (interval -0.5 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -4788,7 +4788,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 28.0 ha, dated 2026-06-02: both NISAR and Sentinel-1 saw it. HH changed by -0.1 dB (interval -1.7 to +0.7), HV by -1.2 dB (interval -2.1 to -0.1), VV by +1.3 dB (interval -1.7 to +3.8), VH by +0.4 dB (interval -1.5 to +0.9). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 28.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -0.1 dB (interval -1.7 to +0.7), HV by -1.2 dB (interval -2.1 to -0.1), VV by +1.3 dB (interval -1.7 to +3.8), VH by +0.4 dB (interval -1.5 to +0.9). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -5071,7 +5071,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 27.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -2.7 to -2.2), VH by -3.1 dB (interval -3.4 to -2.9), HH by -0.4 dB (interval -0.5 to -0.2), HV by -0.3 dB (interval -0.5 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 27.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -2.7 to -2.2), VH by -3.1 dB (interval -3.4 to -2.9), HH by -0.4 dB (interval -0.5 to -0.2), HV by -0.3 dB (interval -0.5 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -5434,7 +5434,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 27.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -3.1 to -1.5), VH by -3.2 dB (interval -3.6 to -2.9), HH by -0.6 dB (interval -0.8 to -0.3), HV by -0.7 dB (interval -0.9 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 27.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -3.1 to -1.5), VH by -3.2 dB (interval -3.6 to -2.9), HH by -0.6 dB (interval -0.8 to -0.3), HV by -0.7 dB (interval -0.9 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -5717,7 +5717,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 26.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.7 dB (interval -3.0 to -2.3), VH by -2.9 dB (interval -3.2 to -2.3), HH by -0.5 dB (interval -0.7 to -0.1), HV by -0.4 dB (interval -0.6 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 26.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.7 dB (interval -3.0 to -2.3), VH by -2.9 dB (interval -3.2 to -2.3), HH by -0.5 dB (interval -0.7 to -0.1), HV by -0.4 dB (interval -0.6 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -6000,7 +6000,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 25.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.8 dB (interval -3.1 to -2.4), VH by -3.1 dB (interval -3.5 to -2.9), HH by -0.6 dB (interval -0.9 to -0.2), HV by -0.1 dB (interval -0.6 to +0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 25.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.8 dB (interval -3.1 to -2.4), VH by -3.1 dB (interval -3.5 to -2.9), HH by -0.6 dB (interval -0.9 to -0.2), HV by -0.1 dB (interval -0.6 to +0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -6307,7 +6307,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 23.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.0 dB (interval -2.8 to -1.6), VH by -3.2 dB (interval -3.6 to -2.3), HH by -0.8 dB (interval -1.2 to -0.6), HV by -1.2 dB (interval -1.4 to -0.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 23.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.0 dB (interval -2.8 to -1.6), VH by -3.2 dB (interval -3.6 to -2.3), HH by -0.8 dB (interval -1.2 to -0.6), HV by -1.2 dB (interval -1.4 to -0.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -6582,7 +6582,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 22.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -3.1 to -1.9), VH by -3.5 dB (interval -3.7 to -3.1), HH by -0.3 dB (interval -0.7 to -0.1), HV by -0.5 dB (interval -0.8 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 22.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -3.1 to -1.9), VH by -3.5 dB (interval -3.7 to -3.1), HH by -0.3 dB (interval -0.7 to -0.1), HV by -0.5 dB (interval -0.8 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -6863,7 +6863,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 20.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.0 dB (interval -2.5 to -1.3), VH by -2.8 dB (interval -3.1 to -2.7), HH by -0.3 dB (interval -0.4 to -0.1), HV by -0.5 dB (interval -0.7 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 20.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.0 dB (interval -2.5 to -1.3), VH by -2.8 dB (interval -3.1 to -2.7), HH by -0.3 dB (interval -0.4 to -0.1), HV by -0.5 dB (interval -0.7 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -7114,7 +7114,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 20.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.4 dB (interval -2.9 to -2.1), VH by -3.4 dB (interval -4.2 to -3.1), HH by -0.4 dB (interval -0.5 to -0.3), HV by -0.9 dB (interval -1.0 to -0.7). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 20.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.4 dB (interval -2.9 to -2.1), VH by -3.4 dB (interval -4.2 to -3.1), HH by -0.4 dB (interval -0.5 to -0.3), HV by -0.9 dB (interval -1.0 to -0.7). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -7381,7 +7381,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 20.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.3 dB (interval -2.5 to -1.6), VH by -3.1 dB (interval -3.5 to -2.7), HH by -0.1 dB (interval -0.3 to +0.3), HV by -0.1 dB (interval -0.6 to +0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 20.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.3 dB (interval -2.5 to -1.6), VH by -3.1 dB (interval -3.5 to -2.7), HH by -0.1 dB (interval -0.3 to +0.3), HV by -0.1 dB (interval -0.6 to +0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -7680,7 +7680,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 19.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.1 dB (interval -3.3 to -0.1), HV by -0.03 dB (interval -1.1 to +1.1), VV by +0.3 dB (interval -0.3 to +1.4), VH by +0.6 dB (interval +0.4 to +1.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 19.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -2.1 dB (interval -3.3 to -0.1), HV by -0.03 dB (interval -1.1 to +1.1), VV by +0.3 dB (interval -0.3 to +1.4), VH by +0.6 dB (interval +0.4 to +1.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -7931,7 +7931,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 19.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.0 dB (interval -3.5 to -2.7), VH by -3.6 dB (interval -4.3 to -3.2), HH by -0.4 dB (interval -0.7 to -0.2), HV by -0.6 dB (interval -0.7 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 19.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.0 dB (interval -3.5 to -2.7), VH by -3.6 dB (interval -4.3 to -3.2), HH by -0.4 dB (interval -0.7 to -0.2), HV by -0.6 dB (interval -0.7 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -8182,7 +8182,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 18.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -2.4 to -1.9), VH by -2.8 dB (interval -3.2 to -2.7), HH by -0.5 dB (interval -0.6 to -0.3), HV by -0.5 dB (interval -0.6 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 18.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -2.4 to -1.9), VH by -2.8 dB (interval -3.2 to -2.7), HH by -0.5 dB (interval -0.6 to -0.3), HV by -0.5 dB (interval -0.6 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -8465,7 +8465,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 18.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +3.6 dB (interval +2.9 to +4.0), VH by +1.0 dB (interval +0.6 to +1.9), HH by -0.02 dB (interval -0.5 to +0.4), HV by +0.2 dB (interval -0.2 to +0.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 18.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +3.6 dB (interval +2.9 to +4.0), VH by +1.0 dB (interval +0.6 to +1.9), HH by -0.02 dB (interval -0.5 to +0.4), HV by +0.2 dB (interval -0.2 to +0.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -8732,7 +8732,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 18.0 ha, dated 2026-06-26: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.9 dB (interval +1.5 to +2.2), HV by +2.2 dB (interval +2.0 to +2.5), VV by -1.0 dB (interval -1.3 to -0.5), VH by -2.4 dB (interval -2.6 to -1.7); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 18.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by +1.9 dB (interval +1.5 to +2.2), HV by +2.2 dB (interval +2.0 to +2.5), VV by -1.0 dB (interval -1.3 to -0.5), VH by -2.4 dB (interval -2.6 to -1.7); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -8983,7 +8983,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 16.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -2.8 to -2.3), VH by -3.2 dB (interval -3.8 to -2.8), HH by -0.5 dB (interval -0.9 to -0.2), HV by -1.4 dB (interval -1.7 to -0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 16.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -2.8 to -2.3), VH by -3.2 dB (interval -3.8 to -2.8), HH by -0.5 dB (interval -0.9 to -0.2), HV by -1.4 dB (interval -1.7 to -0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -9242,7 +9242,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 16.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.6 dB (interval +1.3 to +1.7), HV by +2.3 dB (interval +2.2 to +2.4), VV by -1.5 dB (interval -2.5 to -1.2), VH by -2.2 dB (interval -2.4 to -1.8); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 16.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.6 dB (interval +1.3 to +1.7), HV by +2.3 dB (interval +2.2 to +2.4), VV by -1.5 dB (interval -2.5 to -1.2), VH by -2.2 dB (interval -2.4 to -1.8); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -9517,7 +9517,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 15.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -2.7 to -2.3), VH by -3.3 dB (interval -4.1 to -2.9), HH by -0.9 dB (interval -1.2 to -0.8), HV by -0.6 dB (interval -0.9 to -0.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 15.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -2.7 to -2.3), VH by -3.3 dB (interval -4.1 to -2.9), HH by -0.9 dB (interval -1.2 to -0.8), HV by -0.6 dB (interval -0.9 to -0.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -9784,7 +9784,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 15.0 ha, dated 2026-08-13: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.4 dB (interval +1.1 to +2.1), HV by +2.1 dB (interval +1.8 to +2.2), VV by -1.2 dB (interval -1.8 to -1.1), VH by -1.7 dB (interval -2.7 to -1.0); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 15.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-08-13 (not a confirmed event date). HH changed by +1.4 dB (interval +1.1 to +2.1), HV by +2.1 dB (interval +1.8 to +2.2), VV by -1.2 dB (interval -1.8 to -1.1), VH by -1.7 dB (interval -2.7 to -1.0); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -10043,7 +10043,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 13.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.3 dB (interval -2.5 to -1.3), VH by -3.2 dB (interval -3.5 to -2.9), HH by -0.2 dB (interval -0.5 to +0.2), HV by -0.3 dB (interval -0.5 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 13.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.3 dB (interval -2.5 to -1.3), VH by -3.2 dB (interval -3.5 to -2.9), HH by -0.2 dB (interval -0.5 to +0.2), HV by -0.3 dB (interval -0.5 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -10286,7 +10286,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 13.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.4 dB (interval -3.0 to -1.4), VH by -3.1 dB (interval -4.0 to -2.9), HH by -0.6 dB (interval -1.3 to -0.4), HV by -0.8 dB (interval -1.5 to -0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 13.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.4 dB (interval -3.0 to -1.4), VH by -3.1 dB (interval -4.0 to -2.9), HH by -0.6 dB (interval -1.3 to -0.4), HV by -0.8 dB (interval -1.5 to -0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -10521,7 +10521,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 13.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.5 dB (interval -2.1 to -1.2), VH by -3.4 dB (interval -4.1 to -2.9), HH by +0.8 dB (interval +0.3 to +1.4), HV by +1.3 dB (interval +0.5 to +1.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 13.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.5 dB (interval -2.1 to -1.2), VH by -3.4 dB (interval -4.1 to -2.9), HH by +0.8 dB (interval +0.3 to +1.4), HV by +1.3 dB (interval +0.5 to +1.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -10772,7 +10772,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Likely forest loss covering 13.0 ha, dated 2026-06-14: both NISAR and Sentinel-1 saw it. HH changed by -2.9 dB (interval -3.5 to -1.6), HV by -3.2 dB (interval -3.8 to -2.0), VV by -2.1 dB (interval -2.3 to -1.8), VH by -3.0 dB (interval -3.8 to -2.9). Confidence is high.",
+   "plain_text": "Radar change detected across 13.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-06-14 (not a confirmed event date). HH changed by -2.9 dB (interval -3.5 to -1.6), HV by -3.2 dB (interval -3.8 to -2.0), VV by -2.1 dB (interval -2.3 to -1.8), VH by -3.0 dB (interval -3.8 to -2.9). Cause hypothesis: forest loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -11007,7 +11007,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 12.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.6 dB (interval -4.1 to -0.5), VH by +0.3 dB (interval +0.1 to +0.5), HH by -0.7 dB (interval -0.8 to +0.02), HV by -0.5 dB (interval -0.6 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 12.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.6 dB (interval -4.1 to -0.5), VH by +0.3 dB (interval +0.1 to +0.5), HH by -0.7 dB (interval -0.8 to +0.02), HV by -0.5 dB (interval -0.6 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -11234,7 +11234,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 12.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -3.7 to -1.6), VH by -2.8 dB (interval -3.3 to -2.4), HH by +1.1 dB (interval +0.1 to +1.6), HV by +1.7 dB (interval +0.8 to +1.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 12.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -3.7 to -1.6), VH by -2.8 dB (interval -3.3 to -2.4), HH by +1.1 dB (interval +0.1 to +1.6), HV by +1.7 dB (interval +0.8 to +1.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -11485,7 +11485,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 12.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.4 dB (interval +1.2 to +2.0), HV by +2.2 dB (interval +2.1 to +2.6), VV by -0.9 dB (interval -1.2 to -0.5), VH by -0.5 dB (interval -1.0 to -0.0); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 12.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.4 dB (interval +1.2 to +2.0), HV by +2.2 dB (interval +2.1 to +2.6), VV by -0.9 dB (interval -1.2 to -0.5), VH by -0.5 dB (interval -1.0 to -0.0); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -11704,7 +11704,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 12.0 ha, dated 2026-09-06: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.8 dB (interval +1.4 to +2.1), HV by +2.5 dB (interval +2.2 to +2.8), VV by -0.5 dB (interval -0.8 to -0.2), VH by -1.1 dB (interval -1.6 to -0.6); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 12.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-09-06 (not a confirmed event date). HH changed by +1.8 dB (interval +1.4 to +2.1), HV by +2.5 dB (interval +2.2 to +2.8), VV by -0.5 dB (interval -0.8 to -0.2), VH by -1.1 dB (interval -1.6 to -0.6); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -11947,7 +11947,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 11.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.5 dB (interval -3.3 to -0.3), HV by -0.8 dB (interval -2.3 to +1.8), VV by +0.6 dB (interval -3.1 to +1.1), VH by -0.2 dB (interval -1.1 to +0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 11.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -2.5 dB (interval -3.3 to -0.3), HV by -0.8 dB (interval -2.3 to +1.8), VV by +0.6 dB (interval -3.1 to +1.1), VH by -0.2 dB (interval -1.1 to +0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -12166,7 +12166,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 11.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -3.4 to -1.6), VH by -3.3 dB (interval -3.9 to -3.1), HH by -0.6 dB (interval -0.9 to -0.4), HV by -0.3 dB (interval -1.1 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 11.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -3.4 to -1.6), VH by -3.3 dB (interval -3.9 to -3.1), HH by -0.6 dB (interval -0.9 to -0.4), HV by -0.3 dB (interval -1.1 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -12407,7 +12407,7 @@
      "note": "could also be rice paddy or new construction"
     }
    ],
-   "plain_text": "Flooded vegetation covering 11.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +3.4 dB (interval +0.6 to +5.9), HV by -0.2 dB (interval -1.7 to +0.8), VV by +1.3 dB (interval -0.5 to +1.6), VH by +0.3 dB (interval -0.1 to +0.4). Confidence is medium.",
+   "plain_text": "Radar change detected across 11.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +3.4 dB (interval +0.6 to +5.9), HV by -0.2 dB (interval -1.7 to +0.8), VV by +1.3 dB (interval -0.5 to +1.6), VH by +0.3 dB (interval -0.1 to +0.4). Cause hypothesis: flooded vegetation; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -12634,7 +12634,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 11.0 ha, dated 2026-08-13: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.1 dB (interval -2.7 to -0.8), HV by -2.8 dB (interval -3.4 to -2.4), VV by -0.2 dB (interval -0.9 to +1.1), VH by -0.8 dB (interval -2.5 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 11.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-08-13 (not a confirmed event date). HH changed by -2.1 dB (interval -2.7 to -0.8), HV by -2.8 dB (interval -3.4 to -2.4), VV by -0.2 dB (interval -0.9 to +1.1), VH by -0.8 dB (interval -2.5 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -12885,7 +12885,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 11.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.6 dB (interval -3.4 to -1.6), VH by -2.4 dB (interval -2.8 to -1.3), HH by -0.3 dB (interval -0.6 to -0.2), HV by -0.5 dB (interval -0.6 to -0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 11.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.6 dB (interval -3.4 to -1.6), VH by -2.4 dB (interval -2.8 to -1.3), HH by -0.3 dB (interval -0.6 to -0.2), HV by -0.5 dB (interval -0.6 to -0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -13128,7 +13128,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 11.0 ha, dated 2026-06-26: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.3 dB (interval +1.1 to +1.7), HV by +2.1 dB (interval +1.9 to +2.4), VV by -1.4 dB (interval -1.7 to -0.7), VH by -2.1 dB (interval -2.8 to -1.5); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 11.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by +1.3 dB (interval +1.1 to +1.7), HV by +2.1 dB (interval +1.9 to +2.4), VV by -1.4 dB (interval -1.7 to -0.7), VH by -2.1 dB (interval -2.8 to -1.5); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -13355,7 +13355,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 11.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +3.5 dB (interval +2.5 to +4.4), VH by +1.8 dB (interval +1.2 to +2.5), HH by +0.6 dB (interval -0.1 to +1.7), HV by +0.1 dB (interval -0.8 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 11.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +3.5 dB (interval +2.5 to +4.4), VH by +1.8 dB (interval +1.2 to +2.5), HH by +0.6 dB (interval -0.1 to +1.7), HV by +0.1 dB (interval -0.8 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -13590,7 +13590,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 10.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.3 dB (interval -4.2 to -1.5), VH by +0.1 dB (interval -0.1 to +0.5), HH by -0.4 dB (interval -0.6 to +0.1), HV by -0.2 dB (interval -0.3 to +0.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 10.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.3 dB (interval -4.2 to -1.5), VH by +0.1 dB (interval -0.1 to +0.5), HH by -0.4 dB (interval -0.6 to +0.1), HV by -0.2 dB (interval -0.3 to +0.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -13833,7 +13833,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 10.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.9 dB (interval -2.2 to -1.5), VH by -3.5 dB (interval -4.2 to -3.0), HH by +1.0 dB (interval +0.5 to +1.1), HV by +1.1 dB (interval +1.1 to +1.3). Confidence is high.",
+   "plain_text": "Radar change detected across 10.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.9 dB (interval -2.2 to -1.5), VH by -3.5 dB (interval -4.2 to -3.0), HH by +1.0 dB (interval +0.5 to +1.1), HV by +1.1 dB (interval +1.1 to +1.3). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -14068,7 +14068,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 10.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.5 dB (interval -2.9 to +0.1), VH by -3.0 dB (interval -3.8 to -2.6), HH by +1.2 dB (interval +0.1 to +1.7), HV by +1.0 dB (interval +0.3 to +2.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 10.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.5 dB (interval -2.9 to +0.1), VH by -3.0 dB (interval -3.8 to -2.6), HH by +1.2 dB (interval +0.1 to +1.7), HV by +1.0 dB (interval +0.3 to +2.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -14303,7 +14303,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 10.0 ha, dated 2026-06-26: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.0 dB (interval -2.7 to -1.6), HV by -3.0 dB (interval -3.5 to -2.3), VV by -1.3 dB (interval -2.4 to -0.6), VH by -1.6 dB (interval -2.5 to -0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 10.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by -2.0 dB (interval -2.7 to -1.6), HV by -3.0 dB (interval -3.5 to -2.3), VV by -1.3 dB (interval -2.4 to -0.6), VH by -1.6 dB (interval -2.5 to -0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -14530,7 +14530,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 9.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -0.2 dB (interval -2.3 to +7.0), HV by +0.7 dB (interval -2.5 to +3.0), VV by +1.0 dB (interval -0.4 to +4.7), VH by +0.9 dB (interval -1.4 to +2.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 9.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -0.2 dB (interval -2.3 to +7.0), HV by +0.7 dB (interval -2.5 to +3.0), VV by +1.0 dB (interval -0.4 to +4.7), VH by +0.9 dB (interval -1.4 to +2.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -14741,7 +14741,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 9.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.8 dB (interval -3.6 to -1.9), VH by -2.6 dB (interval -3.6 to -1.9), HH by -0.4 dB (interval -0.5 to -0.3), HV by -0.7 dB (interval -1.0 to -0.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 9.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.8 dB (interval -3.6 to -1.9), VH by -2.6 dB (interval -3.6 to -1.9), HH by -0.4 dB (interval -0.5 to -0.3), HV by -0.7 dB (interval -1.0 to -0.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -14968,7 +14968,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 9.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.9 dB (interval -2.7 to -0.7), VH by -3.2 dB (interval -3.6 to -1.9), HH by -0.6 dB (interval -0.9 to -0.1), HV by +0.3 dB (interval -0.8 to +0.9). Confidence is high.",
+   "plain_text": "Radar change detected across 9.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.9 dB (interval -2.7 to -0.7), VH by -3.2 dB (interval -3.6 to -1.9), HH by -0.6 dB (interval -0.9 to -0.1), HV by +0.3 dB (interval -0.8 to +0.9). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -15187,7 +15187,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 9.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.3 dB (interval -3.1 to -1.0), VH by -3.2 dB (interval -3.3 to -2.8), HH by -0.7 dB (interval -0.8 to -0.3), HV by -1.2 dB (interval -1.3 to -0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 9.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.3 dB (interval -3.1 to -1.0), VH by -3.2 dB (interval -3.3 to -2.8), HH by -0.7 dB (interval -0.8 to -0.3), HV by -1.2 dB (interval -1.3 to -0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -15414,7 +15414,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 9.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -2.6 to -0.8), VH by -2.7 dB (interval -3.0 to -2.0), HH by -0.1 dB (interval -0.5 to +1.1), HV by -0.3 dB (interval -0.9 to +0.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 9.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -2.6 to -0.8), VH by -2.7 dB (interval -3.0 to -2.0), HH by -0.1 dB (interval -0.5 to +1.1), HV by -0.3 dB (interval -0.9 to +0.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -15641,7 +15641,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 9.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -0.7 dB (interval -2.0 to -0.5), VH by -2.8 dB (interval -2.9 to -2.6), HH by +1.5 dB (interval +1.1 to +1.6), HV by +1.8 dB (interval +1.1 to +2.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 9.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -0.7 dB (interval -2.0 to -0.5), VH by -2.8 dB (interval -2.9 to -2.6), HH by +1.5 dB (interval +1.1 to +1.6), HV by +1.8 dB (interval +1.1 to +2.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -15868,7 +15868,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 8.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.8 dB (interval -3.0 to -2.6), VH by -0.01 dB (interval -0.7 to +1.3), HH by -0.6 dB (interval -0.9 to -0.5), HV by -0.3 dB (interval -0.6 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 8.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.8 dB (interval -3.0 to -2.6), VH by -0.01 dB (interval -0.7 to +1.3), HH by -0.6 dB (interval -0.9 to -0.5), HV by -0.3 dB (interval -0.6 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -16071,7 +16071,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 7.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.2 dB (interval -3.7 to -1.3), VH by -2.8 dB (interval -3.4 to -2.7), HH by -0.4 dB (interval -0.8 to -0.1), HV by -0.8 dB (interval -1.3 to -0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 7.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.2 dB (interval -3.7 to -1.3), VH by -2.8 dB (interval -3.4 to -2.7), HH by -0.4 dB (interval -0.8 to -0.1), HV by -0.8 dB (interval -1.3 to -0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -16282,7 +16282,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 7.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.4 dB (interval -4.6 to +0.01), VH by +0.1 dB (interval -0.3 to +1.4), HH by -0.2 dB (interval -0.7 to +0.2), HV by +0.3 dB (interval -0.04 to +0.7). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 7.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.4 dB (interval -4.6 to +0.01), VH by +0.1 dB (interval -0.3 to +1.4), HH by -0.2 dB (interval -0.7 to +0.2), HV by +0.3 dB (interval -0.04 to +0.7). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -16493,7 +16493,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 7.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.6 dB (interval -3.8 to -1.9), VH by -3.1 dB (interval -4.0 to -2.7), HH by -0.4 dB (interval -1.7 to +0.02), HV by -1.1 dB (interval -1.4 to -1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 7.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.6 dB (interval -3.8 to -1.9), VH by -3.1 dB (interval -4.0 to -2.7), HH by -0.4 dB (interval -1.7 to +0.02), HV by -1.1 dB (interval -1.4 to -1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -16704,7 +16704,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 7.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.4 dB (interval -4.6 to -0.5), VH by -2.7 dB (interval -3.3 to -0.5), HH by -0.5 dB (interval -0.7 to +0.01), HV by -0.9 dB (interval -1.3 to -0.4). Confidence is medium.",
+   "plain_text": "Radar change detected across 7.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.4 dB (interval -4.6 to -0.5), VH by -2.7 dB (interval -3.3 to -0.5), HH by -0.5 dB (interval -0.7 to +0.01), HV by -0.9 dB (interval -1.3 to -0.4). Cause hypothesis: low-vegetation loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -16923,7 +16923,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 7.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.0 dB (interval -3.5 to -0.8), VH by -4.2 dB (interval -4.9 to -2.7), HH by -0.7 dB (interval -0.8 to +0.2), HV by -0.1 dB (interval -0.1 to +0.5). Confidence is high.",
+   "plain_text": "Radar change detected across 7.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.0 dB (interval -3.5 to -0.8), VH by -4.2 dB (interval -4.9 to -2.7), HH by -0.7 dB (interval -0.8 to +0.2), HV by -0.1 dB (interval -0.1 to +0.5). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -17126,7 +17126,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 7.0 ha, dated 2026-07-08: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +0.1 dB (interval -2.1 to +0.4), HV by -2.3 dB (interval -2.8 to -0.1), VV by +2.0 dB (interval +0.8 to +3.1), VH by +0.4 dB (interval -0.2 to +2.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 7.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-07-08 (not a confirmed event date). HH changed by +0.1 dB (interval -2.1 to +0.4), HV by -2.3 dB (interval -2.8 to -0.1), VV by +2.0 dB (interval +0.8 to +3.1), VH by +0.4 dB (interval -0.2 to +2.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -17345,7 +17345,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 7.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.7 dB (interval +0.9 to +1.9), HV by +2.3 dB (interval +2.0 to +2.8), VV by -0.1 dB (interval -2.0 to +0.03), VH by -0.8 dB (interval -1.0 to -0.2); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 7.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.7 dB (interval +0.9 to +1.9), HV by +2.3 dB (interval +2.0 to +2.8), VV by -0.1 dB (interval -2.0 to +0.03), VH by -0.8 dB (interval -1.0 to -0.2); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -17556,7 +17556,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 7.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.9 dB (interval +1.6 to +2.0), HV by +2.2 dB (interval +2.1 to +2.5), VV by -1.3 dB (interval -2.8 to -0.9), VH by -1.5 dB (interval -2.4 to -0.9); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 7.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.9 dB (interval +1.6 to +2.0), HV by +2.2 dB (interval +2.1 to +2.5), VV by -1.3 dB (interval -2.8 to -0.9), VH by -1.5 dB (interval -2.4 to -0.9); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -17767,7 +17767,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 6.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.9 dB (interval -3.2 to -1.0), VH by -3.0 dB (interval -3.5 to -1.6), HH by -0.5 dB (interval -0.8 to -0.2), HV by +0.3 dB (interval -0.2 to +0.7). Confidence is high.",
+   "plain_text": "Radar change detected across 6.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.9 dB (interval -3.2 to -1.0), VH by -3.0 dB (interval -3.5 to -1.6), HH by -0.5 dB (interval -0.8 to -0.2), HV by +0.3 dB (interval -0.2 to +0.7). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -17978,7 +17978,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 6.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.7 dB (interval -2.8 to -0.1), VH by -2.9 dB (interval -3.3 to -2.6), HH by -0.9 dB (interval -1.2 to -0.1), HV by -0.9 dB (interval -1.4 to -0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 6.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.7 dB (interval -2.8 to -0.1), VH by -2.9 dB (interval -3.3 to -2.6), HH by -0.9 dB (interval -1.2 to -0.1), HV by -0.9 dB (interval -1.4 to -0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -18189,7 +18189,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 6.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.5 dB (interval -2.8 to -0.3), VH by -3.2 dB (interval -4.3 to -2.8), HH by +0.2 dB (interval -0.2 to +0.6), HV by +0.2 dB (interval -0.3 to +0.7). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 6.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.5 dB (interval -2.8 to -0.3), VH by -3.2 dB (interval -4.3 to -2.8), HH by +0.2 dB (interval -0.2 to +0.6), HV by +0.2 dB (interval -0.3 to +0.7). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -18400,7 +18400,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 6.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.4 dB (interval -4.5 to -2.3), VH by -2.8 dB (interval -4.2 to -1.2), HH by -1.5 dB (interval -1.9 to -0.7), HV by -1.7 dB (interval -2.5 to -0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 6.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.4 dB (interval -4.5 to -2.3), VH by -2.8 dB (interval -4.2 to -1.2), HH by -1.5 dB (interval -1.9 to -0.7), HV by -1.7 dB (interval -2.5 to -0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -18603,7 +18603,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 6.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.1 dB (interval -4.0 to +2.0), VH by -2.8 dB (interval -3.2 to -1.3), HH by -0.7 dB (interval -1.2 to +0.1), HV by -0.7 dB (interval -1.4 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 6.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.1 dB (interval -4.0 to +2.0), VH by -2.8 dB (interval -3.2 to -1.3), HH by -0.7 dB (interval -1.2 to +0.1), HV by -0.7 dB (interval -1.4 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -18814,7 +18814,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 6.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.7 dB (interval +0.8 to +2.1), HV by +2.4 dB (interval +2.1 to +3.0), VV by -0.2 dB (interval -0.8 to +0.2), VH by -1.5 dB (interval -2.2 to -0.3); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 6.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.7 dB (interval +0.8 to +2.1), HV by +2.4 dB (interval +2.1 to +3.0), VV by -0.2 dB (interval -0.8 to +0.2), VH by -1.5 dB (interval -2.2 to -0.3); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -19009,7 +19009,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 6.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.7 dB (interval +1.3 to +2.2), HV by +3.1 dB (interval +2.8 to +3.4), VV by -0.6 dB (interval -1.5 to -0.1), VH by -0.7 dB (interval -1.8 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 6.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.7 dB (interval +1.3 to +2.2), HV by +3.1 dB (interval +2.8 to +3.4), VV by -0.6 dB (interval -1.5 to -0.1), VH by -0.7 dB (interval -1.8 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -19212,7 +19212,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.5 dB (interval -1.7 to -1.4), VH by -2.7 dB (interval -2.9 to -2.6), HH by +0.2 dB (interval -0.1 to +0.5), HV by +0.1 dB (interval -0.1 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.5 dB (interval -1.7 to -1.4), VH by -2.7 dB (interval -2.9 to -2.6), HH by +0.2 dB (interval -0.1 to +0.5), HV by +0.1 dB (interval -0.1 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -19407,7 +19407,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -0.2 dB (interval -8.5 to +4.2), HV by -0.1 dB (interval -7.8 to +3.7), VV by +1.7 dB (interval +0.4 to +4.1), VH by +1.4 dB (interval -0.1 to +2.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -0.2 dB (interval -8.5 to +4.2), HV by -0.1 dB (interval -7.8 to +3.7), VV by +1.7 dB (interval +0.4 to +4.1), VH by +1.4 dB (interval -0.1 to +2.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -19610,7 +19610,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.8 dB (interval -2.9 to -1.1), VH by -2.7 dB (interval -4.4 to -0.5), HH by +0.9 dB (interval +0.2 to +1.6), HV by +1.0 dB (interval +0.7 to +1.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.8 dB (interval -2.9 to -1.1), VH by -2.7 dB (interval -4.4 to -0.5), HH by +0.9 dB (interval +0.2 to +1.6), HV by +1.0 dB (interval +0.7 to +1.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -19813,7 +19813,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -2.4 to +0.2), VH by -2.9 dB (interval -3.8 to -2.8), HH by -0.7 dB (interval -1.0 to -0.1), HV by -0.6 dB (interval -1.4 to +0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -2.4 to +0.2), VH by -2.9 dB (interval -3.8 to -2.8), HH by -0.7 dB (interval -1.0 to -0.1), HV by -0.6 dB (interval -1.4 to +0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -20008,7 +20008,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.5 dB (interval -1.8 to -0.8), VH by -2.8 dB (interval -3.3 to -1.9), HH by +0.3 dB (interval -0.1 to +2.3), HV by +0.03 dB (interval -1.2 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.5 dB (interval -1.8 to -0.8), VH by -2.8 dB (interval -3.3 to -1.9), HH by +0.3 dB (interval -0.1 to +2.3), HV by +0.03 dB (interval -1.2 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -20211,7 +20211,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +1.8 dB (interval -1.2 to +2.8), VH by -1.3 dB (interval -3.6 to +2.9), HH by -0.8 dB (interval -3.5 to +1.6), HV by -1.0 dB (interval -3.5 to +1.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +1.8 dB (interval -1.2 to +2.8), VH by -1.3 dB (interval -3.6 to +2.9), HH by -0.8 dB (interval -3.5 to +1.6), HV by -1.0 dB (interval -3.5 to +1.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -20414,7 +20414,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 5.0 ha, dated 2026-07-20: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.7 dB (interval +0.2 to +2.3), HV by +2.8 dB (interval +1.3 to +3.3), VV by -0.4 dB (interval -0.5 to +0.03), VH by -1.0 dB (interval -1.8 to -0.9). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 5.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-07-20 (not a confirmed event date). HH changed by +1.7 dB (interval +0.2 to +2.3), HV by +2.8 dB (interval +1.3 to +3.3), VV by -0.4 dB (interval -0.5 to +0.03), VH by -1.0 dB (interval -1.8 to -0.9). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -20609,7 +20609,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +4.4 dB (interval +1.0 to +5.3), VH by +0.3 dB (interval -0.2 to +2.7), HH by -0.3 dB (interval -0.7 to +0.3), HV by -0.2 dB (interval -0.3 to +0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +4.4 dB (interval +1.0 to +5.3), VH by +0.3 dB (interval -0.2 to +2.7), HH by -0.3 dB (interval -0.7 to +0.3), HV by -0.2 dB (interval -0.3 to +0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -20804,7 +20804,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.0 dB (interval -2.6 to -1.0), VH by -2.5 dB (interval -3.1 to -0.9), HH by -0.3 dB (interval -0.6 to +0.5), HV by -0.0 dB (interval -0.6 to +0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.0 dB (interval -2.6 to -1.0), VH by -2.5 dB (interval -3.1 to -0.9), HH by -0.3 dB (interval -0.6 to +0.5), HV by -0.0 dB (interval -0.6 to +0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -20999,7 +20999,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +2.9 dB (interval -1.2 to +6.3), HV by +0.9 dB (interval -3.5 to +2.1), VV by +0.6 dB (interval -0.2 to +2.3), VH by -0.4 dB (interval -0.6 to +0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +2.9 dB (interval -1.2 to +6.3), HV by +0.9 dB (interval -3.5 to +2.1), VV by +0.6 dB (interval -0.2 to +2.3), VH by -0.4 dB (interval -0.6 to +0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -21194,7 +21194,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.0 dB (interval -3.4 to -2.5), VH by +0.7 dB (interval -0.1 to +1.4), HH by -0.3 dB (interval -0.5 to +0.4), HV by -0.2 dB (interval -0.4 to +0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.0 dB (interval -3.4 to -2.5), VH by +0.7 dB (interval -0.1 to +1.4), HH by -0.3 dB (interval -0.5 to +0.4), HV by -0.2 dB (interval -0.4 to +0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -21389,7 +21389,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-14: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.1 dB (interval -2.3 to -1.8), HV by -0.8 dB (interval -2.3 to +0.2), VV by +1.1 dB (interval +0.04 to +3.8), VH by +1.4 dB (interval +0.9 to +3.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-14 (not a confirmed event date). HH changed by -2.1 dB (interval -2.3 to -1.8), HV by -0.8 dB (interval -2.3 to +0.2), VV by +1.1 dB (interval +0.04 to +3.8), VH by +1.4 dB (interval +0.9 to +3.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -21584,7 +21584,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-14: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.6 dB (interval -4.6 to +0.4), HV by -0.7 dB (interval -1.2 to -0.1), VV by +1.7 dB (interval +0.5 to +2.9), VH by +0.6 dB (interval -0.5 to +1.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-14 (not a confirmed event date). HH changed by -2.6 dB (interval -4.6 to +0.4), HV by -0.7 dB (interval -1.2 to -0.1), VV by +1.7 dB (interval +0.5 to +2.9), VH by +0.6 dB (interval -0.5 to +1.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -21779,7 +21779,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.4 dB (interval -1.8 to -1.2), VH by -3.2 dB (interval -3.3 to -2.6), HH by -0.8 dB (interval -1.6 to -0.1), HV by -0.5 dB (interval -0.9 to +0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.4 dB (interval -1.8 to -1.2), VH by -3.2 dB (interval -3.3 to -2.6), HH by -0.8 dB (interval -1.6 to -0.1), HV by -0.5 dB (interval -0.9 to +0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -21974,7 +21974,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -3.8 dB (interval -4.8 to -2.3), HV by -0.5 dB (interval -3.6 to +3.2), VV by -0.8 dB (interval -0.9 to +0.2), VH by -0.3 dB (interval -0.5 to +0.9). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -3.8 dB (interval -4.8 to -2.3), HV by -0.5 dB (interval -3.6 to +3.2), VV by -0.8 dB (interval -0.9 to +0.2), VH by -0.3 dB (interval -0.5 to +0.9). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -22161,7 +22161,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -2.1 dB (interval -2.2 to -1.8), HV by -0.6 dB (interval -1.1 to -0.4), VV by -0.2 dB (interval -0.4 to +2.0), VH by -1.0 dB (interval -2.8 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -2.1 dB (interval -2.2 to -1.8), HV by -0.6 dB (interval -1.1 to -0.4), VV by -0.2 dB (interval -0.4 to +2.0), VH by -1.0 dB (interval -2.8 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -22356,7 +22356,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.7 dB (interval -3.9 to -1.0), VH by -3.5 dB (interval -4.3 to -2.6), HH by -1.2 dB (interval -1.3 to -1.1), HV by -1.4 dB (interval -2.9 to -0.9). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.7 dB (interval -3.9 to -1.0), VH by -3.5 dB (interval -4.3 to -2.6), HH by -1.2 dB (interval -1.3 to -1.1), HV by -1.4 dB (interval -2.9 to -0.9). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -22551,7 +22551,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -3.8 to -1.4), VH by -3.6 dB (interval -4.8 to -2.5), HH by +0.4 dB (interval -0.1 to +1.2), HV by +0.04 dB (interval -0.6 to +1.1). Confidence is high.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -3.8 to -1.4), VH by -3.6 dB (interval -4.8 to -2.5), HH by +0.4 dB (interval -0.1 to +1.2), HV by +0.04 dB (interval -0.6 to +1.1). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -22746,7 +22746,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.6 dB (interval -2.8 to -0.6), VH by -2.7 dB (interval -3.9 to -2.5), HH by -0.4 dB (interval -0.6 to -0.02), HV by -0.8 dB (interval -1.3 to -0.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.6 dB (interval -2.8 to -0.6), VH by -2.7 dB (interval -3.9 to -2.5), HH by -0.4 dB (interval -0.6 to -0.02), HV by -0.8 dB (interval -1.3 to -0.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -22941,7 +22941,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +0.4 dB (interval -1.5 to +0.8), VH by -3.5 dB (interval -5.7 to +3.5), HH by +0.1 dB (interval -0.2 to +0.8), HV by +1.6 dB (interval +0.5 to +2.3). Confidence is medium.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +0.4 dB (interval -1.5 to +0.8), VH by -3.5 dB (interval -5.7 to +3.5), HH by +0.1 dB (interval -0.2 to +0.8), HV by +1.6 dB (interval +0.5 to +2.3). Cause hypothesis: low-vegetation loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -23136,7 +23136,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-09-06: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +0.7 dB (interval +0.2 to +1.6), HV by +2.1 dB (interval +2.1 to +2.5), VV by -0.8 dB (interval -1.1 to +0.1), VH by -0.8 dB (interval -1.2 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-09-06 (not a confirmed event date). HH changed by +0.7 dB (interval +0.2 to +1.6), HV by +2.1 dB (interval +2.1 to +2.5), VV by -0.8 dB (interval -1.1 to +0.1), VH by -0.8 dB (interval -1.2 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -23331,7 +23331,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.1 dB (interval -3.1 to -1.2), VH by -3.1 dB (interval -4.9 to -0.5), HH by +0.9 dB (interval +0.4 to +1.4), HV by +0.5 dB (interval +0.02 to +1.6). Confidence is high.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.1 dB (interval -3.1 to -1.2), VH by -3.1 dB (interval -4.9 to -0.5), HH by +0.9 dB (interval +0.4 to +1.4), HV by +0.5 dB (interval +0.02 to +1.6). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -23526,7 +23526,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.0 dB (interval +0.4 to +2.0), HV by +2.1 dB (interval +2.0 to +2.8), VV by -1.1 dB (interval -1.3 to -0.1), VH by -2.1 dB (interval -4.6 to -1.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.0 dB (interval +0.4 to +2.0), HV by +2.1 dB (interval +2.0 to +2.8), VV by -1.1 dB (interval -1.3 to -0.1), VH by -2.1 dB (interval -4.6 to -1.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -23721,7 +23721,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-14: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -1.4 dB (interval -2.9 to -0.3), HV by -2.2 dB (interval -3.1 to -0.9), VV by -0.7 dB (interval -3.3 to +0.5), VH by -1.5 dB (interval -3.9 to -0.7). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-14 (not a confirmed event date). HH changed by -1.4 dB (interval -2.9 to -0.3), HV by -2.2 dB (interval -3.1 to -0.9), VV by -0.7 dB (interval -3.3 to +0.5), VH by -1.5 dB (interval -3.9 to -0.7). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -23916,7 +23916,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.8 dB (interval -5.0 to -2.6), VH by +0.4 dB (interval -0.9 to +1.3), HH by -0.1 dB (interval -0.9 to +1.0), HV by +0.7 dB (interval -0.8 to +1.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.8 dB (interval -5.0 to -2.6), VH by +0.4 dB (interval -0.9 to +1.3), HH by -0.1 dB (interval -0.9 to +1.0), HV by +0.7 dB (interval -0.8 to +1.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -24111,7 +24111,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +1.9 dB (interval -2.5 to +5.8), VH by +1.6 dB (interval -2.1 to +2.7), HH by +0.5 dB (interval -1.1 to +1.6), HV by -0.1 dB (interval -0.8 to +0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +1.9 dB (interval -2.5 to +5.8), VH by +1.6 dB (interval -2.1 to +2.7), HH by +0.5 dB (interval -1.1 to +1.6), HV by -0.1 dB (interval -0.8 to +0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -24306,7 +24306,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.5 dB (interval -1.0 to +2.4), HV by +0.4 dB (interval -3.0 to +1.6), VV by -1.7 dB (interval -4.2 to +0.8), VH by +0.6 dB (interval +0.2 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.5 dB (interval -1.0 to +2.4), HV by +0.4 dB (interval -3.0 to +1.6), VV by -1.7 dB (interval -4.2 to +0.8), VH by +0.6 dB (interval +0.2 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -24501,7 +24501,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 4.0 ha, dated 2026-09-06: both NISAR and Sentinel-1 saw it. HH changed by +1.8 dB (interval +0.8 to +2.3), HV by +1.9 dB (interval +0.8 to +2.2), VV by -1.6 dB (interval -2.5 to -0.6), VH by -2.3 dB (interval -3.1 to -0.7); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 4.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-09-06 (not a confirmed event date). HH changed by +1.8 dB (interval +0.8 to +2.3), HV by +1.9 dB (interval +0.8 to +2.2), VV by -1.6 dB (interval -2.5 to -0.6), VH by -2.3 dB (interval -3.1 to -0.7); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -24696,7 +24696,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +2.4 dB (interval +0.5 to +2.4), HV by +2.4 dB (interval +0.8 to +3.7), VV by -1.2 dB (interval -1.4 to -0.9), VH by -2.5 dB (interval -3.2 to -2.1); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +2.4 dB (interval +0.5 to +2.4), HV by +2.4 dB (interval +0.8 to +3.7), VV by -1.2 dB (interval -1.4 to -0.9), VH by -2.5 dB (interval -3.2 to -2.1); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -24891,7 +24891,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 4.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.1 dB (interval +0.8 to +1.9), HV by +2.3 dB (interval +2.1 to +2.4), VV by -1.1 dB (interval -1.7 to -0.1), VH by -1.2 dB (interval -1.8 to -1.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 4.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.1 dB (interval +0.8 to +1.9), HV by +2.3 dB (interval +2.1 to +2.4), VV by -1.1 dB (interval -1.7 to -0.1), VH by -1.2 dB (interval -1.8 to -1.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -25078,7 +25078,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -0.2 dB (interval -6.1 to +2.9), HV by +0.1 dB (interval -2.9 to +7.9), VV by +0.2 dB (interval -3.0 to +1.5), VH by -0.1 dB (interval -0.2 to +0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -0.2 dB (interval -6.1 to +2.9), HV by +0.1 dB (interval -2.9 to +7.9), VV by +0.2 dB (interval -3.0 to +1.5), VH by -0.1 dB (interval -0.2 to +0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -25265,7 +25265,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +2.7 dB (interval -2.6 to +2.7), VH by +0.7 dB (interval -0.2 to +1.7), HH by -1.0 dB (interval -1.6 to -0.8), HV by +0.2 dB (interval -0.3 to +0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +2.7 dB (interval -2.6 to +2.7), VH by +0.7 dB (interval -0.2 to +1.7), HH by -1.0 dB (interval -1.6 to -0.8), HV by +0.2 dB (interval -0.3 to +0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -25452,7 +25452,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -0.3 dB (interval -3.3 to +2.7), VH by +0.7 dB (interval +0.2 to +1.2), HH by -0.7 dB (interval -1.7 to +2.0), HV by -0.1 dB (interval -0.6 to +1.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -0.3 dB (interval -3.3 to +2.7), VH by +0.7 dB (interval +0.2 to +1.2), HH by -0.7 dB (interval -1.7 to +2.0), HV by -0.1 dB (interval -0.6 to +1.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -25639,7 +25639,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +3.5 dB (interval +0.03 to +5.5), HV by +0.3 dB (interval -2.1 to +5.3), VV by +1.8 dB (interval +0.2 to +2.8), VH by +0.5 dB (interval -0.3 to +1.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +3.5 dB (interval +0.03 to +5.5), HV by +0.3 dB (interval -2.1 to +5.3), VV by +1.8 dB (interval +0.2 to +2.8), VH by +0.5 dB (interval -0.3 to +1.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -25826,7 +25826,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: both NISAR and Sentinel-1 saw it. HH changed by +0.2 dB (interval -2.3 to +2.5), HV by +0.5 dB (interval -0.1 to +0.6), VV by +4.0 dB (interval +1.4 to +5.1), VH by +3.2 dB (interval +2.6 to +5.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +0.2 dB (interval -2.3 to +2.5), HV by +0.5 dB (interval -0.1 to +0.6), VV by +4.0 dB (interval +1.4 to +5.1), VH by +3.2 dB (interval +2.6 to +5.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -26013,7 +26013,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -0.3 dB (interval -0.7 to +0.4), VH by +2.8 dB (interval +2.8 to +3.0), HH by -0.2 dB (interval -0.5 to -0.1), HV by -0.4 dB (interval -0.6 to +0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -0.3 dB (interval -0.7 to +0.4), VH by +2.8 dB (interval +2.8 to +3.0), HH by -0.2 dB (interval -0.5 to -0.1), HV by -0.4 dB (interval -0.6 to +0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -26200,7 +26200,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -1.6 dB (interval -3.2 to -1.3), HV by +1.6 dB (interval -1.7 to +2.1), VV by +1.6 dB (interval +0.6 to +2.5), VH by -0.3 dB (interval -0.9 to +0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -1.6 dB (interval -3.2 to -1.3), HV by +1.6 dB (interval -1.7 to +2.1), VV by +1.6 dB (interval +0.6 to +2.5), VH by -0.3 dB (interval -0.9 to +0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -26387,7 +26387,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.2 dB (interval -3.0 to +0.3), VH by -2.0 dB (interval -2.9 to -1.9), HH by -0.6 dB (interval -1.0 to -0.5), HV by -1.0 dB (interval -2.2 to -0.9). Confidence is medium.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.2 dB (interval -3.0 to +0.3), VH by -2.0 dB (interval -2.9 to -1.9), HH by -0.6 dB (interval -1.0 to -0.5), HV by -1.0 dB (interval -2.2 to -0.9). Cause hypothesis: low-vegetation loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -26574,7 +26574,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.1 dB (interval -1.9 to -0.6), VH by -3.0 dB (interval -3.1 to -2.9), HH by -0.2 dB (interval -0.6 to +0.1), HV by +0.03 dB (interval -0.5 to +0.04). Confidence is medium.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.1 dB (interval -1.9 to -0.6), VH by -3.0 dB (interval -3.1 to -2.9), HH by -0.2 dB (interval -0.6 to +0.1), HV by +0.03 dB (interval -0.5 to +0.04). Cause hypothesis: low-vegetation loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -26761,7 +26761,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.6 dB (interval -2.9 to -0.9), VH by -1.4 dB (interval -3.3 to -0.01), HH by -0.2 dB (interval -0.5 to +0.1), HV by +0.2 dB (interval -0.1 to +0.7). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.6 dB (interval -2.9 to -0.9), VH by -1.4 dB (interval -3.3 to -0.01), HH by -0.2 dB (interval -0.5 to +0.1), HV by +0.2 dB (interval -0.1 to +0.7). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -26948,7 +26948,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.3 dB (interval -2.6 to -2.3), VH by -3.5 dB (interval -3.7 to -1.8), HH by -0.4 dB (interval -0.7 to -0.2), HV by -1.0 dB (interval -1.3 to -0.03). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.3 dB (interval -2.6 to -2.3), VH by -3.5 dB (interval -3.7 to -1.8), HH by -0.4 dB (interval -0.7 to -0.2), HV by -1.0 dB (interval -1.3 to -0.03). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -27135,7 +27135,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.9 dB (interval -2.6 to -1.5), VH by -3.4 dB (interval -3.9 to -3.0), HH by -0.3 dB (interval -0.3 to -0.2), HV by -0.3 dB (interval -0.6 to -0.3). Confidence is high.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.9 dB (interval -2.6 to -1.5), VH by -3.4 dB (interval -3.9 to -3.0), HH by -0.3 dB (interval -0.3 to -0.2), HV by -0.3 dB (interval -0.6 to -0.3). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -27322,7 +27322,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.1 dB (interval -2.6 to -0.1), VH by -3.4 dB (interval -3.6 to -3.3), HH by +0.1 dB (interval -0.1 to +0.5), HV by -0.2 dB (interval -0.3 to +0.02). Confidence is high.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.1 dB (interval -2.6 to -0.1), VH by -3.4 dB (interval -3.6 to -3.3), HH by +0.1 dB (interval -0.1 to +0.5), HV by -0.2 dB (interval -0.3 to +0.02). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -27509,7 +27509,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.7 dB (interval -2.0 to +0.1), VH by -3.2 dB (interval -4.0 to -3.2), HH by -0.6 dB (interval -0.8 to -0.3), HV by -0.0 dB (interval -1.0 to +0.2). Confidence is high.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.7 dB (interval -2.0 to +0.1), VH by -3.2 dB (interval -4.0 to -3.2), HH by -0.6 dB (interval -0.8 to -0.3), HV by -0.0 dB (interval -1.0 to +0.2). Cause hypothesis: low-vegetation loss; rule confidence is high (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -27690,7 +27690,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +2.5 dB (interval -4.5 to +4.2), HV by -0.9 dB (interval -4.7 to +2.7), VV by +1.5 dB, VH by +0.7 dB. Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +2.5 dB (interval -4.5 to +4.2), HV by -0.9 dB (interval -4.7 to +2.7), VV by +1.5 dB, VH by +0.7 dB. Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -27877,7 +27877,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +3.1 dB (interval -0.1 to +3.4), VH by -1.4 dB (interval -2.5 to -0.8), HH by -0.6 dB (interval -0.6 to +0.5), HV by -0.1 dB (interval -0.8 to +0.8). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +3.1 dB (interval -0.1 to +3.4), VH by -1.4 dB (interval -2.5 to -0.8), HH by -0.6 dB (interval -0.6 to +0.5), HV by -0.1 dB (interval -0.8 to +0.8). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -28064,7 +28064,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.6 dB (interval -4.2 to -2.8), VH by -2.9 dB (interval -3.3 to -2.8), HH by -0.4 dB (interval -0.8 to +0.3), HV by -0.5 dB (interval -1.0 to -0.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.6 dB (interval -4.2 to -2.8), VH by -2.9 dB (interval -3.3 to -2.8), HH by -0.4 dB (interval -0.8 to +0.3), HV by -0.5 dB (interval -1.0 to -0.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -28251,7 +28251,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.4 dB (interval -3.6 to -1.9), VH by -2.2 dB (interval -2.8 to -2.0), HH by +0.2 dB (interval +0.2 to +0.4), HV by +0.4 dB (interval -0.3 to +0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.4 dB (interval -3.6 to -1.9), VH by -2.2 dB (interval -2.8 to -2.0), HH by +0.2 dB (interval +0.2 to +0.4), HV by +0.4 dB (interval -0.3 to +0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -28438,7 +28438,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.3 dB (interval -3.0 to -0.9), VH by -3.4 dB (interval -5.1 to -3.4), HH by +0.8 dB (interval +0.5 to +1.6), HV by +0.9 dB (interval +0.6 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.3 dB (interval -3.0 to -0.9), VH by -3.4 dB (interval -5.1 to -3.4), HH by +0.8 dB (interval +0.5 to +1.6), HV by +0.9 dB (interval +0.6 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -28625,7 +28625,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.8 dB (interval -3.5 to -2.6), VH by -3.1 dB (interval -3.7 to -2.8), HH by -0.7 dB (interval -1.0 to -0.3), HV by -0.7 dB (interval -1.1 to -0.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.8 dB (interval -3.5 to -2.6), VH by -3.1 dB (interval -3.7 to -2.8), HH by -0.7 dB (interval -1.0 to -0.3), HV by -0.7 dB (interval -1.1 to -0.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -28812,7 +28812,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.3 dB (interval -4.0 to -2.1), VH by -3.3 dB (interval -3.6 to -2.8), HH by -1.6 dB (interval -3.3 to -0.6), HV by -1.0 dB (interval -1.1 to -0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.3 dB (interval -4.0 to -2.1), VH by -3.3 dB (interval -3.6 to -2.8), HH by -1.6 dB (interval -3.3 to -0.6), HV by -1.0 dB (interval -1.1 to -0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -28999,7 +28999,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.9 dB (interval -2.6 to -1.6), VH by -3.1 dB (interval -3.5 to -1.5), HH by +1.6 dB (interval +1.4 to +2.0), HV by +1.9 dB (interval +1.5 to +2.2). Confidence is medium.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.9 dB (interval -2.6 to -1.6), VH by -3.1 dB (interval -3.5 to -1.5), HH by +1.6 dB (interval +1.4 to +2.0), HV by +1.9 dB (interval +1.5 to +2.2). Cause hypothesis: low-vegetation loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -29186,7 +29186,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.2 dB (interval -2.6 to -1.5), VH by -2.9 dB (interval -3.4 to -2.9), HH by -0.3 dB (interval -0.9 to -0.2), HV by -0.6 dB (interval -0.7 to +0.03). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.2 dB (interval -2.6 to -1.5), VH by -2.9 dB (interval -3.4 to -2.9), HH by -0.3 dB (interval -0.9 to -0.2), HV by -0.6 dB (interval -0.7 to +0.03). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -29373,7 +29373,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.7 dB (interval -4.3 to -0.3), VH by -3.0 dB (interval -4.1 to -1.4), HH by +0.8 dB (interval +0.5 to +1.0), HV by +0.8 dB (interval +0.02 to +1.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.7 dB (interval -4.3 to -0.3), VH by -3.0 dB (interval -4.1 to -1.4), HH by +0.8 dB (interval +0.5 to +1.0), HV by +0.8 dB (interval +0.02 to +1.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -29560,7 +29560,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.7 dB (interval -3.0 to +0.6), VH by -0.7 dB (interval -2.6 to +0.1), HH by -0.5 dB (interval -0.5 to -0.5), HV by +0.1 dB (interval -0.2 to +0.4). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.7 dB (interval -3.0 to +0.6), VH by -0.7 dB (interval -2.6 to +0.1), HH by -0.5 dB (interval -0.5 to -0.5), HV by +0.1 dB (interval -0.2 to +0.4). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -29747,7 +29747,7 @@
      "note": "NLCD"
     }
    ],
-   "plain_text": "Low-vegetation loss covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -0.4 dB (interval -2.2 to -0.3), VH by -3.1 dB (interval -3.3 to -1.0), HH by +1.7 dB (interval +1.2 to +2.1), HV by +1.8 dB (interval +1.4 to +1.8). Confidence is medium.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -0.4 dB (interval -2.2 to -0.3), VH by -3.1 dB (interval -3.3 to -1.0), HH by +1.7 dB (interval +1.2 to +2.1), HV by +1.8 dB (interval +1.4 to +1.8). Cause hypothesis: low-vegetation loss; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -29934,7 +29934,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -0.2 dB (interval -4.6 to +1.1), HV by +1.5 dB (interval -6.5 to +5.7), VV by +1.3 dB (interval +0.01 to +2.6), VH by -0.4 dB (interval -0.7 to -0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by -0.2 dB (interval -4.6 to +1.1), HV by +1.5 dB (interval -6.5 to +5.7), VV by +1.3 dB (interval +0.01 to +2.6), VH by -0.4 dB (interval -0.7 to -0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -30121,7 +30121,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -1.2 dB (interval -4.2 to +0.3), VH by -2.7 dB (interval -2.9 to -2.4), HH by +0.8 dB (interval +0.2 to +1.1), HV by +0.4 dB (interval +0.4 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -1.2 dB (interval -4.2 to +0.3), VH by -2.7 dB (interval -2.9 to -2.4), HH by +0.8 dB (interval +0.2 to +1.1), HV by +0.4 dB (interval +0.4 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -30308,7 +30308,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-08-13: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -0.04 dB (interval -1.1 to +0.7), HV by -2.7 dB (interval -2.9 to -1.5), VV by -0.3 dB (interval -1.9 to +2.9), VH by -0.2 dB (interval -1.1 to +3.2). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-08-13 (not a confirmed event date). HH changed by -0.04 dB (interval -1.1 to +0.7), HV by -2.7 dB (interval -2.9 to -1.5), VV by -0.3 dB (interval -1.9 to +2.9), VH by -0.2 dB (interval -1.1 to +3.2). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -30495,7 +30495,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-09-06: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by -1.5 dB (interval -1.9 to +2.8), HV by -1.9 dB (interval -2.1 to -0.4), VV by -0.8 dB (interval -1.7 to +1.0), VH by -2.0 dB (interval -2.7 to -0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-09-06 (not a confirmed event date). HH changed by -1.5 dB (interval -1.9 to +2.8), HV by -1.9 dB (interval -2.1 to -0.4), VV by -0.8 dB (interval -1.7 to +1.0), VH by -2.0 dB (interval -2.7 to -0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -30682,7 +30682,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +2.8 dB (interval -1.3 to +3.5), VH by -0.1 dB (interval -3.3 to +1.6), HH by +0.04 dB (interval -1.3 to +0.9), HV by +1.6 dB (interval +0.4 to +1.9). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +2.8 dB (interval -1.3 to +3.5), VH by -0.1 dB (interval -3.3 to +1.6), HH by +0.04 dB (interval -1.3 to +0.9), HV by +1.6 dB (interval +0.4 to +1.9). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -30869,7 +30869,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by +3.6 dB (interval +0.4 to +3.9), VH by +2.1 dB (interval +0.9 to +2.7), HH by -0.3 dB (interval -0.4 to +0.5), HV by -0.02 dB (interval -0.1 to +0.5). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by +3.6 dB (interval +0.4 to +3.9), VH by +2.1 dB (interval +0.9 to +2.7), HH by -0.3 dB (interval -0.4 to +0.5), HV by -0.02 dB (interval -0.1 to +0.5). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -31056,7 +31056,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -4.4 to -1.0), VH by +1.0 dB (interval +0.9 to +2.9), HH by +0.1 dB (interval -0.5 to +0.6), HV by +0.7 dB (interval +0.6 to +1.6). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -4.4 to -1.0), VH by +1.0 dB (interval +0.9 to +2.9), HH by +0.1 dB (interval -0.5 to +0.6), HV by +0.7 dB (interval +0.6 to +1.6). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -31243,7 +31243,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -3.0 dB (interval -6.1 to -1.2), VH by -1.3 dB (interval -1.4 to -1.1), HH by +0.3 dB (interval -5.0 to +0.6), HV by +0.7 dB (interval -0.4 to +0.9). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -3.0 dB (interval -6.1 to -1.2), VH by -1.3 dB (interval -1.4 to -1.1), HH by +0.3 dB (interval -5.0 to +0.6), HV by +0.7 dB (interval -0.4 to +0.9). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -31430,7 +31430,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-09-06: both NISAR and Sentinel-1 saw it. HH changed by -1.9 dB (interval -1.9 to -1.1), HV by -2.3 dB (interval -2.4 to -2.1), VV by -2.5 dB (interval -3.0 to -2.4), VH by -2.4 dB (interval -3.3 to -2.3). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: both NISAR and Sentinel-1 contributed detections (shared majorities or split blocks); first flagged acquisition 2026-09-06 (not a confirmed event date). HH changed by -1.9 dB (interval -1.9 to -1.1), HV by -2.3 dB (interval -2.4 to -2.1), VV by -2.5 dB (interval -3.0 to -2.4), VH by -2.4 dB (interval -3.3 to -2.3). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -31617,7 +31617,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-26: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.4 dB (interval +1.1 to +1.4), HV by +2.7 dB (interval +2.0 to +3.5), VV by -0.3 dB (interval -0.4 to +0.4), VH by -0.5 dB (interval -1.3 to +1.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by +1.4 dB (interval +1.1 to +1.4), HV by +2.7 dB (interval +2.0 to +3.5), VV by -0.3 dB (interval -0.4 to +0.4), VH by -0.5 dB (interval -1.3 to +1.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -31804,7 +31804,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 3.0 ha, dated 2026-06-26: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +2.1 dB (interval -0.4 to +2.1), HV by +1.3 dB (interval +0.5 to +2.1), VV by -1.7 dB (interval -4.0 to -0.4), VH by -1.7 dB (interval -2.0 to -1.0); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-26 (not a confirmed event date). HH changed by +2.1 dB (interval -0.4 to +2.1), HV by +1.3 dB (interval +0.5 to +2.1), VV by -1.7 dB (interval -4.0 to -0.4), VH by -1.7 dB (interval -2.0 to -1.0); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -31991,7 +31991,7 @@
      "note": "the L-band changes fit no cause rule"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +2.3 dB (interval -2.8 to +4.5), HV by +0.7 dB (interval -0.9 to +2.4), VV by -0.2 dB (interval -0.9 to -0.1), VH by -0.4 dB (interval -2.9 to +0.1). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +2.3 dB (interval -2.8 to +4.5), HV by +0.7 dB (interval -0.9 to +2.4), VV by -0.2 dB (interval -0.9 to -0.1), VH by -0.4 dB (interval -2.9 to +0.1). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -32178,7 +32178,7 @@
      "note": "Open-Meteo archive at the pass date"
     }
    ],
-   "plain_text": "Soil wetting covering 3.0 ha, dated 2026-06-02: only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not. HH changed by +1.3 dB (interval +1.0 to +1.9), HV by +2.0 dB (interval +1.6 to +2.1), VV by -2.0 dB (interval -2.5 to -0.2), VH by -1.8 dB (interval -2.0 to -0.8); also rain 2.2 mm. Confidence is medium.",
+   "plain_text": "Radar change detected across 3.0 ha: only NISAR (L-band) flagged a majority of the area's blocks; first flagged acquisition 2026-06-02 (not a confirmed event date). HH changed by +1.3 dB (interval +1.0 to +1.9), HV by +2.0 dB (interval +1.6 to +2.1), VV by -2.0 dB (interval -2.5 to -0.2), VH by -1.8 dB (interval -2.0 to -0.8); also rain 2.2 mm. Cause hypothesis: soil wetting; rule confidence is medium (not a calibrated cause probability); independent verification is needed.",
    "series": {
     "dates": [
      "2026-05-16",
@@ -32365,7 +32365,7 @@
      "note": "Changed, cause uncertain: only Sentinel-1 saw it"
     }
    ],
-   "plain_text": "A change with an uncertain cause covering 3.0 ha, dated 2026-10-01: only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not. VV changed by -2.5 dB (interval -2.5 to -0.7), VH by -1.5 dB (interval -1.8 to +0.3), HH by +1.1 dB (interval +0.2 to +1.6), HV by +1.9 dB (interval +1.1 to +2.0). Confidence is low; the radar shows a change but the cause cannot be pinned down.",
+   "plain_text": "Radar change detected across 3.0 ha: only Sentinel-1 (C-band) flagged a majority of the area's blocks; first flagged acquisition 2026-10-01 (not a confirmed event date). VV changed by -2.5 dB (interval -2.5 to -0.7), VH by -1.5 dB (interval -1.8 to +0.3), HH by +1.1 dB (interval +0.2 to +1.6), HV by +1.9 dB (interval +1.1 to +2.0). Cause hypothesis: a change with an uncertain cause; rule confidence is low (not a calibrated cause probability); independent verification is needed; the radar signal does not establish a cause.",
    "series": {
     "dates": [
      "2026-05-16",

@@ -3,19 +3,23 @@ import "maplibre-gl/dist/maplibre-gl.css";
 import "@maplibre/maplibre-gl-compare/dist/maplibre-gl-compare.css";
 import "./ComparisonViews.css";
 import { useEffect, useRef, useState } from "react";
-import type { Result } from "../types.ts";
-import { createRadarMap, formatPass, loadCompare, observeMaps, type CompareControl } from "./comparisonmaphelpers.ts";
+import type { ChangeArea, Result } from "../types.ts";
+import { createRadarMap, formatPass, loadCompare, observeMaps, updateSelectedArea, type CompareControl } from "./comparisonmaphelpers.ts";
 
 export interface SwipeViewProps {
   result: Result;
+  selectedArea?: ChangeArea | null;
 }
 
-export default function SwipeView({ result }: SwipeViewProps) {
+export default function SwipeView({ result, selectedArea = null }: SwipeViewProps) {
   const { bbox, overlays, nisar } = result;
   const wrapRef = useRef<HTMLDivElement>(null);
   const beforeRef = useRef<HTMLDivElement>(null);
   const afterRef = useRef<HTMLDivElement>(null);
   const compareRef = useRef<CompareControl | null>(null);
+  const mapsRef = useRef<ReturnType<typeof createRadarMap>[]>([]);
+  const selectedRef = useRef(selectedArea);
+  selectedRef.current = selectedArea;
   const percentRef = useRef(50);
   const [percent, setPercent] = useState(50);
   const [error, setError] = useState<string | null>(null);
@@ -24,6 +28,8 @@ export default function SwipeView({ result }: SwipeViewProps) {
     const wrap = wrapRef.current;
     if (!wrap || !beforeRef.current || !afterRef.current) return;
     const maps: ReturnType<typeof createRadarMap>[] = [];
+    mapsRef.current = maps;
+    const syncSelection = () => maps.forEach((map) => updateSelectedArea(map, selectedRef.current));
     let cancelled = false;
     let stopResize = () => {};
     setError(null);
@@ -34,14 +40,15 @@ export default function SwipeView({ result }: SwipeViewProps) {
       stopResize();
       compareRef.current?.remove(); // before the maps: Compare resets their clipping and sync
       compareRef.current = null;
-      maps.splice(0).forEach((map) => map.remove());
+      maps.splice(0).forEach((map) => { map.off("load", syncSelection); map.remove(); });
     };
     try {
       const corners = overlays.bounds;
-      const before = createRadarMap(beforeRef.current, bbox, { url: overlays.before_png, corners });
+      const before = createRadarMap(beforeRef.current, bbox, { url: overlays.before_png, corners, selectedArea: selectedRef.current });
       maps.push(before);
-      const after = createRadarMap(afterRef.current, bbox, { url: overlays.after_png, corners }, { zoomButtons: true });
+      const after = createRadarMap(afterRef.current, bbox, { url: overlays.after_png, corners, selectedArea: selectedRef.current }, { zoomButtons: true });
       maps.push(after);
+      maps.forEach((map) => map.on("load", syncSelection));
       stopResize = observeMaps(wrap, maps, () => {
         compareRef.current?.setSlider((percentRef.current / 100) * wrap.clientWidth);
       });
@@ -72,6 +79,8 @@ export default function SwipeView({ result }: SwipeViewProps) {
     }
     return cleanup;
   }, [bbox, overlays]);
+
+  useEffect(() => { mapsRef.current.forEach((map) => updateSelectedArea(map, selectedArea)); }, [selectedArea]);
 
   const moveDivider = (value: number) => {
     percentRef.current = value;
