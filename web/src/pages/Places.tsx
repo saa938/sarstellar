@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState } from "react";
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from "react";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { assetUrl, loadIndex, type IndexResult } from "../lib/data";
@@ -11,14 +11,25 @@ import { fmtDate, fmtDb, fmtInt, fmtMonthYear, parseDate } from "../lib/format";
 import { formatLonLat } from "../lib/geo";
 import { useReveal } from "./Story";
 
+// maplibre is heavy and the single-place page shares this module, so the map loads on its own
+const PlacesMap = lazy(() => import("./PlacesMap"));
+
 // ---------------------------------------------------------------- grid
 
 export function PlacesGrid() {
   const [idx, setIdx] = useState<IndexResult | null>(null);
+  // the card the pointer or keyboard is on: the map highlights it and flies there
+  const [active, setActive] = useState<string | null>(null);
   useEffect(() => {
     loadIndex().then(setIdx);
   }, []);
   const stages = idx?.index.stages ?? [];
+  const pick = (id: string) => ({
+    onMouseEnter: () => setActive(id),
+    onFocus: () => setActive(id),
+    onMouseLeave: () => setActive(null),
+    onBlur: () => setActive(null),
+  });
   return (
     <div className="page">
       <Nav active="places" />
@@ -30,9 +41,14 @@ export function PlacesGrid() {
         </p>
       </header>
       <div className="page__body">
+        {stages.length > 0 && (
+          <Suspense fallback={null}>
+            <PlacesMap stages={stages} activeId={active} onOpen={(id) => (window.location.hash = `#/places/${id}`)} />
+          </Suspense>
+        )}
         <div className="placegrid">
           {stages.map((s) => (
-            <a key={s.id} className="placecard" href={`#/places/${s.id}`}>
+            <a key={s.id} className="placecard" href={`#/places/${s.id}`} {...pick(s.id)}>
               <div className="placecard__img">
                 <img src={assetUrl(idx!.base, s.thumb)} alt={`NISAR radar image of ${s.name}`} loading="lazy" decoding="async" />
               </div>
