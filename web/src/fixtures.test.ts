@@ -19,6 +19,12 @@ describe("fixtures", () => {
     for (const { id } of index) expect(jsons[`../public/fixtures/${id}.json`]).toBeDefined();
   });
 
+  it("has no confident uncertain areas and at least one Low area", () => {
+    const areas = fixtures.flatMap(([, d]) => (d as Result).areas);
+    expect(areas.filter((a) => a.class === "uncertain" && a.confidence_label === "High")).toEqual([]);
+    expect(areas.some((a) => a.confidence_label === "Low")).toBe(true);
+  });
+
   it.each(fixtures)("%s matches the Result contract", (path, data) => {
     expect(isResult(data)).toBe(true);
     const r = data as Result;
@@ -50,6 +56,17 @@ describe("fixtures", () => {
       expect(a.p_value).toBeGreaterThan(0);
       for (const ev of a.evidence) expect(keys(ev)).toEqual(["ci", "label", "note", "unit", "value"]);
       for (const b of ["HH", "HV", "VV", "VH"] as const) expect(a.series[b]).toHaveLength(a.series.dates.length);
+    }
+    for (const a of r.areas) {
+      // Label and score agree; unexplained changes are never confident; Edouard's spike verdict was "moderate".
+      const [lo, hi] = { High: [0.8, 1], Medium: [0.5, 0.79], Low: [0, 0.49] }[a.confidence_label];
+      expect(a.confidence).toBeGreaterThanOrEqual(lo);
+      expect(a.confidence).toBeLessThanOrEqual(hi);
+      if (a.class === "uncertain") {
+        expect(a.confidence_label).toBe("Low");
+        expect(a.confidence).toBeLessThanOrEqual(0.4);
+      }
+      if (id === "edouard") expect(a.confidence_label).not.toBe("High");
     }
     for (const t of r.people.svi_tracts) {
       expect(keys(t)).toEqual(["geoid", "name", "rpl_themes"]);

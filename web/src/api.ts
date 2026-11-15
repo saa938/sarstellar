@@ -4,7 +4,11 @@ import type { Bbox, IsoDate, Job, Result, Scorecard, StoryIndexEntry } from "./t
 
 const MOCK_DURATION_MS = 3000;
 const MAX_POLL_FAILURES = 5;
-const MOCK_MESSAGE = "Demo mode: no analysis server is configured, so this is a saved example, not a live analysis.";
+const DEFAULT_POLL_TIMEOUT_MS = 12 * 60_000;
+export const TIMEOUT_MESSAGE = "This analysis is taking too long; try a smaller box or try again later.";
+/** Prefixed to the message of every Result with `fixture: true`, so the disclosure travels with the data. */
+export const FIXTURE_MESSAGE = "Saved example from early test runs — final numbers come from the full pipeline.";
+const MOCK_MESSAGE = "Demo mode: no analysis server is configured, so this is not a live analysis.";
 const MOCK_STAGES: [number, string][] = [
   [0.1, "Finding NISAR and Sentinel-1 passes"],
   [0.45, "Reading passes"],
@@ -48,10 +52,21 @@ function siteUrl(path: string): string {
 
 const mockJobs = new Map<string, Bbox>();
 let mockSeq = 0;
+let warnedMock = false;
+
+export interface PollOptions {
+  signal?: AbortSignal;
+  /** Overall deadline; the server itself gives up at 600 s. */
+  timeoutMs?: number;
+}
 
 export async function createJob(bbox: Bbox, dates?: [IsoDate, IsoDate], signal?: AbortSignal): Promise<{ job_id: string }> {
   if (!Array.isArray(bbox) || bbox.length !== 4 || !bbox.every(isNum)) throw new Error("A box needs four finite coordinates.");
   if (isMockMode()) {
+    if (import.meta.env.PROD && !warnedMock) {
+      warnedMock = true;
+      console.warn("SARstellar: VITE_API_URL is not set, so drawn boxes return saved examples (demo mode).");
+    }
     const job_id = `mock-${++mockSeq}`;
     mockJobs.set(job_id, bbox);
     return { job_id };
@@ -70,15 +85,36 @@ export async function createJob(bbox: Bbox, dates?: [IsoDate, IsoDate], signal?:
 
 /**
  * Poll GET /jobs/{id} until the job is done (resolves with its Result) or errors
- * (rejects with the job's own message, shown verbatim in the UI).
+ * (rejects with the job's own message, shown verbatim in the UI). Rejects with TIMEOUT_MESSAGE after
+ * `timeoutMs` (default 12 minutes) and with an AbortError when `signal` aborts.
  */
 export async function pollJob(
   id: string,
   onProgress: (job: Job) => void,
   intervalMs = 1000,
-  signal?: AbortSignal,
+  { signal, timeoutMs = DEFAULT_POLL_TIMEOUT_MS }: PollOptions = {},
 ): Promise<Result> {
-  if (isMockMode()) return pollMock(id, onProgress, signal);
+  // One internal signal carries both the caller's abort and the deadline, so in-flight fetches stop too.
+  const ctl = new AbortController();
+  const timer = setTimeout(() => {
+    const err = new Error(TIMEOUT_MESSAGE);
+    err.name = "TimeoutError";
+    ctl.abort(err);
+  }, timeoutMs);
+  const forward = () => ctl.abort(abortError(signal!));
+  if (signal?.aborted) forward();
+  else signal?.addEventListener("abort", forward, { once: true });
+  try {
+    return isMockMode()
+      ? await pollMock(id, onProgress, ctl.signal)
+      : await pollApi(id, onProgress, intervalMs, ctl.signal);
+  } finally {
+    clearTimeout(timer);
+    signal?.removeEventListener("abort", forward);
+  }
+}
+
+async function pollApi(id: string, onProgress: (job: Job) => void, intervalMs: number, signal: AbortSignal): Promise<Result> {
   const base = apiBase();
   let failures = 0;
   for (;;) {
@@ -118,6 +154,7 @@ async function pollMock(id: string, onProgress: (job: Job) => void, signal?: Abo
     await sleep(step, signal);
   }
   const fixture = await loadFixture(nearestFixture(bbox));
+  throwIfAborted(signal);
   const result = { ...fixture, message: fixture.message ? `${MOCK_MESSAGE} ${fixture.message}` : MOCK_MESSAGE };
   onProgress({ job_id: id, status: "done", progress: 1, message: "Done", result });
   return result;
@@ -154,7 +191,9 @@ async function loadFixture(id: string): Promise<Result> {
 export async function loadStoryIndex(): Promise<StoryIndexEntry[]> {
   for (const dir of ["stories", "fixtures"]) {
     const data = await tryFetchJson(siteUrl(`${dir}/index.json`));
-    if (Array.isArray(data) && data.length > 0 && data.every(isStoryEntry)) return data;
+    if (Array.isArray(data) && data.length > 0 && data.every(isStoryEntry)) {
+      return data.map((e) => ({ ...e, fixture: dir === "fixtures" }));
+    }
   }
   return [];
 }
@@ -200,7 +239,9 @@ function normalize(r: Result, base: string): Result {
     const u = ex[k];
     exports[k] = typeof u === "string" && u ? abs(u) : null;
   }
-  return { ...r, message: r.message ?? null, s1: r.s1 ?? null, overlays, exports };
+  let message = r.message ?? null;
+  if (r.fixture && !message?.startsWith(FIXTURE_MESSAGE)) message = message ? `${FIXTURE_MESSAGE} ${message}` : FIXTURE_MESSAGE;
+  return { ...r, message, s1: r.s1 ?? null, overlays, exports };
 }
 
 function sleep(ms: number, signal?: AbortSignal): Promise<void> {
@@ -244,7 +285,7 @@ function isJob(x: unknown): x is Job {
   return isObj(x) && typeof x.status === "string" && ["queued", "running", "done", "error"].includes(x.status);
 }
 
-function isStoryEntry(x: unknown): x is StoryIndexEntry {
+function isStoryEntry(x: unknown): x is Omit<StoryIndexEntry, "fixture"> {
   return isObj(x) && typeof x.id === "string" && STORY_ID.test(x.id) && typeof x.title === "string";
 }
 

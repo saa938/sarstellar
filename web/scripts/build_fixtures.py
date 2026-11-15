@@ -60,8 +60,8 @@ EDOUARD_S1 = " Sentinel-1 had no pass during the flood: its dates are Aug 20 (be
 STORIES = {
     "clearcuts": dict(
         title="Clearcuts NISAR caught", place="Morton / Mineral, WA",
-        summary=("Spike vs OPERA DIST-ALERT-HLS: at similar recall, 35.7% of NISAR flags were clearcuts "
-                 "vs 4.6% for Sentinel-1."),
+        summary=("Early test run vs OPERA DIST-ALERT-HLS: at similar recall, 35.7% of NISAR flags were "
+                 "clearcuts vs 4.6% for Sentinel-1."),
         bbox=[-122.45, 46.55, -122.05, 46.80], epsg=32610,
         nisar=dict(track=172, direction="D", dates=["2026-05-21", "2026-09-30"]),
         s1=dict(track=137, dates=["2026-05-27", "2026-09-19"]), message=None,
@@ -74,8 +74,8 @@ STORIES = {
     ),
     "kaiser": dict(
         title="Kaiser Canyon Fire", place="Colville Reservation, WA",
-        summary=("Sentinel-1 wins here: 40.6% of burned 1-ha blocks dropped at least 2 dB in C-band VH vs "
-                 "4.7% in NISAR HV. Mostly a grass and shrub fire."),
+        summary=("Early test run: Sentinel-1 wins here, with 40.6% of burned 1-ha blocks dropping at least "
+                 "2 dB in C-band VH vs 4.7% in NISAR HV. Mostly a grass and shrub fire."),
         bbox=[-119.3705, 48.0531, -118.7196, 48.3605], epsg=32610,
         nisar=dict(track=71, direction="D", dates=["2026-07-13", "2026-09-11"]),
         s1=dict(track=166, dates=["2026-07-11", "2026-09-09"]), message=None,
@@ -87,8 +87,8 @@ STORIES = {
     ),
     "edouard": dict(
         title="Edouard floods under forest", place="Village Creek near Kountze, TX",
-        summary=("NISAR HH brightened 3 to 6 dB along the flooded creek bottomland; Sentinel-1 had no pass "
-                 "during the flood."),
+        summary=("Early test run: NISAR HH brightened 3 to 6 dB along the flooded creek bottomland; "
+                 "Sentinel-1 had no pass during the flood."),
         bbox=[-94.45, 30.10, -94.00, 30.55], epsg=32615,
         nisar=dict(track=12, direction="D", dates=["2026-08-26", "2026-09-07"]),
         s1=dict(track=136, dates=["2026-08-20", "2026-09-13"]),
@@ -214,6 +214,17 @@ def classify(sid, agreement, inside_frac):
     return "forest_loss" if agreement != "C" else "uncertain"
 
 
+def confidence(sid, cls, frac, effect_db):
+    """Label and score kept consistent (High >= 0.8, Medium 0.5-0.79, Low < 0.5); decided after classifying."""
+    if cls == "uncertain":  # an unexplained change is never better than Low
+        return "Low", round(0.4 * frac, 2)
+    label = "High" if frac >= 0.8 and effect_db >= 3 else "Medium" if frac >= 0.5 else "Low"
+    if sid == "edouard" and label == "High":  # the Edouard spike verdict is "moderate"
+        label = "Medium"
+    lo, hi = {"High": (0.8, 1.0), "Medium": (0.5, 0.79), "Low": (0.0, 0.49)}[label]
+    return label, round(min(hi, max(lo, frac)), 2)
+
+
 def plain_text(sid, cls, agreement, ha, ev, cfg):
     lb, cb = cfg["l_band"], cfg["c_band"]
     l_v, c_v = ev[lb], ev[cb]
@@ -276,7 +287,6 @@ def build_areas(sid, cfg, g, raw, smooth, inside):
             prim = lb if agreement != "C" else cb
             thr = cfg["l_thr"] if prim == lb else cfg["c_thr"]
             frac = float(hit(raw[prim][comp], thr).mean())
-            label = "High" if frac >= 0.8 and abs(meds[prim][0]) >= 3 else "Medium" if frac >= 0.5 else "Low"
             with warnings.catch_warnings(), np.errstate(all="ignore"):
                 warnings.simplefilter("ignore")
                 p = float(stats.ttest_1samp(raw[prim][comp], 0.0).pvalue)
@@ -284,6 +294,7 @@ def build_areas(sid, cfg, g, raw, smooth, inside):
                 p = 1e-12 if abs(meds[prim][0]) > 0 else 1.0
             inside_frac = float(inside[comp].mean()) if inside is not None else 0.0
             cls = classify(sid, agreement, inside_frac)
+            label, conf = confidence(sid, cls, frac, abs(meds[prim][0]))
             ev_vals = {b: meds[b][0] for b in meds}
             series = {"dates": dates}
             for b in ("HH", "HV", "VV", "VH"):
@@ -297,7 +308,7 @@ def build_areas(sid, cfg, g, raw, smooth, inside):
                 id=f"{sid}-{agreement.lower()}-{len(areas) + 1}",
                 geometry=component_polygon(comp, g, to_ll),
                 agreement=agreement, **{"class": cls}, area_ha=float(ha),
-                confidence=round(frac, 2), confidence_label=label,
+                confidence=conf, confidence_label=label,
                 p_value=float(f"{max(p, 1e-12):.3g}"),
                 change_date=(cfg["s1"] if agreement == "C" else cfg["nisar"])["dates"][-1],
                 evidence=evidence_for(sid, cfg, meds, round(inside_frac * 100) if inside is not None else None),

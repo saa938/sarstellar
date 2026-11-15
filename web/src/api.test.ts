@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { createJob, isResult, loadScorecard, loadStory, loadStoryIndex, pollJob } from "./api.ts";
+import { FIXTURE_MESSAGE, TIMEOUT_MESSAGE, createJob, isResult, loadScorecard, loadStory, loadStoryIndex, pollJob } from "./api.ts";
 import type { Job, Result } from "./types.ts";
 
 const API = "https://api.example.test";
@@ -77,6 +77,7 @@ function routeFetch(routes: Record<string, () => Response>) {
 
 describe("live API mode", () => {
   beforeEach(() => vi.stubEnv("VITE_API_URL", API));
+  afterEach(() => vi.useRealTimers());
 
   it("pollJob resolves on done", async () => {
     const replies = [
@@ -121,9 +122,34 @@ describe("live API mode", () => {
     vi.stubGlobal("fetch", vi.fn(async () => json(job("running", 0.2, "Reading passes"))));
     const ctl = new AbortController();
 
-    const p = pollJob("abc", () => ctl.abort(), 0, ctl.signal);
+    const p = pollJob("abc", () => ctl.abort(), 0, { signal: ctl.signal });
 
     await expect(p).rejects.toMatchObject({ name: "AbortError" });
+  });
+
+  it("pollJob gives up after timeoutMs with a readable message", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal("fetch", vi.fn(async () => json(job("running", 0.3, "Reading passes"))));
+
+    const check = expect(pollJob("abc", () => {}, 1000, { timeoutMs: 5000 })).rejects.toThrow(TIMEOUT_MESSAGE);
+    await vi.advanceTimersByTimeAsync(5000);
+    await check;
+  });
+
+  it("pollJob's default deadline is 12 minutes", async () => {
+    vi.useFakeTimers();
+    vi.stubGlobal("fetch", vi.fn(async () => json(job("queued", 0, "Queued"))));
+    let settled = false;
+
+    const outcome = pollJob("abc", () => {}).then(
+      () => "resolved",
+      (e: Error) => e.message,
+    );
+    void outcome.finally(() => (settled = true));
+    await vi.advanceTimersByTimeAsync(12 * 60_000 - 1000);
+    expect(settled).toBe(false);
+    await vi.advanceTimersByTimeAsync(1000);
+    expect(await outcome).toBe(TIMEOUT_MESSAGE);
   });
 
   it("createJob posts the box and returns the job id", async () => {
@@ -154,6 +180,7 @@ describe("static stories and scorecard", () => {
 
     expect(fetchFn.mock.calls.map((c) => new URL(String(c[0])).pathname)).toEqual(["/stories/kaiser.json", "/fixtures/kaiser.json"]);
     expect(story.fixture).toBe(true);
+    expect(story.message).toBe(FIXTURE_MESSAGE);
     // Relative overlay URLs resolve against the JSON file they came from.
     expect(new URL(story.overlays.l_png).pathname).toBe("/fixtures/kaiser/l.png");
   });
@@ -173,7 +200,16 @@ describe("static stories and scorecard", () => {
     const story = await loadStory("kaiser");
 
     expect(story.fixture).toBe(false);
+    expect(story.message).toBeNull();
     expect(new URL(story.overlays.change_png).pathname).toBe("/stories/kaiser/change.png");
+  });
+
+  it("loadStory keeps a fixture's own message after the disclosure", async () => {
+    routeFetch({ "/fixtures/edouard.json": () => json(sampleResult({ fixture: true, message: "No S1 pass during the flood." })) });
+
+    const story = await loadStory("edouard");
+
+    expect(story.message).toBe(`${FIXTURE_MESSAGE} No S1 pass during the flood.`);
   });
 
   it("loadStory rejects unknown ids and bad input", async () => {
@@ -185,8 +221,10 @@ describe("static stories and scorecard", () => {
   it("loadStoryIndex falls back to the fixture index", async () => {
     const entry = { id: "kaiser", title: "Kaiser Canyon Fire", place: "WA", dates: ["2026-07-13", "2026-09-11"], summary: "s" };
     routeFetch({ "/fixtures/index.json": () => json([entry]) });
+    await expect(loadStoryIndex()).resolves.toEqual([{ ...entry, fixture: true }]);
 
-    await expect(loadStoryIndex()).resolves.toEqual([entry]);
+    routeFetch({ "/stories/index.json": () => json([entry]), "/fixtures/index.json": () => json([entry]) });
+    await expect(loadStoryIndex()).resolves.toEqual([{ ...entry, fixture: false }]);
   });
 
   it("loadScorecard returns null until the scorecard exists", async () => {
@@ -225,7 +263,22 @@ describe("mock mode (VITE_API_URL unset)", () => {
     expect(result.fixture).toBe(true);
     expect(fetchFn).toHaveBeenCalledTimes(1);
     expect(seen.at(-1)?.status).toBe("done");
+    expect(result.message).toMatch(/^Demo mode: /);
+    expect(result.message).toContain(FIXTURE_MESSAGE);
     expect(seen.map((j) => j.progress)).toEqual([...seen.map((j) => j.progress)].sort((a, b) => a - b));
+  });
+});
+
+describe("mock mode warning", () => {
+  it("warns once when a production build has no API URL", async () => {
+    vi.stubEnv("VITE_API_URL", "");
+    vi.stubEnv("PROD", true);
+    const warn = vi.spyOn(console, "warn").mockImplementation(() => {});
+
+    await createJob([-122.3, 46.6, -122.2, 46.7]);
+    await createJob([-122.3, 46.6, -122.2, 46.7]);
+
+    expect(warn).toHaveBeenCalledTimes(1);
   });
 });
 

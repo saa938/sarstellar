@@ -134,6 +134,8 @@ export interface StoryIndexEntry {
   /** [first, last] date compared. */
   dates: IsoDate[];
   summary: string;
+  /** Set by loadStoryIndex: true when the entry came from /fixtures/ (spike-derived stand-in). */
+  fixture: boolean;
 }
 
 // ---- Scorecard (/scorecard.json, written by Task C2; `model` filled by C3) ----
