@@ -55,7 +55,75 @@ const SANS = '"Geist Variable", system-ui, sans-serif';
 const MONO = '"Geist Mono Variable", ui-monospace, monospace';
 
 /** Regions, grid, ticks and axis titles, rendered once per size. */
-export function staticFrame(L: Layout, r: Range, opts: { regions?: boolean; labels?: boolean; hhOnlyY?: string; xTitle?: string; diagonal?: boolean } = {}) {
+export interface Rect {
+  x: number;
+  y: number;
+  w: number;
+  h: number;
+}
+
+export type FrameCanvas = HTMLCanvasElement & { rects?: Rect[] };
+
+/** Where region names sit (dB), chosen to fall in the empty space beside the diagonal cloud. */
+const REGION_ANCHORS: { id: string; label: string; sub?: string; at: [number, number]; align: CanvasTextAlign }[] = [
+  { id: "water", label: "open water", at: [-29.4, -36.6], align: "left" },
+  { id: "soil", label: "bare soil", at: [-14.5, -33.5], align: "left" },
+  { id: "crops", label: "crops", at: [-5, -27.5], align: "left" },
+  { id: "forest", label: "forest", at: [-18, -9.5], align: "right" },
+  { id: "bounce", label: "double bounce", sub: "cities, flooded trees, rice", at: [4.6, -6.4], align: "right" },
+];
+
+const overlaps = (a: Rect, b: Rect) => a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
+
+export interface Placed {
+  x: number;
+  y: number;
+  align: CanvasTextAlign;
+  box: Rect;
+  leader: boolean;
+}
+
+/** Greedy label placement: the first spot near the point that stays inside the plot and touches no
+ *  other text or marker; farther spots get a thin leader line. */
+export function placeLabel(ctx: CanvasRenderingContext2D, L: Layout, x: number, y: number, text: string, font: string, occupied: Rect[]): Placed {
+  ctx.font = font;
+  const w = ctx.measureText(text).width;
+  const h = parseFloat(font.match(/(\d+(?:\.\d+)?)px/)?.[1] ?? "14") + 4;
+  const cands: [number, number][] = [
+    [12, 0], [-12, 0], [10, -15], [10, 15], [-10, -15], [-10, 15],
+    [24, -26], [24, 26], [-24, -26], [-24, 26], [40, 0], [-40, 0], [0, -32], [0, 32],
+    [44, -40], [44, 40], [-44, -40], [-44, 40], [70, 0], [-70, 0],
+  ];
+  let best: Placed | null = null;
+  let bestScore = Infinity;
+  for (const [dx, dy] of cands) {
+    const align: CanvasTextAlign = dx < 0 ? "right" : dx > 0 ? "left" : "center";
+    const lx = x + dx;
+    const ly = y + dy;
+    const bx = align === "right" ? lx - w : align === "center" ? lx - w / 2 : lx;
+    const box = { x: bx - 2, y: ly - h / 2, w: w + 4, h };
+    const inside = box.x >= L.x + 2 && box.x + box.w <= L.x + L.w - 2 && box.y >= L.y + 2 && box.y + box.h <= L.y + L.h - 2;
+    let score = inside ? 0 : 1000;
+    for (const o of occupied) if (overlaps(box, o)) score += 100;
+    score += Math.hypot(dx, dy) * 0.01;
+    if (score < bestScore) {
+      bestScore = score;
+      best = { x: lx, y: ly, align, box, leader: Math.hypot(dx, dy) > 18 };
+      if (score < 1) break;
+    }
+  }
+  return best!;
+}
+
+/** A small rect around a marker, so labels keep clear of it. */
+export const dotRect = (x: number, y: number, r = 6): Rect => ({ x: x - r, y: y - r, w: r * 2, h: r * 2 });
+
+export function staticFrame(
+  L: Layout,
+  r: Range,
+  opts: { regions?: boolean; labels?: boolean; hhOnlyY?: string; xTitle?: string; diagonal?: boolean; step?: number; labelMode?: "anchors" | "centers"; avoid?: Rect[] } = {},
+): FrameCanvas {
+  const step = opts.step ?? 5;
   const d = dpr();
   const c = document.createElement("canvas");
   c.width = Math.round(L.W * d);
@@ -67,7 +135,7 @@ export function staticFrame(L: Layout, r: Range, opts: { regions?: boolean; labe
   ctx.rect(L.x, L.y, L.w, L.h);
   ctx.clip();
   if (opts.regions !== false) {
-    const rad = Math.min(L.w, L.h) * 0.26;
+    const rad = Math.min(L.w / (r.xmax - r.xmin), L.h / (r.ymax - r.ymin)) * 9;
     for (const z of REGIONS) {
       const cx = px(L, r, z.center[0]);
       const cy = py(L, r, z.center[1]);
@@ -80,14 +148,14 @@ export function staticFrame(L: Layout, r: Range, opts: { regions?: boolean; labe
   }
   ctx.strokeStyle = "rgba(255,255,255,0.05)";
   ctx.lineWidth = 1;
-  for (let v = Math.ceil(r.xmin / 5) * 5; v <= r.xmax; v += 5) {
+  for (let v = Math.ceil(r.xmin / step) * step; v <= r.xmax + 1e-9; v += step) {
     const x = Math.round(px(L, r, v)) + 0.5;
     ctx.beginPath();
     ctx.moveTo(x, L.y);
     ctx.lineTo(x, L.y + L.h);
     ctx.stroke();
   }
-  for (let v = Math.ceil(r.ymin / 5) * 5; v <= r.ymax; v += 5) {
+  for (let v = Math.ceil(r.ymin / step) * step; v <= r.ymax + 1e-9; v += step) {
     const y = Math.round(py(L, r, v)) + 0.5;
     ctx.beginPath();
     ctx.moveTo(L.x, y);
@@ -111,10 +179,10 @@ export function staticFrame(L: Layout, r: Range, opts: { regions?: boolean; labe
   ctx.font = `${L.compact ? 9.5 : 10.5}px ${MONO}`;
   ctx.textAlign = "center";
   ctx.textBaseline = "top";
-  for (let v = Math.ceil(r.xmin / 5) * 5; v <= r.xmax; v += 5) ctx.fillText(minus(v), px(L, r, v), L.y + L.h + 6);
+  for (let v = Math.ceil(r.xmin / step) * step; v <= r.xmax + 1e-9; v += step) ctx.fillText(minus(Math.round(v)), px(L, r, v), L.y + L.h + 6);
   ctx.textAlign = "right";
   ctx.textBaseline = "middle";
-  for (let v = Math.ceil(r.ymin / 5) * 5; v <= r.ymax; v += 5) ctx.fillText(minus(v), L.x - 7, py(L, r, v));
+  for (let v = Math.ceil(r.ymin / step) * step; v <= r.ymax + 1e-9; v += step) ctx.fillText(minus(Math.round(v)), L.x - 7, py(L, r, v));
   // axis titles
   ctx.fillStyle = "rgba(239,237,230,0.6)";
   ctx.font = `${L.compact ? 10.5 : 12}px ${SANS}`;
@@ -127,32 +195,44 @@ export function staticFrame(L: Layout, r: Range, opts: { regions?: boolean; labe
   ctx.textAlign = "right";
   ctx.fillText(opts.hhOnlyY ?? (L.compact ? "HV (dB) →" : `${AXIS_Y} →`), 0, 0);
   ctx.restore();
-  // region labels
+  // region labels: faint, pinned in the empty corners on either side of the diagonal cloud
+  const rects: Rect[] = [];
   if (opts.labels !== false && opts.regions !== false) {
-    ctx.font = `italic ${L.compact ? 13 : 16}px ${SERIF}`;
-    ctx.fillStyle = "rgba(239,237,230,0.55)";
-    for (const z of REGIONS) {
-      let x = px(L, r, z.center[0]);
-      let y = py(L, r, z.center[1]);
-      const off = Math.min(L.w, L.h) * 0.075;
-      ctx.textBaseline = "middle";
-      ctx.textAlign = "center";
-      if (z.pos === "above") y -= off;
-      if (z.pos === "below") y += off;
-      if (z.pos === "left") {
-        x -= off * 0.9;
-        ctx.textAlign = "right";
+    const size = L.compact ? 13 : 15;
+    ctx.font = `italic ${size}px ${SERIF}`;
+    ctx.fillStyle = "rgba(239,237,230,0.42)";
+    ctx.textBaseline = "middle";
+    const centers = opts.labelMode === "centers";
+    for (const a0 of REGION_ANCHORS) {
+      const zc = REGIONS.find((z) => z.id === a0.id)!.center;
+      const a = centers ? { ...a0, at: zc as [number, number], align: "center" as CanvasTextAlign, sub: undefined } : a0;
+      if (centers && (a.at[0] < r.xmin + 0.5 || a.at[0] > r.xmax - 0.5 || a.at[1] < r.ymin + 0.5 || a.at[1] > r.ymax - 0.5)) continue;
+      const x = Math.min(Math.max(px(L, r, a.at[0]), L.x + 6), L.x + L.w - 6);
+      const y = Math.min(Math.max(py(L, r, a.at[1]), L.y + 10), L.y + L.h - 10);
+      if (centers) {
+        ctx.font = `italic ${size}px ${SERIF}`;
+        const tw = ctx.measureText(a.label).width;
+        const box = { x: x - tw / 2 - 2, y: y - size / 2 - 2, w: tw + 4, h: size + 4 };
+        const inside = box.x > L.x && box.x + box.w < L.x + L.w && box.y > L.y && box.y + box.h < L.y + L.h;
+        if (!inside || [...rects, ...(opts.avoid ?? [])].some((o) => overlaps(box, o))) continue;
       }
-      if (z.pos === "edge") {
-        x = L.x + L.w - 8;
-        y = py(L, r, z.center[1] + 4.2);
-        ctx.textAlign = "right";
+      ctx.textAlign = a.align;
+      ctx.font = `italic ${size}px ${SERIF}`;
+      const w = ctx.measureText(a.label).width;
+      ctx.fillText(a.label, x, y);
+      let h = size + 4;
+      let wSub = 0;
+      if (a.sub && !L.compact) {
+        ctx.font = `${size - 4}px ${SANS}`;
+        wSub = ctx.measureText(a.sub).width;
+        ctx.fillText(a.sub, x, y + size - 1);
+        h += size - 2;
       }
-      let text = z.label;
-      if (L.compact && z.id === "bounce") text = "double bounce";
-      ctx.fillText(text, x, y);
+      const ww = Math.max(w, wSub);
+      rects.push({ x: a.align === "right" ? x - ww : x, y: y - size / 2 - 2, w: ww, h });
     }
   }
+  (c as FrameCanvas).rects = rects;
   return c;
 }
 

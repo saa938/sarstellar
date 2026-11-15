@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { loadIndex, loadStory, publicUrl, type StoryResult } from "../lib/data";
@@ -135,7 +135,7 @@ function Channels({ doc }: { doc: StoryDoc }) {
   const ch = doc.channels;
   const [active, setActive] = useState<string | null>(null);
   const ref = useReveal<HTMLElement>();
-  const marks = ch.chips.map((c) => ({ id: c.id, HH: c.HH, HV: c.HV, label: c.label }));
+  const marks = useMemo(() => ch.chips.map((c) => ({ id: c.id, HH: c.HH, HV: c.HV, label: c.label })), [ch]);
   return (
     <section className="sec channels reveal" id="channels" ref={ref}>
       <div className="sec__inner channels__grid">
@@ -231,8 +231,8 @@ function Example({ ex, i, n }: { ex: StoryExample; i: number; n: number }) {
             <HHLine series={ex.series} ariaLabel={`${ex.title}: HH over time`} />
           ) : (
             <>
-              <StoryChart cloud={ex.cloud_before ?? null} cloudTo={ex.cloud_after ?? null} path={ex.path ?? null} morph ariaLabel={`${ex.title}: hectares moving from before to after`} />
-              <p className="chart-caption">Faint dots: hectares here, moving from the before pass to the after pass. Gold: their median, pass by pass.</p>
+              <StoryChart cloud={ex.cloud_before ?? null} cloudTo={ex.cloud_after ?? null} path={ex.path ?? null} afterDate={ex.after.date} morph zoom ariaLabel={`${ex.title}: hectares moving from before to after`} />
+              <p className="chart-caption">Faint dots: hectares here, moving from the before pass to the after pass. Gold: their median, pass by pass. Axes zoomed to this example.</p>
             </>
           )}
         </div>
