@@ -1,6 +1,7 @@
 """Explanations: a deterministic template, and an LLM that may only reword it."""
 
 import json
+import logging
 from types import SimpleNamespace
 
 import pytest
@@ -178,3 +179,28 @@ def test_client_construction_failure_falls_back(monkeypatch):
 def test_any_exception_type_falls_back(exc):
     area = make_area()
     assert explain(area, client=RaisingClient(exc)) == template_text(area)
+
+
+def test_fallbacks_are_logged_with_the_exception_type_but_not_its_message(caplog):
+    # an SDK error message can echo request details, so only the class name may reach the log
+    caplog.set_level(logging.INFO, logger="sarstellar.explain")
+    secret = "sk-ant-this-must-not-be-logged"
+    explain(make_area(), client=RaisingClient(RuntimeError(secret)))
+    warnings = [r for r in caplog.records if r.levelno == logging.WARNING]
+    assert len(warnings) == 1
+    assert "RuntimeError" in warnings[0].getMessage()
+    assert secret not in caplog.text
+
+
+def test_empty_reply_fallback_is_logged(caplog):
+    caplog.set_level(logging.INFO, logger="sarstellar.explain")
+    explain(make_area(), client=FakeClient("  "))
+    assert any(r.levelno == logging.WARNING and "empty" in r.getMessage() for r in caplog.records)
+
+
+def test_missing_key_is_logged_below_warning_level(monkeypatch, caplog):
+    monkeypatch.delenv("ANTHROPIC_API_KEY", raising=False)
+    caplog.set_level(logging.DEBUG, logger="sarstellar.explain")
+    explain(make_area())
+    assert caplog.records  # the fallback is visible when debugging...
+    assert all(r.levelno < logging.WARNING for r in caplog.records)  # ...but is not noisy per area
