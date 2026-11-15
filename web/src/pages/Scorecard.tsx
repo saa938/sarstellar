@@ -57,25 +57,26 @@ export default function ScorecardPage({ data }: ScorecardPageProps) {
 function ScorecardView({ sc }: { sc: Scorecard }) {
   const headline = fusionHeadline(sc);
   const op = sc.operating_point;
+  const held = holdoutSummary(sc);
   return (
     <main className="pg">
       <div className="pg-inner">
-        <div className="pg-kicker">National scorecard · held-out test</div>
-        <section className={`pg-card pg-headline pg-${headline.kind}`}>
-          <h1>{headline.text}</h1>
+        <header className={`pg-report-header pg-${headline.kind}`}>
+          <h1>Radar comparison</h1>
+          <p className="pg-outcome">{headline.text}</p>
           {headline.detail && <p className="pg-detail">{headline.detail}</p>}
           <p className="pg-meta">
-            {sc.n_sites} sites scored · generated {formatDate(sc.generated_at)}
-            {op && ` · default setting: false discovery rate q = ${op.q}, change of at least ${op.min_db} dB`}
+            {held.nSites} held-out sites · {held.states.length} states · {sc.n_sites} eligible sites
+            {` · generated ${formatDate(sc.generated_at)}`}
           </p>
-        </section>
+        </header>
         <FusionTable sc={sc} />
         <ScorecardAudit sc={sc} />
-        <HowToRead />
-        {!!sc.learned_fusion?.length && <FusionTable sc={{ ...sc, fusion: sc.learned_fusion }} learned />}
+        <HowToRead op={op} />
         <ClassBars rows={sc.classes ?? []} />
         <EqualRecall sc={sc} />
         <StableFalseAlarms fa={sc.stable_fa} />
+        {!!sc.learned_fusion?.length && <FusionTable sc={{ ...sc, fusion: sc.learned_fusion }} learned />}
         <Sites sc={sc} />
         {sc.model && <ModelTable model={sc.model} />}
       </div>
@@ -83,32 +84,30 @@ function ScorecardView({ sc }: { sc: Scorecard }) {
   );
 }
 
-function HowToRead() {
+function HowToRead({ op }: { op: Scorecard["operating_point"] }) {
   return (
     <details className="pg-card pg-howto">
-      <summary>How to read this</summary>
+      <summary>Metrics and validation</summary>
       <ul>
         <li>
-          Each site is a box about 10 km on a side with a reference map: optical vegetation-loss alerts
-          (OPERA DIST-ALERT-HLS), fire perimeters (NIFC), surface-water maps (OPERA DSWx) or crop maps (USDA CDL). These
-          references are products, not field surveys. DSWx-S1 itself uses Sentinel-1, so flood labels are not
-          sensor-independent. CDL marks cultivated land, not a confirmed crop change.
+          <b>Reference products:</b> OPERA DIST-ALERT-HLS vegetation loss, NIFC fire perimeters, OPERA DSWx surface water
+          and USDA CDL cultivated land. Site boxes are about 10 km on a side; these products are not field surveys.
         </li>
         <li>
-          Scores are per 1-hectare block. <b>Precision</b>: of the blocks a radar flagged, the share the reference agrees
-          with. <b>Recall</b>: of the reference blocks, the share the radar flagged. <b>AUPRC</b> (area under the
-          precision–recall curve, 0 to 1, higher is better) sums up every threshold, not just the default one.
+          <b>Unit:</b> 1-hectare blocks. <b>Precision:</b> reference-positive fraction of flagged blocks.
+          <b> Recall:</b> fraction of reference positives flagged. <b>AUPRC:</b> area under the precision–recall curve
+          across thresholds, from 0 to 1; higher is better.
         </li>
         <li>
-          States are split into training and held-out. Thresholds and the logistic fusion were fit on training states
-          only; the comparisons here are measured on held-out states the models never saw.
+          <b>Operating point:</b> BH-FDR q = {op.q} and absolute relative change ≥ {op.min_db} dB for raw radar tests.
+          Logistic thresholds are calibrated on training controls and are not p-values.
         </li>
         <li>
-          Thin lines on the bars are 95% confidence intervals from resampling whole sites. The paired interval in the
-          fusion table tests the difference directly; overlapping individual bars are not that test.
+          <b>Validation:</b> held-out states; fitting and method selection use training states only.
+          Whole-site bootstrap gives 95% intervals. Paired intervals test the fusion difference directly.
         </li>
         <li>
-          <b>NISAR at 30 m</b> samples NISAR on a coarser pixel lattice before block averaging. This checks sensitivity
+          <b>NISAR at 30 m:</b> coarser pixel sampling before block averaging. This checks sensitivity
           to sampling; it does not isolate wavelength from timing, geometry, processing or other sensor differences.
         </li>
       </ul>
@@ -121,23 +120,22 @@ function FusionTable({ sc, learned = false }: { sc: Scorecard; learned?: boolean
   if (rows.length === 0) return null;
   return (
     <section className="pg-card">
-      <h2>{learned ? "Learned fusion with matched training" : "Does combining both radars help?"}</h2>
+      <h2>{learned ? "Supervised fusion (matched controls)" : "Fusion vs. single-sensor"}</h2>
       <p className="pg-note">
-        Change in {BAR_METRIC_LABEL} when NISAR and Sentinel-1 are combined, compared with the better single radar for
-        each change type, on held-out states. Methods are selected on training states before evaluation.
-        {learned ? " These models all receive the same training labels; gains cannot be attributed to extra supervision alone."
-          : " The primary comparison uses Fisher or Bonferroni fusion; learned models are shown separately."}
+        Held-out Δ {BAR_METRIC_LABEL} relative to the single-sensor baseline selected on training states.
+        {learned ? " Logistic fusion and single-sensor controls receive the same training labels."
+          : " Fisher or Bonferroni fusion; no supervised model in this primary comparison."}
       </p>
       <div className="pg-scroll">
         <table className="pg-table">
           <thead>
             <tr>
               <th scope="col">Change type</th>
-              <th scope="col">Better single radar</th>
-              <th scope="col">Combined with</th>
-              <th scope="col">Change in {BAR_METRIC_LABEL}</th>
+              <th scope="col">Baseline</th>
+              <th scope="col">Fusion method</th>
+              <th scope="col">Δ {BAR_METRIC_LABEL}</th>
               <th scope="col">95% CI</th>
-              <th scope="col">Resamples with a gain</th>
+              <th scope="col">Bootstrap gain share</th>
             </tr>
           </thead>
           <tbody>
@@ -175,7 +173,7 @@ function ClassBars({ rows }: { rows: ScorecardClassRow[] }) {
   if (groups.length === 0) return null;
   return (
     <section className="pg-card">
-      <h2>Detection quality by change type</h2>
+      <h2>Per-class results</h2>
       {covers.length > 0 && <label className="pg-filter">Land cover
         <select value={landcover} onChange={(event) => setLandcover(event.target.value)}>
           <option value="all">{pooled ? "All land covers (pooled)" : "All available land covers"}</option>
@@ -198,7 +196,7 @@ function ClassBars({ rows }: { rows: ScorecardClassRow[] }) {
               <MetricBar key={r.detector} row={r} />
             ))}
             <details>
-              <summary>At the default setting</summary>
+              <summary>Operating-point metrics</summary>
               <table className="pg-table pg-small">
                 <thead>
                   <tr>
@@ -266,8 +264,7 @@ function EqualRecall({ sc }: { sc: Scorecard }) {
     <section className="pg-card">
       <h2>Precision at equal recall</h2>
       <p className="pg-note">
-        When both radars find the same share of the reference change, how often is each one right? A ratio above 1 means
-        NISAR is more precise; below 1, Sentinel-1 is.
+        Precision at the same reference recall. NISAR ÷ Sentinel-1 above 1 favors NISAR; below 1 favors Sentinel-1.
       </p>
       <div className="pg-scroll">
         <table className="pg-table">
@@ -342,7 +339,7 @@ function Sites({ sc }: { sc: Scorecard }) {
   for (const s of sites) kinds.set(s.kind, (kinds.get(s.kind) ?? 0) + 1);
   return (
     <section className="pg-card">
-      <h2>Where the sites are</h2>
+      <h2>Site distribution</h2>
       <div className="pg-legend">
         <span>
           <Swatch color={SPLIT_COLORS.train} round />

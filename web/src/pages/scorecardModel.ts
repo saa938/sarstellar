@@ -96,10 +96,6 @@ function joinList(items: string[]): string {
   return `${items.slice(0, -1).join(", ")} and ${items[items.length - 1]}`;
 }
 
-function plural(n: number, word: string): string {
-  return `${n} ${word}${n === 1 ? "" : "s"}`;
-}
-
 // ---------------------------------------------------------------- headline
 
 export function holdoutSummary(sc: Scorecard): { nSites: number; states: string[] } {
@@ -119,34 +115,30 @@ export interface Headline {
   detail: string | null;
 }
 
-const FUSED = "combining NISAR and Sentinel-1";
-
 export function fusionHeadline(sc: Scorecard): Headline {
   const rows = (sc.fusion ?? []).filter((r) => isNum(r.delta) && isNum(r.ci_low) && isNum(r.ci_high));
   if (rows.length === 0) {
-    return { kind: "pending", text: "The held-out test of combining both radars has not finished yet.", detail: null };
+    return { kind: "pending", text: "Held-out fusion results pending.", detail: null };
   }
-  const { nSites, states } = holdoutSummary(sc);
-  const where = nSites > 0 ? `On ${plural(nSites, "held-out site")} in ${plural(states.length, "state")}` : "On the held-out states";
   const gains = rows.filter((r) => r.ci_low > 0).sort((a, b) => b.delta - a.delta);
   const losses = rows.filter((r) => r.ci_high < 0).sort((a, b) => a.delta - b.delta);
   const named = (rs: FusionRow[]) => joinList(rs.map((r) => `${classLabel(r.class)} (${signed(r.delta)})`));
-  const lossNote = losses.length ? `It did worse than the best single radar for ${named(losses)}.` : null;
+  const lossNote = losses.length ? `Lower AUPRC for ${named(losses)}.` : null;
 
   if (gains.length === 0) {
     return {
       kind: "null",
-      text: `${where}, ${FUSED} did not measurably beat the better single radar for any change class.`,
-      detail: lossNote ?? "Every 95% interval on the AUPRC gain includes zero, so we report no improvement.",
+      text: "No detectable fusion gain on held-out states.",
+      detail: lossNote ?? "All 95% intervals on the AUPRC difference include zero.",
     };
   }
   const [best, ...others] = gains;
-  const parts = [others.length ? `It also helped for ${named(others)}.` : null, lossNote].filter((p): p is string => p !== null);
+  const parts = [others.length ? `Additional gains: ${named(others)}.` : null, lossNote].filter((p): p is string => p !== null);
   return {
     kind: "gain",
     text:
-      `${where}, ${FUSED} improved ${classLabel(best.class)} detection by ${signed(best.delta)} AUPRC ` +
-      `(95% CI ${fmt(best.ci_low)} to ${fmt(best.ci_high)}) over ${detectorInfo(best.best_single).label} alone.`,
+      `${classTitle(best.class)}: ${signed(best.delta)} AUPRC ` +
+      `(95% CI ${fmt(best.ci_low)} to ${fmt(best.ci_high)}) versus ${detectorInfo(best.best_single).label}.`,
     detail: parts.length ? parts.join(" ") : null,
   };
 }

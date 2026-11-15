@@ -7,7 +7,8 @@ afterEach(cleanup);
 describe("About page", () => {
   it("covers data, method, limits, AI use, references and license", () => {
     render(<About />);
-    for (const name of ["Data we use", "Method", "Limits", "AI use", "References", "License"]) {
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Methods");
+    for (const name of ["Data", "Processing", "Validation", "Limits", "AI use", "References", "License"]) {
       expect(screen.getByRole("heading", { name })).toBeTruthy();
     }
     const text = document.body.textContent ?? "";

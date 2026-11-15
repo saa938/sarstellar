@@ -57,17 +57,19 @@ describe("Scorecard page", () => {
     const report = actualReport as unknown as Scorecard;
     render(<ScorecardPage data={report} />);
     const text = document.body.textContent ?? "";
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toContain(
-      `On ${report.n_holdout_sites} held-out sites in ${report.holdout_states.length} states`,
-    );
-    expect(text).toContain(`${report.n_sites} eligible sites from ${report.n_attempted} attempted`);
-    expect(text).toContain(`${report.failed_sites!.length} failed and ${report.excluded_sites!.length} were excluded`);
-    expect(text).toContain("only 3 held-out flood sites");
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Radar comparison");
+    expect(text).toContain(`${report.n_holdout_sites} held-out sites · ${report.holdout_states.length} states`);
+    expect(screen.getByText("Eligible", { selector: "dt" }).nextElementSibling?.textContent).toBe(String(report.n_sites));
+    expect(screen.getByText("Attempted", { selector: "dt" }).nextElementSibling?.textContent).toBe(String(report.n_attempted));
+    expect(screen.getByText("Failed", { selector: "dt" }).nextElementSibling?.textContent).toBe(String(report.failed_sites!.length));
+    expect(screen.getByText("Excluded", { selector: "dt" }).nextElementSibling?.textContent).toBe(String(report.excluded_sites!.length));
+    expect(text).toContain("3 held-out flood sites");
     expect(text).toContain("Bonferroni fusion");
-    expect(text).toContain("DSWx-S1 itself uses Sentinel-1");
+    expect(text).toContain("DSWx-S1 uses Sentinel-1");
+    expect(screen.getByText(/DSWx-S1 uses Sentinel-1;/).closest("details")).toBeNull();
     expect(text).toContain("CDL marks cultivated land");
     expect(text).toContain("at most 1.5%");
-    expect(screen.getByRole("heading", { name: "Learned fusion with matched training" })).toBeTruthy();
+    expect(screen.getByRole("heading", { name: "Supervised fusion (matched controls)" })).toBeTruthy();
     expect(text).toContain(report.notes);
     expect(text).not.toContain("300+");
   });
@@ -76,9 +78,8 @@ describe("Scorecard page", () => {
     render(<ScorecardPage data={sampleScorecard()} />);
 
     // Headline = the fusion result.
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe(
-      "On 4 held-out sites in 2 states, combining NISAR and Sentinel-1 improved forest loss detection by +0.12 AUPRC (95% CI 0.04 to 0.20) over NISAR (L-band) alone.",
-    );
+    expect(screen.getByRole("heading", { level: 1 }).textContent).toBe("Radar comparison");
+    expect(screen.getByText("Forest loss: +0.12 AUPRC (95% CI 0.04 to 0.20) versus NISAR (L-band).")).toBeTruthy();
     // Per-class detector bars with CIs.
     expect(screen.getByRole("img", { name: "NISAR (L-band): AUPRC 0.61, 95% CI 0.52 to 0.70" })).toBeTruthy();
     expect(screen.getByRole("img", { name: "Sentinel-1 (C-band): AUPRC 0.47, 95% CI 0.36 to 0.58" })).toBeTruthy();
@@ -92,7 +93,7 @@ describe("Scorecard page", () => {
     expect(screen.getByText("4 training sites", { exact: true })).toBeTruthy();
     expect(screen.getByText(/4 held-out sites in GA, OR/)).toBeTruthy();
     // Reading guide; no rules-vs-model table while `model` is null.
-    expect(screen.getByText("How to read this")).toBeTruthy();
+    expect(screen.getByText("Metrics and validation")).toBeTruthy();
     expect(screen.queryByRole("heading", { name: /rules vs learned model/i })).toBeNull();
   });
 
@@ -101,7 +102,7 @@ describe("Scorecard page", () => {
       fusion: [{ class: "forest_loss", best_single: "L", fused: "fused_fisher", metric: "auprc", delta: 0.01, ci_low: -0.03, ci_high: 0.05, p_gt0: 0.6 }],
     });
     render(<ScorecardPage data={sc} />);
-    expect(screen.getByRole("heading", { level: 1 }).textContent).toContain("did not measurably beat the better single radar");
+    expect(screen.getByText("No detectable fusion gain on held-out states.")).toBeTruthy();
   });
 
   it("shows the rules-vs-model table only when a model is present", () => {
@@ -129,6 +130,6 @@ describe("Scorecard page", () => {
 
     vi.stubGlobal("fetch", vi.fn(async () => Response.json(sampleScorecard())));
     render(<ScorecardPage />);
-    expect((await screen.findByRole("heading", { level: 1 })).textContent).toContain("held-out sites");
+    expect((await screen.findByRole("heading", { level: 1 })).textContent).toBe("Radar comparison");
   });
 });

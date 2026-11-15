@@ -1,82 +1,13 @@
-/* Pass timeline (Task B3), styled after the footer in docs/mockups/app-mockup.html. */
-.tl-wrap {
-  font-size: 12px;
-}
-
-.tl-head {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  color: var(--muted);
-}
-
-.tl-head b {
-  color: var(--text);
-  font-weight: 600;
-}
-
-.tl-track {
-  position: relative;
-  height: 46px;
-  margin-top: 6px;
-}
-
-.tl-axis {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 18px;
-  height: 2px;
-  background: var(--line);
-}
-
-.tl-gap {
-  position: absolute;
-  top: 8px;
-  height: 22px;
-  border-radius: 3px;
-  background: repeating-linear-gradient(45deg, #3b1d1d, #3b1d1d 4px, #2a1414 4px, #2a1414 8px);
-}
-
-.tl-tick {
-  position: absolute;
-  top: 12px;
-  width: 14px;
-  height: 14px;
-  margin-left: -7px;
-  padding: 0;
-  border-radius: 50%;
-  background: var(--panel2);
-  border: 2px solid var(--muted);
-  cursor: pointer;
-}
-
-.tl-tick:disabled {
-  cursor: default;
-}
-
-.tl-tick.sel {
-  background: var(--l);
-  border-color: var(--l);
-}
-
-.tl-tick:focus-visible {
-  outline: 2px solid var(--text);
-  outline-offset: 2px;
-}
-
-.tl-tick span {
-  position: absolute;
-  top: 18px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 11px;
-  color: var(--muted);
-  white-space: nowrap;
-  pointer-events: none;
-}
-
-.tl-tick.sel span {
-  color: var(--text);
-  font-weight: 600;
-}
+/* Pass selection and permanent acquisition gap. */
+.tl-wrap { font-size: 12px; }
+.tl-head { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); }
+.tl-head b { color: var(--text); font-weight: 500; }
+.tl-track { position: relative; height: 46px; margin-top: 6px; }
+.tl-axis { position: absolute; left: 0; right: 0; top: 18px; height: 1px; background: var(--muted); }
+.tl-gap { position: absolute; top: 8px; height: 22px; border: 1px solid var(--line); border-radius: 0; background: repeating-linear-gradient(45deg, var(--gap), var(--gap) 4px, var(--gap-stripe) 4px, var(--gap-stripe) 5px); }
+.tl-tick { position: absolute; top: 12px; width: 13px; height: 13px; margin-left: -6px; padding: 0; border-radius: 50%; background: var(--panel); border: 1px solid var(--muted); cursor: pointer; }
+.tl-tick:disabled { cursor: default; }
+.tl-tick.sel { background: var(--accent); border-color: var(--accent); }
+.tl-tick:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+.tl-tick span { position: absolute; top: 18px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--muted); white-space: nowrap; pointer-events: none; }
+.tl-tick.sel span { color: var(--text); font-weight: 600; }

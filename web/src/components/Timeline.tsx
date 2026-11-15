@@ -34,7 +34,7 @@ export default function Timeline({ dates, value, onChange }: TimelineProps) {
   if (passes.length === 0) {
     return (
       <div className="tl-wrap">
-        <div className="tl-head">No NISAR passes on this track yet.</div>
+        <div className="tl-head">No NISAR acquisitions available.</div>
       </div>
     );
   }
@@ -70,16 +70,16 @@ export default function Timeline({ dates, value, onChange }: TimelineProps) {
     <div className="tl-wrap">
       <div className="tl-head">
         <span>
-          NISAR passes on this track.{" "}
+          NISAR acquisitions · {" "}
           {pair ? (
             <>
-              Comparing <b>{shortDate(pair[0].t)}</b> → <b>{shortDate(pair[1].t)}</b>; click a pass to change the pair.
+              Next analysis: <b>{shortDate(pair[0].t)}</b> → <b>{shortDate(pair[1].t)}</b>
             </>
           ) : (
-            "Only one pass, so there is nothing to compare yet."
+            "Two acquisitions required for a comparison."
           )}
         </span>
-        {gap && <span>Striped: no NISAR data exists ({GAP_TEXT})</span>}
+        {gap && <span>Acquisition gap: {GAP_TEXT}</span>}
       </div>
       <div className="tl-track">
         <div className="tl-axis" />
@@ -87,8 +87,8 @@ export default function Timeline({ dates, value, onChange }: TimelineProps) {
           <div
             className="tl-gap"
             role="img"
-            aria-label={`No NISAR data exists ${GAP_TEXT}`}
-            title={`No NISAR data exists ${GAP_TEXT}`}
+            aria-label={`NISAR acquisition gap ${GAP_TEXT}`}
+            title={`NISAR acquisition gap ${GAP_TEXT}`}
             style={{ left: `${pct(gap[0])}%`, width: `${pct(gap[1]) - pct(gap[0])}%` }}
           />
         )}
@@ -101,8 +101,8 @@ export default function Timeline({ dates, value, onChange }: TimelineProps) {
               className={sel ? "tl-tick sel" : "tl-tick"}
               style={{ left: `${pct(p.t)}%` }}
               aria-pressed={sel}
-              aria-label={`NISAR pass ${longDate(p.t)}`}
-              title={longDate(p.t)}
+              aria-label={`NISAR acquisition ${longDate(p.t)}`}
+              title={`${longDate(p.t)} (UTC)`}
               disabled={!pair}
               onClick={() => pick(p)}
             >

@@ -1,4 +1,4 @@
-// Left panel (mockup): draw-a-box slot, stories list, facts about the current box, legend, "How sure are we?".
+// Analysis controls, example selection, acquisition metadata and detection layers.
 import type { ReactNode } from "react";
 import { formatDateRange } from "../areas.ts";
 import type { Agreement, Result, StoryIndexEntry } from "../types.ts";
@@ -8,8 +8,8 @@ import { Legend } from "./Legend.tsx";
 /** Shown wherever spike-derived stand-in data (`fixture: true`) is on screen. */
 export function ExampleTag() {
   return (
-    <span className="example-tag" title="Saved example from early test runs, not a final pipeline result">
-      Example data
+    <span className="example-tag" title="Spike-derived fixture; not a final pipeline result">
+      Test fixture
     </span>
   );
 }
@@ -24,16 +24,22 @@ export interface SidebarProps {
   result: Result | null;
   hidden: ReadonlySet<Agreement>;
   onToggleAgreement: (agreement: Agreement) => void;
+  /** Map layer opacity, normalized to 0..1. */
+  layerOpacity?: number;
+  onOpacityChange?: (opacity: number) => void;
+  layerControlsEnabled?: boolean;
 }
 
-export function Sidebar({ actions, stories, activeStoryId, onSelectStory, result, hidden, onToggleAgreement }: SidebarProps) {
+export function Sidebar({ actions, stories, activeStoryId, onSelectStory, result, hidden, onToggleAgreement,
+  layerOpacity = 1, onOpacityChange, layerControlsEnabled = true }: SidebarProps) {
+  const opacityPercent = Math.round(Math.max(0, Math.min(1, layerOpacity)) * 100);
   return (
     <aside className="side" aria-label="Analysis workspace">
       <div className="sidebar-actions">{actions}</div>
 
-      <div className="label sidebar-section-title">Saved stories <span>{stories?.length ?? ""}</span></div>
-      {stories === null && <p className="hint">Loading stories…</p>}
-      {stories?.length === 0 && <p className="hint">No stories are available right now.</p>}
+      <div className="label sidebar-section-title">Examples <span>{stories?.length ?? ""}</span></div>
+      {stories === null && <p className="hint">Loading examples…</p>}
+      {stories?.length === 0 && <p className="hint">No examples available.</p>}
       {stories?.map((s) => (
         <button
           key={s.id}
@@ -51,20 +57,36 @@ export function Sidebar({ actions, stories, activeStoryId, onSelectStory, result
 
       {result && (
         <>
-          <div className="label">This box</div>
+          <div className="label legend-heading">Layers</div>
+          <p className="section-note">Detection overlap · ha</p>
+          <Legend areas={result.areas} hidden={hidden} onToggle={onToggleAgreement} disabled={!layerControlsEnabled} />
+          {onOpacityChange && (
+            <label className="layer-opacity">
+              <span>Area opacity <b>{opacityPercent}%</b></span>
+              <input type="range" min={0} max={100} value={opacityPercent}
+                aria-label="Area opacity" aria-valuetext={`${opacityPercent}%`}
+                disabled={!layerControlsEnabled}
+                onChange={(event) => onOpacityChange(Number(event.target.value) / 100)} />
+            </label>
+          )}
+          {!layerControlsEnabled && <p className="section-note">Area controls apply to the Detected areas view.</p>}
+          <div className="label">Acquisitions</div>
           <BoxFacts result={result} />
-          <div className="label legend-heading">Detected change</div>
-          <p className="section-note">Toggle layers on the map</p>
-          <Legend areas={result.areas} hidden={hidden} onToggle={onToggleAgreement} />
+          <details className="coordinates">
+            <summary>Coordinates</summary>
+            <p className="hint">Longitude / latitude · WGS 84 (°)</p>
+            <div className="facts" role="group" aria-label="AOI coordinates">
+              {(["West", "South", "East", "North"] as const).map((label, index) =>
+                <div key={label}><span>{label}</span><b>{String(result.bbox[index])}</b></div>)}
+            </div>
+          </details>
         </>
       )}
 
       <details className="method-notes">
-        <summary>How sure are we?</summary>
-        <p>Every 1-hectare block gets a statistical test across all passes. We only call it change when the test holds up
-        after correcting for testing many blocks at once (false discovery rate 5%), the radar echo moved by at
-        least 2 dB, and the changed blocks cover at least 3 hectares. The Scorecard page shows how often this flags
-        ground we know is stable.</p>
+        <summary>Detection criteria</summary>
+        <p>1 ha blocks; BH-FDR q = 0.05; |relative Δ| ≥ 2 dB; minimum area 3 ha.</p>
+        <p><a href="#/scorecard">Validation scorecard</a></p>
       </details>
     </aside>
   );
@@ -72,26 +94,30 @@ export function Sidebar({ actions, stories, activeStoryId, onSelectStory, result
 
 function BoxFacts({ result }: { result: Result }) {
   const { nisar, s1 } = result;
-  const arrow = nisar.direction === "A" ? "↑" : "↓";
+  const direction = nisar.direction === "A" ? "ascending" : "descending";
   return (
-    <div className="facts" role="group" aria-label="This box">
+    <div className="facts" role="group" aria-label="Acquisition metadata">
       <div>
-        <span>Area</span>
+        <span>AOI area</span>
         <b>{Math.round(boxSize(result.bbox).areaKm2).toLocaleString("en-US")} km²</b>
       </div>
       <div>
-        <span>NISAR passes (L-band)</span>
+        <span>NISAR acquisitions</span>
         <b>
-          {nisar.dates.length} · track {nisar.track} {arrow}
+          {nisar.dates.length} · track {nisar.track} · {direction}
         </b>
       </div>
       <div>
-        <span>Sentinel-1 passes (C-band)</span>
-        <b>{s1 ? s1.dates.length : "none"}</b>
+        <span>NISAR dates</span>
+        <b>{formatDateRange(nisar.dates) || "Unavailable"}</b>
       </div>
       <div>
-        <span>Compared</span>
-        <b>{formatDateRange(nisar.dates)}</b>
+        <span>Sentinel-1 acquisitions</span>
+        <b>{s1 ? `${s1.dates.length} · track ${s1.track}` : "Unavailable"}</b>
+      </div>
+      <div>
+        <span>Sentinel-1 dates</span>
+        <b>{s1 ? formatDateRange(s1.dates) || "Unavailable" : "Unavailable"}</b>
       </div>
     </div>
   );

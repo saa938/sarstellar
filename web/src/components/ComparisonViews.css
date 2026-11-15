@@ -1,7 +1,7 @@
 /* Before/after and L-band vs C-band comparisons; palette vars come from index.css. */
 
 .rv-range:focus-visible {
-  outline: 2px solid var(--l);
+  outline: 2px solid var(--accent);
   outline-offset: -2px;
 }
 
@@ -13,7 +13,7 @@
 /* Provider attribution remains visible above our comparison legends. */
 .rv-map .maplibregl-ctrl-bottom-right { z-index: 4; }
 .rv-map .maplibregl-ctrl-attrib {
-  background: rgba(18, 24, 38, 0.94);
+  background: var(--overlay);
   color: var(--muted);
   font-size: 10px;
 }
@@ -28,7 +28,7 @@
 }
 
 .rv-swipe .maplibregl-compare {
-  background-color: var(--text);
+  background-color: var(--map-divider);
 }
 
 .rv-swipe .maplibregl-compare .compare-swiper-vertical {
@@ -37,7 +37,7 @@
   left: -22px;
   margin: -22px 1px 0;
   background-color: var(--panel);
-  box-shadow: inset 0 0 0 2px var(--l);
+  box-shadow: inset 0 0 0 2px var(--accent);
 }
 
 .rv-tag {
@@ -45,8 +45,8 @@
   bottom: 48px;
   z-index: 2;
   padding: 4px 10px;
-  border-radius: 6px;
-  background: rgba(18, 24, 38, 0.9);
+  border-radius: 2px;
+  background: var(--overlay);
   border: 1px solid var(--line);
   font-size: 12px;
   font-weight: 600;
@@ -68,7 +68,7 @@
   z-index: 2;
   width: min(320px, 60%);
   transform: translateX(-50%);
-  accent-color: var(--l);
+  accent-color: var(--accent);
 }
 
 .rv-note {
@@ -79,9 +79,9 @@
   transform: translate(-50%, -50%);
   max-width: 420px;
   padding: 14px 18px;
-  border-radius: 10px;
-  background: rgba(18, 24, 38, 0.92);
-  border: 1px dashed var(--muted);
+  border-radius: 2px;
+  background: var(--overlay);
+  border: 1px solid var(--line);
   text-align: center;
 }
 
@@ -109,8 +109,8 @@
   z-index: 2;
   max-width: calc(100% - 24px);
   padding: 8px 12px;
-  border-radius: 8px;
-  background: rgba(18, 24, 38, 0.92);
+  border-radius: 2px;
+  background: var(--overlay);
   border: 1px solid var(--line);
   font-size: 13px;
 }
@@ -165,10 +165,10 @@
   display: inline-block;
   margin-top: 6px;
   padding: 2px 8px;
-  border-radius: 999px;
-  background: #3b1d1d;
-  border: 1px solid #7f1d1d;
-  color: #fca5a5;
+  border-radius: 2px;
+  background: var(--danger-bg);
+  border: 1px solid var(--danger-line);
+  color: var(--danger);
   font-size: 11px;
   font-weight: 600;
 }
@@ -180,7 +180,7 @@
   padding: 28px;
   color: var(--muted);
   text-align: center;
-  background: radial-gradient(ellipse at center, var(--panel2), var(--bg));
+  background: var(--panel2);
 }
 
 .rv-delta-key {
@@ -195,7 +195,7 @@
   padding: 6px 8px;
   border-radius: 4px;
   border: 1px solid var(--line);
-  background: rgba(11, 15, 23, 0.9);
+  background: var(--overlay);
   color: var(--muted);
   font-size: 11px;
   line-height: 1.35;
@@ -209,8 +209,8 @@
   margin-right: 5px;
 }
 
-.rv-drop { background: #dc2626; }
-.rv-rise { background: #2563eb; }
+.rv-drop { background: var(--delta-drop); }
+.rv-rise { background: var(--delta-rise); }
 
 @media (max-width: 600px) {
   .rv-lc { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
