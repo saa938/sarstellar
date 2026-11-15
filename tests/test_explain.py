@@ -124,7 +124,7 @@ def test_hypothesis_framing_keeps_measurements_and_intervals():
     text = template_text(make_area())
     for value in ("12.4 ha", "-3.5 dB", "-4.1 to -2.9", "-0.5 dB"):
         assert value in text
-    assert "met the detection criteria" in text
+    assert "flagged a majority of the area's blocks" in text
     assert "Sentinel-1 (C-band) did not" not in text
 
 
