@@ -16,17 +16,17 @@ STORIES: dict[str, dict] = {
             "direction and HV climbs about 3 dB, from late November to February. Harvest in April "
             "drops the fields back to bare soil.",
             "Rice is a bounce. Seedlings are planted into flooded paddies in July. By September the "
-            "stalks stand in water, the pulse bounces off the water and up the stalks, and HH jumps "
-            "about 8 dB while HV rises far less. The gap between HH and HV widens from about 8 dB "
-            "to 12 dB: the double-bounce fingerprint.",
+            "stalks stand in water, the pulse bounces off the water and up the stalks, and the median "
+            "HH jumps about 7 dB while HV rises far less. The gap between HH and HV widens from about "
+            "9 dB to 12 dB: the double-bounce fingerprint.",
             "Medians over about 70,000 cultivated hectares in a 29 by 29 km box near Ludhiana.",
         ],
         "beats": [
             {"date": "2025-11-21", "caption": "Wheat sown into bare fields"},
-            {"date": "2026-02-01", "caption": "Wheat at its fullest: HV up 3 dB"},
+            {"date": "2026-02-01", "caption": "Wheat at its fullest: HV up about 3 dB"},
             {"date": "2026-04-26", "caption": "Wheat harvest: back to bare soil"},
             {"date": "2026-07-07", "caption": "Paddies flooded and planted: the fields dim"},
-            {"date": "2026-09-17", "caption": "Rice stands in water: HH jumps 8 dB, the Bounce"},
+            {"date": "2026-09-17", "caption": "Rice stands in water: HH up about 7 dB (double bounce)"},
             {"date": "2026-10-11", "caption": "Rice harvest begins"},
         ],
     },
