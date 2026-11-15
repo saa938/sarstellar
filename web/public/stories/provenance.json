@@ -16,7 +16,7 @@
       "nisar_passes": 11,
       "sentinel1_passes": 2,
       "sha256": {
-        "clearcuts.json": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+        "clearcuts.json": "c3062689b3194df6674994142bafe520c58ce50936b057f49c184cede8b234f9",
         "clearcuts/after.png": "d5320dc69db1863067659bff075bb13696705fb901eff90678c93ae74a970cd6",
         "clearcuts/before.png": "a9f070be78185aa23b718af36312f632342fa41f44037da4df3de39278224d01",
         "clearcuts/c.png": "fbafffa6ee2e6314a4fad3d36fab25d96f3270617cad0fd67a5cc8a74a4342ab",
@@ -35,7 +35,7 @@
       "nisar_passes": 5,
       "sentinel1_passes": 2,
       "sha256": {
-        "kaiser.json": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+        "kaiser.json": "5c8afd08aa5dd43cc1eb5f65e2bd5a065b0db82d26a1a51fc724529bdc077646",
         "kaiser/after.png": "7b39fa3b3434645a85a5d0e809c25e2ca8673f75b84ce6ffad84ed4fe3f0f5eb",
         "kaiser/before.png": "c8454161c6caaee5e50f46fb39e722ecb676f77e12688998c027fea17481301a",
         "kaiser/c.png": "b7e56f8123396bd58b66b22c6a57e7816d116d4379465cd8eafe609ee8f08942",
@@ -54,7 +54,7 @@
       "nisar_passes": 2,
       "sentinel1_passes": 2,
       "sha256": {
-        "edouard.json": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+        "edouard.json": "9496f306d164a84eb9c5dfa47ef770a4bb84f4f096de0532f75e48ac88fd616c",
         "edouard/after.png": "069e25e1039c512393559d50ff847555de70da72b3c5024088e4d99fcf88bc2d",
         "edouard/before.png": "61c3d3928cb9220a2622c14fb23916ab4a0e9e8a195e3c01a17b63a748426bad",
         "edouard/c.png": "061069ea6ffc78dff346df0e49c0eaa633b7d7177a467b6d9eb43031c930193d",
@@ -137,41 +137,207 @@
           "scientific_sha256_after": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c"
         }
       ]
+    },
+    {
+      "revised_at": "2026-11-15T09:35:05.869242+00:00",
+      "revision_type": "packaging_only",
+      "template_module": "sarstellar.explain",
+      "template_sha256": "d484f92ab2056350d1c0e758091e21a498e4dc9c29f56334bec8dee684726061",
+      "previous_template_sha256": "278cc4466de94ad8d4e19c3f9e7879fa0c0a2367576bbb1d270e7bc093666dfa",
+      "original_source_commit": "ec8604a2819fe2ea05044da8bdcb1f5a1012463c",
+      "scientific_rerun": false,
+      "notes": "Packaging only: CRLF normalized to LF for Git/Vercel checksum identity. No prose, scientific fields or PNG content changed. All prior revisions and original hashes are retained.",
+      "files": [
+        {
+          "file": "clearcuts.json",
+          "areas_checked": 141,
+          "areas_changed": 0,
+          "original_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+          "new_sha256": "c3062689b3194df6674994142bafe520c58ce50936b057f49c184cede8b234f9",
+          "scientific_sha256_before": "de53058987124a2515d7a2a76b4f645f98cc421145d80952e2197beb7c86fbbf",
+          "scientific_sha256_after": "de53058987124a2515d7a2a76b4f645f98cc421145d80952e2197beb7c86fbbf",
+          "prose_unchanged": true
+        },
+        {
+          "file": "kaiser.json",
+          "areas_checked": 202,
+          "areas_changed": 0,
+          "original_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+          "new_sha256": "5c8afd08aa5dd43cc1eb5f65e2bd5a065b0db82d26a1a51fc724529bdc077646",
+          "scientific_sha256_before": "e65398d2fd7f08b6b7a2a4d8fc2335ef3a52376d494969ddc0ce35a72e6c064a",
+          "scientific_sha256_after": "e65398d2fd7f08b6b7a2a4d8fc2335ef3a52376d494969ddc0ce35a72e6c064a",
+          "prose_unchanged": true
+        },
+        {
+          "file": "edouard.json",
+          "areas_checked": 277,
+          "areas_changed": 0,
+          "original_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+          "new_sha256": "9496f306d164a84eb9c5dfa47ef770a4bb84f4f096de0532f75e48ac88fd616c",
+          "scientific_sha256_before": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c",
+          "scientific_sha256_after": "2f49c11ca42d77c95899ede4ec0c2da3eea74d3e0d78886a51e765e9967a7a5c",
+          "prose_unchanged": true
+        }
+      ]
     }
   ],
   "supplemental_exports": {
-    "generated_at": "2026-11-15T09:28:34.447238+00:00",
+    "generated_at": "2026-11-15T09:35:06.288309+00:00",
     "generator": "scripts/export_saved_story_csv.py",
-    "generator_sha256": "8c6ae9ded212838d560aeda6f083f2e640376b686fe368b122ce3412ba02d86f",
+    "generator_sha256": "f13dd25cccd6bd1ff5dfc3abc78dde052133b90995f0c9b95a8a01e25fa74241",
     "scientific_rerun": false,
     "manifest": "exports.json",
-    "manifest_sha256": "ebc4aaafb727218303820ec51cc1b65f8a188cb7c82fee95ed3cef0aecfee5d2",
+    "manifest_sha256": "fc9f6e75b4914780c3e37bf0ce1567398e28df9dc760e42ccdddbfdedea43c02",
     "stories": {
       "clearcuts": {
         "csv": "/stories/clearcuts/areas.csv",
-        "sha256": "1206d848badadbd30e35fceb95358a9d76e70e19adf2fbe32167dc7875c13788",
+        "sha256": "a9e5085c5f3740a6eb8b3f3b0765e4e85186212994722cc67ab84d2d4b9bbea8",
         "source_json": "/stories/clearcuts.json",
-        "source_json_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+        "source_json_sha256": "c3062689b3194df6674994142bafe520c58ce50936b057f49c184cede8b234f9",
         "row_count": 141,
         "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
       },
       "kaiser": {
         "csv": "/stories/kaiser/areas.csv",
-        "sha256": "827b196120d34a16454baa6ff0f0c6d7c4c0b168867dce86155ff0e0b59e8696",
+        "sha256": "001491b32993f08da8a1d50c3dd138efd9e48563280f6e51f1c29ff03f73542d",
         "source_json": "/stories/kaiser.json",
-        "source_json_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+        "source_json_sha256": "5c8afd08aa5dd43cc1eb5f65e2bd5a065b0db82d26a1a51fc724529bdc077646",
         "row_count": 202,
         "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
       },
       "edouard": {
         "csv": "/stories/edouard/areas.csv",
-        "sha256": "fa0b702e4f7c9eeb4d7a5576c9818b2c02f8d70ab466ae1cbf3f07ed87805d39",
+        "sha256": "c7ac8d46f458c382eeb009f66194de200d43c7f5fad1b42bdea7f83110879cd8",
         "source_json": "/stories/edouard.json",
-        "source_json_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+        "source_json_sha256": "9496f306d164a84eb9c5dfa47ef770a4bb84f4f096de0532f75e48ac88fd616c",
         "row_count": 277,
         "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
       }
     },
     "notes": "CSV serialization of existing saved areas only. Original result JSON, overlay hashes, pipeline source and prose-revision provenance are unchanged."
+  },
+  "packaging_revisions": [
+    {
+      "revised_at": "2026-11-15T09:35:05.869242+00:00",
+      "revision_type": "lf_byte_normalization",
+      "original_source_commit": "ec8604a2819fe2ea05044da8bdcb1f5a1012463c",
+      "scientific_rerun": false,
+      "prose_changed": false,
+      "files": [
+        {
+          "file": "core/sarstellar/explain.py",
+          "original_sha256": "278cc4466de94ad8d4e19c3f9e7879fa0c0a2367576bbb1d270e7bc093666dfa",
+          "lf_sha256_before_metadata_updates": "d484f92ab2056350d1c0e758091e21a498e4dc9c29f56334bec8dee684726061",
+          "crlf_sequences_replaced": 172
+        },
+        {
+          "file": "scripts/refresh_story_text.py",
+          "original_sha256": "dfaf0d71cb77cb556dfa3624c50200eb7f802190692ddb114c1e7440b21535a4",
+          "lf_sha256_before_metadata_updates": "dfaf0d71cb77cb556dfa3624c50200eb7f802190692ddb114c1e7440b21535a4",
+          "crlf_sequences_replaced": 0
+        },
+        {
+          "file": "scripts/export_saved_story_csv.py",
+          "original_sha256": "f13dd25cccd6bd1ff5dfc3abc78dde052133b90995f0c9b95a8a01e25fa74241",
+          "lf_sha256_before_metadata_updates": "f13dd25cccd6bd1ff5dfc3abc78dde052133b90995f0c9b95a8a01e25fa74241",
+          "crlf_sequences_replaced": 0
+        },
+        {
+          "file": "web/public/stories/clearcuts.json",
+          "original_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+          "lf_sha256_before_metadata_updates": "c3062689b3194df6674994142bafe520c58ce50936b057f49c184cede8b234f9",
+          "crlf_sequences_replaced": 32477
+        },
+        {
+          "file": "web/public/stories/edouard.json",
+          "original_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+          "lf_sha256_before_metadata_updates": "9496f306d164a84eb9c5dfa47ef770a4bb84f4f096de0532f75e48ac88fd616c",
+          "crlf_sequences_replaced": 62298
+        },
+        {
+          "file": "web/public/stories/exports.json",
+          "original_sha256": "fb80c9813414f185d5b4fdcb634fa0a49451918300fbbd483a5bd14fb11e21be",
+          "lf_sha256_before_metadata_updates": "fb80c9813414f185d5b4fdcb634fa0a49451918300fbbd483a5bd14fb11e21be",
+          "crlf_sequences_replaced": 0
+        },
+        {
+          "file": "web/public/stories/index.json",
+          "original_sha256": "1d9e385d7244ca8ef66b9bb558d13ebfb14f2275ce357a5ff79c0498569fdf65",
+          "lf_sha256_before_metadata_updates": "ba8c13fe0852c092a5e063fbc5e09f6e75466cf427837416ceccb171059c1bcb",
+          "crlf_sequences_replaced": 32
+        },
+        {
+          "file": "web/public/stories/kaiser.json",
+          "original_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+          "lf_sha256_before_metadata_updates": "5c8afd08aa5dd43cc1eb5f65e2bd5a065b0db82d26a1a51fc724529bdc077646",
+          "crlf_sequences_replaced": 39121
+        },
+        {
+          "file": "web/public/stories/provenance.json",
+          "original_sha256": "394cb2a826a80ffaf440c821a7d609c9b4e77f61e31e44fede60e2432c4782da",
+          "lf_sha256_before_metadata_updates": "29adfc89db68b2ef8353513007a79d74e6cb79753313fde2a64db03ef3c9bddb",
+          "crlf_sequences_replaced": 177
+        },
+        {
+          "file": "web/public/stories/clearcuts/areas.csv",
+          "original_sha256": "a9e5085c5f3740a6eb8b3f3b0765e4e85186212994722cc67ab84d2d4b9bbea8",
+          "lf_sha256_before_metadata_updates": "a9e5085c5f3740a6eb8b3f3b0765e4e85186212994722cc67ab84d2d4b9bbea8",
+          "crlf_sequences_replaced": 0
+        },
+        {
+          "file": "web/public/stories/edouard/areas.csv",
+          "original_sha256": "c7ac8d46f458c382eeb009f66194de200d43c7f5fad1b42bdea7f83110879cd8",
+          "lf_sha256_before_metadata_updates": "c7ac8d46f458c382eeb009f66194de200d43c7f5fad1b42bdea7f83110879cd8",
+          "crlf_sequences_replaced": 0
+        },
+        {
+          "file": "web/public/stories/kaiser/areas.csv",
+          "original_sha256": "001491b32993f08da8a1d50c3dd138efd9e48563280f6e51f1c29ff03f73542d",
+          "lf_sha256_before_metadata_updates": "001491b32993f08da8a1d50c3dd138efd9e48563280f6e51f1c29ff03f73542d",
+          "crlf_sequences_replaced": 0
+        }
+      ],
+      "previous_supplemental_exports": {
+        "generated_at": "2026-11-15T09:33:30.990751+00:00",
+        "generator": "scripts/export_saved_story_csv.py",
+        "generator_sha256": "c89d62a7856f5551fdb74f382969c37bb098517cc2f7d111f05603c67ec970e8",
+        "scientific_rerun": false,
+        "manifest": "exports.json",
+        "manifest_sha256": "fb80c9813414f185d5b4fdcb634fa0a49451918300fbbd483a5bd14fb11e21be",
+        "stories": {
+          "clearcuts": {
+            "csv": "/stories/clearcuts/areas.csv",
+            "sha256": "a9e5085c5f3740a6eb8b3f3b0765e4e85186212994722cc67ab84d2d4b9bbea8",
+            "source_json": "/stories/clearcuts.json",
+            "source_json_sha256": "5282640f4aaa6627a61f2c860cb7de64440b5db5aec58fb9b259d7e55b41b2bd",
+            "row_count": 141,
+            "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+          },
+          "kaiser": {
+            "csv": "/stories/kaiser/areas.csv",
+            "sha256": "001491b32993f08da8a1d50c3dd138efd9e48563280f6e51f1c29ff03f73542d",
+            "source_json": "/stories/kaiser.json",
+            "source_json_sha256": "59e2768af8bc49ae69fdae0611276f6ac995fc012ab19e51d786d2054486a603",
+            "row_count": 202,
+            "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+          },
+          "edouard": {
+            "csv": "/stories/edouard/areas.csv",
+            "sha256": "c7ac8d46f458c382eeb009f66194de200d43c7f5fad1b42bdea7f83110879cd8",
+            "source_json": "/stories/edouard.json",
+            "source_json_sha256": "c059c876812a1f92d7f9fb785cf920c8cffaa3527ab9be6c703d810516fca1ac",
+            "row_count": 277,
+            "note": "Recorded radar detections, not verified event extents. Cause labels are hypotheses; confidence is a heuristic rule score, not a calibrated cause probability. first_flagged_acquisition is an observation date, not a confirmed event date. Agreement labels summarize block majorities: L/C does not mean the other radar detected nothing; both includes shared majorities or split patches. Raw rule evidence is retained. Band changes and intervals are the saved evidence values in dB. CSV only; notebook and GeoTIFF are unavailable for these saved results. No scientific rerun."
+          }
+        },
+        "notes": "CSV serialization of existing saved areas only. Original result JSON, overlay hashes, pipeline source and prose-revision provenance are unchanged."
+      },
+      "notes": "Current artifact hashes use LF bytes enforced by .gitattributes. Historical CRLF file/source hashes and supplemental exports above describe the prior packaging, not a new scientific run. Provenance and export-manifest metadata are updated after normalization; provenance does not contain its own final-file checksum."
+    }
+  ],
+  "assistance_disclosure": {
+    "code_and_writing": "Claude Code and OpenAI Codex assisted implementation, debugging, tests, interface copy and submission drafts.",
+    "radar_maps": "Radar maps and overlays are rendered from recorded satellite data; they are not AI-generated imagery.",
+    "runtime_text": "Saved explanations use deterministic templates. Optional runtime language-model wording does not change structured measurements, labels or confidence; cause labels remain hypotheses."
   }
 }

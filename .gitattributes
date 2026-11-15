@@ -1,0 +1,9 @@
+# Keep byte-verified generated artifacts and their generators identical across checkouts.
+core/sarstellar/explain.py text eol=lf
+scripts/refresh_story_text.py text eol=lf
+scripts/export_saved_story_csv.py text eol=lf
+web/public/stories/*.json text eol=lf
+web/public/stories/**/*.csv text eol=lf
+web/public/demo/index.html text eol=lf
+*.png binary
+*.pptx binary

@@ -1,11 +1,11 @@
 # SARstellar demo script
 
-Optional 30-second screen-recording script at [sarstellar.earth](https://www.sarstellar.earth/). The completed [editable six-slide deck](sarstellar-presentation-public.pptx) meets the supplied demo-length alternative and will have a [public viewer](https://www.sarstellar.earth/demo/) after publication. A video is optional when submitting that deck. The Light-default release is live with a Charcoal option; confirm the final workflow and viewer before submission. If recording, open the examples first and align the [timed captions](demo-captions.srt) to actual narration. Show actual live-job progress; a full analysis may exceed the clip length.
+Optional 30-second screen-recording script at [sarstellar.earth](https://www.sarstellar.earth/). The completed [editable six-slide deck](sarstellar-presentation-public.pptx) meets the supplied demo-length alternative and has a [public viewer](https://www.sarstellar.earth/demo/). A video is optional when submitting that deck. The Light-default release is live with a Charcoal option; the case workflow and viewer have been verified publicly. Recheck links when submitting. If recording, open the examples first and align the [timed captions](demo-captions.srt) to actual narration. Show actual live-job progress; a full analysis may exceed the clip length.
 
 | Time | Screen action | Voiceover |
 |---|---|---|
 | 0–4 s | Open Map with the Morton / Mineral example. | SARstellar compares NISAR GCOV and Sentinel-1 surface change. |
-| 4–8 s | Toggle the NISAR-only and Sentinel-1-only layers; switch to Kaiser Canyon. | Open an example, compare detections, and select an area. |
+| 4–8 s | Toggle the NISAR-majority and Sentinel-1-majority layers; switch to Kaiser Canyon. | Open an example, compare detections, and select an area. |
 | 8–14 s | Open Edouard and select a possible flooded-vegetation area; show its evidence sections. | Inspect what changed, when, the possible cause, and the uncertainty. |
 | 14–21 s | Open Benchmark; show the held-out cohort and fusion intervals. | We held out sixty sites across twelve states. Unsupervised fusion showed no clear gain. |
 | 21–25 s | Keep the forest-loss comparison and its interval visible. | Forest-loss fusion performed worse in this benchmark. |

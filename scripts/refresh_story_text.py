@@ -105,7 +105,8 @@ def refresh(*, check: bool = False) -> dict:
         "files": revisions,
     })
     assert provenance["source_commit"] == original_source
-    path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
+    path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n", encoding="utf-8",
+                    newline="\n")
     return {"mode": "refreshed", "areas_checked": n_areas, "areas_changed": n_changed,
             "template_sha256": template_sha, "scientific_json_unchanged": True,
             "files": revisions}
