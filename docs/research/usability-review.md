@@ -70,3 +70,9 @@ The reviewer clicked the visible CSV link in the selected-area panel. The browse
 The CSV interpretation note explains the majority semantics, observation-date limit, and uncalibrated cause confidence. Raw evidence JSON retains the original saved rule/source text, and that preservation is explicitly disclosed in the export note; display-time wording changes do not alter those saved measurements. The file is a dataset-level export containing all 141 areas, rather than a single-area-only export.
 
 **Result:** locating a6, explaining its uncertainty/date limits, and exporting a matching CSV completed end to end after the fix. This establishes successful agent execution of that bounded desktop task only. It does not establish human usability or validate the physical cause. The initial blocker above is retained as historical evidence of the before state.
+
+## Comparison outline recheck
+
+After the comparison-view owner supplied the selection-outline fix, the reviewer kept a6 selected and switched to Before | After. A white outline with a dark edge visibly marked the same polygon over the before raster. Moving the divider to 0% with the keyboard revealed the after raster and retained the outline in the same location. The selected a6 explanation and CSV link remained in the right panel. The dated before/after labels remained visible.
+
+This resolves the observed “where is my selected area?” friction for this bounded a6 desktop check. The comparison fix was implemented by a separate owner; this reviewer made no comparison-view code changes. The earlier comparison finding is retained as the before state, and is no longer an open issue in the rechecked local design.

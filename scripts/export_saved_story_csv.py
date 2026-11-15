@@ -66,7 +66,7 @@ def area_row(area: dict) -> dict:
 
 def make_csv(areas: list[dict]) -> bytes:
     stream = io.StringIO(newline="")
-    writer = csv.DictWriter(stream, fieldnames=COLUMNS)
+    writer = csv.DictWriter(stream, fieldnames=COLUMNS, lineterminator="\n")
     writer.writeheader()
     writer.writerows(area_row(area) for area in areas)
     return stream.getvalue().encode("utf-8")
@@ -145,7 +145,7 @@ def export(*, check: bool = False) -> dict:
         assert {key: value for key, value in provenance.items()
                 if key != "supplemental_exports"} == scientific_provenance
         provenance_path.write_text(json.dumps(provenance, indent=2, ensure_ascii=False) + "\n",
-                                   encoding="utf-8")
+                                   encoding="utf-8", newline="\n")
     assert all((STORIES / f"{story}.json").read_bytes() == original
                for story, original in sources.items())
     for record in provenance["stories"]:

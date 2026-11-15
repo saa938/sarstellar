@@ -98,7 +98,9 @@ export function supportingEvidence(evidence: readonly Evidence[]): Evidence[] {
     ((typeof ev.value === "number" && Number.isFinite(ev.value)) ||
      (typeof ev.value === "string" && ev.value.trim().length > 0)));
   const rule = usable.find((ev) => /^rule\b/i.test(ev.label));
-  const signal = usable.find((ev) => ev !== rule && ev.unit === "dB");
+  const ruleBand = typeof rule?.value === "string" ? rule.value.match(/\b(HH|HV|VV|VH)\b/)?.[1] : undefined;
+  const signal = usable.find((ev) => ruleBand && ev.label === `${ruleBand} change` && ev.unit === "dB") ??
+    usable.find((ev) => ev !== rule && ev.unit === "dB");
   const selected = [rule, signal].filter((ev): ev is Evidence => ev !== undefined);
   for (const ev of usable) {
     if (selected.length === 2) break;
