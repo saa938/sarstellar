@@ -10,6 +10,7 @@ from sarstellar.grid import (
     grid_for_bbox,
     lonlat_corners,
     to_grid,
+    to_grid_with_coverage,
     valid_mask,
 )
 from sarstellar.types import Grid
@@ -187,3 +188,43 @@ def test_to_grid_leaves_uncovered_blocks_nan():
     # Blocks a full block or more away from the source are NaN. (A block that only touches the
     # source's edge can pick up the edge pixel: GDAL's average kernel is not strict there.)
     assert np.isnan(out[0, :]).all() and np.isnan(out[:, 2]).all()
+
+
+# --- to_grid_with_coverage (the 50% valid-area rule for rasters that are not NISAR) -------------
+
+
+def _coverage_grid():
+    from rasterio.transform import from_origin
+
+    g = Grid(epsg=32610, xmin=500000.0, xmax=500400.0, ymin=5200000.0, ymax=5200400.0)  # 4 x 4
+    return g, from_origin(g.xmin, g.ymax, 10.0, 10.0)
+
+
+def test_coverage_reports_valid_area_fraction_and_gates_the_mean():
+    g, tr = _coverage_grid()
+    src = np.full((40, 40), 2.0)
+    src[:, :5] = np.nan  # block column 0: 5 of 10 pixel columns valid
+    src[:, 10:16] = np.nan  # block column 1: 4 of 10 valid
+    src[:, 20:23] = np.nan  # block column 2: 7 of 10 valid
+    mean, frac = to_grid_with_coverage(src, tr, "EPSG:32610", g)
+    assert np.allclose(frac[:, 0], 0.5) and np.allclose(frac[:, 1], 0.4)
+    assert np.allclose(frac[:, 2], 0.7) and np.allclose(frac[:, 3], 1.0)
+    assert np.allclose(mean[:, [0, 2, 3]], 2.0)  # kept: at least half valid (exactly half too)
+    assert np.isnan(mean[:, 1]).all()  # 40% valid: NaN, not the mean of its 40 pixels
+
+
+def test_coverage_counts_area_outside_the_source_as_not_valid():
+    g, tr = _coverage_grid()
+    for cols, expect_kept in ((14, False), (16, True)):  # the source ends 40% / 60% into column 1
+        mean, frac = to_grid_with_coverage(np.full((40, cols), 3.0), tr, "EPSG:32610", g)
+        assert np.allclose(frac[:, 1], (cols - 10) / 10.0)
+        assert np.isfinite(mean[:, 1]).all() == expect_kept
+        assert np.allclose(frac[:, 2:], 0.0) and np.isnan(mean[:, 2:]).all()  # no source at all
+
+
+def test_coverage_min_valid_frac_is_adjustable():
+    g, tr = _coverage_grid()
+    src = np.full((40, 40), 1.0)
+    src[:, ::2] = np.nan  # every block is exactly half valid
+    assert np.isfinite(to_grid_with_coverage(src, tr, "EPSG:32610", g, min_valid_frac=0.5)[0]).all()
+    assert np.isnan(to_grid_with_coverage(src, tr, "EPSG:32610", g, min_valid_frac=0.6)[0]).all()
