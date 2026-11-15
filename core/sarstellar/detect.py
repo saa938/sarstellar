@@ -7,9 +7,9 @@ The statistical core of SARstellar:
 2. ``estimate_enl``: the equivalent number of looks (ENL) of the *block means*, estimated from
    the data. It absorbs residual speckle and natural date-to-date variability, so it is not
    capped by the per-pixel ``numberOfLooks``.
-3. ``omnibus``: the sequential omnibus likelihood-ratio test of Conradsen et al. (2016) for
-   diagonal covariance (independent bands, summed): one p-value per block plus the date of
-   the first change.
+3. ``omnibus``: the sequential omnibus likelihood-ratio test of Conradsen et al. (2016) per
+   band, combined across bands by Bonferroni on the smallest band p-value (valid however the
+   bands co-vary): one p-value per block plus the date of the first change.
 4. ``bh_fdr`` / ``changed``: Benjamini-Hochberg FDR across the box, then a minimum-effect
    gate on the relative change.
 
@@ -28,12 +28,16 @@ from __future__ import annotations
 from collections.abc import Sequence
 
 import numpy as np
-from scipy import stats
+from scipy import special, stats
 
 __all__ = [
     "ALPHA",
     "ENL_MAX",
     "ENL_MIN",
+    "MAX_SHIFT_DB",
+    "MIN_BLOCKS",
+    "NoStableBlocks",
+    "TooFewBlocks",
     "bh_fdr",
     "changed",
     "estimate_enl",
@@ -44,9 +48,21 @@ __all__ = [
 
 ALPHA = 0.01  # level of the omnibus test and of each change-date test R_j
 ENL_MIN = 1.0
-ENL_MAX = 10000.0
+ENL_MAX = 1000.0  # 1-ha means across dates carry natural variability; more is not physical
 ENL_CLIP_ALPHA = 0.2  # null-calibrated trimming level used to refine the ENL
-_MAX_ITER = 200
+ENL_SEED_RATIO = 2.5  # the refined ENL never drops below seed / 2.5
+MIN_BLOCKS = 200  # fewer usable blocks give an ENL too noisy to control false alarms
+MAX_SHIFT_DB = 1.5  # largest scene-wide shift the spikes saw; the offset never exceeds it
+MODE_BANDWIDTH_DB = 0.3  # kernel width for locating the unchanged population
+_MAX_ITER = 500
+
+
+class NoStableBlocks(ValueError):
+    """No usable stable block: everything in the box changed, so there is no reference."""
+
+
+class TooFewBlocks(ValueError):
+    """Too few usable blocks for a reliable ENL estimate (the box is too small)."""
 
 
 # --------------------------------------------------------------------------- helpers
@@ -75,49 +91,110 @@ def _delta_slices(deltas_db) -> list[np.ndarray]:
     return slices
 
 
+def _nearest_mode(points: np.ndarray, bandwidth: float, cap: float) -> np.ndarray:
+    """Gaussian mean-shift from 0 dB in the joint delta space; the centre stays within +-cap."""
+    centre = np.zeros(points.shape[1])
+    for _ in range(_MAX_ITER):
+        w = np.exp(-0.5 * np.sum(((points - centre) / bandwidth) ** 2, axis=1))
+        total = w.sum()
+        if not total > 0:  # nothing within reach of the current centre
+            break
+        new = np.clip(w @ points / total, -cap, cap)
+        done = np.max(np.abs(new - centre)) < 1e-4
+        centre = new
+        if done:
+            break
+    return centre
+
+
+def _max_abs_median(deltas: list[np.ndarray], mask: np.ndarray) -> float:
+    if not mask.any():
+        return np.inf
+    return max(abs(float(np.median(d[mask]))) for d in deltas)
+
+
+def _enl_map(enl, grid: tuple[int, ...]) -> np.ndarray:
+    """One band's ENL as a [ny, nx] map: a float, or an array broadcast to the grid."""
+    arr = np.asarray(enl, dtype=float)
+    if arr.ndim == 0:
+        if not (np.isfinite(arr) and arr >= ENL_MIN):
+            raise ValueError(f"ENL must be finite and >= {ENL_MIN}, got {float(arr)}")
+        return np.full(grid, float(arr))
+    try:
+        arr = np.broadcast_to(arr, grid)
+    except ValueError:
+        raise ValueError(f"ENL map {arr.shape} does not broadcast to the grid {grid}") from None
+    finite = np.isfinite(arr)
+    if np.any(arr[finite] < ENL_MIN):
+        raise ValueError(f"ENL map values must be >= {ENL_MIN} (NaN marks a block invalid)")
+    return arr
+
+
 # --------------------------------------------------------------------------- stable / relative
 
 
-def stable_mask(deltas_db, thresh_db: float = 1.0) -> np.ndarray:
+def stable_mask(
+    deltas_db,
+    thresh_db: float = 1.0,
+    max_shift_db: float = MAX_SHIFT_DB,
+    bandwidth_db: float = MODE_BANDWIDTH_DB,
+) -> np.ndarray:
     """Blocks whose change is small in every band.
 
     ``deltas_db`` is a list of per-band changes in dB, each [ny, nx] (an array with extra
     leading axes counts as one delta per leading slice). A block is stable when every delta is
     finite and within ``thresh_db`` of the scene offset.
 
-    The window starts centred on 0 dB, so it is anchored on "no change" even when most of
-    the box changed (a flood). It is then re-centred on the median delta of the stable blocks
-    until it settles. Without that, a scene-wide shift keeps only one tail of the unchanged
-    blocks: at +1.5 dB (the spikes saw +0.1..+1.5 dB) the offset estimate is off by ~1 dB.
+    The scene offset is the mode of the joint (all-band) delta density nearest to 0 dB:
+    Gaussian mean-shift with a ``bandwidth_db`` kernel, started at 0 and clamped to
+    +-``max_shift_db``. The window is then pulled back towards 0 until the median delta of its
+    blocks, which is what ``relative_delta`` subtracts, is also within the cap.
+
+    - A scene-wide shift up to the cap moves the whole unchanged population, so the nearest
+      mode is the shifted one and the shift is removed (+1.5 dB: residual ~0.01 dB).
+    - A change covering most of the box is kept out of the reference only if it forms its own
+      mode, i.e. it is far from 0 relative to the block noise. At n ~ 40-60 and T = 2 that
+      holds for >= 3 dB in one band, or HV -2.5 dB with HH -1.25 dB on up to ~70% of blocks.
+      Closer majority changes merge with the unchanged population; up to ``max_shift_db`` of
+      them is then absorbed as offset. No estimator can tell those two situations apart from
+      the deltas alone; the cap bounds the damage.
     """
     if not thresh_db > 0:
         raise ValueError(f"thresh_db must be > 0, got {thresh_db}")
+    if not max_shift_db >= 0:
+        raise ValueError(f"max_shift_db must be >= 0, got {max_shift_db}")
+    if not bandwidth_db > 0:
+        raise ValueError(f"bandwidth_db must be > 0, got {bandwidth_db}")
     slices = _delta_slices(deltas_db)
     finite = np.logical_and.reduce([np.isfinite(d) for d in slices])
     filled = [np.where(finite, d, 0.0) for d in slices]
 
-    def window(offsets: np.ndarray) -> np.ndarray:
-        near = [np.abs(d - o) < thresh_db for d, o in zip(filled, offsets)]
+    def window(centre: np.ndarray) -> np.ndarray:
+        near = [np.abs(d - c) < thresh_db for d, c in zip(filled, centre)]
         return finite & np.logical_and.reduce(near)
 
-    offsets = np.zeros(len(filled))
-    stable = window(offsets)
-    for _ in range(_MAX_ITER):
-        if not stable.any():
-            break
-        new = np.array([np.median(d[stable]) for d in filled])
-        if np.all(np.abs(new - offsets) < 1e-4):
-            break
-        offsets = new
-        stable = window(offsets)
+    points = np.stack([d[finite] for d in slices], axis=1)  # [m, bands]
+    centre = np.zeros(len(slices))
+    if points.shape[0]:
+        centre = _nearest_mode(points, bandwidth_db, max_shift_db)
+    stable = window(centre)
+    if _max_abs_median(filled, stable) > max_shift_db:
+        lo, hi = 0.0, 1.0  # largest pull-back factor whose window median is within the cap
+        for _ in range(40):
+            mid = 0.5 * (lo + hi)
+            if _max_abs_median(filled, window(mid * centre)) <= max_shift_db:
+                lo = mid
+            else:
+                hi = mid
+        stable = window(lo * centre)
     return stable
 
 
 def relative_delta(delta_db, stable) -> np.ndarray:
     """Change in dB minus the median change of the stable blocks (per leading slice).
 
-    ``delta_db`` is [ny, nx] (or [..., ny, nx]); NaN blocks stay NaN. Raises ValueError when no
-    stable block has a finite delta, since the scene offset is then unknown.
+    ``delta_db`` is [ny, nx] (or [..., ny, nx]); NaN blocks stay NaN. Raises NoStableBlocks
+    when no stable block has a finite delta, since the scene offset is then unknown.
     """
     delta = np.asarray(delta_db, dtype=float)
     stable = np.asarray(stable, dtype=bool)
@@ -128,7 +205,7 @@ def relative_delta(delta_db, stable) -> np.ndarray:
     for i, d in enumerate(flat):
         use = stable & np.isfinite(d)
         if not use.any():
-            raise ValueError("no stable block with a finite delta; scene offset is unknown")
+            raise NoStableBlocks("no stable block with a finite delta; scene offset is unknown")
         out[i] = d - np.median(d[use])
     return out.reshape(delta.shape)
 
@@ -136,27 +213,42 @@ def relative_delta(delta_db, stable) -> np.ndarray:
 # --------------------------------------------------------------------------- ENL
 
 
-def estimate_enl(series_lin, stable, clip_alpha: float | None = ENL_CLIP_ALPHA) -> float:
+def estimate_enl(
+    series_lin,
+    stable,
+    clip_alpha: float | None = ENL_CLIP_ALPHA,
+    min_blocks: int = MIN_BLOCKS,
+) -> float:
     """Equivalent number of looks of one band's block-mean series, [T, ny, nx] linear.
 
-    Seed (the brief's estimator): median over valid stable blocks of mean^2 / var across time
+    Usable blocks are valid on every date and vary in time (exactly zero temporal variance
+    means constant fill or quantised data, and is excluded). Before estimating, each date is
+    divided by the stable blocks' median per-date factor: the ENL describes block noise, not
+    a scene-wide shift. Without this, a stable set whose offset sits at the 1.5 dB cap reads
+    as ENL ~ 3-8 whatever the noise, and every detection is lost.
+
+    Seed (the brief's estimator): median over usable stable blocks of mean^2 / var across time
     (ddof = 1), times the small-sample factor median(chi2(T-1)) / (T-1). Without that factor
-    the median of mean^2/var overstates n by 1.44x at T = 3 and 1.20x at T = 5, because the
-    sample variance of a short series is right-skewed (its median is below its mean).
+    the median of mean^2/var overstates n by 1.44x at T = 3 and 1.20x at T = 5.
 
-    Refinement (``clip_alpha``, default 0.2): the seed is biased whenever ``stable`` was chosen
-    from the same data. A |delta| < 1 dB window cuts off the noise tails and overstates n by
-    1.4x (n = 60, T = 3) to 2.2x (n = 20, T = 3), which multiplies the omnibus false-alarm
-    rate by 5-20x. So the estimate is refined over *all* valid blocks: with u = (T-1)var/mean^2,
-    n*u ~ chi2(T-1) under no change, keep blocks with n*u <= chi2 quantile (1 - clip_alpha) and
-    set n = chi2 quantile ((1 - clip_alpha)/2) / median(kept u), iterating from the seed to the
-    fixed point. Changed blocks have large u and are trimmed; the trimming of null blocks is
-    accounted for exactly. Weak changes that survive trimming can only lower n (fewer false
-    alarms, slightly less power). Pass ``clip_alpha=None`` for the seed alone. To keep blocks
-    out of the estimate entirely (e.g. permanent water), set them to NaN.
+    Refinement (``clip_alpha``, default 0.2): a stable set chosen as |delta| < 1 dB from the
+    same data cuts off the noise tails and overstates n by up to ~2.2x (n = 20, T = 3), which
+    multiplies the null false-alarm rate. So the estimate is refined over all usable blocks:
+    with u = (T-1)var/mean^2, n*u ~ chi2(T-1) under no change; keep blocks with
+    n*u <= chi2 quantile (1 - clip_alpha), set n = chi2 quantile ((1 - clip_alpha)/2) /
+    median(kept u), and iterate from the seed to the fixed point. Strongly changed blocks are
+    trimmed and the trimming of null blocks is accounted for exactly.
 
-    Returns the ENL clipped to [1, 10000]. Raises ValueError for T < 2, a grid mismatch, or no
-    valid stable block.
+    Bound: when most of the box changed by a moderate amount, those blocks leak into the kept
+    set and the fixed point collapses (to n ~ 1-13 for true n = 20-40 at T = 2-3), which
+    erases even -6 dB detections. The result is therefore never below seed / 2.5 (the
+    stable-selection inflation of the seed is <= ~2.2x for n >= 20, T >= 3; at T = 2 and
+    n = 20 it is ~3.9x, so there the floor is ~1.5x the truth).
+
+    ``clip_alpha=None`` returns the seed alone. To keep blocks out of the estimate (another
+    land-cover stratum, permanent water), set them to NaN. Returns the ENL clipped to
+    [1, 1000]. Raises TooFewBlocks below ``min_blocks`` usable (or usable stable) blocks,
+    NoStableBlocks when no usable block is stable, ValueError for T < 2 or a grid mismatch.
     """
     s = np.asarray(series_lin, dtype=float)
     stable = np.asarray(stable, dtype=bool)
@@ -169,38 +261,58 @@ def estimate_enl(series_lin, stable, clip_alpha: float | None = ENL_CLIP_ALPHA) 
         raise ValueError(f"stable {stable.shape} does not match the series grid {s.shape[1:]}")
     if clip_alpha is not None and not 0 < clip_alpha < 1:
         raise ValueError(f"clip_alpha must be in (0, 1) or None, got {clip_alpha}")
+    if not min_blocks >= 1:
+        raise ValueError(f"min_blocks must be >= 1, got {min_blocks}")
 
     valid = _valid_blocks([s])
     blocks = s[:, valid]  # [T, m]
+    usable = blocks.var(axis=0, ddof=1) > 0
+    n_usable = int(usable.sum())
+    if n_usable < min_blocks:
+        raise TooFewBlocks(f"only {n_usable} usable blocks for the ENL; need {min_blocks}")
+    blocks = blocks[:, usable]
+    in_seed = stable[valid][usable]
+    n_seed = int(in_seed.sum())
+    if n_seed == 0:
+        raise NoStableBlocks("no usable stable block to estimate the ENL from")
+    if n_seed < min_blocks:
+        raise TooFewBlocks(f"only {n_seed} usable stable blocks for the ENL; need {min_blocks}")
+
+    # The ENL describes block noise, not scene-wide per-date shifts: divide each date by the
+    # stable blocks' median factor (the offset relative_delta removes). Otherwise a stable set
+    # sitting 1.5 dB off (a capped offset) reads as ENL ~ 8 at T = 2 whatever the noise.
+    logs = np.log(blocks)
+    date_offset = np.median((logs - logs.mean(axis=0))[:, in_seed], axis=1)
+    blocks = blocks * np.exp(-date_offset)[:, None]
     mean = blocks.mean(axis=0)
     var = blocks.var(axis=0, ddof=1)
-    seed_var = var[stable[valid]]
-    if seed_var.size == 0:
-        raise ValueError("no valid stable block to estimate the ENL from")
-    seed_mean = mean[stable[valid]]
-    ratio = np.divide(
-        seed_mean**2, seed_var, out=np.full(seed_var.shape, np.inf), where=seed_var > 0
-    )
-    df = T - 1
-    n = float(np.median(ratio)) * stats.chi2.median(df) / df
-    n = min(max(n, ENL_MIN), ENL_MAX)
 
-    if clip_alpha is not None:
-        u = df * var / mean**2  # mean > 0 on valid blocks
-        upper = stats.chi2.ppf(1 - clip_alpha, df)
-        middle = stats.chi2.ppf((1 - clip_alpha) / 2, df)
-        for _ in range(_MAX_ITER):
-            kept = u[n * u <= upper]
-            if kept.size == 0:  # n far too high: lower it until the least variable block fits
-                new = upper / u.min()
-            else:
-                med = float(np.median(kept))
-                new = middle / med if med > 0 else ENL_MAX
-            new = min(max(new, ENL_MIN), ENL_MAX)
-            if abs(new - n) <= 1e-9 * n:
-                break
+    df = T - 1
+    # after normalisation the median block itself can be exactly constant: ratio = inf
+    sv, sm = var[in_seed], mean[in_seed]
+    ratio = np.divide(sm**2, sv, out=np.full(sv.shape, np.inf), where=sv > 0)
+    seed = float(np.median(ratio)) * stats.chi2.median(df) / df
+    seed = min(max(seed, ENL_MIN), ENL_MAX)
+    if clip_alpha is None:
+        return float(seed)
+
+    u = df * var / mean**2  # >= 0
+    upper = stats.chi2.ppf(1 - clip_alpha, df)
+    middle = stats.chi2.ppf((1 - clip_alpha) / 2, df)
+    n = seed
+    for _ in range(_MAX_ITER):
+        kept = u[n * u <= upper]  # never empty while some u == 0
+        if kept.size == 0:  # n is far too high: lower it until the least variable block fits
+            new = upper / float(u.min())
+        else:
+            med = float(np.median(kept))
+            new = middle / med if med > 0 else ENL_MAX
+        new = min(max(new, ENL_MIN), ENL_MAX)
+        if abs(new - n) <= 1e-9 * n:
             n = new
+            break
         n = new
+    n = max(n, seed / ENL_SEED_RATIO)
     return float(min(max(n, ENL_MIN), ENL_MAX))
 
 
@@ -208,7 +320,7 @@ def estimate_enl(series_lin, stable, clip_alpha: float | None = ENL_CLIP_ALPHA) 
 
 
 def omnibus(channels, enls, alpha: float = ALPHA) -> tuple[np.ndarray, np.ndarray]:
-    """Sequential omnibus change test on block means (Conradsen et al. 2016, diagonal case).
+    """Sequential omnibus change test on block means (Conradsen et al. 2016), per band.
 
     For each band with ENL n, k dates s_1..s_k and S_j = s_1 + ... + s_j:
 
@@ -218,23 +330,31 @@ def omnibus(channels, enls, alpha: float = ALPHA) -> tuple[np.ndarray, np.ndarra
 
     Each statistic is scaled by its small-sample factor, rho = 1 - (k/n - 1/(nk)) / (6(k-1))
     for Q and rho_j = 1 - (1 + 1/(j(j-1))) / (6n) for R_j (Conradsen 2016; both make the
-    expectation exact to O(1/n^2)), then summed over the P bands: Q ~ chi2(P(k-1)) and
-    R_j ~ chi2(P). Note ln Q = sum_j ln R_j. The test is invariant to a constant per-block
-    factor (e.g. RTC area normalisation) but NOT to per-date scene-wide shifts.
+    expectation exact to O(1/n^2)): Q ~ chi2(k-1) and R_j ~ chi2(1) per band. The test is
+    invariant to a constant per-block factor (e.g. RTC area normalisation) but NOT to per-date
+    scene-wide shifts.
 
-    Returns ``(p, change_idx)``: p is the omnibus p-value [ny, nx]; change_idx is the 0-based
-    index of the first date after the change, i.e. j-1 for the first j = 2..k with
-    p_j < alpha, and only where the omnibus p < alpha; otherwise -1. Only the first change
-    is located (no restart after it).
+    Bands are combined by Bonferroni on the smallest band p-value, p = min(1, P * min_b p_b).
+    Summing the band statistics assumes independent bands; natural variability (moisture,
+    phenology) moves HH and HV together and made the sum 2.5-3.5x liberal.
+
+    ``enls`` gives one ENL per band: a float or a per-block [ny, nx] map (anything that
+    broadcasts to the grid), e.g. one ENL per land-cover stratum. A NaN in a map marks that
+    block invalid.
+
+    Returns ``(p, change_idx)``: p is the combined p-value [ny, nx]; change_idx is the 0-based
+    index of the first date after the change, from the band with the smallest p: j-1 for the
+    first j = 2..k with that band's p_j < alpha, and only where p < alpha; otherwise -1. Only
+    the first change is located (no restart after it).
     """
     if not 0 < alpha < 1:
         raise ValueError(f"alpha must be in (0, 1), got {alpha}")
     chans = [np.asarray(c, dtype=float) for c in channels]
-    enl = [float(e) for e in enls]
+    enls = list(enls)
     if not chans:
         raise ValueError("omnibus needs at least one band")
-    if len(enl) != len(chans):
-        raise ValueError(f"{len(chans)} bands but {len(enl)} ENLs")
+    if len(enls) != len(chans):
+        raise ValueError(f"{len(chans)} bands but {len(enls)} ENLs")
     shape = chans[0].shape
     if len(shape) != 3 or any(c.shape != shape for c in chans):
         raise ValueError(
@@ -243,30 +363,34 @@ def omnibus(channels, enls, alpha: float = ALPHA) -> tuple[np.ndarray, np.ndarra
     k = shape[0]
     if k < 2:
         raise ValueError("need at least 2 dates")
-    if not all(np.isfinite(n) and n >= ENL_MIN for n in enl):
-        raise ValueError(f"ENLs must be finite and >= {ENL_MIN}, got {enl}")
+    grid = shape[1:]
+    maps = [_enl_map(e, grid) for e in enls]
 
-    valid = _valid_blocks(chans)
-    q_stat = np.zeros(shape[1:])
-    r_stat = np.zeros((k - 1, *shape[1:]))  # row j-2 holds -2 rho_j ln R_j, j = 2..k
-    for s, n in zip(chans, enl):
+    valid = _valid_blocks(chans) & np.logical_and.reduce([np.isfinite(m) for m in maps])
+    p_band, r_band = [], []
+    for s, n in zip(chans, maps):
         s = np.where(valid, s, 1.0)  # neutral fill; invalid blocks are masked below
+        n = np.where(valid, n, 1.0)
         csum = np.cumsum(s, axis=0)
         # k ln k + sum ln s_i - k ln S_k == sum ln(s_i / mean)
         ln_q = n * np.log(s / (csum[-1] / k)).sum(axis=0)
         rho = 1.0 - (k / n - 1.0 / (n * k)) / (6.0 * (k - 1))
-        q_stat += -2.0 * rho * ln_q
+        r_stat = np.empty((k - 1, *grid))  # row j-2 holds -2 rho_j ln R_j, j = 2..k
         for j in range(2, k + 1):
             prev = csum[j - 2] / (j - 1)  # mean of s_1..s_{j-1}
             pooled = csum[j - 1] / j  # mean of s_1..s_j
             # j ln j - (j-1)ln(j-1) + (j-1)ln S_{j-1} + ln s_j - j ln S_j, rearranged
             ln_r = n * ((j - 1) * np.log(prev / pooled) + np.log(s[j - 1] / pooled))
             rho_j = 1.0 - (1.0 + 1.0 / (j * (j - 1))) / (6.0 * n)
-            r_stat[j - 2] += -2.0 * rho_j * ln_r
+            r_stat[j - 2] = -2.0 * rho_j * ln_r
+        p_band.append(stats.chi2.sf(np.maximum(-2.0 * rho * ln_q, 0.0), k - 1))
+        r_band.append(r_stat)
 
-    bands = len(chans)
-    p = stats.chi2.sf(np.maximum(q_stat, 0.0), bands * (k - 1))
-    p_step = stats.chi2.sf(np.maximum(r_stat, 0.0), bands)
+    p_band = np.stack(p_band)  # [P, ny, nx]
+    best = np.argmin(p_band, axis=0)
+    p = np.minimum(1.0, len(chans) * p_band.min(axis=0))
+    r_best = np.take_along_axis(np.stack(r_band), best[None, None], axis=0)[0]
+    p_step = special.erfc(np.sqrt(np.maximum(r_best, 0.0) / 2.0))  # chi2(1) survival
     hit = (p_step < alpha) & (p < alpha)
     change_idx = np.where(hit.any(axis=0), np.argmax(hit, axis=0) + 1, -1)
     p = np.where(valid, p, np.nan)
@@ -300,23 +424,27 @@ def bh_fdr(p, q: float = 0.05) -> np.ndarray:
     return out
 
 
-def changed(p, rel_delta_db, q: float = 0.05, min_db: float = 2.0) -> np.ndarray:
-    """Changed = BH-significant at ``q`` AND |relative change| >= ``min_db``.
+def changed(p, rel_delta_db, q: float = 0.05, min_db=2.0) -> np.ndarray:
+    """Changed = BH-significant at ``q`` AND some band's |relative change| >= its ``min_db``.
 
-    ``rel_delta_db`` is [ny, nx], or a list / leading axis of per-band arrays, in which case
-    the largest |relative change| over the bands is used. NaN changes are never "changed".
+    ``rel_delta_db`` is [ny, nx], or a list / leading axis of per-band arrays. ``min_db`` is a
+    float for every band or a sequence with one threshold per band (the scorecard tunes them
+    per band). NaN changes never pass the gate.
     """
     p = np.asarray(p, dtype=float)
     if isinstance(rel_delta_db, (list, tuple)):
         rel = np.stack([np.asarray(r, dtype=float) for r in rel_delta_db])
     else:
         rel = np.asarray(rel_delta_db, dtype=float)
-    if rel.ndim == p.ndim + 1:
-        magnitude = np.fmax.reduce(np.abs(rel), axis=0)  # ignores NaN bands, no warning
-    elif rel.ndim == p.ndim:
-        magnitude = np.abs(rel)
-    else:
+    if rel.ndim == p.ndim:
+        rel = rel[None]
+    if rel.ndim != p.ndim + 1 or rel.shape[1:] != p.shape:
         raise ValueError(f"rel_delta_db {rel.shape} does not match p {p.shape}")
-    if magnitude.shape != p.shape:
-        raise ValueError(f"rel_delta_db {rel.shape} does not match p {p.shape}")
-    return bh_fdr(p, q) & (magnitude >= min_db)
+    mins = np.atleast_1d(np.asarray(min_db, dtype=float))
+    if mins.ndim != 1 or mins.size not in (1, rel.shape[0]):
+        raise ValueError(f"min_db needs 1 or {rel.shape[0]} thresholds, got {mins.size}")
+    mins = np.broadcast_to(mins, (rel.shape[0],))
+    big = np.zeros(p.shape, dtype=bool)
+    for r, m in zip(rel, mins):
+        big |= np.abs(r) >= m  # NaN compares False
+    return bh_fdr(p, q) & big

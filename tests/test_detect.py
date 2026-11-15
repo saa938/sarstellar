@@ -1,8 +1,8 @@
-"""Tests for the block-level omnibus change detector (Conradsen et al. 2016).
+"""Tests for the block-level omnibus change detector (Conradsen et al. 2016) and its decisions.
 
 Synthetic data are gamma-distributed block intensities, `rng.gamma(n, mean / n)`, i.e. the
 distribution of an n-look intensity with the given mean. All RNG seeds are fixed so every
-statistical assertion is deterministic.
+statistical assertion is deterministic. ENL / stable-mask tests live in test_detect_enl.py.
 """
 
 import numpy as np
@@ -14,7 +14,6 @@ from sarstellar.detect import (
     changed,
     estimate_enl,
     omnibus,
-    relative_delta,
     stable_mask,
 )
 
@@ -43,25 +42,27 @@ def pipeline_enls(channels):
 
 
 def reference_omnibus(channels, enls, alpha=0.01):
-    """Literal transcription of the brief's formulas, one block at a time (slow, for checking).
+    """Literal transcription of the brief's per-band formulas, one block at a time (slow).
 
-    Adds the Conradsen 2016 small-sample factor rho_j to the R_j test as well as to Q.
+    Adds the Conradsen 2016 factor rho_j to R_j as well as rho to Q, and combines bands by
+    Bonferroni on the smallest band p-value; the change date comes from that band.
     """
     k = channels[0].shape[0]
-    p_ch = len(channels)
     ny, nx = channels[0].shape[1:]
+    maps = [np.broadcast_to(np.asarray(e, dtype=float), (ny, nx)) for e in enls]
     p_out = np.full((ny, nx), np.nan)
     idx_out = np.full((ny, nx), -1, dtype=int)
     for y in range(ny):
         for x in range(nx):
-            q_stat = 0.0
-            r_stat = np.zeros(k + 1)
-            for ch, n in zip(channels, enls):
+            p_bands, step_bands = [], []
+            for ch, enl in zip(channels, maps):
+                n = enl[y, x]
                 s = ch[:, y, x]
                 S = np.cumsum(s)
                 lnq = n * (k * np.log(k) + np.sum(np.log(s)) - k * np.log(S[-1]))
                 rho = 1 - (k / n - 1 / (n * k)) / (6 * (k - 1))
-                q_stat += -2 * rho * lnq
+                p_bands.append(stats.chi2.sf(-2 * rho * lnq, k - 1))
+                steps = []
                 for j in range(2, k + 1):
                     lnr = n * (
                         j * np.log(j)
@@ -71,26 +72,33 @@ def reference_omnibus(channels, enls, alpha=0.01):
                         - j * np.log(S[j - 1])
                     )
                     rho_j = 1 - (1 + 1 / (j * (j - 1))) / (6 * n)
-                    r_stat[j] += -2 * rho_j * lnr
-            p = stats.chi2.sf(q_stat, p_ch * (k - 1))
+                    steps.append(stats.chi2.sf(-2 * rho_j * lnr, 1))
+                step_bands.append(steps)
+            best = int(np.argmin(p_bands))
+            p = min(1.0, len(channels) * p_bands[best])
             p_out[y, x] = p
             if p < alpha:
-                for j in range(2, k + 1):
-                    if stats.chi2.sf(r_stat[j], p_ch) < alpha:
+                for j, pj in enumerate(step_bands[best], start=2):
+                    if pj < alpha:
                         idx_out[y, x] = j - 1
                         break
     return p_out, idx_out
 
 
-@pytest.mark.parametrize("n_channels,k", [(1, 2), (1, 4), (2, 3), (2, 6)])
-def test_omnibus_matches_reference_formula(n_channels, k):
+@pytest.mark.parametrize(
+    "n_channels,k,enl_map",
+    [(1, 2, False), (1, 4, False), (2, 3, False), (2, 6, False), (2, 4, True)],
+)
+def test_omnibus_matches_reference_formula(n_channels, k, enl_map):
     rng = np.random.default_rng(10 + k)
     shape = (6, 7)
     channels = [gamma_stack(rng, 12, k, shape) for _ in range(n_channels)]
-    # make some blocks change so the change-index branch is exercised
-    for c in channels:
+    for c in channels:  # some blocks change, so the change-index branch is exercised
         c[k // 2 :, :3, :] *= 0.2
+    channels[-1][k // 2 :, 3, :] *= 0.4  # and some change in one band only
     enls = [12.0, 7.5][:n_channels]
+    if enl_map:
+        enls = [rng.uniform(5, 50, size=shape), rng.uniform(5, 50, size=(1, 7))]
     p, idx = omnibus(channels, enls)
     p_ref, idx_ref = reference_omnibus(channels, enls)
     np.testing.assert_allclose(p, p_ref, rtol=1e-8, atol=1e-300)
@@ -98,64 +106,19 @@ def test_omnibus_matches_reference_formula(n_channels, k):
     assert (idx_ref >= 0).any(), "fixture should contain detected changes"
 
 
-# --------------------------------------------------------------------------- ENL
-
-
-@pytest.mark.parametrize("n,T", [(60, 2), (60, 3), (60, 5), (60, 12), (20, 4), (500, 5)])
-def test_enl_recovers_truth(n, T):
-    rng = np.random.default_rng(100 + T)
-    series = gamma_stack(rng, n, T)
-    est = estimate_enl(series, np.ones(GRID, bool))
-    assert abs(est / n - 1) <= 0.10, f"ENL {est:.1f} vs truth {n} (T={T})"
-
-
-@pytest.mark.parametrize("n,T", [(20, 3), (60, 2), (60, 3), (60, 5)])
-def test_enl_not_inflated_by_stable_selection(n, T):
-    """Selecting 'stable' blocks by |delta| < 1 dB truncates the noise; ENL must not inherit that.
-
-    The naive median over the selected blocks overstates n by 1.2x-2.2x in these cases, which
-    multiplies the null false-alarm rate by 3-20x.
-    """
-    rng = np.random.default_rng(200 + n + T)
-    series = gamma_stack(rng, n, T)
-    stable = stable_mask([db(series[-1] / series[0])])
-    assert stable.mean() < 0.99  # the window really does cut into the noise
-    est = estimate_enl(series, stable)
-    assert abs(est / n - 1) <= 0.10, f"ENL {est:.1f} vs truth {n}"
-
-
-def test_enl_ignores_changed_blocks():
-    rng = np.random.default_rng(3)
-    n, T = 60, 5
-    series = gamma_stack(rng, n, T)
-    moved = rng.random(GRID) < 0.3
-    series[2:, moved] *= 10 ** (-6 / 10)  # strong drops in 30% of blocks
-    stable = stable_mask([db(series[-1] / series[0])])
-    est = estimate_enl(series, stable)
-    assert abs(est / n - 1) <= 0.10, f"ENL {est:.1f} vs truth {n}"
-
-
-def test_enl_skips_invalid_blocks_and_clips():
-    rng = np.random.default_rng(4)
-    series = gamma_stack(rng, 60, 4)
-    series[:, :10, :] = np.nan  # invalid rows
-    series[1, 10:12, :] = 0.0  # non-positive values are invalid too
-    est = estimate_enl(series, np.ones(GRID, bool))
-    assert abs(est / 60 - 1) <= 0.10
-    flat = np.ones((3, 20, 20))  # zero variance -> infinite ENL -> clipped
-    assert estimate_enl(flat, np.ones((20, 20), bool)) == 10000.0
-    wild = gamma_stack(rng, 0.2, 6, (50, 50))  # very heavy noise -> clipped at 1
-    assert estimate_enl(wild, np.ones((50, 50), bool)) == 1.0
-
-
-def test_enl_rejects_unusable_input():
-    rng = np.random.default_rng(5)
-    with pytest.raises(ValueError):
-        estimate_enl(gamma_stack(rng, 60, 1, (10, 10)), np.ones((10, 10), bool))  # T < 2
-    with pytest.raises(ValueError):
-        estimate_enl(gamma_stack(rng, 60, 3, (10, 10)), np.zeros((10, 10), bool))  # no stable
-    with pytest.raises(ValueError):
-        estimate_enl(gamma_stack(rng, 60, 3, (10, 10)), np.ones((5, 5), bool))  # shape
+def test_bands_combine_by_bonferroni_min():
+    rng = np.random.default_rng(18)
+    hh = gamma_stack(rng, 30, 4, (40, 50))
+    hv = gamma_stack(rng, 20, 4, (40, 50))
+    hv[2:, :20] *= 0.5
+    p_hh, i_hh = omnibus([hh], [30.0])
+    p_hv, i_hv = omnibus([hv], [20.0])
+    p, idx = omnibus([hh, hv], [30.0, 20.0])
+    np.testing.assert_allclose(p, np.minimum(1.0, 2 * np.minimum(p_hh, p_hv)), rtol=1e-12)
+    fired = p < 0.01
+    from_band = np.where(p_hv < p_hh, i_hv, i_hh)  # ties go to the first band, like argmin
+    np.testing.assert_array_equal(idx[fired], from_band[fired])
+    assert (idx[~fired] == -1).all()
 
 
 # --------------------------------------------------------------------------- omnibus: null
@@ -181,6 +144,20 @@ def test_null_false_alarm(T):
     assert bh_fdr(p_est, q=0.05).mean() < 0.001  # complete null: BH rejects (almost) nothing
 
 
+@pytest.mark.parametrize("T", [2, 6])
+def test_null_false_alarm_shared_variation(T):
+    """Moisture/phenology move HH and HV together: 0.4 dB per-block, per-date shared factor.
+
+    The summed two-band statistic gave 2.6-2.8% false alarms here; Bonferroni stays nominal.
+    """
+    rng = np.random.default_rng(11)
+    common = 10 ** (rng.normal(0, 0.4, size=(T, *GRID)) / 10)
+    channels = [gamma_stack(rng, 300, T) * common, gamma_stack(rng, 300, T, mean=0.1) * common]
+    enls, _ = pipeline_enls(channels)
+    fa = np.mean(omnibus(channels, enls)[0] < 0.01)
+    assert 0.005 <= fa <= 0.015, f"two-band FA {fa:.4f}"
+
+
 def test_omnibus_is_scale_invariant_per_block():
     """A constant per-block factor (e.g. the RTC area normalisation) must not change the test."""
     rng = np.random.default_rng(6)
@@ -195,14 +172,14 @@ def test_omnibus_is_scale_invariant_per_block():
 # --------------------------------------------------------------------------- omnibus: change
 
 
-@pytest.mark.parametrize("n_channels,min_exact_date", [(1, 0.93), (2, 0.98)])
+@pytest.mark.parametrize("n_channels,min_exact_date", [(1, 0.93), (2, 0.95)])
 def test_detects_3db_step(n_channels, min_exact_date):
     """Half the blocks drop 3 dB from date index 2 of 4 (n = 60); full engine path.
 
-    Detection is >= 99% either way. The exact date needs R_3 itself to fire: with one band its
-    power at n = 60 is 0.93 (noncentral chi2), and R_2 false-fires at alpha = 0.01, so even
-    with the true ENL ~95% of blocks get index 2 (the rest get 3, 1 or -1). Two bands (HH+HV,
-    the NISAR case) put ~99% on index 2.
+    Detection is >= 99% either way. The exact date needs R_3 of one band to fire (the band
+    with the smallest p): its power at n = 60 is ~0.93-0.95 (noncentral chi2(1), lambda ~
+    16.5-17.5), and R_2 false-fires at alpha = 0.01. Measured: one band 0.947, two bands
+    0.978 (picking the stronger band helps); the true ENL gives the same.
     """
     rng = np.random.default_rng(400 + n_channels)
     channels = [gamma_stack(rng, 60, 4) for _ in range(n_channels)]
@@ -215,7 +192,7 @@ def test_detects_3db_step(n_channels, min_exact_date):
     p, idx = omnibus(channels, enls)
     sig = bh_fdr(p, q=0.05)
 
-    assert sig[moved].mean() >= 0.95, f"detected {sig[moved].mean():.3f}"
+    assert sig[moved].mean() >= 0.99, f"detected {sig[moved].mean():.3f}"
     exact = (sig & (idx == 2))[moved].mean()
     assert exact >= min_exact_date, f"change date index 2 for only {exact:.4f}"
     false_disc = (sig & ~moved).sum() / max(sig.sum(), 1)
@@ -224,8 +201,7 @@ def test_detects_3db_step(n_channels, min_exact_date):
 
 def test_change_idx_convention():
     """change_idx is the 0-based index of the first date after the change; -1 if none."""
-    T = 6
-    flat = np.ones((T, 1, 4))
+    flat = np.ones((6, 1, 4))
     flat[3:, 0, 0] = 0.25  # change between dates 2 and 3 -> 3
     flat[1:, 0, 1] = 4.0  # change between dates 0 and 1 -> 1
     flat[5:, 0, 2] = 0.1  # change at the last date -> 5
@@ -240,6 +216,52 @@ def test_change_idx_convention():
     assert idx2.tolist() == [[1, -1]]
     assert p2[0, 0] < 1e-10 and p2[0, 1] == pytest.approx(1.0)
 
+    hh = np.ones((5, 1, 1))
+    hv = np.ones((5, 1, 1))
+    hh[1:] = 0.8  # weak change at index 1 in HH
+    hv[3:] = 0.1  # strong change at index 3 in HV: the date comes from HV
+    assert omnibus([hh, hv], [500.0, 500.0])[1].tolist() == [[3]]
+
+
+@pytest.mark.parametrize("T", [3, 6])
+def test_enl_map_two_strata(T):
+    """Half the box at ENL 20 (e.g. crops), half at 200 (forest); no change.
+
+    One scene-wide ENL floods the low-ENL half with false alarms; a per-stratum ENL map,
+    each estimated on its own stratum, keeps both nominal.
+    """
+    rng = np.random.default_rng(500 + T)
+    low = np.zeros(GRID, bool)
+    low[:, : GRID[1] // 2] = True
+    enl_true = np.where(low, 20.0, 200.0)
+    series = rng.gamma(enl_true, 1.0 / enl_true, size=(T, *GRID))
+    stable = stable_mask([db(series[-1] / series[0])])
+
+    enl_map = np.empty(GRID)
+    for stratum in (low, ~low):
+        enl_map[stratum] = estimate_enl(np.where(stratum, series, np.nan), stable & stratum)
+    p_map, _ = omnibus([series], [enl_map])
+    for stratum in (low, ~low):
+        assert np.mean(p_map[stratum] < 0.01) <= 0.015
+
+    p_one, _ = omnibus([series], [estimate_enl(series, stable)])
+    assert np.mean(p_one[low] < 0.01) > 0.1
+
+
+def test_enl_map_matches_scalar_and_marks_nan_invalid():
+    rng = np.random.default_rng(19)
+    a = gamma_stack(rng, 30, 4, (5, 6))
+    b = gamma_stack(rng, 30, 4, (5, 6))
+    p_scalar, i_scalar = omnibus([a, b], [30.0, 25.0])
+    p_map, i_map = omnibus([a, b], [np.full((5, 6), 30.0), np.full((1, 6), 25.0)])
+    np.testing.assert_array_equal(p_scalar, p_map)
+    np.testing.assert_array_equal(i_scalar, i_map)
+    holes = np.full((5, 6), 30.0)
+    holes[2, 3] = np.nan
+    p_h, i_h = omnibus([a, b], [holes, 25.0])
+    assert np.isnan(p_h[2, 3]) and i_h[2, 3] == -1
+    assert np.isfinite(p_h).sum() == 29
+
 
 def test_omnibus_nan_blocks_without_warnings():
     rng = np.random.default_rng(7)
@@ -251,11 +273,9 @@ def test_omnibus_nan_blocks_without_warnings():
     b[3, 3, 3] = -1.0
     a[1, 4, 4] = np.inf
     p, idx = omnibus([a, b], [30.0, 30.0])
-    bad = [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4)]
-    for y, x in bad:
-        assert np.isnan(p[y, x]) and idx[y, x] == -1
     good = np.ones((5, 6), bool)
-    for y, x in bad:
+    for y, x in [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4)]:
+        assert np.isnan(p[y, x]) and idx[y, x] == -1
         good[y, x] = False
     assert np.isfinite(p[good]).all()
     assert idx.dtype.kind == "i"
@@ -264,16 +284,18 @@ def test_omnibus_nan_blocks_without_warnings():
 def test_omnibus_rejects_bad_input():
     rng = np.random.default_rng(8)
     a = gamma_stack(rng, 30, 4, (5, 5))
-    with pytest.raises(ValueError):
-        omnibus([a, a[:, :4]], [30.0, 30.0])  # shape mismatch
-    with pytest.raises(ValueError):
-        omnibus([a], [30.0, 30.0])  # one ENL per channel
-    with pytest.raises(ValueError):
-        omnibus([a[:1]], [30.0])  # need at least 2 dates
-    with pytest.raises(ValueError):
-        omnibus([a], [0.5])  # ENL below 1
-    with pytest.raises(ValueError):
-        omnibus([], [])
+    for channels, enls in [
+        ([a, a[:, :4]], [30.0, 30.0]),  # shape mismatch
+        ([a], [30.0, 30.0]),  # one ENL per channel
+        ([a[:1]], [30.0]),  # need at least 2 dates
+        ([a], [0.5]),  # ENL below 1
+        ([a], [np.nan]),  # scalar ENL must be finite
+        ([a], [np.full((5, 5), 0.5)]),  # map value below 1
+        ([a], [np.ones((3, 3)) * 30]),  # map does not broadcast to the grid
+        ([], []),
+    ]:
+        with pytest.raises(ValueError):
+            omnibus(channels, enls)
 
 
 # --------------------------------------------------------------------------- BH-FDR
@@ -297,11 +319,9 @@ def test_bh_fdr_monotone():
     sig = bh_fdr(p, q=0.05)
     assert sig.shape == p.shape
     finite = np.isfinite(p)
-    # monotone: anything with a p-value at or below a rejected one is rejected
-    assert (p[finite & ~sig] > p[sig].max()).all()
+    assert (p[finite & ~sig] > p[sig].max()).all()  # monotone in p
     assert not sig[~finite].any()
-    # a larger q never rejects fewer
-    assert (bh_fdr(p, q=0.1) >= sig).all()
+    assert (bh_fdr(p, q=0.1) >= sig).all()  # a larger q never rejects fewer
     with pytest.raises(ValueError):
         bh_fdr(p, q=0.0)
 
@@ -318,8 +338,7 @@ def test_min_effect_gate():
     series[2:, :, 10:] *= 10 ** (-3 / 10)
     p, _ = omnibus([series], [float(n)])
     assert bh_fdr(p).all()
-    rel = db(series[2:].mean(0) / series[:2].mean(0))
-    out = changed(p, rel)
+    out = changed(p, db(series[2:].mean(0) / series[:2].mean(0)))
     assert not out[:, :10].any()
     assert out[:, 10:].all()
 
@@ -328,7 +347,7 @@ def test_changed_handles_sign_nan_and_channels():
     p = np.array([1e-9, 1e-9, 1e-9, 1e-9, np.nan, 0.9])
     rel = np.array([2.5, -2.5, 1.9, np.nan, 5.0, 5.0])
     assert changed(p, rel).tolist() == [True, True, False, False, False, False]
-    # several bands: the largest |relative change| decides
+    # several bands: any band past the threshold counts
     hh = np.array([0.5, -0.5, np.nan, np.nan])
     hv = np.array([-3.0, 1.0, 2.2, np.nan])
     p4 = np.full(4, 1e-9)
@@ -336,43 +355,13 @@ def test_changed_handles_sign_nan_and_channels():
     assert changed(p4, [hh, hv], min_db=0.4).tolist() == [True, True, True, False]
 
 
-# --------------------------------------------------------------------------- stable / relative
-
-
-def test_stable_mask_basic():
-    # medians over the stable blocks are exactly 0, so re-centring leaves the window in place
-    a = np.array([[0.0, 0.9, -0.9, 1.5], [np.nan, 0.1, -0.1, 0.0]])
-    b = np.array([[0.2, -0.2, 0.0, 0.0], [0.0, 2.0, 0.1, -0.1]])
-    assert stable_mask([a]).tolist() == [[True, True, True, False], [False, True, True, True]]
-    assert stable_mask([a, b]).tolist() == [[True, True, True, False], [False, False, True, True]]
-    assert stable_mask([a], thresh_db=0.5).tolist() == [
-        [True, False, False, False],
-        [False, True, True, True],
-    ]
-
-
-@pytest.mark.parametrize("shift", [0.5, 1.5])
-def test_relative_delta_removes_shift(shift):
-    """A scene-wide shift (moisture/calibration) is removed; real changes survive."""
-    rng = np.random.default_rng(12)
-    before = gamma_stack(rng, 60, 1)[0]
-    after = gamma_stack(rng, 60, 1)[0] * 10 ** (shift / 10)
-    moved = rng.random(GRID) < 0.2
-    after[moved] *= 10 ** (-4 / 10)
-    delta = db(after / before)
-
-    stable = stable_mask([delta])
-    rel = relative_delta(delta, stable)
-    assert abs(np.median(rel[stable])) < 1e-9
-    assert abs(np.median(rel[~moved])) < 0.05, f"residual shift {np.median(rel[~moved]):.3f} dB"
-    assert abs(np.median(rel[moved]) + 4.0) < 0.1
-
-
-def test_relative_delta_nan_and_errors():
-    delta = np.array([[0.5, 0.7, np.nan], [0.6, 5.0, 0.4]])
-    stable = np.array([[True, True, True], [True, False, True]])
-    rel = relative_delta(delta, stable)
-    np.testing.assert_allclose(rel[np.isfinite(rel)], delta[np.isfinite(delta)] - 0.55)
-    assert np.isnan(rel[0, 2])
+def test_changed_per_band_min_db():
+    p = np.full(3, 1e-9)
+    hh = np.array([2.5, 1.0, 0.5])
+    hv = np.array([0.5, 3.5, 2.5])
+    assert changed(p, [hh, hv], min_db=(2.0, 3.0)).tolist() == [True, True, False]
+    assert changed(p, np.stack([hh, hv]), min_db=[3.0, 2.0]).tolist() == [False, True, True]
+    assert changed(p, [hh, hv], min_db=2.0).tolist() == [True, True, True]
+    assert changed(p, hh, min_db=[2.0]).tolist() == [True, False, False]
     with pytest.raises(ValueError):
-        relative_delta(delta, np.zeros_like(stable))
+        changed(p, [hh, hv], min_db=(2.0, 2.0, 2.0))
