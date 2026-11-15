@@ -35,7 +35,6 @@ export class Clock {
   private lastBeat = -1;
   private frameFns = new Set<(f: Frame) => void>();
   private beatFns = new Set<(beat: number, playing: boolean) => void>();
-  private dirty = false;
 
   constructor(T: number) {
     this.T = Math.max(1, T);
@@ -71,8 +70,6 @@ export class Clock {
   }
 
   invalidate() {
-    if (this.dirty) return;
-    this.dirty = true;
     if (!this.raf) this.raf = requestAnimationFrame(this.tick);
   }
 
@@ -116,6 +113,7 @@ export class Clock {
   destroy() {
     cancelAnimationFrame(this.raf);
     this.raf = 0;
+    this.playing = false;
     this.frameFns.clear();
     this.beatFns.clear();
   }
@@ -130,7 +128,6 @@ export class Clock {
 
   private tick = (now: number) => {
     this.raf = 0;
-    this.dirty = false;
     if (this.playing) {
       const dt = Math.min(0.1, (now - this.last) / 1000);
       this.last = now;

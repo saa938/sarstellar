@@ -7,6 +7,7 @@ import "@fontsource-variable/geist-mono";
 import "./styles/base.css";
 import "./styles/stage.css";
 import "./styles/pages.css";
+import "./styles/present.css";
 import App from "./App";
 
 createRoot(document.getElementById("root")!).render(

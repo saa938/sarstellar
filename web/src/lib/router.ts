@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
 export interface Route {
-  name: "landing" | "stage" | "moves" | "move" | "proof" | "explore" | "notfound";
+  name: "landing" | "stage" | "moves" | "move" | "proof" | "explore" | "present" | "constellation" | "notfound";
   id?: string;
   query: URLSearchParams;
 }
@@ -16,6 +16,8 @@ export function parseHash(hash: string): Route {
   if (parts[0] === "moves" && parts[1]) return { name: "move", id: parts[1], query };
   if (parts[0] === "moves") return { name: "moves", query };
   if (parts[0] === "proof") return { name: "proof", query };
+  if (parts[0] === "present") return { name: "present", query };
+  if (parts[0] === "constellation") return { name: "constellation", query };
   if (parts[0] === "explore" || parts[0] === "stages") return { name: "explore", query };
   return { name: "notfound", query };
 }

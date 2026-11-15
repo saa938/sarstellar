@@ -6,6 +6,7 @@ const StagePage = lazy(() => import("./pages/StagePage"));
 const FieldGuide = lazy(() => import("./pages/FieldGuide"));
 const Proof = lazy(() => import("./pages/Proof"));
 const Explore = lazy(() => import("./pages/Explore"));
+const Present = lazy(() => import("./pages/Present"));
 
 export default function App() {
   const route = useRoute();
@@ -31,6 +32,7 @@ export default function App() {
       {route.name === "move" && route.id && <FieldGuide moveId={route.id} />}
       {route.name === "proof" && <Proof />}
       {route.name === "explore" && <Explore />}
+      {route.name === "present" && <Present query={route.query} />}
       {route.name === "notfound" && <Landing />}
     </Suspense>
   );

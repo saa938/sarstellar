@@ -38,6 +38,7 @@ interface Props {
   compact?: boolean;
   showZoneLabels?: boolean;
   pointScale?: number;
+  exposure?: number;
   ariaLabel?: string;
 }
 
@@ -79,7 +80,7 @@ function computeGeo(w: number, h: number, v: FloorView, compact: boolean): Geo {
 }
 
 export function DanceFloor(props: Props) {
-  const { data, floor, hhOnly, clock, state, stateVersion, selActive, trails, hover, solo = null, tool = "rect", onSelect, onPick, emphasizeZone = null, compact = false, showZoneLabels = true, pointScale = 1 } = props;
+  const { data, floor, hhOnly, clock, state, stateVersion, selActive, trails, hover, solo = null, tool = "rect", onSelect, onPick, emphasizeZone = null, compact = false, showZoneLabels = true, pointScale = 1, exposure = 1.1 } = props;
   const wrapRef = useRef<HTMLDivElement>(null);
   const glCanvas = useRef<HTMLCanvasElement>(null);
   const zoneCanvas = useRef<HTMLCanvasElement>(null);
@@ -151,7 +152,7 @@ export function DanceFloor(props: Props) {
         selActive: selActiveRef.current,
         pointPx,
         gain,
-        exposure: 1.1,
+        exposure,
         dimOthers: 0.14,
         hoverK: hover ? hover.get() : -1,
       });
@@ -170,7 +171,7 @@ export function DanceFloor(props: Props) {
       place(hover ? hover.get() : -1, hoverRing.current);
       place(soloRef.current ?? -1, soloRing.current);
     },
-    [view, pointPx, gain, hover, data],
+    [view, pointPx, gain, hover, data, exposure],
   );
   const drawRef = useRef(draw);
   drawRef.current = draw;
