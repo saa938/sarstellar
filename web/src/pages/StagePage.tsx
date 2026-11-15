@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Nav } from "../components/Nav";
 import { FixtureTag } from "../components/FixtureTag";
-import { assetUrl, loadIndex, loadMoves, loadStage, type IndexResult, type MovesResult, type StageResult } from "../lib/data";
-import { DEFAULT_FLOOR, MOVE_COLORS, MOVE_NAMES, ZONE_STARLIGHT, hexToRgb, lighten } from "../lib/moves";
-import { decodeStage, type DecodeResult } from "../stage/decoded";
+import { loadIndex, type IndexResult } from "../lib/data";
+import { MOVE_COLORS, MOVE_NAMES, ZONE_STARLIGHT, hexToRgb, lighten } from "../lib/moves";
+import { loadDecoded, type Loaded } from "../stage/loadDecoded";
 import { Clock, prefersReducedMotion } from "../stage/clock";
 import { DanceFloor, type BrushTool, type TrailSpec } from "../stage/DanceFloor";
 import { StageMap, type Basemap } from "../stage/StageMap";
@@ -12,15 +12,6 @@ import { SoloCard } from "../stage/SoloCard";
 import { signal } from "../lib/signal";
 import { fmtDate, fmtInt, parseDate } from "../lib/format";
 import type { FloorSpec, StageMeta, StoryBeat } from "../lib/types";
-
-type Loaded = {
-  res: StageResult;
-  moves: MovesResult | null;
-  index: IndexResult;
-  data: DecodeResult;
-  floor: FloorSpec;
-  hhOnly: boolean;
-};
 
 export default function StagePage({ id, query }: { id: string; query: URLSearchParams }) {
   const [loaded, setLoaded] = useState<Loaded | null>(null);
@@ -37,43 +28,9 @@ export default function StagePage({ id, query }: { id: string; query: URLSearchP
     setLoaded(null);
     setError(null);
     setStep("Finding the stage");
-    (async () => {
-      const [res, moves, idx] = await Promise.all([loadStage(id), loadMoves(), loadIndex()]);
-      if (dead) return;
-      if (!res) {
-        setError(`There is no stage called "${id}" yet.`);
-        return;
-      }
-      const meta = res.meta;
-      const floor = moves?.doc.floor ?? DEFAULT_FLOOR;
-      const P = meta.blocks.pols.length;
-      const hhOnly = P === 1 || !meta.blocks.pols.includes("HV");
-      setStep(`Reading ${fmtInt(meta.grid.nx * meta.grid.ny)} hectares across ${meta.dates.length} passes`);
-      const zoneTints: Record<string, [number, number, number]> = {};
-      for (const [k, v] of Object.entries(ZONE_STARLIGHT)) zoneTints[k] = hexToRgb(v);
-      try {
-        const data = await decodeStage({
-          url: assetUrl(res.base, meta.blocks.file),
-          movesUrl: meta.moves ? assetUrl(res.base, meta.moves.file) : null,
-          nMoves: meta.moves?.ids.length ?? 0,
-          T: meta.dates.length,
-          P,
-          nx: meta.grid.nx,
-          ny: meta.grid.ny,
-          scale: meta.blocks.scale,
-          offset: meta.blocks.offset,
-          nodata: meta.blocks.nodata,
-          corners: meta.corners,
-          zones: floor.zones.map((z) => ({ id: z.id, center: z.center })),
-          zoneTints,
-          hhOnly,
-        });
-        if (dead) return;
-        setLoaded({ res, moves, index: idx, data, floor, hhOnly });
-      } catch (e) {
-        if (!dead) setError(String((e as Error).message || e));
-      }
-    })();
+    loadDecoded(id, (s) => !dead && setStep(s))
+      .then((L) => !dead && setLoaded(L))
+      .catch((e) => !dead && setError(String((e as Error).message || e)));
     return () => {
       dead = true;
     };

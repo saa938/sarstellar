@@ -4,6 +4,7 @@ interface Props {
   active?: string;
   children?: ReactNode;
   variant?: "overlay" | "solid";
+  className?: string;
 }
 
 const LINKS = [
@@ -30,9 +31,9 @@ export function Logo() {
   );
 }
 
-export function Nav({ active, children, variant = "solid" }: Props) {
+export function Nav({ active, children, variant = "solid", className = "" }: Props) {
   return (
-    <header className={`nav nav--${variant}`}>
+    <header className={`nav nav--${variant} ${className}`}>
       <Logo />
       <div className="nav__mid">{children}</div>
       <nav className="nav__links" aria-label="Sections">
