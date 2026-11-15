@@ -4,7 +4,8 @@ import { Nav } from "../components/Nav";
 import { Footer } from "../components/Footer";
 import { FixtureTag } from "../components/FixtureTag";
 import { API_URL, loadIndex, type IndexResult } from "../lib/data";
-import { maplibregl, DARK_LABELS, GIBS_ATTR, GIBS_BLACK_MARBLE } from "../lib/maplibre";
+import { maplibregl, DARK_LABELS, ESRI_ATTR, ESRI_IMAGERY, GIBS_ATTR, GIBS_BLACK_MARBLE } from "../lib/maplibre";
+import type { GeoJSONSource } from "maplibre-gl";
 import { MOVE_COLORS, MOVE_NAMES } from "../lib/moves";
 import { StageCard } from "./Landing";
 
@@ -43,11 +44,16 @@ export default function Explore() {
         sources: {
           night: { type: "raster", tiles: [GIBS_BLACK_MARBLE], tileSize: 256, maxzoom: 8, attribution: GIBS_ATTR },
           labels: { type: "raster", tiles: DARK_LABELS, tileSize: 256, maxzoom: 16 },
+          sat: { type: "raster", tiles: [ESRI_IMAGERY], tileSize: 256, maxzoom: 18, attribution: ESRI_ATTR },
+          livebox: { type: "geojson", data: { type: "FeatureCollection", features: [] } },
         },
         layers: [
           { id: "bg", type: "background", paint: { "background-color": "#06070b" } },
           { id: "night", type: "raster", source: "night", paint: { "raster-contrast": 0.1 } },
+          { id: "sat", type: "raster", source: "sat", layout: { visibility: "none" }, paint: { "raster-saturation": -0.2, "raster-brightness-max": 0.8 } },
           { id: "labels", type: "raster", source: "labels", minzoom: 4, paint: { "raster-opacity": 0.6 } },
+          { id: "livebox-fill", type: "fill", source: "livebox", paint: { "fill-color": "#f2d08a", "fill-opacity": 0.1 } },
+          { id: "livebox", type: "line", source: "livebox", paint: { "line-color": "#f2d08a", "line-width": 1.6 } },
         ],
       },
       center: [20, 20],
@@ -86,7 +92,8 @@ export default function Explore() {
     const map = mapRef.current;
     if (!map) return;
     map.setProjection({ type: "mercator" });
-    if (map.getZoom() < 6) map.flyTo({ zoom: 7, duration: 900 });
+    map.setLayoutProperty("sat", "visibility", "visible");
+    if (map.getZoom() < 8.5) map.flyTo({ zoom: 9.6, duration: 900 });
     map.dragPan.disable();
     setLive({ phase: "drawing" });
   };
@@ -120,6 +127,11 @@ export default function Explore() {
     const c = map.unproject([Math.max(d.x0, d.x1), Math.min(d.y0, d.y1)]);
     const bbox: [number, number, number, number] = [round(a.lng), round(a.lat), round(c.lng), round(c.lat)];
     const { w, h } = sizeKm(bbox);
+    (map.getSource("livebox") as GeoJSONSource | undefined)?.setData({
+      type: "Feature",
+      properties: {},
+      geometry: { type: "Polygon", coordinates: [[[bbox[0], bbox[1]], [bbox[2], bbox[1]], [bbox[2], bbox[3]], [bbox[0], bbox[3]], [bbox[0], bbox[1]]]] },
+    });
     setLive({ phase: "boxed", bbox, wkm: w, hkm: h, ok: w >= 1 && h >= 1 && w <= 25 && h <= 25 });
   };
 
@@ -188,7 +200,11 @@ export default function Explore() {
           <div ref={el} className="exploremap__map" />
           {live.phase === "drawing" && (
             <div className="exploremap__draw" onPointerDown={onDown} onPointerMove={onMove} onPointerUp={onUp} onPointerCancel={onUp}>
-              {box && <div className="stagemap__box" style={{ left: Math.min(box.x0, box.x1), top: Math.min(box.y0, box.y1), width: Math.abs(box.x1 - box.x0), height: Math.abs(box.y1 - box.y0) }} />}
+              {box && (
+                <div className="stagemap__box" style={{ left: Math.min(box.x0, box.x1), top: Math.min(box.y0, box.y1), width: Math.abs(box.x1 - box.x0), height: Math.abs(box.y1 - box.y0) }}>
+                  <BoxSize map={mapRef.current} box={box} />
+                </div>
+              )}
             </div>
           )}
           {API_URL && (
@@ -196,7 +212,7 @@ export default function Explore() {
               <div className="eyebrow">Live</div>
               {live.phase === "idle" && (
                 <>
-                  <p>Draw a box 1 to 25 km on a side anywhere NISAR has flown. Every pass is read in parallel and the dance assembles here.</p>
+                  <p>Pan to any place NISAR has flown, then draw a box 1 to 25 km on a side. Every pass is read in parallel and the dance assembles here.</p>
                   <button className="btn btn--primary" onClick={startDrawing}>
                     Draw a box
                   </button>
@@ -258,4 +274,17 @@ function round(v: number) {
 
 function escapeHtml(s: string) {
   return s.replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[c]!);
+}
+
+function BoxSize({ map, box }: { map: MLMap | null; box: { x0: number; y0: number; x1: number; y1: number } }) {
+  if (!map) return null;
+  const a = map.unproject([Math.min(box.x0, box.x1), Math.max(box.y0, box.y1)]);
+  const c = map.unproject([Math.max(box.x0, box.x1), Math.min(box.y0, box.y1)]);
+  const { w, h } = sizeKm([a.lng, a.lat, c.lng, c.lat]);
+  const ok = w >= 1 && h >= 1 && w <= 25 && h <= 25;
+  return (
+    <span className={`boxsize ${ok ? "" : "is-bad"}`}>
+      {w.toFixed(1)} × {h.toFixed(1)} km
+    </span>
+  );
 }
