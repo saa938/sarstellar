@@ -30,6 +30,7 @@ def main() -> None:
     args = ap.parse_args()
     ids = [s for s in args.only.split(",") if s] or sorted(
         p.name for p in args.raw.iterdir() if (p / "stage.json").exists() and (p / "cube.npz").exists())
+    ids = [i for i in ids if not STORIES.get(i, {}).get("hidden")]
     for sid in ids:
         entry = write_bundle(args.raw / sid, args.web / "stages" / sid, STORIES.get(sid, {}), sid)
         print(json.dumps(entry))
@@ -40,6 +41,8 @@ def main() -> None:
             continue
         s = json.loads(sj.read_text())
         story = STORIES.get(s["id"], {})
+        if story.get("hidden"):
+            continue
         entries.append({
             "id": s["id"], "name": s["name"], "country": s["country"],
             "center": [round((s["bbox"][0] + s["bbox"][2]) / 2, 4),

@@ -31,11 +31,11 @@ STAGES: dict[str, dict] = {
                 "country": "United States"},  # 28
     "indiana": {"move": "vanish", "bbox": [-85.95, 39.98, -85.60, 40.20], "name": "White River, Indiana",
                 "country": "United States"},  # 10, quad-pol
-    "okavango": {"move": "vanish", "bbox": [22.60, -19.50, 23.00, -19.10], "name": "Okavango Delta",
+    "okavango": {"move": "vanish", "track": 172, "bbox": [22.60, -19.50, 23.00, -19.10], "name": "Okavango Delta",
                  "country": "Botswana"},  # 9
     "sylhet": {"move": "vanish", "bbox": [91.05, 24.40, 91.45, 24.75], "name": "Sylhet haor basin",
                "country": "Bangladesh"},  # 10
-    "tonle_sap": {"move": "bounce", "bbox": [103.65, 13.05, 104.00, 13.32], "name": "Tonle Sap",
+    "tonle_sap": {"move": "bounce", "track": 83, "bbox": [103.65, 13.05, 104.00, 13.32], "name": "Tonle Sap",
                   "country": "Cambodia"},  # partial frames only
     # The Melt: ice
     "greenland": {"move": "melt", "bbox": [-50.30, 67.00, -49.60, 67.25], "name": "Kangerlussuaq ice margin",

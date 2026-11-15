@@ -150,7 +150,7 @@ def canonical_path(raw: Path, stages: list[str], move: str, n_max: int = 4000):
             paths.append(rel)
     if not paths:
         return None, used
-    best = max(paths, key=len)
+    best = paths[0]  # stages are listed in story priority
     return [{"HH": round(float(h), 2), "HV": (round(float(v), 2) if v is not None else None)}
             for h, v in best], used
 
@@ -159,8 +159,9 @@ def build_moves(raw: Path, stage_moves: dict[str, str], report: dict | None) -> 
     by_move: dict[str, list[str]] = {}
     for sid, mv in stage_moves.items():
         by_move.setdefault(mv, []).append(sid)
-    extra = {"bounce": ["punjab", "edouard", "tonle_sap"], "waltz": ["iowa", "punjab"],
-             "vanish": ["indiana", "okavango", "sylhet"]}
+    extra = {"bounce": ["punjab", "edouard"], "waltz": ["iowa", "punjab"],
+             "vanish": ["sylhet"], "fall": ["morton", "rondonia"], "melt": ["greenland"],
+             "scorch": ["kaiser"]}
     moves = []
     for mv in MOVE_IDS:
         g = dict(GUIDE[mv])
@@ -215,6 +216,16 @@ def cross_continent(raw: Path) -> list[dict]:
     return from_report
 
 
+def count_passes(raw: Path) -> int:
+    """NISAR granules read for the stages (from each stage.json's per-granule metadata)."""
+    n = 0
+    for d in raw.iterdir():
+        sj = d / "stage.json"
+        if sj.exists():
+            n += len(json.loads(sj.read_text()).get("metas", []))
+    return n
+
+
 def build_proof(raw: Path, report: dict, scorecard: dict, run_stats: dict, n_stages: int,
                 countries: int) -> dict:
     main = report["main"]
@@ -224,12 +235,17 @@ def build_proof(raw: Path, report: dict, scorecard: dict, run_stats: dict, n_sta
              "waltz": "USDA Cropland Data Layer (cultivated land)",
              "still": "Stable sites + blocks the references call unchanged"}
     moves = []
+    gated = main.get("gated", {})
     for c in report["classes"]:
         r = main[c]
+        g = gated.get(c, {})
         moves.append({"id": c, "name": names[c], "reference": refs_[c],
                       "auprc": r["auprc"], "auprc_ci": r.get("auprc_ci"), "base_rate": r["base_rate"],
-                      "precision": r["precision"], "recall": r["recall"], "f1": r["f1"],
-                      "f1_ci": r.get("f1_ci"), "n_test_blocks": r["n"]})
+                      "lift": (r["auprc"] / r["base_rate"]) if r["base_rate"] else None,
+                      "precision": g.get("precision", r["precision"]),
+                      "recall": g.get("recall", r["recall"]),
+                      "f1": g.get("f1", r["f1"]), "f1_ci": None,
+                      "n_flagged": g.get("n_flagged"), "n_test_blocks": r["n"]})
     pol = {"classes": [c for c in report["classes"] if c != "still"], "variants": []}
     for name, r in report["ablations"].items():
         pol["variants"].append({
@@ -254,9 +270,18 @@ def build_proof(raw: Path, report: dict, scorecard: dict, run_stats: dict, n_sta
             "train_sites": main["n_train_sites"], "test_sites": main["n_test_sites"],
             "test_states": main["n_test_states"],
             "hectares_scored": int(main["n_train_blocks"] + main["n_test_blocks"]),
-            "passes_read": run_stats.get("passes_read"), "stages": n_stages, "countries": countries},
+            "passes_read": run_stats.get("passes_read") or count_passes(raw),
+            "stages": n_stages, "countries": countries},
         "moves": moves,
         "macro_f1": {"value": main["macro_f1_moves"], "ci": main.get("macro_f1_moves_ci")},
+        "any_move": gated.get("any_move"),
+        "gate": gated.get("gate"),
+        "model": {"features": report.get("features"), "source": report.get("source"),
+                  "note": "LightGBM on the change in HH and HV between two passes (scene shift "
+                          "removed), trained on training states only. Precision and recall are "
+                          "for the labels the maps show: a move is named only where HV changed "
+                          ">= 2.5 dB or HH >= 3 dB. AUPRC ranks every hectare and does not depend "
+                          "on that cut."},
         "confusion": main["confusion"],
         "polarization": pol,
         "importance_gain": report.get("importance_gain"),
@@ -268,6 +293,13 @@ def build_proof(raw: Path, report: dict, scorecard: dict, run_stats: dict, n_sta
             "cultivated land rather than a dated harvest.",
             "The Bounce and the Melt have no labeled reference set here; they are physics rules, "
             "shown as such, not measured accuracies.",
+            "The model sees only how much HH and HV changed between two passes. On the stage maps "
+            "we add one thing it cannot see, where each hectare started on the dance floor: a "
+            "forest can fall, a field that loses HV is being harvested. Those context rules are "
+            "not part of the held-out measurement.",
+            "Open-water floods (the Vanish) were not separable from two L-band passes at the "
+            "reference flood sites; with only a few held-out flood sites and a reference built "
+            "partly from Sentinel-1, this is an open question, not a verdict.",
             "Reference sites were chosen where each kind of change happened, so accuracy describes "
             "these sites, not how common each change is across the country.",
             "Held-out results come from states never used for training or tuning. Intervals "
@@ -275,6 +307,37 @@ def build_proof(raw: Path, report: dict, scorecard: dict, run_stats: dict, n_sta
             "NISAR data are provisional releases (2025 to 2026); NASA reprocessing can shift values.",
         ],
     }
+
+
+def write_constellation(raw: Path, web: Path) -> dict | None:
+    """constellation.bin: N x (float32 x, float32 y) then N uint8 move, N uint8 stage, N uint32 block."""
+    src = raw / "_constellation.npz"
+    if not src.exists():
+        return None
+    z = np.load(src)
+    ids_all = [str(s) for s in z["stage_ids"]]
+    idx_path = web / "stages" / "index.json"
+    shown = ([s["id"] for s in json.loads(idx_path.read_text())["stages"]]
+             if idx_path.exists() else ids_all)
+    keep_ids = [s for s in ids_all if s in shown]
+    remap = {ids_all.index(s): i for i, s in enumerate(keep_ids)}
+    st = z["stage"].astype(int)
+    keep = np.isin(st, list(remap))
+    xy = z["xy"][keep].astype("<f4")
+    stage = np.array([remap[v] for v in st[keep]], dtype="u1")
+    n = len(xy)
+    order = np.random.default_rng(3).permutation(n)  # interleave stages so partial draws look even
+    blob = (xy[order].tobytes() + z["move"][keep][order].astype("u1").tobytes()
+            + stage[order].tobytes() + z["block"][keep][order].astype("<u4").tobytes())
+    (web / "constellation.bin").write_bytes(blob)
+    meta = {"fixture": False, "count": int(n), "stages": keep_ids,
+            "moves": MOVE_IDS,
+            "layout": "N*2 float32 (x, y in 0..1), then N uint8 move, N uint8 stage index, "
+                      "N uint32 block index (little-endian)",
+            "note": "UMAP of the radar-only dance features of hectares from every stage with HV; "
+                    "similar dances sit together."}
+    (web / "constellation.json").write_text(json.dumps(meta, indent=1))
+    return meta
 
 
 def main() -> None:
@@ -294,6 +357,8 @@ def main() -> None:
     moves = build_moves(args.raw, stage_moves, report)
     (args.web / "moves.json").write_text(json.dumps(moves, indent=1))
     print("moves.json:", [(m["id"], len(m["path"] or [])) for m in moves["moves"]])
+    cons = write_constellation(args.raw, args.web)
+    print("constellation:", None if cons is None else cons["count"])
     if report:
         sc = json.loads(args.scorecard.read_text()) if args.scorecard.exists() else {}
         rs = args.raw / "_ref" / "run_stats.json"

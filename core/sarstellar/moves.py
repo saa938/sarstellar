@@ -36,11 +36,28 @@ FEATURES_BOTH = ["pre_R", "post_R", "d_R", "step_strength", "n_dates"]
 FEATURES = FEATURES_HH + FEATURES_HV + FEATURES_BOTH
 
 
-def scene_offsets(cube: np.ndarray) -> np.ndarray:
-    """Per-date median over valid blocks minus the median of those medians. cube: [T, ...]."""
+def scene_offsets(cube: np.ndarray, ref: np.ndarray | None = None) -> np.ndarray:
+    """Per-date calibration/weather shift, from the scene's steadiest hectares. cube: [T, ...].
+
+    The shift is the per-date median of the 25% of blocks whose `ref` series (default: the cube
+    itself) varies least over time, minus the median of those medians. Using the steadiest
+    blocks (towns, mature woods) keeps a scene full of crops from cancelling its own waltz.
+    """
     t = cube.shape[0]
     flat = cube.reshape(t, -1).astype("float32")
-    med = np.array([np.nanmedian(row) if np.isfinite(row).any() else np.nan for row in flat])
+    r = flat if ref is None else ref.reshape(t, -1).astype("float32")
+    import warnings
+
+    with warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        ok = np.isfinite(r).sum(0) >= max(3, t // 2)
+        sd = np.nanstd(r, axis=0)
+        cut = np.nanpercentile(sd[ok], 25) if ok.any() else np.inf
+        steady = ok & (sd <= cut)
+        if steady.sum() < 50:
+            steady = ok
+        med = np.array([np.nanmedian(row[steady]) if np.isfinite(row[steady]).any() else np.nan
+                        for row in flat])
     return med - np.nanmedian(med)
 
 
@@ -80,7 +97,7 @@ def block_features(hh: np.ndarray, hv: np.ndarray, shape: tuple[int, int]) -> di
     """
     t_n = hh.shape[0]
     ny, nx = shape
-    off_hh, off_hv = scene_offsets(hh), scene_offsets(hv)
+    off_hh, off_hv = scene_offsets(hh, ref=hv), scene_offsets(hv, ref=hv)
     H = (hh.reshape(t_n, -1) - off_hh[:, None]).astype("float64")
     V = (hv.reshape(t_n, -1) - off_hv[:, None]).astype("float64")
     R = H - V

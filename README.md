@@ -28,7 +28,28 @@ NISAR flies.
 
 ## What we measured
 
-RESULTS_PLACEHOLDER
+Everything below is measured by this repository's pipeline; intervals and limits are on the site's
+proof page and in `web/public/proof.json`.
+
+- **Stages:** every NISAR pass over nine places (177 granules, about 10,900 km2): Punjab, central
+  Iowa, the Central Valley, Morton (Washington), Rondonia (Brazil), the Kaiser Canyon fire, Village
+  Creek (Texas), the Sylhet haor basin (Bangladesh) and Greenland's Kangerlussuaq ice margin.
+- **Punjab:** wheat waltzes in HV (+3 dB November to February), rice bounces in HH (+8 dB July to
+  September; the HH-HV gap widens from 8 to 12 dB). Same fields, two crops, two polarizations.
+- **Edouard:** 3,572 forested hectares jumped 3 dB or more in HH with HV unchanged on the storm pass,
+  266 twelve days later: floodwater under the canopy.
+- **Held-out states:** trained on 170 US reference sites, tested on 72 sites in 12 states never used
+  for training (2.46 million reference hectares in all). The Waltz is recognized 4.6 times better
+  than chance (AUPRC 0.44 vs 0.10), the Fall 45 times better (AUPRC 0.11 vs 0.0025). When the site
+  names a move, the hectare really changed 66% of the time (19% by chance).
+- **Which polarization:** forest loss is an HV move (AUPRC 0.26 with HV alone, 0.04 with HH alone).
+- **Across continents:** trained only on US sites, the model ranks forest loss in Rondonia, Brazil
+  32 times better than chance against NASA's optical OPERA alerts.
+- **NISAR vs Sentinel-1:** on 37 forest-loss sites, NISAR's L-band alerts were 7.8 times more often
+  real than Sentinel-1's C-band at the same detection rate (SARstellar v1 benchmark).
+- **Limits:** open-water floods were not separable from two L-band passes at the reference flood
+  sites, the Scorch is weak, and the Bounce and the Melt are physics rules without labeled
+  references. NISAR data are provisional releases.
 
 ## How it works
 

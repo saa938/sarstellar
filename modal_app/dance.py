@@ -12,7 +12,6 @@ writes to the Volume `sarstellar-data` under `dance/<id>/`:
   stage.json    grid, corners, stack, dates, per-granule read metadata, errors
 """
 
-from __future__ import annotations
 
 import io
 import json
@@ -28,7 +27,7 @@ image = (
     .add_local_file(ROOT / "pyproject.toml", "/repo/pyproject.toml", copy=True)
     .add_local_dir(ROOT / "core", "/repo/core", copy=True,
                    ignore=["**/__pycache__", "**/*.pyc", "**/*.egg-info"])
-    .run_commands("pip install '/repo[ml]' umap-learn")
+    .run_commands("pip install '/repo[ml]' umap-learn fastapi")
     .add_local_python_source("modal_app")
 )
 
@@ -118,14 +117,15 @@ def _render(images: dict, out_dir: Path, hh_only: bool) -> dict:
         # vegetation green, bare soil dim violet, double bounce (cities, flooded trees, rice) pink
         # to white.
         hv = to_db(images["HV"])
-        lo_h, hi_h = -25.0, -2.0
-        lo_v, hi_v = -32.0, -11.0
-        stretch.update({"HH": [lo_h, hi_h], "HV": [lo_v, hi_v], "scheme": "R=HH G=HV B=HH"})
+        lo_h, hi_h = -22.0, 2.0
+        lo_v, hi_v = -30.0, -8.0
+        stretch.update({"HH": [lo_h, hi_h], "HV": [lo_v, hi_v],
+                        "scheme": "R=HH^1.5 G=HV^0.9 B=HH^1.7"})
         for i in range(t):
             alpha = np.isfinite(hh[i]) & np.isfinite(hv[i])
-            r = np.nan_to_num(scale(hh[i], lo_h, hi_h) ** 0.9 * 255)
-            g = np.nan_to_num(scale(hv[i], lo_v, hi_v) ** 0.85 * 255)
-            b = np.nan_to_num(scale(hh[i], lo_h, hi_h) ** 1.1 * 235)
+            r = np.nan_to_num(scale(hh[i], lo_h, hi_h) ** 1.5 * 255)
+            g = np.nan_to_num(scale(hv[i], lo_v, hi_v) ** 0.9 * 255)
+            b = np.nan_to_num(scale(hh[i], lo_h, hi_h) ** 1.7 * 230)
             rgba = np.dstack([r, g, b, alpha * 255]).astype("uint8")
             name = f"img/{i:03d}.webp"
             Image.fromarray(rgba, "RGBA").save(out_dir / name, "WEBP", quality=84, method=4)
@@ -248,9 +248,8 @@ def run_stage(stage_id: str, spec: dict, out: Path, progress=None) -> dict:
             "elapsed_s": info["elapsed_s"], "n_reads": len(calls)}
 
 
-@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=3600, cpu=8.0,
-              memory=65536, max_containers=2)
-@modal.concurrent(max_inputs=10)
+@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=3600, cpu=4.0,
+              memory=32768, max_containers=10)
 def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
     import numpy as np
 
@@ -263,14 +262,15 @@ def stage_job(stage_id: str, spec: dict, render_only: bool = False) -> dict:
         (out / "stage.json").write_text(json.dumps(info, indent=1))
         _commit()
         return {"id": stage_id, "rendered": len(info["render"]["files"])}
+    if (out / "stage.json").exists() and not spec.get("force"):
+        return {"id": stage_id, "cached": True}
     res = run_stage(stage_id, spec, out)
     _commit()
     return res
 
 
-@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=3600, cpu=8.0,
-              memory=32768, max_containers=3)
-@modal.concurrent(max_inputs=40)
+@app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=1800, cpu=1.0,
+              memory=8192, max_containers=24)
 def ref_site_job(site: dict) -> dict:
     """Full series for one scorecard reference site, on exactly the scorecard's block grid."""
     from collections import defaultdict
@@ -284,6 +284,8 @@ def ref_site_job(site: dict) -> dict:
 
     sid, meta, bbox = site["id"], site["meta"], site["bbox"]
     out = Path(DATA) / "dance_ref" / f"{sid}.npz"
+    if out.exists():
+        return {"id": sid, "cached": True}
     try:
         d0, d1 = (date.fromisoformat(x) for x in meta["pair_dates"])
         stacks = [s for s in stage_stacks(bbox, d0 - timedelta(days=60), d1 + timedelta(days=45))
@@ -382,24 +384,41 @@ def build_ref_table(max_still_per_site: int = 20000) -> dict:
 
 
 @app.function(volumes={DATA: volume}, timeout=3600, cpu=16.0, memory=65536)
-def train_moves(n_boot: int = 300) -> dict:
-    """Fit the move model on training states; measure it (and the HH/HV ablations) on held-out states."""
+def train_moves(n_boot: int = 300, source: str = "pairs") -> dict:
+    """Fit the move model on training states; measure it (and the HH/HV ablations) on held-out states.
+
+    source="pairs": the scorecard's two-pass table (2.2M reference hectares, no new reads).
+    source="series": dance_ref/train.parquet built from full series (needs the refs job).
+    """
     import pickle
 
     import pandas as pd
 
-    from sarstellar.moves_model import run_all
+    from sarstellar.moves_model import PAIR_ABLATIONS, pair_table, run_all
 
     volume.reload()
-    table = pd.read_parquet(Path(DATA) / "dance_ref" / "train.parquet")
-    model, report = run_all(table, n_boot=n_boot)
     d = Path(DATA) / "dance_ref"
+    d.mkdir(parents=True, exist_ok=True)
+    if source == "pairs":
+        blocks = pd.read_parquet(Path(DATA) / "scorecard" / "blocks.parquet",
+                                 columns=["site", "state", "kind", "split", "label", "valid",
+                                          "rel_HH", "rel_HV"])
+        table = pair_table(blocks)
+        model, report = run_all(table, n_boot=n_boot, ablations=PAIR_ABLATIONS)
+    else:
+        table = pd.read_parquet(d / "train.parquet")
+        model, report = run_all(table, n_boot=n_boot)
+    report["source"] = source
     (d / "moves_model.pkl").write_bytes(pickle.dumps(model))
+    (d / "moves_model_meta.json").write_text(json.dumps({"features": report["features"],
+                                                          "source": source}))
     (d / "moves_report.json").write_text(json.dumps(report, indent=1, default=float))
     _commit()
     main = report["main"]
-    return {c: {k: main[c][k] for k in ("precision", "recall", "f1", "auprc", "n")}
-            for c in report["classes"]} | {"macro_f1_moves": main["macro_f1_moves"]}
+    out = {c: {k: main[c][k] for k in ("precision", "recall", "f1", "auprc", "n")}
+           for c in report["classes"]} | {"macro_f1_moves": main["macro_f1_moves"],
+                                          "gated": main.get("gated")}
+    return json.loads(json.dumps(out, default=float))  # plain floats: the local client has no numpy
 
 
 @app.function(volumes={DATA: volume}, timeout=1800, cpu=4.0, memory=32768, max_containers=20)
@@ -417,16 +436,15 @@ def apply_stage(stage_id: str, headline: str) -> dict:
     if not (src / "cube.npz").exists():
         return {"id": stage_id, "error": "no cube"}
     model = pickle.loads((Path(DATA) / "dance_ref" / "moves_model.pkl").read_bytes())
+    feats = json.loads((Path(DATA) / "dance_ref" / "moves_model_meta.json").read_text())["features"]
     z = np.load(src / "cube.npz")
     cube = {k: z[k] for k in z.files if k.startswith("blocks_")}
-    res = apply_to_stage(model, cube)
+    res = apply_to_stage(model, cube, feats)
     counts = {m: int((res["move"] == i).sum()) for i, m in enumerate(MOVE_IDS)}
     extra = {}
     f = res.get("features")
     if f is not None:
-        from sarstellar.moves import FEATURES
-
-        X = np.stack([f[k] for k in FEATURES], axis=1)
+        X = np.stack([f[k] for k in feats], axis=1)
         proba = np.full((X.shape[0], len(CLASSES)), np.nan, dtype="float32")
         ok = f["valid"]
         proba[ok] = model.predict_proba(X[ok].astype("float32"))
@@ -437,7 +455,7 @@ def apply_stage(stage_id: str, headline: str) -> dict:
     hl = pick_highlights(res, cube, headline)
     (src / "highlight.json").write_text(json.dumps({"blocks": hl, "label": headline}))
     _commit()
-    return {"id": stage_id, "counts": counts, "highlights": len(hl)}
+    return json.loads(json.dumps({"id": stage_id, "counts": counts, "highlights": len(hl)}, default=float))
 
 
 @app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=1800, cpu=4.0,
@@ -534,8 +552,7 @@ def _set_job(job_id: str, **fields) -> None:
 
 
 @app.function(secrets=[earthdata], volumes={DATA: volume}, timeout=1800, cpu=4.0,
-              memory=32768, max_containers=2)
-@modal.concurrent(max_inputs=6)
+              memory=32768, max_containers=4)
 def live_job(job_id: str, bbox: list[float]) -> None:
     """A user's box, anywhere: the full stage pipeline + moves, written as a web bundle."""
     import pickle
@@ -563,9 +580,10 @@ def live_job(job_id: str, bbox: list[float]) -> None:
         progress(0.92, "Recognizing the moves")
         volume.reload()
         model = pickle.loads((Path(DATA) / "dance_ref" / "moves_model.pkl").read_bytes())
+        feats = json.loads((Path(DATA) / "dance_ref" / "moves_model_meta.json").read_text())["features"]
         z = np.load(root / "raw" / "cube.npz")
         cube = {k: z[k] for k in z.files if k.startswith("blocks_")}
-        mv = apply_to_stage(model, cube)
+        mv = apply_to_stage(model, cube, feats)
         counts = {m: int((mv["move"] == i).sum()) for i, m in enumerate(MOVE_IDS)}
         np.savez_compressed(root / "raw" / "moves.npz", move=mv["move"], conf=mv["conf"],
                             beat_move=mv["beat_move"], counts=json.dumps(counts))
@@ -679,7 +697,8 @@ def stars():
 
 
 @app.local_entrypoint()
-def moves(train: bool = True, apply: bool = True, refs_only: bool = False, only: str = ""):
+def moves(train: bool = True, apply: bool = True, refs_only: bool = False, only: str = "",
+          source: str = "pairs"):
     from modal_app.stage_defs import STAGES
 
     ids = [s for s in only.split(",") if s] or list(STAGES)
@@ -689,7 +708,7 @@ def moves(train: bool = True, apply: bool = True, refs_only: bool = False, only:
             print(json.dumps(r if isinstance(r, dict) else {"error": repr(r)[:300]}))
         return
     if train:
-        print(json.dumps(train_moves.remote(), default=float, indent=1))
+        print(json.dumps(train_moves.remote(source=source), default=float, indent=1))
     if apply:
         for r in apply_stage.starmap([(i, STAGES[i]["move"]) for i in ids], return_exceptions=True):
             print(json.dumps(r if isinstance(r, dict) else {"error": repr(r)[:300]}))

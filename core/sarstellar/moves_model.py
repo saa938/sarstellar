@@ -13,6 +13,7 @@ used for fitting or selection) and a site bootstrap for intervals.
 from __future__ import annotations
 
 import json
+import warnings
 
 import numpy as np
 import pandas as pd
@@ -25,6 +26,34 @@ ABLATIONS = {
     "HV only": FEATURES_HV,
     "HH + HV": FEATURES,
 }
+# Two-pass model: the change in HH and HV between a before and an after pass (scene shift
+# removed). Trained on the scorecard's 2.2M reference hectares, which store exactly that.
+PAIR_FEATURES = ["d_HH", "d_HV", "d_R"]
+PAIR_ABLATIONS = {
+    "HH only": ["d_HH"],
+    "HV only": ["d_HV"],
+    "HH + HV": PAIR_FEATURES,
+}
+
+
+def pair_table(blocks: pd.DataFrame, max_still_per_site: int = 20000, seed: int = 20261115):
+    """The scorecard block table -> training rows with d_HH, d_HV, d_R and a move label."""
+    from .moves import LABEL_TO_MOVE
+
+    t = blocks[blocks["valid"] & blocks["label"].isin(list(LABEL_TO_MOVE))].copy()
+    t = t.dropna(subset=["rel_HH", "rel_HV"])
+    t["d_HH"], t["d_HV"] = t["rel_HH"].astype("float32"), t["rel_HV"].astype("float32")
+    t["d_R"] = t["d_HH"] - t["d_HV"]
+    t["move"] = t["label"].map(LABEL_TO_MOVE)
+    rng = np.random.default_rng(seed)
+    parts = []
+    for _, g in t.groupby("site", sort=False):
+        still = g[g["move"] == "still"]
+        if len(still) > max_still_per_site:
+            still = still.iloc[rng.choice(len(still), max_still_per_site, replace=False)]
+        parts.append(pd.concat([g[g["move"] != "still"], still]))
+    return pd.concat(parts, ignore_index=True)[
+        ["site", "state", "kind", "split", "label", "move", *PAIR_FEATURES]]
 
 
 def _weights(y: np.ndarray) -> np.ndarray:
@@ -71,6 +100,41 @@ def _metrics(y_true: np.ndarray, proba: np.ndarray) -> dict:
     return out
 
 
+GATE_HV_DB, GATE_HH_DB = 2.5, 3.0
+
+
+def gate(d_hh: np.ndarray, d_hv: np.ndarray) -> np.ndarray:
+    """True where the radar changed enough to name a move (otherwise the hectare is still)."""
+    return (np.abs(np.nan_to_num(d_hv)) >= GATE_HV_DB) | (np.abs(np.nan_to_num(d_hh)) >= GATE_HH_DB)
+
+
+def gated_predict(proba: np.ndarray, d_hh: np.ndarray, d_hv: np.ndarray) -> np.ndarray:
+    """Most likely non-still move where the gate passes, else still (class 0)."""
+    move_best = 1 + proba[:, 1:].argmax(1)
+    return np.where(gate(d_hh, d_hv), move_best, 0)
+
+
+def gated_metrics(test: pd.DataFrame, proba: np.ndarray) -> dict:
+    """Precision/recall per move for the labels the site actually shows (gated)."""
+    y = test["move"].map({c: i for i, c in enumerate(CLASSES)}).to_numpy()
+    pred = gated_predict(proba, test["d_HH"].to_numpy() if "d_HH" in test else np.zeros(len(test)),
+                         test["d_HV"].to_numpy() if "d_HV" in test else np.zeros(len(test)))
+    out = {}
+    for i, c in enumerate(CLASSES):
+        t, p = y == i, pred == i
+        tp = float((t & p).sum())
+        prec, rec = tp / max(p.sum(), 1), tp / max(t.sum(), 1)
+        out[c] = {"precision": prec, "recall": rec, "f1": 2 * prec * rec / max(prec + rec, 1e-9),
+                  "n_flagged": int(p.sum()), "base_rate": float(t.mean())}
+    changed = pred != 0
+    truly = y != 0
+    out["any_move"] = {"precision": float((changed & truly).sum() / max(changed.sum(), 1)),
+                       "recall": float((changed & truly).sum() / max(truly.sum(), 1)),
+                       "base_rate": float(truly.mean())}
+    out["gate"] = {"hv_db": GATE_HV_DB, "hh_db": GATE_HH_DB}
+    return out
+
+
 def evaluate(table: pd.DataFrame, feats: list[str], n_boot: int = 300, seed: int = 20261115):
     train = table[table["split"] == "train"]
     test = table[table["split"] == "holdout"].reset_index(drop=True)
@@ -78,6 +142,7 @@ def evaluate(table: pd.DataFrame, feats: list[str], n_boot: int = 300, seed: int
     proba = model.predict_proba(test[feats].to_numpy(np.float32))
     y = test["move"].map({c: i for i, c in enumerate(CLASSES)}).to_numpy()
     point = _metrics(y, proba)
+    point["gated"] = gated_metrics(test, proba)
     # site bootstrap
     rng = np.random.default_rng(seed)
     sites = test["site"].to_numpy()
@@ -112,11 +177,13 @@ def evaluate(table: pd.DataFrame, feats: list[str], n_boot: int = 300, seed: int
     return model, point
 
 
-def run_all(table: pd.DataFrame, n_boot: int = 300) -> tuple[object, dict]:
+def run_all(table: pd.DataFrame, n_boot: int = 300, ablations: dict | None = None
+            ) -> tuple[object, dict]:
     """Main model + polarization ablations. Returns (main model, report dict)."""
-    report = {"classes": CLASSES, "features": FEATURES, "ablations": {}}
+    ablations = ablations or ABLATIONS
+    report = {"classes": CLASSES, "features": ablations["HH + HV"], "ablations": {}}
     model = None
-    for name, feats in ABLATIONS.items():
+    for name, feats in ablations.items():
         m, r = evaluate(table, feats, n_boot=n_boot)
         report["ablations"][name] = r
         if name == "HH + HV":
@@ -132,7 +199,7 @@ def run_all(table: pd.DataFrame, n_boot: int = 300) -> tuple[object, dict]:
 # --- applying the moves to a stage ------------------------------------------------------------
 
 
-def apply_to_stage(model, cube: dict) -> dict:
+def apply_to_stage(model, cube: dict, feats: list[str] | None = None) -> dict:
     """Per-block move + confidence and per-beat moves for one stage cube.
 
     cube: {"blocks_HH": [T, ny, nx], "blocks_HV"?: [T, ny, nx]} in dB.
@@ -164,11 +231,62 @@ def apply_to_stage(model, cube: dict) -> dict:
     hv = cube["blocks_HV"].astype("float32")
     f = block_features(hh, hv, (ny, nx))
     valid = f["valid"]
-    X = np.stack([f[k] for k in FEATURES], axis=1)[valid]
+    feats = feats or FEATURES
+    X = np.stack([f[k] for k in feats], axis=1)[valid]
     proba = model.predict_proba(X.astype(np.float32))
-    cls = proba.argmax(1)
+    cls = gated_predict(proba, f["d_HH"][valid], f["d_HV"][valid])
     move[valid] = np.array([idx[CLASSES[c]] for c in cls], dtype="uint8")
-    conf[valid] = np.round(proba.max(1) * 100).astype("uint8")
+    # confidence: the chosen class's share of the probability among the moves (or still's)
+    moves_p = proba[:, 1:] / np.maximum(proba[:, 1:].sum(1, keepdims=True), 1e-9)
+    conf_moving = moves_p.max(1)
+    conf[valid] = np.round(np.where(cls == 0, proba[:, 0], conf_moving) * 100).astype("uint8")
+    # Context the two-pass model cannot see, from the hectare's whole series on the floor:
+    #  * water: a land hectare that went dark in both channels on some pass is a Vanish
+    #    (HH <= -18 dB and HV <= -24 dB: calm open water at L-band); permanent water stays still;
+    #  * canopy loss (Fall/Scorch) needs a forest before the step (HV never near bare soil) and
+    #    HH not rising; HV falling while HH rises is water under vegetation (a Bounce);
+    #  * a field that loses HV after a bare-soil phase is a harvest: the end of a Waltz;
+    #  * Fall vs Scorch by patch size: fires burn thousands of connected hectares, cuts tens.
+    from scipy.ndimage import label as _label
+
+    Hn0 = H - f["offset_HH"][:, None]
+    Vn0 = hv.reshape(t_n, n) - f["offset_HV"][:, None]
+    tt0 = np.arange(t_n)[:, None]
+    before0 = tt0 < f["split"].astype(int)[None, :]
+    with np.errstate(invalid="ignore"), warnings.catch_warnings():
+        warnings.simplefilter("ignore", RuntimeWarning)
+        dark = ((Hn0 <= -18.0) & (Vn0 <= -24.0)).any(0)
+        med_hh = np.nanmedian(Hn0, 0)
+        hv_before_low = np.nanpercentile(np.where(before0, Vn0, np.nan), 10, axis=0)
+        hv_min = np.nanmin(Vn0, 0)
+    is_land = med_hh > -16.0
+    went_dark = dark & is_land
+    forest_before = hv_before_low >= -16.5
+    canopy_loss = np.isin(move, [idx["fall"], idx["scorch"]])
+    rng_hv = f["range_HV"]
+    # water first
+    move[went_dark & valid & (move != idx["still"]) | (went_dark & valid & (f["drop_HH"] <= -3.0))] = idx["vanish"]
+    move[(move == idx["vanish"]) & ~went_dark] = idx["still"]
+    # canopy loss needs a forest before and HH not rising
+    cl = canopy_loss & ~went_dark
+    move[cl & forest_before & (f["d_HH"] >= 1.5)] = idx["bounce"]
+    harvest = cl & ~forest_before
+    move[harvest & (rng_hv >= 3.0)] = idx["waltz"]
+    move[harvest & ~(rng_hv >= 3.0)] = idx["still"]
+    # waltz needs a real season: a big HV range and a bare-ish phase
+    move[(move == idx["waltz"]) & ~((rng_hv >= 3.0) & (hv_min <= -17.0))] = idx["still"]
+    # fall vs scorch by burn-scale patch size: join fragments within ~300 m first
+    from scipy.ndimage import binary_closing as _closing
+
+    loss = np.isin(move, [idx["fall"], idx["scorch"]]).reshape(ny, nx)
+    joined = _closing(loss, structure=np.ones((7, 7)))
+    lab, nlab = _label(joined, structure=np.ones((3, 3)))
+    if nlab:
+        sizes = np.bincount(lab.ravel())
+        big = (sizes[lab] >= 1500).ravel() & loss.ravel()
+        move[loss.ravel() & big] = idx["scorch"]
+        move[loss.ravel() & ~big] = idx["fall"]
+    move[~valid] = 255
     # per-beat moves from the physics of each pass relative to the block's own baseline
     Hn = H - f["offset_HH"][:, None]
     V = hv.reshape(t_n, n) - f["offset_HV"][:, None]

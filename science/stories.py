@@ -31,18 +31,24 @@ STORIES: dict[str, dict] = {
         ],
     },
     "iowa": {
-        "order": 4, "move": "waltz",
-        "title": "Corn and soybeans",
-        "teaser": "A full year of the Corn Belt, from frozen stubble to harvest.",
-        "lede": "Central Iowa is corn and soybeans almost wall to wall. NISAR watched a full season.",
+        "order": 3, "move": "waltz",
+        "title": "A corn belt waltz",
+        "teaser": "A full year of central Iowa: frozen fields, planting, the canopy and the harvest.",
+        "lede": "Central Iowa is corn and soybeans almost wall to wall. NISAR watched a full year.",
         "body": [
-            "Planting happens in late April and May. By midsummer, corn stands taller than a person "
-            "and HV rises with every pass. Harvest in September and October sends the dots back down.",
+            "From bare fields in May to the peak of the canopy in late September, HV climbed about "
+            "8 dB as leaves and stalks filled the fields with scatterers. One pass after harvest "
+            "began, it had fallen 4 dB.",
+            "In January, frozen ground darkened the fields: ice holds less liquid water, so the soil "
+            "sends less of the radar back.",
+            "Medians over about 81,000 cultivated hectares north of Ames.",
         ],
         "beats": [
-            {"date": "2026-05-15", "caption": "Planting: bare fields"},
-            {"date": "2026-07-25", "caption": "Canopy closes: HV climbs"},
-            {"date": "2026-10-10", "caption": "Harvest"},
+            {"date": "2026-01-21", "caption": "Frozen ground: the fields go dark"},
+            {"date": "2026-05-21", "caption": "Planting: bare soil"},
+            {"date": "2026-07-08", "caption": "The canopy closes: HV climbs"},
+            {"date": "2026-09-30", "caption": "Peak canopy: HV up 8 dB since May"},
+            {"date": "2026-10-12", "caption": "Harvest: down 4 dB in one pass"},
         ],
     },
     "central_valley": {
@@ -58,6 +64,7 @@ STORIES: dict[str, dict] = {
         "beats": [],
     },
     "mekong": {
+        "hidden": True,
         "order": 8, "move": "waltz",
         "title": "Rice, again and again",
         "teaser": "The Mekong Delta grows up to three rice crops a year.",
@@ -97,6 +104,7 @@ STORIES: dict[str, dict] = {
         "beats": [],
     },
     "apui": {
+        "hidden": True,
         "order": 9, "move": "fall",
         "title": "A new front",
         "teaser": "Apui, southern Amazonas, along the Trans-Amazonian highway.",
@@ -123,22 +131,27 @@ STORIES: dict[str, dict] = {
                      "url": "https://data-nifc.opendata.arcgis.com/"}],
     },
     "edouard": {
-        "order": 7, "move": "bounce",
+        "order": 4, "move": "bounce",
         "title": "The flood under the trees",
-        "teaser": "Tropical Storm Edouard flooded East Texas forests. Only L-band saw it.",
+        "teaser": "Tropical Storm Edouard flooded East Texas forests. L-band saw the water through the canopy.",
         "lede": "Edouard dropped more than 18 inches of rain on East Texas in early September 2026. "
-                "Village Creek rose to 22 feet.",
+                "Village Creek, which winds through the forests near Kountze, rose to 22 feet.",
         "body": [
-            "Water under a forest canopy is invisible to optical satellites and to short-wave radar. "
-            "L-band reaches the ground: its pulse bounces off the water, up the trunks and straight "
-            "back. HH jumps by several decibels while HV barely moves. That is the Bounce.",
+            "Water under a forest canopy is invisible to optical satellites. L-band reaches the "
+            "ground: its pulse bounces off the water, up the trunks and straight back to the "
+            "radar. HH jumps while HV barely moves. That is the Bounce.",
+            "On the September 3 pass, in the middle of the storm, 3,572 forested hectares in this "
+            "box jumped 3 dB or more in HH while their HV held still. Twelve days later only 266 "
+            "were still bouncing: the water had drained.",
         ],
         "beats": [
-            {"date": "2026-09-03", "caption": "Edouard's rain arrives"},
-            {"date": "2026-09-07", "caption": "Floodwater under the canopy: HH jumps"},
+            {"date": "2026-08-22", "caption": "Before the storm"},
+            {"date": "2026-09-03", "caption": "Edouard: 3,572 forest hectares bounce in HH"},
+            {"date": "2026-09-15", "caption": "The water drains: the forest settles"},
         ],
     },
     "indiana": {
+        "hidden": True,
         "order": 10, "move": "vanish",
         "title": "A record flood",
         "teaser": "The White River broke a 1913 record in August 2026.",
@@ -151,6 +164,7 @@ STORIES: dict[str, dict] = {
         "beats": [{"date": "2026-08-14", "caption": "The White River crests"}],
     },
     "okavango": {
+        "hidden": True,
         "order": 11, "move": "vanish",
         "title": "The delta breathes",
         "teaser": "Rain from Angola arrives in Botswana months later, in the dry season.",
@@ -163,15 +177,28 @@ STORIES: dict[str, dict] = {
         "beats": [],
     },
     "sylhet": {
-        "order": 12, "move": "vanish",
+        "order": 5, "move": "vanish",
         "title": "A landscape that becomes a lake",
-        "teaser": "Bangladesh's haor wetlands flood for half the year.",
+        "teaser": "Bangladesh's haor wetlands flood every monsoon. Watch the land vanish and return.",
         "lede": "The haors of northeastern Bangladesh are shallow basins that fill with monsoon "
-                "water every year.",
-        "body": [],
-        "beats": [],
+                "water every year, turning farmland into an inland sea.",
+        "body": [
+            "Calm water reflects the radar away like a mirror, so flooded land goes dark in both "
+            "channels: the Vanish. In this box, about 21,600 hectares looked like open water in "
+            "June and 25,200 on September 10. By late September most had drained.",
+            "On August 17 the water lit up instead. Wind ripples roughen a water surface and send "
+            "the pulse back: one of radar's known blind spots, and a reason one pass is never the "
+            "whole story.",
+        ],
+        "beats": [
+            {"date": "2026-06-18", "caption": "Monsoon water: 21,600 hectares vanish"},
+            {"date": "2026-08-17", "caption": "Wind roughens the water: it lights up"},
+            {"date": "2026-09-10", "caption": "Peak: 25,200 hectares of open water"},
+            {"date": "2026-10-16", "caption": "The water drains"},
+        ],
     },
     "tonle_sap": {
+        "hidden": True,
         "order": 13, "move": "bounce",
         "title": "The lake that grows five-fold",
         "teaser": "Every monsoon the Mekong pushes water back into Tonle Sap, flooding its forests.",
@@ -200,6 +227,7 @@ STORIES: dict[str, dict] = {
         ],
     },
     "jakobshavn": {
+        "hidden": True,
         "order": 15, "move": "melt",
         "title": "The fastest glacier",
         "teaser": "Sermeq Kujalleq (Jakobshavn) pours ice into Disko Bay.",
