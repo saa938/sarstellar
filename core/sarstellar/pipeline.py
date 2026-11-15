@@ -42,7 +42,10 @@ from .types import ChangeArea, NoUsablePasses, Result
 
 log = logging.getLogger(__name__)
 
-__all__ = ["NO_S1_MESSAGE", "NO_VALID_MESSAGE", "NoUsablePasses", "explain_areas", "run_box"]
+__all__ = [
+    "NO_S1_MESSAGE", "NO_VALID_MESSAGE", "TOO_SMALL_MESSAGE", "NoUsablePasses", "explain_areas",
+    "run_box",
+]
 
 Q = 0.05  # BH false discovery rate
 MIN_DB = 2.0  # smallest |relative change| that counts as changed
@@ -57,6 +60,7 @@ EFFECT_FULL_DB = 6.0
 
 NO_VALID_MESSAGE = "Most of this box has no valid radar data."
 NO_S1_MESSAGE = "No Sentinel-1 pass within 6 days; showing NISAR only."
+TOO_SMALL_MESSAGE = "This box is too small to analyse; draw at least about 2 km on a side."
 
 _AGREE_CODE = {"L": render.AGREE_L, "both": render.AGREE_BOTH, "C": render.AGREE_C}
 _LANDCOVER_NAME = {  # refs.nlcd group -> the class name the rules match on
@@ -68,6 +72,7 @@ _BANDS = ("HH", "HV", "VV", "VH")
 _CONFIDENCE_BAND = {"High": (0.8, 0.2), "Medium": (0.5, 0.29), "Low": (0.0, 0.49)}
 
 PngSink = Callable[[str, bytes], str]
+BlocksSink = Callable[[object, np.ndarray, np.ndarray], None]
 
 
 # --- overlays -----------------------------------------------------------------------------------
@@ -345,6 +350,24 @@ def _empty_result(bbox, nisar: dict, publish: PngSink, message: str) -> Result:
     )
 
 
+def _valid_fraction(passes) -> float:
+    """Share of blocks that are valid on every date, from the raw reads (no BlockSet needed).
+
+    Used when the change test cannot run, to tell a box that is too small from one that is
+    mostly fill. Frames of one date fill each other's gaps; a pass in another UTM zone is ignored.
+    """
+    first = int(passes[0][0]["epsg"])
+    by_day: dict[str, np.ndarray] = {}
+    for meta, blocks in passes:
+        if int(meta["epsg"]) != first:
+            continue
+        frac = np.asarray(blocks["valid_frac"], dtype=float)
+        day = str(meta["date"])[:10]
+        by_day[day] = np.maximum(by_day[day], frac) if day in by_day else frac
+    ok = np.logical_and.reduce([f >= features.MIN_VALID_FRAC - 1e-9 for f in by_day.values()])
+    return float(ok.mean())
+
+
 def _people(tracts: list[dict], area_list: list[ChangeArea]) -> dict:
     """SVI tracts that overlap a change area, most vulnerable first, without their geometry."""
     if not area_list or not tracts:
@@ -364,6 +387,7 @@ def run_box(
     progress=None,
     explain_client=None,
     png_sink: PngSink | None = None,
+    blocks_sink: BlocksSink | None = None,
 ) -> Result:
     """Analyse a lon/lat box (west, south, east, north) and return the `Result`.
 
@@ -373,17 +397,23 @@ def run_box(
     `explain_client` is an Anthropic-style client for the plain text (default: the SDK client
     when ANTHROPIC_API_KEY is set, else templates). `png_sink(name, png_bytes) -> url` stores the
     five overlay images (names change, l, c, before, after); by default they are data URLs.
+    `blocks_sink(block_set, changed_L, changed_C)` is called once, with the BlockSet and the two
+    boolean changed-block masks, when the change test ran (the job API writes `change.tif` from it).
 
     Raises `NoUsablePasses` when no calibrated NISAR stack covers the box. A box that is mostly
-    fill, or too small to test, returns a normal Result with no areas and a message.
+    fill returns a normal Result with no areas and `NO_VALID_MESSAGE`; a valid box with under
+    200 usable blocks gets `TOO_SMALL_MESSAGE`.
     """
     publish = png_sink or _data_url
     seen: list = []  # granules handed to the reader: the series, if the test cannot run
+    reads: list = []  # what the reader returned, to judge a box the test cannot run on
     reader = read_passes or features._read_sequential
 
     def capture(granules, box, grid):
         seen.extend(granules)
-        return reader(granules, box, grid)
+        out = reader(granules, box, grid)
+        reads.extend(out)
+        return out
 
     try:
         bs = features.block_features(bbox, dates, read_passes=capture, progress=progress)
@@ -392,7 +422,8 @@ def run_box(
         first = seen[0]
         nisar = {"track": first.track, "direction": first.direction,
                  "dates": _iso(sorted({g.start.date() for g in seen}))}
-        return _empty_result(bbox, nisar, publish, NO_VALID_MESSAGE)
+        small = bool(reads) and _valid_fraction(reads) >= MIN_VALID_FRACTION
+        return _empty_result(bbox, nisar, publish, TOO_SMALL_MESSAGE if small else NO_VALID_MESSAGE)
 
     nisar = {"track": bs.stack.track, "direction": bs.stack.direction, "dates": _iso(bs.stack.dates)}
     if float(bs.valid.mean()) < MIN_VALID_FRACTION:
@@ -400,6 +431,8 @@ def run_box(
 
     changed_L = detect.changed(bs.p_L, [bs.rel_dHH, bs.rel_dHV], Q, MIN_DB)
     changed_C = detect.changed(bs.p_C, [bs.rel_dVV, bs.rel_dVH], Q, MIN_DB)
+    if blocks_sink:
+        blocks_sink(bs, changed_L, changed_C)
     found = areas_mod.label_areas(changed_L, changed_C, bs.grid, MIN_HA)
     ctx = {
         "sig_L": detect.bh_fdr(bs.p_L, Q), "sig_C": detect.bh_fdr(bs.p_C, Q),
