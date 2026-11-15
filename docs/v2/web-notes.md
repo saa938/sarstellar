@@ -14,11 +14,12 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 | `#/explore` | Interactive night globe of all stages; live mode when `VITE_API_URL` is set |
 | `#/constellation` | Every hectare placed by the shape of its dance (UMAP); zoom, pan, hover, click opens the stage at that block |
 | `#/present` | 28 s chrome-free sequence for the demo video at 1920x1080 |
+| `#/about` | How it works, data credits, source repository |
 
 ## Data loading (never edits science-owned files)
 
 - `/stages/index.json` first; if it is missing (404 or an HTML fallback page) the app uses `/stages-fixture/`.
-  A stage id not in the real index still resolves from the fixtures (so old links keep working).
+  Once a real index exists, synthetic stages are never shown (an id not in the real index is "not found").
 - `/moves.json` then `/moves-fixture.json`; `/proof.json` (no fixture: absent means "measured results arrive here").
 - `/constellation.json` + its `.bin` then `/constellation-fixture.*`.
 - Every screen showing fixture data shows the "Synthetic preview data" tag.
@@ -34,7 +35,7 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 - `uv run --no-project --with numpy python scripts/make_constellation_fixture.py` writes the constellation fixture from
   those stages (hand-made clusters, not UMAP).
 
-## Contract interpretations (please confirm)
+## Contract interpretations (confirmed by the science track)
 
 1. `moves.bin` head layout `N2`: read as interleaved per block, `byte[2n] = move`, `byte[2n+1] = confidence`
    (last letter varies fastest, like `TPN`). Per-beat section `TN`: `byte[2N + t*N + n]`.
@@ -72,12 +73,31 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 
 ## Present mode (demo video)
 
-- `#/present` preloads every stage and image, then a single master clock drives all scenes (deterministic).
-  Scenes: globe (3 s), Punjab waltz/bounce (6), Rondonia fall (4), Sylhet/Indiana vanish (4), Greenland melt (3),
-  proof numbers (5, only if `proof.json` exists), outro (3); missing scenes are dropped and the rest stretched to 28 s.
-- Real stages only, unless the index itself is a fixture or `?fixtures=1`.
-- Recording hooks: `window.__present = { ready, started, duration, start() }`; `?wait=1` holds until `start()`.
-  `node scripts/record_present.mjs [--video] [--fixtures]` saves key frames (and a WebM) to `web/screenshots/`.
+- `#/present` preloads every stage and image, then a single master clock drives all scenes (deterministic). Real stages only.
+  Scenes: globe (3 s, "Earth is dancing. NISAR can see the steps."), Punjab (6 s, the whole year, "Wheat waltzes in HV.
+  Rice bounces in HH." + "Same fields, two crops, two polarizations"), Morton (4 s, the Fall), Edouard (4 s: holds the pass
+  before, steps onto 2026-09-03, holds), Greenland (3 s), proof (5.5 s), end card (2.5 s). Missing scenes are dropped and
+  the rest stretched to 28 s.
+- Proof claims are computed from `proof.json` at runtime: HV-only vs HH-only AUPRC for the Fall (6x), `sentinel1.ratio`
+  (7.8x), `headline.train_sites` and `test_states` (170 sites, 12 states).
+- Trails per scene are the hectares that best show the move (largest HV range for the waltz, largest HH jump for the
+  bounce, largest HV drop for the fall), colored by their move.
+- Recording hooks: `window.__present = { ready, started, duration, start(), t }`; `?wait=1` holds until `start()`.
+  `node scripts/record_present.mjs [--base URL] [--video]` saves key frames (and a WebM) to `web/screenshots/`.
+
+## Proof page
+
+- Per move: AUPRC with its interval against the base rate on a log axis (the gap is the skill), lift as "N x better than
+  chance", "interval includes chance" when the lower bound touches the base rate (Scorch), "no better than chance" for the
+  Vanish; gated map precision and recall with `model.note`; any-move precision vs base rate; macro F1; polarization report
+  card; feature gain; Sentinel-1; Rondonia (never trained on) and Morton (in a training state); confusion; limits.
+
+## Performance
+
+- The landing ships in the main bundle (about 98 KB gzip with React); MapLibre (about 290 KB gzip) loads after first paint
+  for the globe and only on map pages. Local FCP is about 85 ms.
+- No stage data loads at first paint. The landing's floor story and finding fetch their stage about one screen before
+  they scroll into view; stage pages fetch on open. Blocks decode in a worker.
 
 ## Live mode
 
@@ -92,7 +112,7 @@ Branch `v2-web`, Vite root `web/`. `npm run build` writes `web/dist/`. Node 22+.
 
 ## Known issues / next
 
-- Fixture Punjab is used by present mode and the landing floor only until the real Punjab bundle lands.
 - The map's story card covers part of the radar image at 1440 px; it can be minimized.
 - Explore's live drawing switches the globe to mercator and satellite imagery; there is no place search yet.
-- The repository link is not in the footer (the repo is private); add it when it is public.
+- The repository link (https://github.com/saa938/sarstellar) is in the footer and About page; it 404s until the repo is public.
+- The constellation uses its synthetic fixture until `constellation.json` / `.bin` land (no code change needed).
