@@ -40,6 +40,7 @@ const SHOTS = [
   { id: "landing-hero", path: "#/", wait: 3500 },
   { id: "landing-partners", path: "#/", wait: 2500, scrollTo: ".act--partners", extra: 1200 },
   { id: "landing-floor", path: "#/", wait: 2500, scrollTo: ".act--floor", extra: 2500 },
+  { id: "landing-finding", path: "#/?fx=1", wait: 2500, scrollTo: ".act--finding", extra: 2500 },
   { id: "landing-moves", path: "#/", wait: 2500, scrollTo: ".act--moves", extra: 1500 },
   { id: "landing-tour", path: "#/", wait: 2500, scrollTo: ".act--tour", extra: 1500 },
   { id: "landing-proof", path: "#/", wait: 2500, scrollTo: ".act--proof", extra: 1200 },

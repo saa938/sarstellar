@@ -6,6 +6,7 @@ import { FixtureTag } from "../components/FixtureTag";
 import { MiniFloor } from "../components/MiniFloor";
 import { ScatterDiagram, Meter, SURFACES, type SurfaceKind } from "../landing/ScatterDiagram";
 import { FloorStory } from "../landing/FloorStory";
+import { Finding } from "../landing/Finding";
 import { API_URL, assetUrl, loadIndex, loadMoves, loadProof, type IndexResult, type MovesResult } from "../lib/data";
 import { DEFAULT_FLOOR, MOVE_COLORS, MOVE_NAMES } from "../lib/moves";
 import { fmtInt, fmtMonthYear } from "../lib/format";
@@ -53,6 +54,11 @@ export default function Landing() {
   const stages = idx?.index.stages ?? [];
   const heroStage = pickStage(stages, ["punjab", "rondonia", "morton", "village-creek", "sylhet"]);
   const floorStage = pickStage(stages, ["punjab", "rondonia", "morton", "sylhet", "indiana", "village-creek"], true);
+  // dev-only preview of the finding with the synthetic Punjab: #/?fx=1
+  const devFx = import.meta.env.DEV && new URLSearchParams(window.location.hash.split("?")[1] ?? "").get("fx") === "1";
+  const findingStage =
+    stages.find((s) => s.id === "punjab") ??
+    (devFx ? { id: "punjab", name: "Punjab", country: "India", center: [75.8, 30.78] as [number, number], move: "waltz", title: "", teaser: "", n_passes: 24, first: "", last: "", thumb: "" } : null);
   const moves = mv?.doc.moves ?? [];
   const floor = mv?.doc.floor ?? DEFAULT_FLOOR;
   const anyFixture = !!(idx?.fixture || mv?.fixture);
@@ -143,6 +149,9 @@ export default function Landing() {
 
       {/* Act three: the dance floor (scroll story) */}
       <FloorStory entry={floorStage} />
+
+      {/* The headline finding (shown once a Punjab stage exists) */}
+      <Finding entry={findingStage} />
 
       {/* Act four: the moves */}
       <section className="act act--moves" id="moves">
