@@ -32,9 +32,9 @@ export type ConfidenceLabel = "High" | "Medium" | "Low";
 
 /** Fixed meaning everywhere: amber = only NISAR, violet = both, cyan = only Sentinel-1. */
 export const AGREEMENT_COLORS: Record<Agreement, string> = {
-  L: "#f59e0b",
-  both: "#a78bfa",
-  C: "#22d3ee",
+  L: "#a87935",
+  both: "#82738f",
+  C: "#527f91",
 };
 
 /** Permanent NISAR data gap (UTC). */

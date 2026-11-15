@@ -16,15 +16,17 @@ import type { Agreement, Result, StoryIndexEntry } from "./types.ts";
 
 type Route = "explore" | "scorecard" | "about";
 type Mode = "change" | "swipe" | "lc";
+type Theme = "light" | "dark";
 
 const ChangePanel = lazy(() => import("./components/ChangePanel.tsx"));
+const ResultExports = lazy(() => import("./components/ChangePanel.tsx").then((module) => ({ default: module.ResultExports })));
 const SwipeView = lazy(() => import("./components/SwipeView.tsx"));
 const LvsCView = lazy(() => import("./components/LvsCView.tsx"));
 
 const ROUTE_HASH: Record<Route, string> = { explore: "#/", scorecard: "#/scorecard", about: "#/about" };
 
 const MODES: { mode: Mode; label: string }[] = [
-  { mode: "change", label: "Change map" },
+  { mode: "change", label: "Detected areas" },
   {
     mode: "swipe",
     label: "Before | After",
@@ -58,6 +60,9 @@ export default function App() {
   const [dates, setDates] = useState<DatePair | null>(null);
   const [mode, setMode] = useState<Mode>("change");
   const [map, setMap] = useState<MapLibreMap | null>(null);
+  const [layerOpacity, setLayerOpacity] = useState(0.65);
+  const [theme, setTheme] = useState<Theme>(() => new URLSearchParams(window.location.search).get("theme") === "dark" ? "dark" : "light");
+  useEffect(() => { document.documentElement.dataset.theme = theme; }, [theme]);
   // Bumped by every story request and live result, so a slow story load can't replace newer content.
   const latest = useRef(0);
 
@@ -132,16 +137,21 @@ export default function App() {
         <a className="logo" href={ROUTE_HASH.explore}>
           SAR<span>stellar</span>
         </a>
-        <span className="tagline">Two radars, one map</span>
+        <span className="tagline">Radar change analysis</span>
         <span className="spacer" />
         {route === "explore" && result?.fixture && <ExampleTag />}
         <nav aria-label="Pages">
           {nav.map((r) => (
             <a key={r} href={ROUTE_HASH[r]} aria-current={route === r ? "page" : undefined}>
-              {r === "explore" ? "Explore" : r === "scorecard" ? "Scorecard" : "About"}
+              {r === "explore" ? "Map" : r === "scorecard" ? "Benchmark" : "Methods"}
             </a>
           ))}
         </nav>
+        <label className="appearance-control"><span>Appearance</span>
+          <select aria-label="Appearance" value={theme} onChange={(event) => setTheme(event.target.value as Theme)}>
+            <option value="light">Light</option><option value="dark">Dark</option>
+          </select>
+        </label>
       </header>
 
       {route === "about" && (
@@ -174,11 +184,14 @@ export default function App() {
           result={result}
           hidden={hidden}
           onToggleAgreement={toggleAgreement}
+          layerOpacity={layerOpacity}
+          onOpacityChange={setLayerOpacity}
+          layerControlsEnabled={mode === "change"}
         />
 
         <div className="mapwrap">
           <div className="map-pane" hidden={mode !== "change"}>
-            <MapView result={result} visible={visible} selectedAreaId={selectedId} onSelectArea={setSelectedId} onMapReady={setMap} />
+            <MapView result={result} visible={visible} selectedAreaId={selectedId} opacity={layerOpacity} onSelectArea={setSelectedId} onMapReady={setMap} />
           </div>
           <Suspense fallback={<div className="map-loading" role="status">Loading comparison…</div>}>
             {mode === "swipe" && result && <SwipeView result={result} />}
@@ -195,21 +208,21 @@ export default function App() {
         </div>
 
         <aside className="side right" aria-label="Details">
-          {selected && result ? (
+          {selected && result && (
             <Suspense fallback={<p role="status">Loading change evidence…</p>}>
               <ChangePanel area={selected} result={result} onClose={() => setSelectedId(null)} />
             </Suspense>
-          ) : (
-            <>
+          )}
+            <div hidden={Boolean(selected)}>
               <Intro story={story} result={result} loading={loading} error={error} />
               {result && !loading && (
                 <>
-                  <div className="label">Largest changes</div>
-                  <AreaList areas={result.areas} hidden={hidden} onSelect={setSelectedId} />
+                  <Suspense fallback={null}><ResultExports files={result.exports} /></Suspense>
+                  <div className="label">Detected areas</div>
+                  <AreaList key={result.bbox.join(",") + result.nisar.dates.join(",")} areas={result.areas} hidden={hidden} onSelect={setSelectedId} />
                 </>
               )}
-            </>
-          )}
+            </div>
         </aside>
 
         <footer className="passes">{result && <Timeline dates={result.nisar.dates} value={dates} onChange={setDates} />}</footer>
@@ -239,16 +252,16 @@ function Intro({ story, result, loading, error }: IntroProps) {
             <span>{result.areas.length} change areas</span>
           </p>}
           {story.summary && <details className="story-notes">
-            <summary>Analysis notes and limitations</summary><p>{story.summary}</p>
+            <summary>Example notes</summary><p>{story.summary}</p>
           </details>}
           {result?.s1 && result.nisar.dates.length !== result.s1.dates.length &&
-            <p className="story-caveat">These radars use different numbers of passes. Compare accuracy in the <a href="#/scorecard">scorecard</a>.</p>}
+            <p className="story-caveat">Acquisition counts differ. Use the <a href="#/scorecard">paired benchmark</a> for sensor comparisons.</p>}
         </>
       ) : (
         result && (
           <>
             <div className="label first">Live analysis</div>
-            <h2>Your box</h2>
+            <h2>Analysis area</h2>
             <p className="hint">{formatDateRange(result.nisar.dates)}</p>
           </>
         )
@@ -262,8 +275,7 @@ function Intro({ story, result, loading, error }: IntroProps) {
       {result?.message && <p className="notice">{result.message}</p>}
       {result && result.areas.length > 0 && (
         <p className="hint">
-          <b>Click a colored area</b> on the map or below to see what changed, how sure we are, and the radar physics
-          behind it.
+          Select a polygon or a row to inspect its measurements, time series and classification.
         </p>
       )}
     </>

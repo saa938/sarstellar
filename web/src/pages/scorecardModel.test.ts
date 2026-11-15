@@ -19,7 +19,7 @@ describe("fusionHeadline", () => {
     const h = fusionHeadline(sampleScorecard());
     expect(h.kind).toBe("gain");
     expect(h.text).toBe(
-      "On 4 held-out sites in 2 states, combining NISAR and Sentinel-1 improved forest loss detection by +0.12 AUPRC (95% CI 0.04 to 0.20) over NISAR (L-band) alone.",
+      "Forest loss: +0.12 AUPRC (95% CI 0.04 to 0.20) versus NISAR (L-band).",
     );
   });
 
@@ -28,18 +28,18 @@ describe("fusionHeadline", () => {
       fusion: [fusionRow("burn", 0.05, 0.01, 0.09), fusionRow("forest_loss", 0.12, 0.04, 0.2), fusionRow("crop_cycle", -0.08, -0.12, -0.03)],
     });
     const h = fusionHeadline(sc);
-    expect(h.text).toContain("improved forest loss detection by +0.12");
+    expect(h.text).toContain("Forest loss: +0.12 AUPRC");
     expect(h.detail).toContain("burn (+0.05)");
-    expect(h.detail).toContain("worse than the best single radar for cultivated land (proxy) (−0.08)");
+    expect(h.detail).toContain("Lower AUPRC for cultivated land (proxy) (−0.08)");
   });
 
   it("reports the honest null when every interval includes zero", () => {
     const h = fusionHeadline(sampleScorecard({ fusion: [fusionRow("forest_loss", 0.03, -0.01, 0.07)] }));
     expect(h.kind).toBe("null");
     expect(h.text).toBe(
-      "On 4 held-out sites in 2 states, combining NISAR and Sentinel-1 did not measurably beat the better single radar for any change class.",
+      "No detectable fusion gain on held-out states.",
     );
-    expect(h.detail).toContain("includes zero");
+    expect(h.detail).toContain("include zero");
   });
 
   it("says the test is pending when there are no fusion rows", () => {

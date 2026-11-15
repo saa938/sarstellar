@@ -1,7 +1,7 @@
-import { cleanup, render, screen, within } from "@testing-library/react";
-import { afterEach, describe, expect, it } from "vitest";
+import { cleanup, fireEvent, render, screen, within } from "@testing-library/react";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import type { ChangeArea } from "../types.ts";
-import ChangePanel, { type ChangePanelResult } from "./ChangePanel.tsx";
+import ChangePanel, { ResultExports, type ChangePanelResult } from "./ChangePanel.tsx";
 
 afterEach(cleanup);
 
@@ -39,7 +39,7 @@ function makeResult(over: Partial<ChangePanelResult> = {}): ChangePanelResult {
 describe("ChangePanel", () => {
   it("renders evidence with CI", () => {
     render(<ChangePanel area={makeArea()} result={makeResult()} />);
-    const [withCi, withoutCi] = within(screen.getByRole("list", { name: "Evidence" })).getAllByRole("listitem");
+    const [withCi, withoutCi] = within(screen.getByRole("list", { name: "Measurements" })).getAllByRole("listitem");
     expect(withCi.textContent).toContain("NISAR HV change");
     expect(withCi.textContent).toContain("−3.6 dB");
     expect(withCi.textContent).toContain("95% CI −3.9 to −3.3 dB");
@@ -48,11 +48,10 @@ describe("ChangePanel", () => {
     expect(withoutCi.textContent).not.toContain("CI");
   });
 
-  it("export buttons disabled when null", () => {
+  it("keeps unavailable exports compact and disables missing files when others exist", () => {
     const { rerender } = render(<ChangePanel area={makeArea()} result={makeResult()} />);
-    for (const name of ["GeoTIFF", "CSV", "Notebook"]) {
-      expect((screen.getByRole("button", { name }) as HTMLButtonElement).disabled).toBe(true);
-    }
+    expect(screen.getByText("Exports unavailable for this result.")).toBeTruthy();
+    expect(screen.queryByRole("button", { name: "GeoTIFF" })).toBeNull();
     const url = "https://api.example/exports/j1/change.tif";
     rerender(<ChangePanel area={makeArea()} result={makeResult({ exports: { geotiff: url, csv: null, notebook: null } })} />);
     expect(screen.getByRole("link", { name: "GeoTIFF" }).getAttribute("href")).toBe(url);
@@ -63,7 +62,9 @@ describe("ChangePanel", () => {
   it("shows class, agreement and the confidence label, never the raw score", () => {
     const { container } = render(<ChangePanel area={makeArea({ confidence: 0.96 })} result={makeResult()} />);
     expect(screen.getByRole("heading", { name: "Forest loss" })).toBeTruthy();
-    expect(screen.getByText("Only NISAR saw this")).toBeTruthy();
+    expect(screen.getByText("NISAR only")).toBeTruthy();
+    expect(screen.getByText("Classification (rule-based)")).toBeTruthy();
+    expect(screen.getByText(/Provisional class hypothesis/)).toBeTruthy();
     const conf = container.querySelector(".cp-conf")!;
     expect(conf.textContent).toContain("High");
     expect(conf.textContent).toContain("p < 0.001");
@@ -74,9 +75,9 @@ describe("ChangePanel", () => {
 
   it("tags example data", () => {
     const { rerender } = render(<ChangePanel area={makeArea()} result={makeResult({ fixture: true })} />);
-    expect(screen.getByText("Example data")).toBeTruthy();
+    expect(screen.getByText("Test fixture")).toBeTruthy();
     rerender(<ChangePanel area={makeArea()} result={makeResult({ fixture: false })} />);
-    expect(screen.queryByText("Example data")).toBeNull();
+    expect(screen.queryByText("Test fixture")).toBeNull();
   });
 
   it("lists census tracts, most vulnerable first", () => {
@@ -89,11 +90,36 @@ describe("ChangePanel", () => {
       "Census Tract 357th percentile",
       "Census Tract 147th percentile",
     ]);
-    expect(screen.getByText("+1 more tract in this box")).toBeTruthy();
+    expect(screen.getByText("1 additional tract in the AOI")).toBeTruthy();
   });
 
   it("hides the people block when there are no tracts", () => {
     render(<ChangePanel area={makeArea()} result={makeResult()} />);
-    expect(screen.queryByText("Who lives here")).toBeNull();
+    expect(screen.queryByText("Context: CDC SVI 2022")).toBeNull();
+  });
+
+  it("puts dataset exports and measurements before interpretation", () => {
+    render(<ChangePanel area={makeArea()} result={makeResult({
+      exports: { geotiff: "https://data.example/change.tif", csv: null, notebook: null },
+    })} />);
+    const exports = screen.getByRole("region", { name: "Exports" });
+    const measurements = screen.getByRole("region", { name: "Measurements" });
+    const interpretation = screen.getByRole("region", { name: "Interpretation" });
+    expect(exports.compareDocumentPosition(measurements) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(measurements.compareDocumentPosition(interpretation) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    expect(screen.getByText("First flagged acquisition: Sep 30, 2026 (UTC).")).toBeTruthy();
+  });
+
+  it("returns to the area list through a named action", () => {
+    const onClose = vi.fn();
+    render(<ChangePanel area={makeArea()} result={makeResult()} onClose={onClose} />);
+    fireEvent.click(screen.getByRole("button", { name: "Back to areas" }));
+    expect(onClose).toHaveBeenCalledTimes(1);
+  });
+
+  it("exports dataset files without requiring a selected area", () => {
+    render(<ResultExports files={{ geotiff: "https://data.example/change.tif", csv: null, notebook: null }} />);
+    expect(screen.getByRole("link", { name: "GeoTIFF" }).getAttribute("href")).toBe("https://data.example/change.tif");
+    expect((screen.getByRole("button", { name: "CSV" }) as HTMLButtonElement).disabled).toBe(true);
   });
 });

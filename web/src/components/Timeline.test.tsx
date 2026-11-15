@@ -27,7 +27,7 @@ function Harness({ onChange }: { onChange: (pair: DatePair) => void }) {
 describe("Timeline", () => {
   it("gap drawn between 2026-07-27 and 2026-08-10", () => {
     render(<Timeline dates={DATES} value={null} onChange={() => {}} />);
-    const gap = screen.getByRole("img", { name: /no NISAR data/i });
+    const gap = screen.getByRole("img", { name: /NISAR acquisition gap/i });
     expect(gap.getAttribute("aria-label")).toContain("Jul 27");
     expect(gap.getAttribute("aria-label")).toContain("Aug 10");
 
@@ -43,7 +43,7 @@ describe("Timeline", () => {
 
   it("draws no gap when the passes don't span it", () => {
     render(<Timeline dates={["2026-08-26", "2026-09-07"]} value={null} onChange={() => {}} />);
-    expect(screen.queryByRole("img", { name: /no NISAR data/i })).toBeNull();
+    expect(screen.queryByRole("img", { name: /NISAR acquisition gap/i })).toBeNull();
   });
 
   it("defaults to comparing the first and last pass", () => {
@@ -71,5 +71,11 @@ describe("Timeline", () => {
     render(<Timeline dates={DATES} value={["2026-07-13", "2026-09-11"]} onChange={onChange} />);
     fireEvent.click(tick(/Sep 11, 2026/));
     expect(onChange).not.toHaveBeenCalled();
+  });
+
+  it("labels date selection for the next analysis rather than claiming a rerun", () => {
+    render(<Timeline dates={DATES} value={null} onChange={() => {}} />);
+    expect(screen.getByText(/Next analysis:/)).toBeTruthy();
+    expect(tick(/Jul 13, 2026/).getAttribute("title")).toContain("UTC");
   });
 });
