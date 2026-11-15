@@ -21,27 +21,33 @@ MODEL = "claude-sonnet-5-5"
 MAX_TOKENS = 200
 SYSTEM_PROMPT = (
     "Rewrite this radar change finding in 2–3 plain sentences for a non-expert. "
-    "Use only the numbers given. Do not change the classification."
+    "Use only the numbers given; retain the measured area, band changes and uncertainty intervals. "
+    "Do not change the classification. Distinguish detected radar change from the cause hypothesis: "
+    "never present the class as an established or verified event. The change_date is the first "
+    "flagged acquisition, not a confirmed event date. Confidence is a heuristic rule label, not a "
+    "calibrated probability that the cause is correct. State that independent verification is needed "
+    "to establish the cause. Sensor agreement or a larger detected area does not establish accuracy "
+    "or that one radar performs better; missing observations are not evidence of no change."
 )
 
 _CAUSE = {
-    "forest_loss": "Likely forest loss",
-    "burn": "A likely burn scar",
+    "forest_loss": "Forest loss",
+    "burn": "A burn scar",
     "flood_open_water": "Open-water flooding",
     "flooded_vegetation": "Flooded vegetation",
-    "crop_cycle": "A crop cycle change (farming, not disturbance)",
-    "harvest": "Likely harvest",
+    "crop_cycle": "A crop cycle change (farming context)",
+    "harvest": "Harvest",
     "low_veg_loss": "Low-vegetation loss",
     "soil_wetting": "Soil wetting",
-    "construction": "Likely construction",
-    "landslide": "A possible landslide",
-    "wet_snow": "Possible wet snow",
+    "construction": "Construction",
+    "landslide": "A landslide",
+    "wet_snow": "Wet snow",
     "uncertain": "A change with an uncertain cause",
 }
 _SEEN_BY = {
-    "L": "only NISAR (L-band) saw it, while Sentinel-1 (C-band) did not",
-    "C": "only Sentinel-1 (C-band) saw it, while NISAR (L-band) did not",
-    "both": "both NISAR and Sentinel-1 saw it",
+    "L": "only NISAR (L-band) met the detection criteria",
+    "C": "only Sentinel-1 (C-band) met the detection criteria",
+    "both": "both NISAR and Sentinel-1 met the detection criteria",
 }
 # Supporting evidence the template mentions, and how each reads inside a sentence.
 _CONTEXT_LABELS = {
@@ -81,9 +87,10 @@ def _context_phrase(e: Evidence) -> str:
 def template_text(area: ChangeArea) -> str:
     """A deterministic 2-3 sentence description built only from the area's own numbers."""
     cause = _CAUSE.get(area.cls, "A change with an uncertain cause")
-    when = f", dated {area.change_date}" if area.change_date else ""
+    when = (f"; first flagged acquisition {area.change_date} (not a confirmed event date)"
+            if area.change_date else "")
     seen = _SEEN_BY.get(area.agreement, _SEEN_BY["both"])
-    sentences = [f"{cause} covering {area.area_ha:.1f} ha{when}: {seen}."]
+    sentences = [f"Radar change detected across {area.area_ha:.1f} ha: {seen}{when}."]
 
     bands = [
         e
@@ -98,14 +105,15 @@ def template_text(area: ChangeArea) -> str:
     if numbers:
         sentences.append(numbers + ".")
 
-    tail = f"Confidence is {area.confidence_label.lower()}"
+    tail = (f"Cause hypothesis: {cause.lower()}; rule confidence is {area.confidence_label.lower()} "
+            "(not a calibrated cause probability); independent verification is needed")
     if any("possible freeze" in e.note for e in area.evidence):
         tail += (
-            "; this may be a freeze-up artifact rather than real change, "
+            "; this may be a freeze-up artifact rather than surface change, "
             "because the minimum temperature was below freezing"
         )
     elif area.cls == "uncertain":
-        tail += "; the radar shows a change but the cause cannot be pinned down"
+        tail += "; the radar signal does not establish a cause"
     sentences.append(tail + ".")
     return " ".join(sentences)
 
