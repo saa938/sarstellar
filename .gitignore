@@ -20,3 +20,4 @@ data/
 *.npz
 *.h5
 *.tif
+.claude/worktrees/
