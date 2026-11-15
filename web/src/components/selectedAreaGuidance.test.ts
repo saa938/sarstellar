@@ -32,11 +32,12 @@ it("qualifies legacy cause wording for presentation without modifying evidence",
 it("uses actual rule and signal evidence rather than a p-value as causal support", () => {
   const p: Evidence = { label: "p-value", value: 1e-10, ci: null, unit: "", note: "" };
   const signal: Evidence = { label: "HV change", value: -3.6, ci: [-3.9, -3.3], unit: "dB", note: "NISAR" };
+  const otherBand: Evidence = { label: "HH change", value: -0.5, ci: null, unit: "dB", note: "NISAR" };
   const rule: Evidence = { label: "Rule fired", value: "HV decrease over forest", ci: null, unit: "", note: "Heuristic" };
   const confidence: Evidence = { label: "Confidence", value: 0.99, ci: null, unit: "", note: "" };
-  const original = [p, signal, rule, confidence];
+  const original = [p, otherBand, signal, rule, confidence];
   expect(supportingEvidence(original)).toEqual([rule, signal]);
   expect(signal.ci).toEqual([-3.9, -3.3]);
-  expect(original).toEqual([p, signal, rule, confidence]);
+  expect(original).toEqual([p, otherBand, signal, rule, confidence]);
   expect(supportingEvidence([p, confidence])).toEqual([]);
 });
