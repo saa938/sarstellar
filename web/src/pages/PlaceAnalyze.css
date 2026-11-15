@@ -1,0 +1,9 @@
+.placeanalyze { margin-top: 56px; }
+.placeanalyze__head { display: flex; justify-content: space-between; align-items: flex-end; gap: 16px; flex-wrap: wrap; margin-bottom: 18px; }
+.placeanalyze__note { color: var(--ink-2); max-width: 680px; line-height: 1.6; margin: 8px 0 0; }
+.placeanalyze__note a { color: var(--accent-2); }
+.placeanalyze__frame {
+  display: block; width: 100%; height: min(80vh, 780px); min-height: 520px;
+  border: 1px solid var(--line-2); border-radius: var(--radius); background: var(--bg-1);
+}
+@media (max-width: 700px) { .placeanalyze__frame { height: 660px; } }
