@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <meta name="description" content="A six-slide demonstration of SARstellar: NISAR and Sentinel-1 change detection, evidence and held-out validation.">
+  <meta name="description" content="A seven-slide demonstration of SARstellar: NISAR and Sentinel-1 change detection, evidence and held-out validation.">
   <meta name="author" content="SARstellar team; presentation code and writing assisted by Claude and OpenAI Codex">
-  <title>SARstellar — six-slide project demonstration</title>
+  <title>SARstellar — seven-slide project demonstration</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; background: #f1f3f4; color: #263139; font: 15px/1.5 Arial, sans-serif; }
@@ -35,8 +35,8 @@
   </header>
   <main>
     <figure>
-      <img id="slide" src="slide-1.png" alt="SARstellar: NISAR and Sentinel-1 radar changes on one map. Detection, evidence and verification for researchers and land managers." width="1280" height="720">
-      <figcaption id="caption" aria-live="polite">Slide 1 of 6 · SARstellar</figcaption>
+      <img id="slide" src="slide-1.png" alt="Two radars, one map: NISAR and Sentinel-1 change detections over the Kaiser Canyon Fire." width="1280" height="720">
+      <figcaption id="caption" aria-live="polite">Slide 1 of 7 · Two radars, one map</figcaption>
     </figure>
     <nav class="controls" aria-label="Presentation slides">
       <button id="previous" type="button" disabled>Previous</button>
@@ -47,23 +47,25 @@
         <button type="button" data-slide="3" aria-label="Slide 4">4</button>
         <button type="button" data-slide="4" aria-label="Slide 5">5</button>
         <button type="button" data-slide="5" aria-label="Slide 6">6</button>
+        <button type="button" data-slide="6" aria-label="Slide 7">7</button>
       </div>
       <button id="next" type="button">Next</button>
     </nav>
   </main>
   <footer>
-    <p><a href="sarstellar-presentation.pptx" download>Download the six-slide presentation (.pptx)</a> · <a href="https://www.sarstellar.earth/#/scorecard">Benchmark</a> · <a href="https://www.sarstellar.earth/#/about">Methods and sources</a></p>
+    <p><a href="sarstellar-presentation.pptx" download>Download the seven-slide presentation (.pptx)</a> · <a href="https://www.sarstellar.earth/#/scorecard">Benchmark</a> · <a href="https://www.sarstellar.earth/#/about">Methods and sources</a></p>
     <p>Claude and OpenAI Codex assisted with code and writing. Radar maps derive from satellite data. Cause labels are hypotheses for independent verification.</p>
   </footer>
   <script>
-    const titles = ["SARstellar", "Measurements and interpretation", "Three pipeline examples", "Evaluation sample", "Primary fusion comparisons", "Limits and reproduction"];
+    const titles = ["Two radars, one map", "Draw a box, get evidence", "Kaiser Canyon Fire", "Statistics first", "A fair held-out test", "Specialists, not a team", "Try it"];
     const descriptions = [
-      "SARstellar: NISAR and Sentinel-1 radar changes on one map. Detection, evidence and verification for researchers and land managers.",
-      "The workflow uses calibrated radar data, one-hectare blocks, a statistical test and a two-decibel effect threshold. Users inspect measurements and verify cause hypotheses independently.",
-      "Morton and Mineral: 141 areas, 1,681 hectares. Kaiser Canyon: 202 areas, 2,434 hectares. Edouard: 277 areas, 5,852 hectares. Unequal observation counts prevent interpreting these totals as sensor accuracy rankings.",
-      "254 sites attempted, 242 processed, 224 eligible. Training uses 164 sites. Evaluation uses 60 sites in 12 held-out states and 2,173,521 common blocks.",
-      "Primary unsupervised fusion comparisons show no demonstrated gain. Forest-loss AUPRC difference is minus 0.073 with a 95 percent interval from minus 0.157 to minus 0.009. A separate supervised cultivated-land proxy result does not establish crop-change accuracy.",
-      "Limits include three held-out flood sites, a flood reference sharing Sentinel-1 observations, and cultivated-land labels that do not verify crop change. The application provides source credits, measured outputs and reproducible live-analysis exports."
+      "Two radars, one map. NISAR now images nearly all of Earth's land every 12 days; Sentinel-1 has done so for a decade. Which radar should you trust for which change? Image: Kaiser Canyon Fire with NISAR, Sentinel-1 and shared detections.",
+      "Screenshot of the SARstellar map. Steps: pick a US box up to 20 km a side or an example; compare NISAR L-band and Sentinel-1 C-band on one 1-hectare grid; inspect what changed, when, the possible cause and confidence; export GeoTIFF, CSV and a notebook.",
+      "Kaiser Canyon Fire, Colville Reservation: 1,764 hectares classified as burn; NISAR HV fell 2.8 dB in the largest burn patch, inside the mapped NIFC perimeter; census tracts at the 89th to 96th social-vulnerability percentile. Area totals use unequal date counts and are not an accuracy comparison.",
+      "Pipeline: read NISAR GCOV and OPERA Sentinel-1 RTC; grid to 1-hectare blocks; Conradsen change test with FDR q 0.05 and at least 2 dB; group areas of 3 hectares or more; physics rules give a cause hypothesis with evidence. A language model only rewords evidence.",
+      "Benchmark: 224 sites in 39 states, 164 for training and 60 held out in 12 states never used for tuning, 2.17 million one-hectare blocks, one image pair per radar. Map of training and held-out sites.",
+      "Finding: the radars are specialists. For forest loss on held-out states NISAR precision was 31 percent versus 4 percent for Sentinel-1 at 50 percent recall, 7.8 times. Sentinel-1 led on open-water flood, whose reference partly uses Sentinel-1. Fisher and Bonferroni fusion never reliably beat the best single radar; for forest loss it was worse, AUPRC minus 0.07, 95 percent interval minus 0.16 to minus 0.01.",
+      "Limits: sites were chosen where change happened, only 3 held-out flood sites, causes are hypotheses, US boxes up to 20 km. Check our work: scorecard.json, story provenance, and notebook exports. Data credits: NASA/ISRO NISAR via ASF, NASA JPL OPERA, NIFC, USDA NASS CDL, USGS/MRLC NLCD, CDC/ATSDR SVI, Open-Meteo, Esri imagery."
     ];
     let current = 0;
     const slide = document.getElementById("slide");
@@ -72,12 +74,12 @@
     const next = document.getElementById("next");
     const buttons = [...document.querySelectorAll("[data-slide]")];
     function show(index) {
-      current = Math.max(0, Math.min(5, index));
+      current = Math.max(0, Math.min(titles.length - 1, index));
       slide.src = `slide-${current + 1}.png`;
       slide.alt = descriptions[current];
-      caption.textContent = `Slide ${current + 1} of 6 · ${titles[current]}`;
+      caption.textContent = `Slide ${current + 1} of 7 · ${titles[current]}`;
       previous.disabled = current === 0;
-      next.disabled = current === 5;
+      next.disabled = current === titles.length - 1;
       buttons.forEach((button, i) => i === current ? button.setAttribute("aria-current", "step") : button.removeAttribute("aria-current"));
     }
     previous.addEventListener("click", () => show(current - 1));
