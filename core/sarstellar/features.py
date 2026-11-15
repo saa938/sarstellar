@@ -57,6 +57,10 @@ class BlockSet:
     last NISAR date. `enl` holds the scene-wide ENL per band; `enl_by_stratum[band][stratum]`
     the ENL of each stratum that had enough stable blocks. `newer_validated_dates` are passes on
     the same track and direction, in other processing releases (CRIDs), after the series ends.
+
+    `series_L` / `series_C` (for the per-area time series) hold the block levels in dB on every
+    date as [T, ny, nx] arrays: {"HH", "HV"} over `dates`, and {"VV", "VH"} over `s1["dates"]`
+    (None when C is off). NaN where a block is not valid.
     """
 
     grid: Grid
@@ -81,6 +85,8 @@ class BlockSet:
     change_idx_C: np.ndarray
     enl: dict[str, float]
     enl_by_stratum: dict[str, dict[str, float]]
+    series_L: dict[str, np.ndarray] | None = None
+    series_C: dict[str, np.ndarray] | None = None
 
 
 # --- small helpers ------------------------------------------------------------------------------
@@ -412,4 +418,6 @@ def block_features(
         change_idx_C=idx_c,
         enl=enl,
         enl_by_stratum=by_stratum,
+        series_L={"HH": _db(hh), "HV": _db(hv)},
+        series_C=None if s1_meta is None else {k: _db(v) for k, v in c_series.items()},
     )
