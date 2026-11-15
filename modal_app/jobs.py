@@ -247,6 +247,8 @@ def execute_job(
             commit()
         except Exception:
             log.exception("volume commit failed for job %s", job_id)
+            _finish(store, job_id, "error", GENERIC_MESSAGE, None)
+            return
     _finish(store, job_id, "done", result.message or "Done", result)
 
 

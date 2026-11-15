@@ -49,6 +49,15 @@ def test_blocks_sink_not_called_for_empty_box(monkeypatch):
     assert calls == []
 
 
+def test_result_lists_only_dates_actually_read(monkeypatch):
+    monkeypatch.setattr(features, "MAX_DATES", 2)
+    result, fakes = run(monkeypatch)
+    used = [g.start.date().isoformat() for g in fakes.read_calls[0][0]]
+    assert used == [DAYS[0].isoformat(), DAYS[-1].isoformat()]
+    assert result.nisar["dates"] == used
+    assert all(day in result.areas[0].series["dates"] for day in used)
+
+
 def test_valid_fraction_helper_ignores_other_zone():
     ok = np.ones((4, 4))
     passes = [

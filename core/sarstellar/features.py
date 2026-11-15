@@ -87,6 +87,8 @@ class BlockSet:
     enl_by_stratum: dict[str, dict[str, float]]
     series_L: dict[str, np.ndarray] | None = None
     series_C: dict[str, np.ndarray] | None = None
+    rel_dHH30: np.ndarray | None = None
+    rel_dHV30: np.ndarray | None = None
 
 
 # --- small helpers ------------------------------------------------------------------------------
@@ -310,6 +312,10 @@ def block_features(
     read_passes: Callable | None = None,
     s1: bool = True,
     progress: _ProgressFn | None = None,
+    stack_key: tuple[int, str, str] | None = None,
+    only_dates: Sequence[date] | None = None,
+    s1_pair: dict | None = None,
+    pair_urs: Sequence[str] | None = None,
 ) -> BlockSet:
     """Compute the `BlockSet` for a lon/lat box.
 
@@ -322,6 +328,10 @@ def block_features(
     on the call (the first file decides the UTM zone). `meta` needs "date" and "epsg". The
     default reads sequentially. `progress(fraction, message)` reports 0.1 (searched), 0.2 to 0.7
     (NISAR reads), 0.75 (Sentinel-1), 0.8 (testing) and 0.85 (done); `run_box` continues from 0.85.
+
+    The scorecard pins the series: `stack_key=(track, direction, crid)` uses that stack instead of
+    the best one, and `only_dates` reads exactly those dates (a two-date pair) of it. Both default
+    to None, which is the app's behaviour. A stack or date that is not there is `NoUsablePasses`.
     """
     start, end = _window(dates)
     _tick(progress, 0.05, "Searching for NISAR passes")
@@ -329,10 +339,17 @@ def block_features(
     in_window = [g for g in found if start <= g.start.date() <= end]
     stacks = search.build_stacks(in_window)
     usable = [s for s in stacks if len(s.dates) >= 2]
+    if stack_key is not None:
+        usable = [s for s in usable if (s.track, s.direction, s.crid) == tuple(stack_key)]
+    if pair_urs is not None:
+        usable = [s for s in usable if set(pair_urs) <= {g.ur for g in s.granules}]
+    if only_dates is not None:
+        usable = [s for s in usable if set(map(_to_date, only_dates)) <= set(s.dates)]
     if not usable:
         raise _no_passes(start, end)
     stack = usable[0]
-    wanted = _thin(stack.dates, MAX_DATES)
+    wanted = sorted(map(_to_date, only_dates)) if only_dates is not None else _thin(
+        stack.dates, MAX_DATES)
     granules = [g for d in wanted for g in search.granules_on(stack, d)]
     _tick(progress, 0.1, f"Found {len(wanted)} NISAR passes")
 
@@ -361,7 +378,17 @@ def block_features(
     c_series = None
     s1_meta = None
     if s1:
-        pair = _pick_s1_pair(bbox, days[0], days[-1])
+        pair = None if s1_pair is not None else _pick_s1_pair(bbox, days[0], days[-1])
+        if s1_pair is not None:
+            scenes = []
+            for when in map(_to_date, s1_pair["dates"]):
+                matches = [s for s in search.search_rtc_s1(bbox, when, 0)
+                           if s["track"] == s1_pair["track"] and s["date"] == when
+                           and s["urls_vv"] and s["urls_vh"]]
+                if not matches:
+                    raise ValueError("recorded Sentinel-1 pair is no longer available")
+                scenes.append(matches[0])
+            pair = ({**s1_pair, "dates": list(map(_to_date, s1_pair["dates"]))}, *scenes)
         if pair is not None:
             s1_meta, *scenes = pair
             c_series = _read_s1(scenes, grid)
@@ -420,4 +447,6 @@ def block_features(
         enl_by_stratum=by_stratum,
         series_L={"HH": _db(hh), "HV": _db(hv)},
         series_C=None if s1_meta is None else {k: _db(v) for k, v in c_series.items()},
+        rel_dHH30=detect.relative_delta(_delta_db(hh30), stable),
+        rel_dHV30=detect.relative_delta(_delta_db(hv30), stable),
     )

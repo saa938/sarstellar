@@ -425,7 +425,7 @@ def run_box(
         small = bool(reads) and _valid_fraction(reads) >= MIN_VALID_FRACTION
         return _empty_result(bbox, nisar, publish, TOO_SMALL_MESSAGE if small else NO_VALID_MESSAGE)
 
-    nisar = {"track": bs.stack.track, "direction": bs.stack.direction, "dates": _iso(bs.stack.dates)}
+    nisar = {"track": bs.stack.track, "direction": bs.stack.direction, "dates": _iso(bs.dates)}
     if float(bs.valid.mean()) < MIN_VALID_FRACTION:
         return _empty_result(bbox, nisar, publish, NO_VALID_MESSAGE)
 

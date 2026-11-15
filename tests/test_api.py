@@ -293,6 +293,16 @@ def test_cache_hit_reuses_job(env):
     other = post(env.client, BOX, ["2026-07-01", "2026-09-30"]).json()["job_id"]
     assert other != first
     assert post(env.client, BOX, ["2026-07-01", "2026-09-30"]).json()["job_id"] == other
+
+
+def test_changed_export_revision_rebuilds_results_and_preserves_old_jobs(env, monkeypatch):
+    first = post(env.client, BOX).json()["job_id"]
+    monkeypatch.setattr(api, "CACHE_REVISION", "next-export-version")
+    updated = post(env.client, BOX).json()["job_id"]
+    assert updated != first
+    assert post(env.client, BOX).json()["job_id"] == updated
+    assert env.client.get(f"/jobs/{first}").json()["status"] == "done"
+    assert len(env.runner.submitted) == 2
     assert post(env.client, box(5)).json()["job_id"] != first
 
 
@@ -336,6 +346,32 @@ def test_job_error_message(env):
     client = env.make(runner=InlineRunner(env.store, env.root, run=run_raising(OSError("502"))))
     job = env.client.get(f"/jobs/{post(client, BOX).json()['job_id']}").json()
     assert job["status"] == "error" and job["message"] == DATA_SERVER and job["result"] is None
+
+
+def test_volume_commit_failure_does_not_publish_result(env):
+    def fail_commit():
+        raise OSError("storage service unavailable")
+
+    runner = InlineRunner(env.store, env.root, commit=fail_commit)
+    client = env.make(runner=runner)
+    first = post(client, BOX).json()
+    assert first["status"] == "error" and first["result"] is None
+    assert first["message"] == jobs.GENERIC_MESSAGE
+    assert post(client, BOX).json()["job_id"] != first["job_id"]
+
+
+def test_result_is_done_only_after_files_are_committed(env):
+    at_commit = []
+
+    def commit():
+        record = next(v for k, v in env.store.items() if k.startswith("job:"))
+        folder = env.root / "exports" / record["job_id"]
+        assert all((folder / name).is_file() for name in jobs.EXPORT_NAMES.values())
+        at_commit.append(record["status"])
+
+    client = env.make(runner=InlineRunner(env.store, env.root, commit=commit))
+    assert post(client, BOX).json()["status"] == "done"
+    assert at_commit == ["running"]
 
 
 @pytest.mark.parametrize("exc, expected", [
