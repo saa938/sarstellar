@@ -60,6 +60,19 @@ describe("useLiveJob + JobProgress", () => {
     expect(current.getAttribute("aria-current")).toBe("step");
   });
 
+  it("doesn't repeat a progress message that only restates the stage", async () => {
+    let report: (job: Job) => void = () => {};
+    vi.mocked(createJob).mockResolvedValue({ job_id: "j1" });
+    vi.mocked(pollJob).mockImplementation((_id, onProgress) => {
+      report = onProgress;
+      return new Promise(() => {});
+    });
+    render(<Harness />);
+    await act(async () => fireEvent.click(screen.getByText("go")));
+    act(() => report({ job_id: "j1", status: "running", progress: 0.45, message: "Reading passes", result: null }));
+    expect(screen.getAllByText("Reading passes")).toHaveLength(1);
+  });
+
   it("shows the timeout message", async () => {
     vi.mocked(createJob).mockResolvedValue({ job_id: "j1" });
     const timeout = new Error(TIMEOUT_MESSAGE);
