@@ -10,6 +10,7 @@ import { CHANGE_COLOR, CHANGE_LABEL, CHANGE_NOTE } from "../lib/labels";
 import { fmtDate, fmtDb, fmtInt, fmtMonthYear, parseDate } from "../lib/format";
 import { formatLonLat } from "../lib/geo";
 import { useReveal } from "./Story";
+import PlaceAnalyze from "./PlaceAnalyze";
 
 // maplibre is heavy and the single-place page shares this module, so the map loads on its own
 const PlacesMap = lazy(() => import("./PlacesMap"));
@@ -91,7 +92,10 @@ export function Place({ id }: { id: string }) {
     <div className="page">
       <Nav active="places" />
       {L ? (
-        <PlaceView key={id} L={L} />
+        <>
+          <PlaceView key={id} L={L} />
+          <PlaceAnalyze id={id} name={L.res.meta.name} bbox={L.res.meta.bbox} />
+        </>
       ) : (
         <div className="page__head">
           <a className="linkbtn" href="#/places">
