@@ -121,6 +121,8 @@ function StageView({ loaded, query }: { loaded: Loaded; query: URLSearchParams }
   useEffect(() => {
     const t0 = Number(query.get("t"));
     if (Number.isFinite(t0) && query.get("t") != null) clock.seek(t0);
+    const d0 = query.get("date");
+    if (d0) clock.seek(nearestIndex(meta.dates, d0));
     const auto = query.get("play") !== "0" && !prefersReducedMotion();
     const timer = auto ? window.setTimeout(() => clock.play(), 700) : 0;
     return () => {
@@ -350,9 +352,9 @@ function StageView({ loaded, query }: { loaded: Loaded; query: URLSearchParams }
               <strong>{fmtInt(sel.count)}</strong> hectares selected <span className="dim">· {km2 < 10 ? km2.toFixed(2) : fmtInt(km2)} km²</span>
               <button onClick={() => setSel((s) => ({ mask: null, count: 0, v: s.v + 1 }))}>Clear</button>
             </span>
-          ) : hlKs.length && meta.story?.highlight?.label ? (
+          ) : hlKs.length ? (
             <span className="dim">
-              <span className="trail-key" /> Trails: {meta.story.highlight.label}
+              <span className="trail-key" /> Trails: {highlightLabel(meta.story?.highlight?.label, hlKs.length)}
             </span>
           ) : (
             <span className="dim">{fmtInt(data.K)} hectares on the floor</span>
@@ -516,10 +518,10 @@ function MapKey({ clock, dates, hhOnly, hasImages }: { clock: Clock; dates: stri
           ) : (
             <>
               <span className="mapkey__rgb">
-                <i style={{ background: "#e0645f" }} />R HH <i style={{ background: "#5ad07a" }} />G HV <i style={{ background: "#6a7bff" }} />B HH
+                <i style={{ background: "#e0645f" }} />R HH<sup>1.5</sup> <i style={{ background: "#5ad07a" }} />G HV<sup>0.9</sup> <i style={{ background: "#6a7bff" }} />B HH<sup>1.7</sup>
               </span>
               <span className="mapkey__hint">
-                <i style={{ background: "#3f9a3a" }} />vegetation <i style={{ background: "#e9a6d6" }} />double bounce <i style={{ background: "#000", border: "1px solid #444" }} />water
+                <i style={{ background: "#3f9a3a" }} />vegetation <i style={{ background: "linear-gradient(90deg,#e58bc9,#fff)" }} />double bounce <i style={{ background: "#000", border: "1px solid #444" }} />water
               </span>
             </>
           )}
@@ -581,4 +583,9 @@ function FloorLegend(props: {
       )}
     </div>
   );
+}
+
+function highlightLabel(label: string | undefined, n: number) {
+  if (label && MOVE_NAMES[label]) return `${n} hectares doing ${MOVE_NAMES[label]}`;
+  return label || `${n} highlighted hectares`;
 }

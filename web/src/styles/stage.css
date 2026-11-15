@@ -1225,3 +1225,19 @@
 .timeline__score rect {
   pointer-events: auto;
 }
+
+.mapkey__rgb sup {
+  font-size: 8px;
+  margin-left: 1px;
+  vertical-align: 4px;
+}
+
+@media (max-width: 900px) {
+  .stage .solo {
+    bottom: 150px;
+    max-height: 50vh;
+  }
+  .stage .floor__zone-sub {
+    display: none;
+  }
+}

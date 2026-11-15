@@ -54,11 +54,7 @@ export default function Landing() {
   const stages = idx?.index.stages ?? [];
   const heroStage = pickStage(stages, ["punjab", "rondonia", "morton", "village-creek", "sylhet"]);
   const floorStage = pickStage(stages, ["punjab", "rondonia", "morton", "sylhet", "indiana", "village-creek"], true);
-  // dev-only preview of the finding with the synthetic Punjab: #/?fx=1
-  const devFx = import.meta.env.DEV && new URLSearchParams(window.location.hash.split("?")[1] ?? "").get("fx") === "1";
-  const findingStage =
-    stages.find((s) => s.id === "punjab") ??
-    (devFx ? { id: "punjab", name: "Punjab", country: "India", center: [75.8, 30.78] as [number, number], move: "waltz", title: "", teaser: "", n_passes: 24, first: "", last: "", thumb: "" } : null);
+  const findingStage = stages.find((s) => s.id === "punjab") ?? null;
   const moves = mv?.doc.moves ?? [];
   const floor = mv?.doc.floor ?? DEFAULT_FLOOR;
   const anyFixture = !!(idx?.fixture || mv?.fixture);

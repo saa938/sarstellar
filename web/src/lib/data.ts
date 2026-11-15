@@ -106,9 +106,8 @@ export function loadStage(id: string): Promise<StageResult | null> {
     p = (async () => {
       const { index, base, fixture } = await loadIndex();
       const entry = index.stages.find((s) => s.id === id);
-      const tryBases: [string, boolean][] = entry ? [[base, fixture]] : [];
-      if (base !== FIXTURE_BASE) tryBases.push([FIXTURE_BASE, true]);
-      if (!entry && base === FIXTURE_BASE) tryBases.push([FIXTURE_BASE, true]);
+      // real data wins outright: once a real index exists, synthetic stages are never shown
+      const tryBases: [string, boolean][] = entry ? [[base, fixture]] : base === FIXTURE_BASE ? [[FIXTURE_BASE, true]] : [];
       for (const [b, fx] of tryBases) {
         const meta = await tryJSON<StageMeta>(`${b}${encodeURIComponent(id)}/stage.json`);
         if (meta) {

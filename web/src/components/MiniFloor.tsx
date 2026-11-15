@@ -21,7 +21,7 @@ function subscribe(fn: Fn) {
 
 interface Props {
   moveId: string;
-  path: PathPoint[];
+  path: PathPoint[] | null | undefined;
   floor: FloorSpec;
   beat?: number; // seconds per step
   size?: "sm" | "md" | "lg";
@@ -30,11 +30,13 @@ interface Props {
 }
 
 /** The canonical path of a move, danced by one glowing dot on a tiny floor. */
-export function MiniFloor({ moveId, path, floor, beat = 0.9, size = "md", showZones = true, showLabels = false }: Props) {
+export function MiniFloor({ moveId, path: pathIn, floor, beat = 0.9, size = "md", showZones = true, showLabels = false }: Props) {
+  const path = pathIn ?? [];
   const W = 200;
   const H = 170;
   const pad = { l: 8, r: 8, t: 8, b: 8 };
-  const hhOnly = path.every((p) => p.HV == null);
+  const hhOnly = path.length > 0 && path.every((p) => p.HV == null);
+  const noPath = path.length < 2;
   const x0 = floor.x.min;
   const x1 = floor.x.max;
   const y0 = floor.y.min;
@@ -79,7 +81,7 @@ export function MiniFloor({ moveId, path, floor, beat = 0.9, size = "md", showZo
     };
   }, [pts, beat]);
 
-  const full = `M${pts.map((p) => p.join(",")).join("L")}`;
+  const full = pts.length ? `M${pts.map((p) => p.join(",")).join("L")}` : "";
   return (
     <svg ref={wrap} className={`minifloor minifloor--${size}`} viewBox={`0 0 ${W} ${H}`} role="img" aria-label={`The ${moveId} path on the dance floor`}>
       <defs>
@@ -110,9 +112,14 @@ export function MiniFloor({ moveId, path, floor, beat = 0.9, size = "md", showZo
           </text>
         </>
       )}
-      <path d={full} className="minifloor__path" />
-      <path ref={trail} className="minifloor__trail" style={{ stroke: color }} />
-      <g ref={dot}>
+      {noPath && (
+        <text x={W / 2} y={H - 18} className="minifloor__zone" textAnchor="middle">
+          no measured path yet
+        </text>
+      )}
+      {!noPath && <path d={full} className="minifloor__path" />}
+      {!noPath && <path ref={trail} className="minifloor__trail" style={{ stroke: color }} />}
+      <g ref={dot} style={noPath ? { display: "none" } : undefined}>
         <circle r="9" fill={color} opacity="0.55" filter={`url(#${id}-glow)`} />
         <circle r="3.6" fill="#fff" />
         <circle r="5.5" fill="none" stroke={color} strokeWidth="1.4" />

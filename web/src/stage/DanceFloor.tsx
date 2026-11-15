@@ -54,7 +54,7 @@ const ZONE_LABEL_POS: Record<string, "above" | "below" | "left" | "right"> = {
   water: "above",
   soil: "below",
   crops: "left",
-  forest: "above",
+  forest: "left",
   bounce: "above",
 };
 
@@ -442,7 +442,7 @@ export function DanceFloor(props: Props) {
       <canvas ref={glCanvas} className="floor__gl" style={{ left: geo.x, top: geo.y, width: geo.w, height: geo.h }} />
       <svg className="floor__over" width={size.w} height={size.h}>
         {showZoneLabels && !hhOnly && geo.w > 10 &&
-          floor.zones.map((z) => <ZoneLabel key={z.id} z={z} X={X} Y={Y} compact={compact} emph={emphasizeZone} />)}
+          floor.zones.map((z) => <ZoneLabel key={z.id} z={z} X={X} Y={Y} compact={compact} emph={emphasizeZone} xmax={view.xmax} />)}
         <circle ref={hoverRing} r={7} className="floor__hover" style={{ display: "none" }} />
         <g ref={soloRing} style={{ display: "none" }}>
           <circle r={9} className="floor__solo" />
@@ -464,7 +464,7 @@ export function DanceFloor(props: Props) {
   );
 }
 
-function ZoneLabel({ z, X, Y, compact, emph }: { z: FloorZone; X: (v: number) => number; Y: (v: number) => number; compact: boolean; emph: string | null }) {
+function ZoneLabel({ z, X, Y, compact, emph, xmax }: { z: FloorZone; X: (v: number) => number; Y: (v: number) => number; compact: boolean; emph: string | null; xmax: number }) {
   const [main, sub] = z.label.split(":").map((s) => s.trim());
   const pos = ZONE_LABEL_POS[z.id] || "above";
   const off = compact ? 2.4 : 3.1;
@@ -480,6 +480,11 @@ function ZoneLabel({ z, X, Y, compact, emph }: { z: FloorZone; X: (v: number) =>
   if (pos === "right") {
     x += off;
     anchor = "start";
+  }
+  // labels near the right edge hang from the edge instead of running off the floor
+  if (anchor === "middle" && z.center[0] > xmax - 9) {
+    x = xmax - 0.5;
+    anchor = "end";
   }
   const dim = emph && emph !== z.id;
   return (

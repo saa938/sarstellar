@@ -45,35 +45,42 @@ const SHOTS = [
   { id: "landing-tour", path: "#/", wait: 2500, scrollTo: ".act--tour", extra: 1500 },
   { id: "landing-proof", path: "#/", wait: 2500, scrollTo: ".act--proof", extra: 1200 },
   { id: "landing-future", path: "#/", wait: 2500, scrollTo: ".act--future", extra: 1200 },
-  { id: "stage-rondonia", path: "#/stage/rondonia?t=5&play=0", wait: 4500 },
+  { id: "stage-punjab", path: "#/stage/punjab?date=2026-09-17&play=0", wait: 5000 },
   {
-    id: "stage-rondonia-brush",
-    path: "#/stage/rondonia?t=3&play=0",
-    wait: 4500,
+    id: "stage-punjab-brush",
+    path: "#/stage/punjab?date=2026-02-01&play=0",
+    wait: 5000,
     async act(page, vp) {
       const b = await floorBox(page);
       if (!b) return;
       if (vp === "desktop") {
-        // brush the forest corner of the floor, then click a dot, then play
-        await page.mouse.move(b.x + b.w * 0.62, b.y + b.h * 0.1);
+        // brush the crops zone at peak wheat, click a dot, then play
+        await page.mouse.move(b.x + b.w * 0.5, b.y + b.h * 0.3);
         await page.mouse.down();
-        await page.mouse.move(b.x + b.w * 0.76, b.y + b.h * 0.24, { steps: 8 });
+        await page.mouse.move(b.x + b.w * 0.68, b.y + b.h * 0.5, { steps: 8 });
         await page.mouse.up();
         await sleep(400);
-        await page.mouse.click(b.x + b.w * 0.69, b.y + b.h * 0.17);
+        await page.mouse.click(b.x + b.w * 0.6, b.y + b.h * 0.4);
         await sleep(300);
         await page.keyboard.press("Space");
-        await sleep(2300);
+        await sleep(2600);
       } else {
-        await page.touchscreen.tap(b.x + b.w * 0.69, b.y + b.h * 0.17);
-        await sleep(600);
+        await page.evaluate(() => window.scrollTo(0, document.querySelector(".stage__floor").getBoundingClientRect().top + window.scrollY - 60));
+        await sleep(500);
+        const c = await floorBox(page);
+        await page.touchscreen.tap(c.x + c.w * 0.6, c.y + c.h * 0.4);
+        await sleep(700);
       }
     },
   },
-  { id: "stage-greenland", path: "#/stage/greenland?t=4&play=0", wait: 4500 },
-  { id: "stage-indiana", path: "#/stage/indiana?t=5&play=0", wait: 4500 },
-  { id: "stage-sylhet", path: "#/stage/sylhet?t=5&play=0", wait: 4500 },
-  { id: "stage-punjab-fixture", path: "#/stage/punjab?t=15&play=0", wait: 4000 },
+  { id: "stage-morton", path: "#/stage/morton?date=2026-08-01&play=0", wait: 5000 },
+  { id: "stage-iowa", path: "#/stage/iowa?date=2026-07-20&play=0", wait: 5000 },
+  { id: "stage-rondonia", path: "#/stage/rondonia?t=6&play=0", wait: 5000 },
+  { id: "stage-edouard", path: "#/stage/edouard?date=2026-09-03&play=0", wait: 5000 },
+  { id: "stage-kaiser", path: "#/stage/kaiser?t=6&play=0", wait: 5000 },
+  { id: "stage-sylhet", path: "#/stage/sylhet?t=5&play=0", wait: 5000 },
+  { id: "stage-central_valley", path: "#/stage/central_valley?t=14&play=0", wait: 5000 },
+  { id: "stage-greenland", path: "#/stage/greenland?date=2026-08-19&play=0", wait: 5000 },
   { id: "moves", path: "#/moves", wait: 2200 },
   { id: "move-bounce", path: "#/moves/bounce", wait: 2200 },
   { id: "proof", path: "#/proof", wait: 1500 },
