@@ -9,10 +9,13 @@ contains the same numbers.
 from __future__ import annotations
 
 import json
+import logging
 import os
 from typing import Any
 
 from .types import ChangeArea, Evidence
+
+log = logging.getLogger(__name__)
 
 MODEL = "claude-sonnet-5-5"
 MAX_TOKENS = 200
@@ -137,6 +140,7 @@ def explain(area: ChangeArea, client=None) -> str:
     try:
         if client is None:
             if not os.environ.get("ANTHROPIC_API_KEY"):
+                log.info("explain: no ANTHROPIC_API_KEY, using the template text")
                 return fallback
             client = _make_client()
         reply = client.messages.create(
@@ -148,6 +152,11 @@ def explain(area: ChangeArea, client=None) -> str:
         text = "".join(
             block.text for block in reply.content if getattr(block, "type", "text") == "text"
         ).strip()
-    except Exception:  # noqa: BLE001 - any LLM/network/key problem falls back to the template
+    except Exception as exc:  # noqa: BLE001 - any LLM/network/key problem falls back to the template
+        # Log the exception class only: an SDK error message can echo request details.
+        log.warning("explain: LLM call failed (%s), using the template text", type(exc).__name__)
         return fallback
-    return text or fallback
+    if not text:
+        log.warning("explain: LLM reply was empty, using the template text")
+        return fallback
+    return text

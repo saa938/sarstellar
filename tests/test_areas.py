@@ -120,6 +120,17 @@ def test_no_change_gives_no_areas():
     assert label_areas(empty(), empty(), GRID) == []
 
 
+def test_nan_in_a_float_mask_means_no_change_not_change():
+    # a float mask with NaN for "no data" must not turn every NaN cell into a changed block
+    l_float = np.full(GRID.shape, np.nan)
+    l_float[10, 10:13] = 1.0
+    l_float[20, 20:25] = 0.0
+    areas = label_areas(l_float, np.full(GRID.shape, np.nan), GRID)
+    assert len(areas) == 1
+    assert areas[0][1].sum() == 3
+    assert areas[0][2] == "L"
+
+
 def test_shape_mismatch_raises():
     with pytest.raises(ValueError):
         label_areas(np.zeros((3, 3), bool), empty(), GRID)

@@ -35,6 +35,15 @@ def _agreement(l_blocks: int, c_blocks: int, total: int) -> str:
     return "both"
 
 
+def _as_mask(x) -> np.ndarray:
+    """A boolean mask. NaN in a float array means no data, so it is False (a plain
+    `astype(bool)` would turn every NaN into True)."""
+    arr = np.asarray(x)
+    if arr.dtype.kind == "f":
+        arr = np.nan_to_num(arr, nan=0.0)
+    return arr.astype(bool)
+
+
 def _round_coords(obj):
     if isinstance(obj, (list, tuple)):
         if obj and isinstance(obj[0], (int, float)):
@@ -62,12 +71,13 @@ def _block_polygon(block_mask: np.ndarray, grid: Grid, to_lonlat: Transformer) -
 def label_areas(changed_L, changed_C, grid: Grid, min_ha: float = 3):
     """Group changed blocks into areas of at least `min_ha` hectares.
 
-    `changed_L` and `changed_C` are boolean block arrays shaped `grid.shape` (NISAR and Sentinel-1
-    "changed" masks). Returns a list of `(geometry, block_mask, agreement)`, largest area first:
-    a GeoJSON Polygon/MultiPolygon in lon/lat, a boolean array shaped `grid.shape` marking the
-    area's blocks, and "L", "C" or "both".
+    `changed_L` and `changed_C` are block arrays shaped `grid.shape` (NISAR and Sentinel-1
+    "changed" masks): boolean, or float where NaN means "no data" and counts as not changed.
+    Returns a list of `(geometry, block_mask, agreement)`, largest area first: a GeoJSON
+    Polygon/MultiPolygon in lon/lat, a boolean array shaped `grid.shape` marking the area's
+    blocks, and "L", "C" or "both".
     """
-    l_mask, c_mask = np.asarray(changed_L, dtype=bool), np.asarray(changed_C, dtype=bool)
+    l_mask, c_mask = _as_mask(changed_L), _as_mask(changed_C)
     if l_mask.shape != grid.shape or c_mask.shape != grid.shape:
         raise ValueError(
             f"masks must match the grid shape {grid.shape}, got {l_mask.shape} and {c_mask.shape}"

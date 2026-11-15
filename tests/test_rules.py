@@ -30,7 +30,9 @@ def has_note(evidence, text):
 
 
 def test_clearcut():
-    cls, label, evidence = classify(stats(dHV=-3.5, dHH=-0.5, ci={"HV": (-4.1, -2.9)}))
+    cls, label, evidence = classify(
+        stats(dHV=-3.5, dHH=-0.5, ci={"HV": (-4.1, -2.9)}, frac_significant=0.9)
+    )
     assert cls == "forest_loss"
     assert label == "High"
     hv = ev(evidence, "HV change")
@@ -290,14 +292,47 @@ def test_model_none_is_ignored():
 
 
 def test_model_used_only_for_winner_classes():
-    model = FakeModel("burn", winners=["burn"])
+    model = FakeModel("construction", winners=["construction"])
     cls, _, evidence = classify(stats(dHV=-3.5, dHH=-0.5), model=model)
-    assert cls == "burn"
-    assert ev(evidence, "Learned model").value == "burn"
+    assert cls == "construction"
+    assert ev(evidence, "Learned model").value == "construction"
     assert len(model.seen) == 1  # it saw one row of features
     # the model predicts a class that did not beat the rules: the rules' label stays
-    losing = FakeModel("burn", winners=["flood_open_water"])
+    losing = FakeModel("construction", winners=["flood_open_water"])
     assert classify(stats(dHV=-3.5, dHH=-0.5), model=losing)[0] == "forest_loss"
+
+
+def test_model_burn_is_accepted_only_with_fire_evidence():
+    model = FakeModel("burn", winners=["burn"])
+    # HH rose, so the burn rule does not fire; the rules say forest_loss
+    base = {"dHV": -3.0, "dHH": 1.5}
+    # no FIRMS, no perimeter: the rules' label stays (L-band area)
+    assert classify(stats(**base), model=model)[0] == "forest_loss"
+    assert classify(stats(**base, firms_count=0), model=model)[0] == "forest_loss"
+    # with fire evidence the model's burn is accepted
+    assert classify(stats(**base, firms_count=5), model=model)[0] == "burn"
+    assert classify(stats(**base, in_fire_perimeter=True), model=model)[0] == "burn"
+
+
+def test_model_burn_without_fire_evidence_is_rejected_on_c_only_areas_too():
+    model = FakeModel("burn", winners=["burn"])
+    c_only = {"agreement": "C", "dVH": -1.0, "landcover": "Evergreen Forest"}
+    assert classify(stats(**c_only), model=model)[0] == "uncertain"
+    assert classify(stats(**c_only, firms_count=3), model=model)[0] == "burn"
+
+
+def test_model_harvest_and_crop_cycle_need_the_crop_mask():
+    for pred in ("harvest", "crop_cycle"):
+        model = FakeModel(pred, winners=[pred])
+        no_crop = classify(stats(dHV=-3.5, dHH=-0.5), model=model)[0]
+        assert no_crop == "forest_loss", pred  # rules' label kept
+        c_only = classify(stats(agreement="C", dVH=-1.0), model=model)[0]
+        assert c_only == "uncertain", pred
+    # with a CDL crop the model's label is accepted (rules say crop_cycle on L, uncertain on C)
+    harvest = FakeModel("harvest", winners=["harvest"])
+    assert classify(stats(dHV=-3.5, dHH=-0.5, cdl_crop=True), model=harvest)[0] == "harvest"
+    crop = FakeModel("crop_cycle", winners=["crop_cycle"])
+    assert classify(stats(agreement="C", dVH=-1.0, cdl_crop=True), model=crop)[0] == "crop_cycle"
 
 
 def test_model_cannot_override_freeze_suppression_or_invent_classes():
@@ -317,6 +352,118 @@ def test_broken_model_falls_back_to_rules():
 
     assert classify(stats(dHV=-3.5, dHH=-0.5), model=Broken())[0] == "forest_loss"
     assert classify(stats(dHV=-3.5, dHH=-0.5), model=SimpleNamespace())[0] == "forest_loss"
+
+
+# ---- review fixes: permanent water, safe defaults, look-alikes, provenance --------------------
+
+
+def test_open_water_signature_on_nlcd_open_water_is_not_a_new_flood():
+    water = {"dHH": -7.0, "dHV": -6.0, "post_HH": -21.0, "post_HV": -28.0}
+    assert classify(stats(**water))[0] == "flood_open_water"
+    cls, label, evidence = classify(stats(**water, landcover="Open Water", frac_significant=0.9))
+    assert cls == "uncertain"
+    assert label == "Low"
+    assert has_note(evidence, "permanent open water")
+
+
+def test_default_area_stats_can_never_be_high_confidence():
+    # frac_significant is unknown, so even a big, clean signature stays Low
+    for kw in (
+        {"dHV": -6.0, "dHH": -0.5},  # forest_loss
+        {"dHH": 6.0, "dHV": 4.0},  # construction
+        {"dHH": -9.0, "dHV": -8.0, "post_HH": -22.0, "post_HV": -30.0},  # flood_open_water
+        {"agreement": "C", "dVH": -6.0, "landcover": "grass"},  # low_veg_loss
+    ):
+        cls, label, _ = classify(stats(**kw))
+        assert cls != "uncertain", kw
+        assert label == "Low", (cls, label)
+    assert AreaStats().frac_significant is None
+    assert AreaStats().downslope_shape is None
+    assert classify(stats(dHV=-6.0, dHH=-0.5, frac_significant=float("nan")))[1] == "Low"
+    assert classify(stats(dHV=-6.0, dHH=-0.5, frac_significant=0.9))[1] == "High"
+
+
+def test_unknown_downslope_shape_means_no_landslide():
+    cls, _, _ = classify(stats(dHV=-4.5, dHH=-1.0, slope_deg=28.0, downslope_shape=None))
+    assert cls == "forest_loss"
+
+
+def test_flooded_veg_with_a_crop_mask_is_capped_at_medium_with_lookalike_note():
+    area = {"dHH": 4.0, "dHV": 0.5, "hand_m": 3.0, "frac_significant": 0.9}
+    cls, label, evidence = classify(stats(**area))
+    assert (cls, label) == ("flooded_vegetation", "High")  # clean case stays High
+    assert not has_note(evidence, "rice paddy")
+    cls, label, evidence = classify(stats(**area, cdl_crop=True))
+    assert (cls, label) == ("flooded_vegetation", "Medium")
+    assert has_note(evidence, "could also be rice paddy or new construction")
+
+
+def test_flooded_veg_with_unknown_hand_is_capped_at_medium_with_lookalike_note():
+    cls, label, evidence = classify(stats(dHH=4.0, dHV=0.5, frac_significant=0.9))
+    assert (cls, label) == ("flooded_vegetation", "Medium")
+    assert has_note(evidence, "could also be rice paddy or new construction")
+
+
+def test_flooded_veg_with_high_hand_is_not_flooded_veg():
+    assert classify(stats(dHH=4.0, dHV=0.5, hand_m=40.0, frac_significant=0.9))[0] != (
+        "flooded_vegetation"
+    )
+
+
+def source_of(evidence) -> str:
+    return ev(evidence, "Rule fired").note
+
+
+def test_provenance_atbd_only_for_the_rules_that_implement_atbd_logic():
+    # the 5e-5 product (inundation ATBD) and the flooded-veg post cues are ATBD values
+    water = classify(stats(dHH=-7.0, dHV=-6.0, post_HH=-21.0, post_HV=-28.0))[2]
+    assert "ATBD" in source_of(water) and "judgment" in source_of(water)
+    # the two-date HV thresholds are not ATBD: the disturbance ATBD is a CUSUM on the series
+    for kw in (
+        {"dHV": -3.5, "dHH": -0.5},  # forest_loss
+        {"dHV": -3.0, "dHH": -1.0, "firms_count": 12},  # burn
+    ):
+        note = source_of(classify(stats(**kw))[2])
+        assert "research table" in note, kw
+        assert "ATBD" not in note.replace("not NISAR ATBD", ""), kw
+    # extensions and our own choices are labelled judgment, not ATBD
+    low_veg = classify(stats(dHV=-3.5, dHH=-0.5, landcover="Grassland/Herbaceous"))[2]
+    landslide = classify(stats(dHV=-4.5, dHH=-1.0, slope_deg=28.0, downslope_shape=True))[2]
+    c_freeze = classify(stats(agreement="C", dVV=-1.5, dVH=-3.0, min_temp_c=-5.0))[2]
+    for evidence in (low_veg, landslide, c_freeze):
+        assert "judgment" in source_of(evidence)
+        assert "ATBD" not in source_of(evidence)
+
+
+def test_c_only_fire_evidence_beats_freeze_like_the_l_band_path():
+    base = {"agreement": "C", "dVV": -1.5, "dVH": -3.0, "min_temp_c": -5.0, "landcover": "grass"}
+    # same numbers on L-band: FIRMS wins over freeze
+    assert classify(stats(dHH=-3.0, dHV=-3.0, min_temp_c=-5.0, firms_count=5))[0] == "burn"
+    assert classify(stats(**base, firms_count=5))[0] == "burn"
+    assert classify(stats(**base, in_fire_perimeter=True))[0] == "burn"
+
+
+def test_c_only_freeze_is_suppressed_without_fire_evidence():
+    base = {"agreement": "C", "dVV": -1.5, "dVH": -3.0, "min_temp_c": -5.0, "landcover": "grass"}
+    cls, label, evidence = classify(stats(**base))
+    assert (cls, label) == ("uncertain", "Low")
+    assert has_note(evidence, "possible freeze")
+    # a crop mask does not turn a frozen day into a harvest either
+    assert classify(stats(**base, cdl_crop=True))[0] == "uncertain"
+    # a warm day with the same numbers is low-vegetation loss
+    assert classify(stats(**{**base, "min_temp_c": 8.0}))[0] == "low_veg_loss"
+
+
+def test_missing_fire_count_is_zero_not_a_crash():
+    assert classify(stats(dHV=-3.5, dHH=-0.5, firms_count=None))[0] == "forest_loss"
+    assert classify(stats(dHV=-3.5, dHH=-0.5, firms_count=None, in_fire_perimeter=True))[0] == (
+        "burn"
+    )
+    assert classify(stats(agreement="C", dVH=-2.5, landcover="grass", firms_count=None))[0] == (
+        "low_veg_loss"
+    )
+    model = FakeModel("construction", winners=["construction"])
+    assert classify(stats(dHV=-3.5, dHH=-0.5, firms_count=None), model=model)[0] == "construction"
 
 
 # ---- evidence is plain data ------------------------------------------------------------------
