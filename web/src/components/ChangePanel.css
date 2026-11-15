@@ -48,3 +48,8 @@
 .cp-acquisition-context > summary, .cp-technical > summary { padding: 5px 0; color: var(--text); font-size: 12px; font-weight: 500; }
 .cp-question .cp-when { margin-bottom: 6px; }
 .cp-question .cp-acquisition-context { margin-top: 6px; }
+.cp-trust-headline { margin: 0 0 4px; color: var(--text); font-weight: 600; }
+.cp-trust { border-left: 3px solid var(--line); padding-left: 8px; }
+.cp-trust[data-tone="agree"] { border-left-color: #a78bfa; }
+.cp-trust[data-tone="consistent"] { border-left-color: #22c55e; }
+.cp-trust[data-tone="caution"] { border-left-color: #f97316; }
